@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three Little Pigs — Design Process</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f3ee;
+      --surface: #ffffff;
+      --border: #e0dbd0;
+      --text: #1a1a1a;
+      --muted: #7a7570;
+      --accent: #c84b2f;
+      --final-ring: #c84b2f;
+      --placeholder-bg: #e8e4dc;
+      --card-radius: 6px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 64px 24px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    header .eyebrow {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    header h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: normal;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    header h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    header p {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    /* ── Gallery grid ── */
+    .gallery-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .section-label {
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── Card ── */
+    .card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+    }
+
+    .card.placeholder {
+      cursor: default;
+      opacity: 0.5;
+    }
+    .card.placeholder:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .card.final {
+      outline: 2px solid var(--final-ring);
+      outline-offset: 2px;
+    }
+
+    /* Thumbnail area */
+    .thumb {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--placeholder-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .thumb .vnum {
+      font-family: 'Courier New', monospace;
+      font-size: 22px;
+      color: var(--muted);
+      opacity: 0.5;
+    }
+
+    /* iframe preview (used once a version is built) */
+    .thumb iframe {
+      width: 1024px;
+      height: 768px;
+      border: none;
+      transform: scale(0.195);
+      transform-origin: top left;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .final-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 3px;
+    }
+
+    /* Card meta */
+    .meta {
+      padding: 12px 14px 14px;
+      flex: 1;
+    }
+
+    .meta .version {
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .meta .title {
+      font-size: 13px;
+      font-weight: normal;
+      line-height: 1.3;
+      margin-bottom: 5px;
+      min-height: 1.3em;
+    }
+
+    .meta .note {
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 32px;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Design, Build, Ship · MPCS 51238 · Autumn 2026</div>
+  <h1>Three Little Pigs<br><em>A Design Exploration</em></h1>
+  <p>25 versions of one story — moving from wide exploration to a final choice. Each version tries a different direction: layout, era, tone, audience, mood.</p>
+</header>
+
+<div class="gallery-wrap">
+  <div class="section-label">All versions — click to open</div>
+  <div class="grid" id="grid">
+
+    <!-- ── Built versions go here ── -->
+    <!-- When a version is built, change class from "card placeholder" to "card"
+         and fill in the title and note. For the final version, add class "final". -->
+
+    <!-- v01 -->
+    <a class="card" href="v01/">
+      <div class="thumb">
+        <iframe src="v01/" title="v01 preview" tabindex="-1"></iframe>
+      </div>
+      <div class="meta">
+        <span class="version">v01</span>
+        <div class="title">Brutalist Manifesto</div>
+        <div class="note">Full-screen panels, heavy type, wolf in red. Going wide.</div>
+      </div>
+    </a>
+
+    <!-- v02 -->
+    <a class="card placeholder" href="v02/">
+      <div class="thumb"><span class="vnum">02</span></div>
+      <div class="meta">
+        <span class="version">v02</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v03 -->
+    <a class="card placeholder" href="v03/">
+      <div class="thumb"><span class="vnum">03</span></div>
+      <div class="meta">
+        <span class="version">v03</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v04 -->
+    <a class="card placeholder" href="v04/">
+      <div class="thumb"><span class="vnum">04</span></div>
+      <div class="meta">
+        <span class="version">v04</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v05 -->
+    <a class="card placeholder" href="v05/">
+      <div class="thumb"><span class="vnum">05</span></div>
+      <div class="meta">
+        <span class="version">v05</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v06 -->
+    <a class="card placeholder" href="v06/">
+      <div class="thumb"><span class="vnum">06</span></div>
+      <div class="meta">
+        <span class="version">v06</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v07 -->
+    <a class="card placeholder" href="v07/">
+      <div class="thumb"><span class="vnum">07</span></div>
+      <div class="meta">
+        <span class="version">v07</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v08 -->
+    <a class="card placeholder" href="v08/">
+      <div class="thumb"><span class="vnum">08</span></div>
+      <div class="meta">
+        <span class="version">v08</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v09 -->
+    <a class="card placeholder" href="v09/">
+      <div class="thumb"><span class="vnum">09</span></div>
+      <div class="meta">
+        <span class="version">v09</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v10 -->
+    <a class="card placeholder" href="v10/">
+      <div class="thumb"><span class="vnum">10</span></div>
+      <div class="meta">
+        <span class="version">v10</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v11 -->
+    <a class="card placeholder" href="v11/">
+      <div class="thumb"><span class="vnum">11</span></div>
+      <div class="meta">
+        <span class="version">v11</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v12 -->
+    <a class="card placeholder" href="v12/">
+      <div class="thumb"><span class="vnum">12</span></div>
+      <div class="meta">
+        <span class="version">v12</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v13 -->
+    <a class="card placeholder" href="v13/">
+      <div class="thumb"><span class="vnum">13</span></div>
+      <div class="meta">
+        <span class="version">v13</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v14 -->
+    <a class="card placeholder" href="v14/">
+      <div class="thumb"><span class="vnum">14</span></div>
+      <div class="meta">
+        <span class="version">v14</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v15 -->
+    <a class="card placeholder" href="v15/">
+      <div class="thumb"><span class="vnum">15</span></div>
+      <div class="meta">
+        <span class="version">v15</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v16 -->
+    <a class="card placeholder" href="v16/">
+      <div class="thumb"><span class="vnum">16</span></div>
+      <div class="meta">
+        <span class="version">v16</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v17 -->
+    <a class="card placeholder" href="v17/">
+      <div class="thumb"><span class="vnum">17</span></div>
+      <div class="meta">
+        <span class="version">v17</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v18 -->
+    <a class="card placeholder" href="v18/">
+      <div class="thumb"><span class="vnum">18</span></div>
+      <div class="meta">
+        <span class="version">v18</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v19 -->
+    <a class="card placeholder" href="v19/">
+      <div class="thumb"><span class="vnum">19</span></div>
+      <div class="meta">
+        <span class="version">v19</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v20 -->
+    <a class="card placeholder" href="v20/">
+      <div class="thumb"><span class="vnum">20</span></div>
+      <div class="meta">
+        <span class="version">v20</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v21 -->
+    <a class="card placeholder" href="v21/">
+      <div class="thumb"><span class="vnum">21</span></div>
+      <div class="meta">
+        <span class="version">v21</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v22 -->
+    <a class="card placeholder" href="v22/">
+      <div class="thumb"><span class="vnum">22</span></div>
+      <div class="meta">
+        <span class="version">v22</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v23 -->
+    <a class="card placeholder" href="v23/">
+      <div class="thumb"><span class="vnum">23</span></div>
+      <div class="meta">
+        <span class="version">v23</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v24 -->
+    <a class="card placeholder" href="v24/">
+      <div class="thumb"><span class="vnum">24</span></div>
+      <div class="meta">
+        <span class="version">v24</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+    <!-- v25 -->
+    <a class="card placeholder" href="v25/">
+      <div class="thumb"><span class="vnum">25</span></div>
+      <div class="meta">
+        <span class="version">v25</span>
+        <div class="title"></div>
+        <div class="note">not yet built</div>
+      </div>
+    </a>
+
+  </div><!-- /grid -->
+</div>
+
+<footer>
+  Three Little Pigs · Design, Build, Ship · MPCS 51238 · Autumn 2026
+</footer>
+
+</body>
+</html>
