@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080">
+  <defs>
+    <!-- Near-black, profound stillness -->
+    <radialGradient id="bg7-base" cx="50%" cy="50%" r="70%">
+      <stop offset="0%"   stop-color="#0d1117"/>
+      <stop offset="60%"  stop-color="#090d14"/>
+      <stop offset="100%" stop-color="#050810"/>
+    </radialGradient>
+    <!-- Very dim warm glow at centre — safety, hearth, presence -->
+    <radialGradient id="bg7-hearth" cx="50%" cy="50%" r="30%">
+      <stop offset="0%"   stop-color="#1c1a12" stop-opacity="0.45"/>
+      <stop offset="50%"  stop-color="#14130d" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#090d14" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Second, broader ambient warmth -->
+    <radialGradient id="bg7-ambient" cx="50%" cy="55%" r="50%">
+      <stop offset="0%"   stop-color="#17160f" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#090d14" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Deep edge — almost nothing -->
+    <radialGradient id="bg7-void" cx="50%" cy="50%" r="60%">
+      <stop offset="48%" stop-color="#090d14" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#020408" stop-opacity="0.9"/>
+    </radialGradient>
+    <filter id="bg7-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.62" numOctaves="3" seed="23" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg7-base)"/>
+  <rect width="1920" height="1080" fill="url(#bg7-ambient)"/>
+  <rect width="1920" height="1080" fill="url(#bg7-hearth)"/>
+  <rect width="1920" height="1080" fill="url(#bg7-void)"/>
+  <!-- Very gentle grain — quiet, still -->
+  <rect width="1920" height="1080" fill="white" opacity="0.05" filter="url(#bg7-grain)"/>
+</svg>

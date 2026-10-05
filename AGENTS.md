@@ -58,3 +58,32 @@ Layout structure, narrative format, era/setting, tone, design school, reading mo
 - One-sentence note per version: what direction was tried and what worked or didn't
 - Final version clearly marked as the chosen one
 - Every thumbnail links to its version; every version links back to gallery
+
+## Context
+
+### Deployment & local dev
+- GitHub repo: `https://github.com/carnowell-uchicago/dbs-p1` (remote: `origin`)
+- Vercel is connected to that repo — every push to `main` auto-deploys; no manual deploy step needed
+- Local preview: run `python3 -m http.server 8080` from `/Users/jacob/projects/p1`, open `http://localhost:8080`
+- The assignment PDF (`Design, Build, Ship - Assignment 1 - Accelerated Prototyping.pdf`) is in the project folder but must NOT be committed to git
+- Workflow: build a version → user approves → commit specific files by name → push → repeat
+
+### Gallery card activation
+Each card in `index.html` starts as `<a class="card placeholder" ...>`. When a version is built and approved:
+1. Remove `placeholder` from the class
+2. Replace the `<span class="vnum">` placeholder with `<iframe src="vNN/" ...></iframe>` inside `.thumb`
+3. Fill in `.title` and `.note`
+For the final chosen version, also add class `final` to the card.
+
+### Current progress
+- `index.html` (gallery) — committed
+- `v01/` — **built, not yet committed** (awaiting final approval)
+
+### v01 design decisions
+Direction: brutalist manifesto, half-screen flip book
+- 6 panels: title → preface → straw → sticks → bricks → conclusion
+- Wolf dialogue in bold red; verdicts ("It fell." / "It stood.") are the typographic punch
+- Layout: `.wrapper` (centered, `min(900px, 90vw)`) → `.book-frame` (full wrapper width, left/top/bottom border + center spine line) → `.book` (perspective container) → `.panel` (50% wide, left half, `transform-origin: right center`)
+- Flip mechanic: `rotateY(180deg) → rotateY(0deg)` for forward (new page covers current), `rotateY(0deg) → rotateY(180deg)` for backward (current peels away). No `backface-visibility: hidden` — the full arc is intentional so the free edge peaks toward the viewer at 90°.
+- Z-index stack: visited pages stay rendered at their assigned z-level; forward increments `zCounter`; backward resets the outgoing page to z=0/opacity=0 so it can flip in again
+- Nav sits below `.book-frame`, width 50% of wrapper (aligns under left page), all three controls (Back / counter / Next) visible

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768" width="1024" height="768">
+  <!-- App background -->
+  <rect width="1024" height="768" fill="#f0f4f8"/>
+
+  <!-- Sticky header -->
+  <rect width="1024" height="60" fill="#ffffff"/>
+  <line x1="0" y1="60" x2="1024" y2="60" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="512" y="36" text-anchor="middle" fill="#1a202c" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="bold" letter-spacing="-0.2">MeadowFeed</text>
+  <text x="512" y="54" text-anchor="middle" fill="#718096" font-family="Arial,Helvetica,sans-serif" font-size="12">Screen 1 / 6 · Day 1 — It begins</text>
+
+  <!-- Gallery link -->
+  <rect x="16" y="72" width="110" height="32" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="71" y="92" text-anchor="middle" fill="#3182ce" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="500">← Gallery</text>
+
+  <!-- Feed container -->
+  <g transform="translate(212, 76)">
+
+    <!-- Post 1 - pig1 -->
+    <rect width="600" height="110" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+    <!-- avatar -->
+    <circle cx="36" cy="36" r="22" fill="#d69e2e"/>
+    <text x="36" y="42" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="18" font-weight="bold">P1</text>
+    <!-- name + handle -->
+    <text x="70" y="28" fill="#1a202c" font-family="Arial,sans-serif" font-size="15" font-weight="700">Pig One</text>
+    <text x="70" y="46" fill="#718096" font-family="Arial,sans-serif" font-size="13">@pig1_straw · 2d ago</text>
+    <!-- post text -->
+    <text x="16" y="76" fill="#1a202c" font-family="Arial,sans-serif" font-size="14">Just left home!! Starting my new chapter 🏠 Building my</text>
+    <text x="16" y="94" fill="#1a202c" font-family="Arial,sans-serif" font-size="14">place today, shouldn't take long #NewBeginnings</text>
+    <!-- reactions -->
+    <text x="16" y="108" fill="#718096" font-family="Arial,sans-serif" font-size="12">♥ 847  ↺ 203  💬 41</text>
+
+    <!-- Post 2 - pig2 -->
+    <rect y="122" width="600" height="110" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+    <circle cx="36" cy="158" r="22" fill="#744210"/>
+    <text x="36" y="164" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="18" font-weight="bold">P2</text>
+    <text x="70" y="150" fill="#1a202c" font-family="Arial,sans-serif" font-size="15" font-weight="700">Pig Two</text>
+    <text x="70" y="168" fill="#718096" font-family="Arial,sans-serif" font-size="13">@pig2_sticks · 2d ago</text>
+    <text x="16" y="198" fill="#1a202c" font-family="Arial,sans-serif" font-size="14">Same! Taking a bit more time with mine but should be</text>
+    <text x="16" y="216" fill="#1a202c" font-family="Arial,sans-serif" font-size="14">done by the weekend. Sticks &gt; straw, sorry bro 😅</text>
+    <text x="16" y="230" fill="#718096" font-family="Arial,sans-serif" font-size="12">♥ 1.2k  ↺ 388  💬 97</text>
+
+    <!-- Post 3 - pig3 -->
+    <rect y="244" width="600" height="110" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+    <circle cx="36" cy="280" r="22" fill="#4a5568"/>
+    <text x="36" y="286" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="18" font-weight="bold">P3</text>
+    <text x="70" y="272" fill="#1a202c" font-family="Arial,sans-serif" font-size="15" font-weight="700">Pig Three</text>
+    <text x="70" y="290" fill="#718096" font-family="Arial,sans-serif" font-size="13">@pig3bricks · 2d ago</text>
+    <text x="16" y="320" fill="#1a202c" font-family="Arial,sans-serif" font-size="14">Week one of construction. Bricks are heavy. My brothers</text>
+    <text x="16" y="338" fill="#1a202c" font-family="Arial,sans-serif" font-size="14">think I'm overdoing it. Maybe I am. We'll see.</text>
+    <text x="16" y="352" fill="#718096" font-family="Arial,sans-serif" font-size="12">♥ 4.7k  ↺ 2.1k  💬 342</text>
+
+    <!-- Post 4 - wolf -->
+    <rect y="366" width="600" height="94" rx="12" fill="#fff5f5" stroke="#fed7d7" stroke-width="1"/>
+    <circle cx="36" cy="398" r="22" fill="#c53030"/>
+    <text x="36" y="404" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="16" font-weight="bold">W</text>
+    <text x="70" y="390" fill="#1a202c" font-family="Arial,sans-serif" font-size="15" font-weight="700">Big Bad Wolf</text>
+    <text x="70" y="408" fill="#718096" font-family="Arial,sans-serif" font-size="13">@bigbadwolf · 1d ago</text>
+    <text x="16" y="436" fill="#1a202c" font-family="Arial,sans-serif" font-size="14">Heard three little pigs just moved to the meadow.</text>
+    <text x="16" y="452" fill="#1a202c" font-family="Arial,sans-serif" font-size="14">Interesting.</text>
+
+  </g>
+
+  <!-- Nav buttons -->
+  <rect x="340" y="700" width="140" height="44" rx="22" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="410" y="727" text-anchor="middle" fill="#718096" font-family="Arial,sans-serif" font-size="15">← Prev</text>
+  <rect x="544" y="700" width="140" height="44" rx="22" fill="#3182ce"/>
+  <text x="614" y="727" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="15" font-weight="500">Next →</text>
+</svg>

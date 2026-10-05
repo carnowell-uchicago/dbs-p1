@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THREE — A Natural History</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-base: #0d1117;
+      --bg-warm: #100e0a;
+      --bg-cold: #090d14;
+      --bg-mid: #0e1118;
+      --text-primary: #e8e2d4;
+      --text-secondary: #f0f0f0;
+      --text-muted: #8899aa;
+      --text-verdict: #c9a96e;
+      --rule: #2a3040;
+      --nav-border: rgba(232, 226, 212, 0.2);
+      --nav-text: rgba(232, 226, 212, 0.6);
+      --nav-text-hover: #e8e2d4;
+      --label: #8899aa;
+      --accent-warm: #c9a96e;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-family: Georgia, 'Times New Roman', serif;
+      overflow: hidden;
+    }
+
+    /* Gallery link */
+    .gallery-link {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      z-index: 100;
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(232, 226, 212, 0.45);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .gallery-link:hover {
+      color: rgba(232, 226, 212, 0.85);
+    }
+    .gallery-link::before {
+      content: '←';
+      margin-right: 6px;
+    }
+
+    /* Panel system */
+    .stage {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .panel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      /* top clears gallery-link (~54px); bottom clears nav (~60px).
+         max() keeps a hard floor so chrome is never obscured. */
+      padding: max(64px, 10vh) clamp(24px, 5vw, 40px) max(90px, 13vh);
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .panel.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Panel backgrounds */
+    .panel-1 { background: url('bg1.svg') center/cover no-repeat; }
+    .panel-2 { background: url('bg2.svg') center/cover no-repeat; }
+    .panel-3 { background: url('bg3.svg') center/cover no-repeat; }
+    .panel-4 { background: url('bg4.svg') center/cover no-repeat; }
+    .panel-5 { background: url('bg5.svg') center/cover no-repeat; }
+    .panel-6 { background: url('bg6.svg') center/cover no-repeat; }
+    .panel-7 { background: url('bg7.svg') center/cover no-repeat; }
+
+    /* Content container */
+    .panel-content {
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      max-height: calc(100vh - max(64px, 10vh) - max(90px, 13vh));
+      overflow-y: auto;
+      scrollbar-width: thin; /* Firefox */
+      scrollbar-color: rgba(201, 169, 110, 0.4) transparent; /* Firefox: thumb track */
+    }
+
+    /* Webkit (Chrome, Safari) */
+    .panel-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    .panel-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .panel-content::-webkit-scrollbar-thumb {
+      background: rgba(201, 169, 110, 0.35);
+      border-radius: 2px;
+    }
+    .panel-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(201, 169, 110, 0.65);
+    }
+
+    /* Scroll hint — gradient fade just above nav, shown when content overflows */
+    .panel::after {
+      content: '';
+      position: absolute;
+      bottom: max(90px, 13vh);
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, rgba(9, 13, 23, 0.8));
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .panel.overflows::after {
+      opacity: 1;
+    }
+
+    /* Episode / chapter label */
+    .episode-label {
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--label);
+      margin-bottom: 48px;
+    }
+
+    /* Main title — panel 1 */
+    .main-title {
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      font-size: clamp(100px, 22vw, 200px);
+      font-weight: 100;
+      letter-spacing: 0.12em;
+      color: var(--text-secondary);
+      line-height: 0.85;
+      margin-bottom: 40px;
+    }
+
+    .main-subtitle {
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* Chapter title — chapter opener panels */
+    .chapter-number {
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--label);
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    .chapter-title {
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 200;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      line-height: 1.1;
+      margin-bottom: 48px;
+    }
+
+    /* Narration body */
+    .narration {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(14px, 1.6vw, 17px);
+      line-height: 1.8;
+      color: var(--text-primary);
+      text-align: left;
+      margin-bottom: 0;
+    }
+
+    .narration + .narration {
+      margin-top: 28px;
+    }
+
+    .narration em {
+      font-style: italic;
+      color: rgba(232, 226, 212, 0.75);
+    }
+
+    /* Dividing rule */
+    .rule {
+      width: 48px;
+      height: 1px;
+      background: var(--rule);
+      margin: 40px auto;
+    }
+
+    .rule.wide {
+      width: 80px;
+    }
+
+    /* Verdict text */
+    .verdict {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--accent-warm);
+      text-align: center;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+    }
+
+    /* Wolf dialogue — documentary observation */
+    .observation {
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    /* Closing quote */
+    .closing-quote {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(18px, 3vw, 24px);
+      line-height: 1.7;
+      font-style: italic;
+      color: var(--text-primary);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .closing-attribution {
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--label);
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      padding: 28px 40px;
+      background: linear-gradient(to top, rgba(7, 11, 16, 0.95) 0%, transparent 100%);
+      z-index: 50;
+    }
+
+    .nav-btn {
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--nav-text);
+      background: transparent;
+      border: 1px solid var(--nav-border);
+      padding: 10px 24px;
+      cursor: pointer;
+      transition: color 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
+      min-width: 88px;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      color: var(--nav-text-hover);
+      border-color: rgba(232, 226, 212, 0.45);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.2;
+      cursor: default;
+    }
+
+    .nav-counter {
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--label);
+      min-width: 100px;
+      text-align: center;
+    }
+
+    /* Thin decorative top line on panel 1 */
+    .title-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--rule));
+      margin: 0 auto 40px;
+    }
+
+    /* Breathing room spacer */
+    .spacer { display: block; }
+    .spacer-sm { height: 20px; }
+    .spacer-md { height: 36px; }
+    .spacer-lg { height: 56px; }
+
+    /* ── Short-viewport adjustments (e.g. 600–720px tall screens) ──
+       Tighten interior spacing so panel-6 content fits without scrolling. */
+    @media (max-height: 720px) {
+      .episode-label { margin-bottom: 24px; }
+      .chapter-number { margin-bottom: 14px; }
+      .chapter-title {
+        font-size: clamp(24px, 4vw, 38px);
+        margin-bottom: 24px;
+      }
+      .rule { margin: 20px auto; }
+      .narration + .narration { margin-top: 16px; }
+      .observation { margin-top: 18px; }
+      .verdict { font-size: 18px; }
+      .spacer-sm { height: 10px; }
+      .spacer-md { height: 18px; }
+      .spacer-lg { height: 28px; }
+      .title-line { height: 36px; margin-bottom: 24px; }
+      .closing-quote { margin-bottom: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="gallery-link" href="../">Gallery</a>
+
+  <div class="stage" id="stage">
+
+    <!-- Panel 1: Opening Title Card -->
+    <div class="panel panel-1 active" data-panel="1">
+      <div class="panel-content">
+        <div class="title-line"></div>
+        <div class="main-title">THREE</div>
+        <span class="spacer spacer-md"></span>
+        <div class="main-subtitle">A Natural History &nbsp;·&nbsp; Directed by Nature Itself</div>
+      </div>
+    </div>
+
+    <!-- Panel 2: The Meadow -->
+    <div class="panel panel-2" data-panel="2">
+      <div class="panel-content">
+        <div class="episode-label">Establishing Shot</div>
+        <p class="narration">
+          In the green meadows of the Northern Plains, three remarkable siblings prepare to leave the family den for the first time.
+        </p>
+        <div class="rule"></div>
+        <p class="narration">
+          They are young. They are confident. Each carries with them a set of instincts — some sharper than others — that will determine, within the week, who among them has truly been paying attention.
+        </p>
+        <div class="rule"></div>
+        <p class="narration">
+          Nature does not grade on effort. It grades on outcome.
+        </p>
+      </div>
+    </div>
+
+    <!-- Panel 3: The First Shelter (Straw) -->
+    <div class="panel panel-3" data-panel="3">
+      <div class="panel-content">
+        <span class="chapter-number">Chapter One</span>
+        <div class="chapter-title">The Straw Dwelling</div>
+        <p class="narration">
+          The eldest sibling — perhaps overconfident, perhaps simply in a hurry — selects the simplest material available.
+        </p>
+        <span class="spacer spacer-sm"></span>
+        <p class="narration">
+          Straw. Within a single afternoon, the structure is complete. It is, by any measure, a remarkable feat of optimism.
+        </p>
+        <div class="rule wide"></div>
+        <p class="observation">What the eldest does not yet know —<br>is that they are being watched.</p>
+      </div>
+    </div>
+
+    <!-- Panel 4: The Wolf Strikes (Straw Falls) -->
+    <div class="panel panel-4" data-panel="4">
+      <div class="panel-content">
+        <span class="chapter-number">Chapter One · Conclusion</span>
+        <p class="narration">
+          The wolf, a creature of considerable lung capacity and patient ambition, emerges from the tree line at dusk. It is in no particular hurry.
+        </p>
+        <div class="rule"></div>
+        <p class="narration">
+          It circles the straw dwelling once. Then twice. Then, drawing a breath that naturalists have since described as <em>"genuinely impressive,"</em> it exhales.
+        </p>
+        <div class="rule wide"></div>
+        <div class="verdict">The structure does not survive.</div>
+        <div class="rule wide"></div>
+        <p class="narration">
+          The eldest sibling, unharmed but newly educated, retreats to join their second-born sibling. There is no shame in this. Only data.
+        </p>
+      </div>
+    </div>
+
+    <!-- Panel 5: The Second Shelter (Sticks Falls) -->
+    <div class="panel panel-5" data-panel="5">
+      <div class="panel-content">
+        <span class="chapter-number">Chapter Two</span>
+        <div class="chapter-title">The Stick Construction</div>
+        <p class="narration">
+          The second sibling had made a more considered choice. Sticks — gathered over two days, arranged with evident care — suggest a builder who understood the problem, if not quite its full dimensions.
+        </p>
+        <div class="rule"></div>
+        <p class="narration">
+          The wolf returns. It is, observers note, slightly better rested than the previous evening.
+        </p>
+        <div class="rule wide"></div>
+        <div class="verdict">The sticks dwelling falls on the third breath.</div>
+        <div class="rule wide"></div>
+        <p class="narration">
+          Two siblings now move east, toward the third shelter. Behind them, the wolf does not give chase. It has learned, over many seasons, that patience is its own reward.
+        </p>
+      </div>
+    </div>
+
+    <!-- Panel 6: The Brick Shelter Holds -->
+    <div class="panel panel-6" data-panel="6">
+      <div class="panel-content">
+        <span class="chapter-number">Chapter Three</span>
+        <div class="chapter-title">Brick &amp; Patience</div>
+        <p class="narration">
+          The third sibling — the quietest of the three, and by some margin the most patient — had spent three weeks laying each brick with deliberate intention.
+        </p>
+        <div class="rule"></div>
+        <p class="narration">
+          When the wolf arrives, it finds not a dwelling but a proposition. The wolf exhales. The walls do not move. It exhales again. The walls remain indifferent.
+        </p>
+        <div class="rule wide"></div>
+        <div class="verdict">For the first time, the wolf retreats.</div>
+        <div class="rule wide"></div>
+        <p class="narration">
+          Inside, three siblings sit in the dark and listen to the silence settle back over the meadow. All three are present. All three are safe.
+        </p>
+        <p class="observation" style="margin-top: 36px;">This is, in the end, what a good shelter is for.</p>
+      </div>
+    </div>
+
+    <!-- Panel 7: Closing Card -->
+    <div class="panel panel-7" data-panel="7">
+      <div class="panel-content">
+        <div class="title-line"></div>
+        <span class="spacer spacer-md"></span>
+        <div class="closing-quote">
+          "And so it was. Three siblings, one shelter,<br>
+          and the enduring truth that patience<br>
+          outlasts speed."
+        </div>
+        <div class="rule wide"></div>
+        <div class="closing-attribution">
+          A Natural History &nbsp;·&nbsp; End of Documentary
+        </div>
+        <span class="spacer spacer-lg"></span>
+        <div class="main-title" style="font-size: clamp(64px, 13vw, 120px); opacity: 0.08; position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%); pointer-events: none;">THREE</div>
+      </div>
+    </div>
+
+  </div><!-- /.stage -->
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Story navigation">
+    <button class="nav-btn" id="btn-prev" aria-label="Previous chapter" disabled>Prev</button>
+    <div class="nav-counter" id="counter" aria-live="polite">Chapter 1 / 7</div>
+    <button class="nav-btn" id="btn-next" aria-label="Next chapter">Next</button>
+  </nav>
+
+  <script>
+    (function () {
+      var panels = document.querySelectorAll('.panel');
+      var btnPrev = document.getElementById('btn-prev');
+      var btnNext = document.getElementById('btn-next');
+      var counter = document.getElementById('counter');
+      var total = panels.length;
+      var current = 0;
+
+      function goTo(index) {
+        if (index < 0 || index >= total) return;
+        panels[current].classList.remove('active');
+        current = index;
+        panels[current].classList.add('active');
+        // Reset scroll position of newly active panel
+        var newPanelContent = panels[current].querySelector('.panel-content');
+        if (newPanelContent) newPanelContent.scrollTop = 0;
+        updateNav();
+        checkOverflow();
+      }
+
+      function updateNav() {
+        counter.textContent = 'Chapter ' + (current + 1) + ' / ' + total;
+        btnPrev.disabled = current === 0;
+        btnNext.disabled = current === total - 1;
+      }
+
+      function checkOverflow() {
+        var activePanel = panels[current];
+        var content = activePanel.querySelector('.panel-content');
+        if (content && content.scrollHeight > content.clientHeight + 2) {
+          activePanel.classList.add('overflows');
+          content.onscroll = function () {
+            var nearBottom = content.scrollTop + content.clientHeight >= content.scrollHeight - 20;
+            activePanel.classList.toggle('overflows', !nearBottom);
+          };
+        } else {
+          activePanel.classList.remove('overflows');
+          var content2 = activePanel.querySelector('.panel-content');
+          if (content2) content2.onscroll = null;
+        }
+      }
+
+      btnPrev.addEventListener('click', function () { goTo(current - 1); });
+      btnNext.addEventListener('click', function () { goTo(current + 1); });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { goTo(current + 1); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { goTo(current - 1); }
+      });
+
+      updateNav();
+      checkOverflow();
+    })();
+  </script>
+
+</body>
+</html>

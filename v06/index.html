@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>People v. B.B. Wolf — Case No. 51-CRIM-0847</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #d9d4cc;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #1a1a1a;
+  min-height: 100vh;
+}
+
+/* ── Page container ── */
+.page {
+  display: none;
+  max-width: 780px;
+  margin: 2rem auto 0;
+  background: #faf8f5;
+  padding: 52px 64px 48px 64px;
+  position: relative;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.2);
+}
+
+.page.active { display: block; }
+
+/* ── Watermark ── */
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-28deg);
+  font-size: 68px;
+  font-weight: bold;
+  color: #1a1a1a;
+  opacity: 0.04;
+  letter-spacing: 0.25em;
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ── Page header ── */
+.pg-header {
+  text-align: center;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+  font-size: 10.5px;
+  color: #333;
+}
+
+.pg-header .case-name {
+  display: block;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.pg-header .pg-meta {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ── Page footer ── */
+.pg-footer {
+  margin-top: 24px;
+  border-top: 1px solid #444;
+  padding-top: 8px;
+  font-size: 10px;
+  color: #555;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+/* ── Transcript body with line numbers ── */
+.transcript-body {
+  counter-reset: lnum;
+}
+
+.line {
+  counter-increment: lnum;
+  display: flex;
+  align-items: flex-start;
+  min-height: 1.8em;
+  line-height: 1.8;
+}
+
+.line::before {
+  content: counter(lnum);
+  width: 36px;
+  min-width: 36px;
+  text-align: right;
+  color: #aaa;
+  font-size: 10px;
+  flex-shrink: 0;
+  padding-right: 10px;
+  border-right: 1px solid #ccc;
+  line-height: 1.8;
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0;
+}
+
+.line .text {
+  padding-left: 14px;
+  flex: 1;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Section headings */
+.line.section .text {
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Speaker lines */
+.line.sp .text {
+  font-weight: normal;
+}
+.line.sp .speaker {
+  font-weight: bold;
+}
+
+/* Continuation lines — extra indent to align under text after label */
+.line.cont .text {
+  padding-left: 14px;
+}
+
+/* Centered lines */
+.line.ctr .text {
+  text-align: center;
+}
+
+/* Ruling / verdict lines */
+.line.ruling .text {
+  font-weight: bold;
+  color: #8b1a1a;
+}
+
+/* Procedural annotation */
+.line.proc .text {
+  color: #555;
+  font-style: italic;
+}
+
+/* Blank lines still count */
+.line.blank .text { visibility: hidden; }
+.line.blank .text::before { content: '\00a0'; }
+
+/* ── Cover page ── */
+.page.cover {
+  padding: 60px 80px;
+}
+
+.cover-court {
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  line-height: 2;
+  color: #8b1a1a;
+  margin-bottom: 6px;
+}
+
+.cover-divider {
+  border: none;
+  border-top: 1px solid #555;
+  margin: 18px 0;
+}
+
+.cover-divider.thick {
+  border-top-width: 2px;
+}
+
+.cover-parties {
+  width: 100%;
+  border-collapse: collapse;
+  line-height: 2.2;
+  margin: 8px 0;
+}
+
+.cover-parties td {
+  vertical-align: top;
+}
+
+.cover-parties .right {
+  text-align: right;
+  color: #8b1a1a;
+  font-weight: bold;
+  white-space: nowrap;
+  padding-left: 24px;
+}
+
+.cover-parties .indent {
+  padding-left: 5ch;
+}
+
+.cover-section-title {
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  font-size: 13px;
+  line-height: 2;
+  margin: 12px 0;
+}
+
+.cover-meta-table {
+  width: 100%;
+  border-collapse: collapse;
+  line-height: 2.4;
+  margin: 12px 0;
+}
+
+.cover-meta-table td.label {
+  font-weight: bold;
+  white-space: nowrap;
+  width: 22ch;
+  vertical-align: top;
+}
+
+.cover-meta-table td.val {
+  vertical-align: top;
+}
+
+.cover-charges {
+  border-left: 3px solid #8b1a1a;
+  padding: 8px 0 8px 20px;
+  margin: 12px 0;
+  line-height: 2.2;
+}
+
+.cover-charges .charge-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.cover-charges .charge-item {
+  display: block;
+  padding-left: 4ch;
+}
+
+/* FILED stamp */
+.filed-stamp {
+  display: inline-block;
+  border: 3px double #8b1a1a;
+  color: #8b1a1a;
+  padding: 10px 24px;
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  line-height: 2.2;
+  transform: rotate(-7deg);
+  text-align: center;
+  margin: 0 0 0 auto;
+}
+
+.stamp-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px 0;
+}
+
+/* ── Navigation bar ── */
+#nav {
+  max-width: 780px;
+  margin: 0 auto 3rem;
+  background: #faf8f5;
+  border-top: 1px solid #444;
+  padding: 12px 64px 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+#nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  color: #1a1a1a;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  padding: 4px 0;
+  text-decoration: none;
+}
+
+.nav-btn:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.nav-btn:disabled {
+  color: #bbb;
+  cursor: default;
+}
+
+#page-counter {
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 0.06em;
+}
+
+#gallery-link {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 10.5px;
+  color: #666;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+#gallery-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* End-of-page separator */
+.end-mark {
+  text-align: center;
+  color: #999;
+  font-size: 10px;
+  margin-top: 20px;
+  letter-spacing: 0.1em;
+}
+</style>
+</head>
+<body>
+
+<div id="pages">
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE 1: COVER SHEET                            -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="page cover active" id="p1">
+  <div class="pg-header">
+    <span class="case-name">PEOPLE OF THE NORTHERN PLAINS v. B.B. WOLF &mdash; CASE NO. 51-CRIM-0847</span>
+    <div class="pg-meta">
+      <span>SUPERIOR COURT OF THE NORTHERN PLAINS DISTRICT</span>
+      <span>PAGE 1 OF 7</span>
+    </div>
+  </div>
+
+  <div class="cover-court">
+    IN THE SUPERIOR COURT OF THE NORTHERN PLAINS DISTRICT<br>
+    CRIMINAL DIVISION
+  </div>
+
+  <hr class="cover-divider thick">
+
+  <table class="cover-parties">
+    <tr>
+      <td>PEOPLE OF THE NORTHERN PLAINS,</td>
+      <td class="right" rowspan="6">Case No. 51-CRIM-0847</td>
+    </tr>
+    <tr>
+      <td class="indent">Plaintiff,</td>
+    </tr>
+    <tr>
+      <td class="indent">v.</td>
+    </tr>
+    <tr>
+      <td>B.B. WOLF,</td>
+    </tr>
+    <tr>
+      <td class="indent">also known as "The Big Bad Wolf,"</td>
+    </tr>
+    <tr>
+      <td class="indent">Defendant.</td>
+    </tr>
+  </table>
+
+  <hr class="cover-divider">
+
+  <div class="cover-section-title">
+    OFFICIAL COURT TRANSCRIPT &mdash; VOLUME I OF I<br>
+    TRIAL &mdash; DAY 2
+  </div>
+
+  <hr class="cover-divider">
+
+  <table class="cover-meta-table">
+    <tr>
+      <td class="label">Presiding:</td>
+      <td class="val">THE HONORABLE ELEANOR J. HARRISON<br>
+        <span style="padding-left:0">Superior Court Judge</span></td>
+    </tr>
+    <tr>
+      <td class="label">Plaintiff&rsquo;s Counsel:</td>
+      <td class="val">JESSICA Y. CHEN, ESQ.<br>
+        Office of the District Attorney, Northern Plains</td>
+    </tr>
+    <tr>
+      <td class="label">Defense Counsel:</td>
+      <td class="val">SAMUEL D. BRIGGS, ESQ.<br>
+        Briggs &amp; Associates, LLC</td>
+    </tr>
+    <tr>
+      <td class="label">Date:</td>
+      <td class="val">October 5, 2026</td>
+    </tr>
+    <tr>
+      <td class="label">Location:</td>
+      <td class="val">Superior Court, Room 14<br>
+        Northern Plains, NP 10023</td>
+    </tr>
+    <tr>
+      <td class="label">Court Reporter:</td>
+      <td class="val">D. MEADOW, CSR #4412</td>
+    </tr>
+  </table>
+
+  <hr class="cover-divider">
+
+  <div class="cover-charges">
+    <span class="charge-label">CHARGES:</span>
+    <span class="charge-item">Count 1: &nbsp; Willful Destruction of Property (Straw)</span>
+    <span class="charge-item">Count 2: &nbsp; Willful Destruction of Property (Sticks)</span>
+    <span class="charge-item">Count 3: &nbsp; Attempted Destruction of Property (Bricks)</span>
+    <span class="charge-item">Count 4: &nbsp; Unlawful Threatening Behavior</span>
+  </div>
+
+  <div class="stamp-row">
+    <div class="filed-stamp">
+      FILED<br>
+      OCT 5 2026<br>
+      NORTHERN PLAINS SUPERIOR COURT<br>
+      CLERK OF COURTS
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    Court Reporter: D. Meadow, CSR #4412 &nbsp;&bull;&nbsp; Certified True Copy
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE 2: DIRECT EXAMINATION — PIG ONE           -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="page" id="p2">
+  <div class="pg-header">
+    <span class="case-name">PEOPLE OF THE NORTHERN PLAINS v. B.B. WOLF &mdash; CASE NO. 51-CRIM-0847</span>
+    <div class="pg-meta">
+      <span>OCTOBER 5, 2026 &mdash; TRIAL DAY 2</span>
+      <span>PAGE 2 OF 7</span>
+    </div>
+  </div>
+  <div class="watermark">CERTIFIED COPY</div>
+
+  <div class="transcript-body">
+
+    <div class="line section"><span class="text">DIRECT EXAMINATION BY MS. CHEN:</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Please state your name for the record.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Marcus P. Pig. People call me Pig One.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Mr. Pig, where did you reside in the spring</span></div>
+    <div class="line cont"><span class="text">       of this year?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I had a home. On Meadowbrook Lane.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Can you describe the construction of that home?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   It was a straw house. I built it myself.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   How long did it take to build?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   About a week. Maybe less.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">MR. BRIGGS:</span>  Objection. Relevance, Your Honor.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   Overruled. Continue, Ms. Chen.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   On the morning of March 14th, did something</span></div>
+    <div class="line cont"><span class="text">       happen to your home?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Yes. The wolf came.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   The defendant? B.B. Wolf, seated at the</span></div>
+    <div class="line cont"><span class="text">       defense table?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Yes, ma&rsquo;am.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   What did the defendant do when he arrived?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   He stood outside. He threatened me. Said</span></div>
+    <div class="line cont"><span class="text">       he would blow the house down.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   In those words?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   He said he&rsquo;d huff and he&rsquo;d puff and he&rsquo;d blow</span></div>
+    <div class="line cont"><span class="text">       the house in. Yes.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   And did he carry out that threat?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   He huffed. And he puffed. And yes. The house</span></div>
+    <div class="line cont"><span class="text">       came down.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   And where did you go after your house fell?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I ran to my brother&rsquo;s house.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   The stick house?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Yes, ma&rsquo;am.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">MS. CHEN:</span>    No further questions at this time,</span></div>
+    <div class="line cont"><span class="text">             Your Honor.</span></div>
+
+  </div>
+
+  <div class="pg-footer">
+    Court Reporter: D. Meadow, CSR #4412 &nbsp;&bull;&nbsp; Certified True Copy
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE 3: CROSS-EXAMINATION — PIG ONE            -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="page" id="p3">
+  <div class="pg-header">
+    <span class="case-name">PEOPLE OF THE NORTHERN PLAINS v. B.B. WOLF &mdash; CASE NO. 51-CRIM-0847</span>
+    <div class="pg-meta">
+      <span>OCTOBER 5, 2026 &mdash; TRIAL DAY 2</span>
+      <span>PAGE 3 OF 7</span>
+    </div>
+  </div>
+  <div class="watermark">CERTIFIED COPY</div>
+
+  <div class="transcript-body">
+
+    <div class="line section"><span class="text">CROSS-EXAMINATION BY MR. BRIGGS:</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Mr. Pig, you testified that you built this</span></div>
+    <div class="line cont"><span class="text">       home yourself?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   That&rsquo;s right.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Are you a licensed contractor?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I&rsquo;m &mdash; no. I&rsquo;m not.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Did you pull a building permit for this</span></div>
+    <div class="line cont"><span class="text">       structure?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I didn&rsquo;t know I needed one.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Isn&rsquo;t it true, Mr. Pig, that straw is not</span></div>
+    <div class="line cont"><span class="text">       a recognized structural building material</span></div>
+    <div class="line cont"><span class="text">       under Northern Plains Code Section 142.7?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I &mdash; I didn&rsquo;t know that at the time.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   Mr. Briggs. The Northern Plains Building</span></div>
+    <div class="line cont"><span class="text">             Code is not at issue in this proceeding.</span></div>
+    <div class="line cont"><span class="text">             Move on.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">MR. BRIGGS:</span>  Yes, Your Honor.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Mr. Pig, the wind that morning was recorded</span></div>
+    <div class="line cont"><span class="text">       at eighteen miles per hour. Is that correct?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I don&rsquo;t know what the wind was.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Could natural wind have caused a straw</span></div>
+    <div class="line cont"><span class="text">       structure to fail?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   It wasn&rsquo;t the wind.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   How can you be certain?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Because I saw him. I looked right through the</span></div>
+    <div class="line cont"><span class="text">       window. He was standing there, blowing. I</span></div>
+    <div class="line cont"><span class="text">       could hear him.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   You were frightened?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Terrified.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   And fear can distort perception, can it not?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I know what I saw.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   You were alone in the house?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Yes.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   No corroborating witnesses?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I was alone. Yes. Because I had just built</span></div>
+    <div class="line cont"><span class="text">       the house and moved in. Two days prior.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">MR. BRIGGS:</span>  No further questions.</span></div>
+
+  </div>
+
+  <div class="pg-footer">
+    Court Reporter: D. Meadow, CSR #4412 &nbsp;&bull;&nbsp; Certified True Copy
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE 4: DIRECT EXAMINATION — PIG TWO           -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="page" id="p4">
+  <div class="pg-header">
+    <span class="case-name">PEOPLE OF THE NORTHERN PLAINS v. B.B. WOLF &mdash; CASE NO. 51-CRIM-0847</span>
+    <div class="pg-meta">
+      <span>OCTOBER 5, 2026 &mdash; TRIAL DAY 2</span>
+      <span>PAGE 4 OF 7</span>
+    </div>
+  </div>
+  <div class="watermark">CERTIFIED COPY</div>
+
+  <div class="transcript-body">
+
+    <div class="line proc"><span class="text">   (Witness Theodore G. Pig, previously sworn, takes</span></div>
+    <div class="line proc cont"><span class="text">   the stand.)</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line section"><span class="text">DIRECT EXAMINATION BY MS. CHEN:</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Theodore &mdash; you prefer Ted?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Ted is fine.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Ted, what is your relationship to the previous</span></div>
+    <div class="line cont"><span class="text">       witness?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Marcus is my brother. Pig One.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   On the afternoon of March 14th, what happened?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Marcus came running to my house. He was out</span></div>
+    <div class="line cont"><span class="text">       of breath. Couldn&rsquo;t even speak for a moment.</span></div>
+    <div class="line cont"><span class="text">       He told me the wolf destroyed his house.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   What did you do?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I let him in. I told him he was safe.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Were you confident your home could withstand</span></div>
+    <div class="line cont"><span class="text">       a similar attack?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I built with sticks. Hardwood. Good material.</span></div>
+    <div class="line cont"><span class="text">       I thought so, yes.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Did the defendant come to your house?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Within the hour. He came to the door.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   What did he say?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Same thing. He said he&rsquo;d huff and he&rsquo;d puff</span></div>
+    <div class="line cont"><span class="text">       and he&rsquo;d blow our house in.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">MR. BRIGGS:</span>  Objection. Hearsay.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   It&rsquo;s a verbal act, Mr. Briggs. Not offered</span></div>
+    <div class="line cont"><span class="text">             for the truth of the matter. Overruled.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   And did he follow through?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   He did. It took him longer this time. But the</span></div>
+    <div class="line cont"><span class="text">       sticks gave way. Both of us inside. The house</span></div>
+    <div class="line cont"><span class="text">       just &mdash; collapsed. Around us.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   And then what happened?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   We ran. As fast as we could. To our sister&rsquo;s</span></div>
+    <div class="line cont"><span class="text">       house.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Your sister &mdash; Priscilla?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Yes. She has the brick house. We knew if</span></div>
+    <div class="line cont"><span class="text">       anywhere was going to hold, it was hers.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">MS. CHEN:</span>    No further questions.</span></div>
+
+  </div>
+
+  <div class="pg-footer">
+    Court Reporter: D. Meadow, CSR #4412 &nbsp;&bull;&nbsp; Certified True Copy
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE 5: DIRECT EXAMINATION — PIG THREE         -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="page" id="p5">
+  <div class="pg-header">
+    <span class="case-name">PEOPLE OF THE NORTHERN PLAINS v. B.B. WOLF &mdash; CASE NO. 51-CRIM-0847</span>
+    <div class="pg-meta">
+      <span>OCTOBER 5, 2026 &mdash; TRIAL DAY 2</span>
+      <span>PAGE 5 OF 7</span>
+    </div>
+  </div>
+  <div class="watermark">CERTIFIED COPY</div>
+
+  <div class="transcript-body">
+
+    <div class="line proc"><span class="text">   (Witness Priscilla M. Pig, sworn.)</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line section"><span class="text">DIRECT EXAMINATION BY MS. CHEN:</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Ms. Pig, how long have you lived in your</span></div>
+    <div class="line cont"><span class="text">       current residence?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Four years.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   And the construction material?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Fired clay brick. Type N mortar. Standard</span></div>
+    <div class="line cont"><span class="text">       running bond pattern.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Why brick?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Because I take my home seriously.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Your brothers arrived on March 14th?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Yes. Marcus around midday. Then both of them</span></div>
+    <div class="line cont"><span class="text">       together about forty minutes later. Shaken.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   And did the defendant come to your home?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   He did. Around seven in the evening.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   What happened?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   He huffed. He puffed. He made quite a spectacle</span></div>
+    <div class="line cont"><span class="text">       of himself, frankly.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   And did the structure hold?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   It held.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Through all of the defendant&rsquo;s attempts?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Every single one.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   How many attempts did he make?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Four that I counted. Possibly five. At one</span></div>
+    <div class="line cont"><span class="text">       point he climbed up onto the roof. Toward</span></div>
+    <div class="line cont"><span class="text">       the chimney.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   What did you do?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   We lit the fire. He appeared to reconsider.</span></div>
+    <div class="line cont"><span class="text">       He came down. And he left.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   And where are your brothers today, Ms. Pig?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Safe. We are all safe.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">MS. CHEN:</span>    No further questions, Your Honor.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   Mr. Briggs, any cross?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">MR. BRIGGS:</span>  No, Your Honor. The defense has no</span></div>
+    <div class="line cont"><span class="text">             questions for this witness.</span></div>
+
+  </div>
+
+  <div class="pg-footer">
+    Court Reporter: D. Meadow, CSR #4412 &nbsp;&bull;&nbsp; Certified True Copy
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE 6: THE DEFENSE'S CASE — WOLF TESTIFIES   -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="page" id="p6">
+  <div class="pg-header">
+    <span class="case-name">PEOPLE OF THE NORTHERN PLAINS v. B.B. WOLF &mdash; CASE NO. 51-CRIM-0847</span>
+    <div class="pg-meta">
+      <span>OCTOBER 5, 2026 &mdash; TRIAL DAY 2</span>
+      <span>PAGE 6 OF 7</span>
+    </div>
+  </div>
+  <div class="watermark">CERTIFIED COPY</div>
+
+  <div class="transcript-body">
+
+    <div class="line proc"><span class="text">   (Defendant B.B. Wolf, sworn, takes the stand.)</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line section"><span class="text">DIRECT EXAMINATION BY MR. BRIGGS:</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Mr. Wolf, did you intend to cause harm to</span></div>
+    <div class="line cont"><span class="text">       the plaintiffs on March 14th?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Absolutely not.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Can you tell the court what happened?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I was in the neighborhood. I have a medical</span></div>
+    <div class="line cont"><span class="text">       condition. A deviated septum. I sneeze</span></div>
+    <div class="line cont"><span class="text">       involuntarily and the force of it is &mdash;</span></div>
+    <div class="line cont"><span class="text">       admittedly substantial.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   So you did not willfully destroy these</span></div>
+    <div class="line cont"><span class="text">       structures?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   It was a sneeze. An uncontrolled exhalation.</span></div>
+    <div class="line cont"><span class="text">       I am the victim here, in a sense. Of my own</span></div>
+    <div class="line cont"><span class="text">       sinuses.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">MR. BRIGGS:</span>  Nothing further.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line section"><span class="text">CROSS-EXAMINATION BY MS. CHEN:</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Mr. Wolf, you have a deviated septum?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   That is correct.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   And yet you have no medical records, no</span></div>
+    <div class="line cont"><span class="text">       physician visits, no diagnosis whatsoever</span></div>
+    <div class="line cont"><span class="text">       for this condition?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I hadn&rsquo;t gotten around to seeing a doctor.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   You told each plaintiff, before each incident,</span></div>
+    <div class="line cont"><span class="text">       that you would &ldquo;huff and puff&rdquo; and destroy</span></div>
+    <div class="line cont"><span class="text">       their homes. Did you not?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I may have said something to that effect.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   That sounds like a plan, Mr. Wolf. Not a</span></div>
+    <div class="line cont"><span class="text">       sneeze. Did you blow down the first house?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I &mdash; technically the aerodynamic pressure</span></div>
+    <div class="line cont"><span class="text">       from my exhalation &mdash;</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   A simple yes or no, Mr. Wolf.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   &hellip;Yes.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Did you blow down the second house?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   Yes.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   Did you then climb onto Ms. Pig&rsquo;s roof and</span></div>
+    <div class="line cont"><span class="text">       attempt entry through the chimney?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I was looking for a way to &mdash; to seek shelter.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   Q   From what?</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line"><span class="text">   A   I &mdash;</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">MS. CHEN:</span>    No further questions, Your Honor.</span></div>
+
+  </div>
+
+  <div class="pg-footer">
+    Court Reporter: D. Meadow, CSR #4412 &nbsp;&bull;&nbsp; Certified True Copy
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE 7: VERDICT & SENTENCING                   -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="page" id="p7">
+  <div class="pg-header">
+    <span class="case-name">PEOPLE OF THE NORTHERN PLAINS v. B.B. WOLF &mdash; CASE NO. 51-CRIM-0847</span>
+    <div class="pg-meta">
+      <span>OCTOBER 5, 2026 &mdash; TRIAL DAY 2</span>
+      <span>PAGE 7 OF 7</span>
+    </div>
+  </div>
+  <div class="watermark">CERTIFIED COPY</div>
+
+  <div class="transcript-body">
+
+    <div class="line proc"><span class="text">   (All parties present. Jury absent &mdash; bench trial.)</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   Thank you. Counsel, I have considered</span></div>
+    <div class="line cont"><span class="text">             the evidence and all testimony presented</span></div>
+    <div class="line cont"><span class="text">             in this proceeding.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   The defendant&rsquo;s claim of involuntary</span></div>
+    <div class="line cont"><span class="text">             exhalation is, to put it charitably,</span></div>
+    <div class="line cont"><span class="text">             unpersuasive.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   The testimony of all three witnesses</span></div>
+    <div class="line cont"><span class="text">             was consistent, credible, and mutually</span></div>
+    <div class="line cont"><span class="text">             corroborated. I found each of them to</span></div>
+    <div class="line cont"><span class="text">             be entirely forthright.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   On Count One, Willful Destruction of</span></div>
+    <div class="line cont"><span class="text">             Property (Straw):</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line ruling ctr"><span class="text">GUILTY.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   On Count Two, Willful Destruction of</span></div>
+    <div class="line cont"><span class="text">             Property (Sticks):</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line ruling ctr"><span class="text">GUILTY.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   On Count Three, Attempted Destruction</span></div>
+    <div class="line cont"><span class="text">             of Property (Bricks):</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line ruling ctr"><span class="text">GUILTY.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   On Count Four, Unlawful Threatening</span></div>
+    <div class="line cont"><span class="text">             Behavior:</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line ruling ctr"><span class="text">GUILTY.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   As to sentencing. The court imposes</span></div>
+    <div class="line cont"><span class="text">             240 hours of community service, to be</span></div>
+    <div class="line cont"><span class="text">             served at the Northern Plains Housing</span></div>
+    <div class="line cont"><span class="text">             Authority, where you will build things,</span></div>
+    <div class="line cont"><span class="text">             Mr. Wolf, rather than destroy them.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   Additionally, a restraining order is</span></div>
+    <div class="line cont"><span class="text">             hereby entered. The defendant will</span></div>
+    <div class="line cont"><span class="text">             refrain from approaching within 500 feet</span></div>
+    <div class="line cont"><span class="text">             of any swine-occupied residential structure.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line sp"><span class="text"><span class="speaker">THE COURT:</span>   Mr. Wolf, you are remanded to the</span></div>
+    <div class="line cont"><span class="text">             custody of the court officer pending</span></div>
+    <div class="line cont"><span class="text">             appeal review. This court is adjourned.</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line proc ctr"><span class="text">[ GAVEL ]</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+    <div class="line proc ctr"><span class="text">( END OF PROCEEDINGS )</span></div>
+    <div class="line blank"><span class="text">&nbsp;</span></div>
+
+  </div>
+
+  <div class="pg-footer">
+    Certified True Copy &nbsp;&bull;&nbsp; Court Reporter: D. Meadow, CSR #4412
+  </div>
+
+  <div class="end-mark">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</div>
+</div>
+
+</div><!-- end #pages -->
+
+<!-- ── Navigation ── -->
+<nav id="nav">
+  <div id="nav-inner">
+    <button class="nav-btn" id="prev-btn" disabled>&lt; PREVIOUS PAGE</button>
+    <span id="page-counter">PAGE 1 OF 7</span>
+    <button class="nav-btn" id="next-btn">NEXT PAGE &gt;</button>
+  </div>
+  <a href="../" id="gallery-link">&larr; Gallery</a>
+</nav>
+
+<script>
+(function () {
+  var TOTAL = 7;
+  var current = 1;
+
+  function showPage(n) {
+    document.querySelectorAll('.page').forEach(function (p) {
+      p.classList.remove('active');
+    });
+    document.getElementById('p' + n).classList.add('active');
+    document.getElementById('page-counter').textContent = 'PAGE ' + n + ' OF ' + TOTAL;
+    document.getElementById('prev-btn').disabled = (n === 1);
+    document.getElementById('next-btn').disabled = (n === TOTAL);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    current = n;
+  }
+
+  document.getElementById('prev-btn').addEventListener('click', function () {
+    if (current > 1) showPage(current - 1);
+  });
+
+  document.getElementById('next-btn').addEventListener('click', function () {
+    if (current < TOTAL) showPage(current + 1);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      if (current < TOTAL) showPage(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      if (current > 1) showPage(current - 1);
+    }
+  });
+}());
+</script>
+</body>
+</html>

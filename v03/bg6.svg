@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080">
+  <defs>
+    <!-- Cool solid blue-grey — the fortress palette -->
+    <radialGradient id="bg6-base" cx="50%" cy="50%" r="65%">
+      <stop offset="0%"   stop-color="#0e1522"/>
+      <stop offset="52%"  stop-color="#0b1119"/>
+      <stop offset="100%" stop-color="#080d14"/>
+    </radialGradient>
+    <!-- Very slight warmth at dead center — three siblings inside -->
+    <radialGradient id="bg6-inner" cx="50%" cy="52%" r="25%">
+      <stop offset="0%"   stop-color="#131824" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0b1119" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Edge vignette — solid, protective -->
+    <radialGradient id="bg6-vignette" cx="50%" cy="50%" r="62%">
+      <stop offset="45%" stop-color="#0b1119" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#050810" stop-opacity="0.85"/>
+    </radialGradient>
+    <!-- Brick pattern: offset course masonry -->
+    <pattern id="bg6-bricks" width="88" height="40" patternUnits="userSpaceOnUse">
+      <!-- Even course -->
+      <rect x="0" y="0" width="88" height="20" fill="none" stroke="#172030" stroke-width="0.6"/>
+      <!-- Odd course — offset by half brick -->
+      <rect x="44" y="20" width="88" height="20" fill="none" stroke="#172030" stroke-width="0.6"/>
+      <rect x="-44" y="20" width="88" height="20" fill="none" stroke="#172030" stroke-width="0.6"/>
+    </pattern>
+    <filter id="bg6-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.58" numOctaves="3" seed="17" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <!-- Slight stone/concrete surface texture -->
+    <filter id="bg6-stone" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.22" numOctaves="3" seed="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg6-base)"/>
+  <rect width="1920" height="1080" fill="url(#bg6-inner)"/>
+  <!-- Stone surface texture -->
+  <rect width="1920" height="1080" fill="white" opacity="0.04" filter="url(#bg6-stone)"/>
+  <!-- Brick course overlay — very subtle -->
+  <rect width="1920" height="1080" fill="url(#bg6-bricks)" opacity="0.18"/>
+  <rect width="1920" height="1080" fill="url(#bg6-vignette)"/>
+  <!-- Film grain -->
+  <rect width="1920" height="1080" fill="white" opacity="0.05" filter="url(#bg6-grain)"/>
+</svg>

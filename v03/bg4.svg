@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080">
+  <defs>
+    <!-- Dark warm base — amber-brown, storm dusk -->
+    <radialGradient id="bg4-base" cx="50%" cy="58%" r="70%">
+      <stop offset="0%"   stop-color="#170d08"/>
+      <stop offset="50%"  stop-color="#120c09"/>
+      <stop offset="100%" stop-color="#0b0906"/>
+    </radialGradient>
+    <!-- Amber-red edge burn — danger, fire at the margins -->
+    <radialGradient id="bg4-burn" cx="50%" cy="50%" r="62%">
+      <stop offset="42%" stop-color="#120c09" stop-opacity="0"/>
+      <stop offset="78%" stop-color="#2a1208" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#1e0c06" stop-opacity="0.7"/>
+    </radialGradient>
+    <!-- Secondary edge, slightly cooler top -->
+    <linearGradient id="bg4-top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#070608" stop-opacity="0.6"/>
+      <stop offset="30%"  stop-color="#0b0906" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Swept wind turbulence — large scale, elongated horizontally -->
+    <filter id="bg4-wind" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="turbulence" baseFrequency="0.018 0.007" numOctaves="4" seed="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <!-- Second wind pass — finer gust streaks -->
+    <filter id="bg4-gust" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="turbulence" baseFrequency="0.035 0.005" numOctaves="2" seed="8" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <filter id="bg4-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" seed="6" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg4-base)"/>
+  <rect width="1920" height="1080" fill="url(#bg4-burn)"/>
+  <rect width="1920" height="1080" fill="url(#bg4-top)"/>
+  <!-- Broad swept wind texture -->
+  <rect width="1920" height="1080" fill="white" opacity="0.08" filter="url(#bg4-wind)"/>
+  <!-- Finer gust streaks -->
+  <rect width="1920" height="1080" fill="white" opacity="0.05" filter="url(#bg4-gust)"/>
+  <!-- Film grain -->
+  <rect width="1920" height="1080" fill="white" opacity="0.055" filter="url(#bg4-grain)"/>
+</svg>

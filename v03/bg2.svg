@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080">
+  <defs>
+    <!-- Sky to ground: dark at top, subtly lighter at the horizon band -->
+    <linearGradient id="bg2-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#05090a"/>
+      <stop offset="50%"  stop-color="#0a1510"/>
+      <stop offset="68%"  stop-color="#0d1c14"/>
+      <stop offset="78%"  stop-color="#0b1612"/>
+      <stop offset="90%"  stop-color="#080d0a"/>
+      <stop offset="100%" stop-color="#060908"/>
+    </linearGradient>
+    <!-- Off-centre horizon glow suggesting distant tree-line -->
+    <radialGradient id="bg2-glow" cx="42%" cy="67%" r="38%" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#182b1e" stop-opacity="0.55"/>
+      <stop offset="50%"  stop-color="#0f1e14" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0a1510" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Mist band in lower third -->
+    <linearGradient id="bg2-mist-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#132018" stop-opacity="0"/>
+      <stop offset="60%"  stop-color="#132018" stop-opacity="0"/>
+      <stop offset="72%"  stop-color="#1c3022" stop-opacity="0.22"/>
+      <stop offset="82%"  stop-color="#152219" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0a1510" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Vignette -->
+    <radialGradient id="bg2-vignette" cx="50%" cy="50%" r="65%">
+      <stop offset="50%" stop-color="#0a1510" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#030606" stop-opacity="0.75"/>
+    </radialGradient>
+    <filter id="bg2-mist-warp" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.006" numOctaves="2" seed="3" stitchTiles="stitch" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="28" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="bg2-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" seed="9" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg2-sky)"/>
+  <rect width="1920" height="1080" fill="url(#bg2-glow)"/>
+  <rect width="1920" height="1080" fill="url(#bg2-mist-grad)" filter="url(#bg2-mist-warp)"/>
+  <rect width="1920" height="1080" fill="url(#bg2-vignette)"/>
+  <rect width="1920" height="1080" fill="white" opacity="0.05" filter="url(#bg2-grain)"/>
+</svg>

@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEADOW PLAINS RESIDENTIAL DEVELOPMENT — STRUCTURAL ENGINEERING PACKAGE</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #00254d;
+      --blue2:   #003264;
+      --white:   #ffffff;
+      --cyan:    #d0eeff;
+      --amber:   #f0c040;
+      --red:     #e05040;
+      --green:   #40d080;
+      --faint:   rgba(208, 238, 255, 0.04);
+    }
+
+    html, body {
+      height: 100%;
+      background: #111820;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      font-family: 'Courier New', Courier, monospace;
+      color: var(--cyan);
+      min-height: 100vh;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      width: 100%;
+      background: var(--blue2);
+      border-bottom: 1px solid var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 20px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+    .topbar a {
+      color: var(--amber);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+    }
+    .topbar a:hover { text-decoration: underline; }
+
+    /* ── SHEET WRAPPER ── */
+    .stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 12px 4px;
+      width: 100%;
+    }
+
+    /* ── THE SHEET ── */
+    .sheet {
+      display: none;
+      width: min(960px, 98vw);
+      background: var(--blue2);
+      position: relative;
+      /* double-line border via outline + border */
+      border: 2px solid var(--cyan);
+      outline: 5px solid var(--blue2);
+      box-shadow: 0 0 0 7px var(--cyan), 0 8px 40px rgba(0,0,0,0.7);
+      /* dot grid overlay via radial-gradient */
+      background-image:
+        radial-gradient(circle, rgba(208,238,255,0.045) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .sheet.active { display: block; }
+
+    .sheet-inner {
+      padding: 28px 28px 110px 28px; /* bottom padding for title block */
+      min-height: 540px;
+      position: relative;
+    }
+
+    /* ── TITLE BLOCK (bottom-right) ── */
+    .title-block {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 340px;
+      border-top: 1px solid var(--cyan);
+      border-left: 1px solid var(--cyan);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+    }
+    .title-block table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .title-block td {
+      border: 1px solid var(--cyan);
+      padding: 3px 6px;
+      vertical-align: top;
+      line-height: 1.3;
+    }
+    .title-block .label {
+      color: rgba(208,238,255,0.5);
+      font-size: 8px;
+      display: block;
+      letter-spacing: 0.12em;
+    }
+    .title-block .val {
+      color: var(--white);
+      font-size: 11px;
+    }
+    .title-block .project-name {
+      font-size: 9px;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+    }
+    .title-block .firm {
+      color: var(--amber);
+      font-size: 9px;
+    }
+
+    /* ── SHEET NUMBER BADGE ── */
+    .sheet-badge {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: calc(100% - 340px);
+      border-top: 1px solid var(--cyan);
+      padding: 4px 12px;
+      font-size: 10px;
+      color: rgba(208,238,255,0.5);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .sheet-title {
+      font-size: 15px;
+      color: var(--white);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--cyan);
+      padding-bottom: 6px;
+      margin-bottom: 4px;
+    }
+    .sheet-subtitle {
+      font-size: 10px;
+      color: rgba(208,238,255,0.6);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .section-label {
+      font-size: 9px;
+      color: var(--amber);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(240,192,64,0.3);
+      margin-bottom: 8px;
+      padding-bottom: 2px;
+    }
+
+    /* ── ANNOTATION NOTES (yellow) ── */
+    .annotation {
+      background: rgba(240, 192, 64, 0.08);
+      border-left: 3px solid var(--amber);
+      padding: 8px 12px;
+      margin: 12px 0;
+      font-size: 11px;
+      color: var(--amber);
+      line-height: 1.5;
+    }
+    .annotation .ann-label {
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      opacity: 0.7;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* ── VERDICT STAMP ── */
+    .verdict {
+      display: inline-block;
+      border: 3px solid var(--red);
+      color: var(--red);
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 0.18em;
+      padding: 6px 18px;
+      transform: rotate(-4deg);
+      opacity: 0.9;
+      margin: 8px 0;
+    }
+    .verdict.pass {
+      border-color: var(--green);
+      color: var(--green);
+      transform: rotate(-2deg);
+    }
+    .verdict.approved {
+      border-color: var(--amber);
+      color: var(--amber);
+      transform: rotate(2deg);
+    }
+
+    /* ── FLOOR PLAN ── */
+    .floor-plan-wrap {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      margin: 12px 0 16px;
+      flex-wrap: wrap;
+    }
+    .plan-area {
+      flex: 0 0 auto;
+    }
+    .plan-label {
+      font-size: 9px;
+      color: rgba(208,238,255,0.5);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    /* Floor plan box */
+    .floorplan {
+      position: relative;
+      border: 1.5px solid var(--cyan);
+      background: rgba(0,50,100,0.4);
+    }
+
+    /* Door gap in border */
+    .floorplan .door-gap {
+      position: absolute;
+      background: var(--blue2);
+    }
+    .floorplan .window {
+      position: absolute;
+      background: rgba(208,238,255,0.15);
+      border: 1px dashed rgba(208,238,255,0.4);
+    }
+    .floorplan .door-swing {
+      position: absolute;
+      border: 1px solid rgba(208,238,255,0.4);
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-left-color: transparent;
+      border-radius: 0 0 100% 0;
+    }
+    /* Walls thicker for brick */
+    .floorplan.thick {
+      border-width: 5px;
+    }
+
+    /* dim lines */
+    .dim-line {
+      position: absolute;
+      background: rgba(208,238,255,0.35);
+    }
+    .dim-text {
+      position: absolute;
+      font-size: 8px;
+      color: rgba(208,238,255,0.5);
+      letter-spacing: 0.06em;
+    }
+
+    /* Elevation box */
+    .elevation {
+      position: relative;
+      border-bottom: 1.5px solid var(--cyan);
+      border-left: 1.5px solid var(--cyan);
+      border-right: 1.5px solid var(--cyan);
+      background: rgba(0,50,100,0.2);
+    }
+    .elevation.failed {
+      position: relative;
+      overflow: hidden;
+    }
+    .elevation.failed::before,
+    .elevation.failed::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 141%; height: 1.5px;
+      background: var(--red);
+      transform-origin: top left;
+    }
+    .elevation.failed::before { transform: rotate(calc(atan2(var(--h), var(--w)))) scaleX(1); }
+    .elevation.failed::after  { transform: rotate(calc(-1 * atan2(var(--h), var(--w)))); top: auto; bottom: 0; }
+
+    /* X overlay using two pseudo-elements via a wrapper */
+    .x-overlay {
+      position: relative;
+      display: inline-block;
+    }
+    .x-overlay::before,
+    .x-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .x-overlay::before {
+      border-top: 2px solid var(--red);
+      transform: rotate(calc(atan2(100%, 100%)));
+      transform-origin: top left;
+      width: 141%;
+      top: 50%;
+      left: 0;
+      transform: rotate(var(--angle));
+    }
+
+    /* ── STRUCTURAL NOTES TABLE ── */
+    .struct-notes {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+      margin: 8px 0 12px;
+    }
+    .struct-notes th {
+      font-size: 9px;
+      color: var(--amber);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(240,192,64,0.4);
+      padding: 3px 6px;
+      text-align: left;
+    }
+    .struct-notes td {
+      padding: 3px 6px;
+      border-bottom: 1px solid rgba(208,238,255,0.1);
+      color: var(--cyan);
+      vertical-align: top;
+    }
+    .struct-notes td.prop {
+      color: rgba(208,238,255,0.55);
+      white-space: nowrap;
+    }
+
+    /* ── COMPASS ROSE ── */
+    .compass-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .compass {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+    .compass-circle {
+      position: absolute;
+      inset: 20px;
+      border-radius: 50%;
+      border: 1.5px solid var(--cyan);
+    }
+    .compass-circle-inner {
+      position: absolute;
+      inset: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(208,238,255,0.3);
+    }
+    .compass-arm {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      width: 2px;
+      background: var(--white);
+    }
+    .compass-arm.n  { height: 76px; transform: translate(-50%,-100%) rotate(0deg);   }
+    .compass-arm.s  { height: 60px; transform: translate(-50%,-100%) rotate(180deg); }
+    .compass-arm.e  { height: 60px; transform: translate(-50%,-100%) rotate(90deg);  }
+    .compass-arm.w  { height: 60px; transform: translate(-50%,-100%) rotate(270deg); }
+    .compass-arm.ne { height: 45px; transform: translate(-50%,-100%) rotate(45deg);  background: rgba(208,238,255,0.4); }
+    .compass-arm.se { height: 45px; transform: translate(-50%,-100%) rotate(135deg); background: rgba(208,238,255,0.4); }
+    .compass-arm.sw { height: 45px; transform: translate(-50%,-100%) rotate(225deg); background: rgba(208,238,255,0.4); }
+    .compass-arm.nw { height: 45px; transform: translate(-50%,-100%) rotate(315deg); background: rgba(208,238,255,0.4); }
+    /* North arrow head */
+    .compass .arrow-n {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -100%) translateY(-76px);
+      width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 12px solid var(--white);
+      margin-top: -12px;
+    }
+    .compass-label {
+      position: absolute;
+      font-size: 11px;
+      color: var(--white);
+      font-weight: bold;
+      letter-spacing: 0.08em;
+    }
+    .compass-label.n { top: 0;   left: 50%; transform: translateX(-50%); }
+    .compass-label.s { bottom: 0; left: 50%; transform: translateX(-50%); }
+    .compass-label.e { right: 0;  top: 50%;  transform: translateY(-50%); }
+    .compass-label.w { left: 0;   top: 50%;  transform: translateY(-50%); }
+    /* PE seal */
+    .pe-seal {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 2px solid var(--cyan);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      line-height: 1.4;
+      padding: 8px;
+    }
+    .pe-seal::before {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      border: 1px dashed rgba(208,238,255,0.4);
+    }
+    .pe-seal .seal-name {
+      font-size: 9px;
+      color: var(--white);
+      font-weight: bold;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── DRAWING INDEX TABLE ── */
+    .index-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+      margin: 12px 0;
+    }
+    .index-table th {
+      background: rgba(208,238,255,0.06);
+      color: var(--amber);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border: 1px solid rgba(208,238,255,0.2);
+      text-align: left;
+    }
+    .index-table td {
+      padding: 4px 8px;
+      border: 1px solid rgba(208,238,255,0.12);
+      color: var(--cyan);
+      vertical-align: middle;
+    }
+    .index-table tr:hover td { background: rgba(208,238,255,0.03); }
+    .index-table .sheet-num { color: var(--white); font-weight: bold; }
+
+    /* ── REVISION TABLE ── */
+    .rev-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+      margin: 8px 0;
+    }
+    .rev-table th {
+      font-size: 9px;
+      color: rgba(208,238,255,0.5);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(208,238,255,0.2);
+      padding: 3px 6px;
+      text-align: left;
+    }
+    .rev-table td {
+      padding: 3px 6px;
+      border-bottom: 1px solid rgba(208,238,255,0.08);
+      color: var(--cyan);
+    }
+    .rev-table .rev-id { color: var(--white); }
+
+    /* ── COMPARATIVE TABLE ── */
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+      margin: 10px 0;
+    }
+    .comp-table th {
+      background: rgba(208,238,255,0.08);
+      color: var(--amber);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 8px;
+      border: 1px solid rgba(208,238,255,0.25);
+    }
+    .comp-table td {
+      padding: 5px 8px;
+      border: 1px solid rgba(208,238,255,0.14);
+      color: var(--cyan);
+    }
+    .comp-table .unit-label { color: var(--white); font-weight: bold; }
+    .comp-table .fail-cell { color: var(--red); }
+    .comp-table .pass-cell { color: var(--green); }
+
+    /* ── BAR CHART ── */
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 24px;
+      height: 100px;
+      margin: 12px 0 4px;
+      padding: 0 8px;
+      border-bottom: 1.5px solid var(--cyan);
+      border-left: 1.5px solid var(--cyan);
+      position: relative;
+    }
+    .bar-chart .load-line {
+      position: absolute;
+      left: 0; right: 0;
+      border-top: 1.5px dashed var(--red);
+      /* height set inline */
+    }
+    .bar-chart .load-label {
+      position: absolute;
+      right: 0;
+      font-size: 8px;
+      color: var(--red);
+      letter-spacing: 0.06em;
+      transform: translateY(-14px);
+    }
+    .bar-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+    }
+    .bar-col .bar {
+      width: 100%;
+      max-width: 48px;
+    }
+    .bar-col .bar-label {
+      font-size: 8px;
+      color: rgba(208,238,255,0.6);
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+
+    /* ── SITE PLAN ── */
+    .site-plan {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      border: 1px solid rgba(208,238,255,0.2);
+      background: rgba(0,30,70,0.3);
+      margin: 10px 0;
+      overflow: hidden;
+    }
+    .site-plan .site-house {
+      position: absolute;
+      border: 1.5px solid var(--cyan);
+      background: rgba(0,50,100,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: var(--white);
+      letter-spacing: 0.06em;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .site-plan .site-house.failed-house { border-color: var(--red); color: var(--red); }
+    .site-plan .site-house.standing-house { border-color: var(--green); color: var(--green); }
+    .site-plan .distance-line {
+      position: absolute;
+      height: 1px;
+      background: rgba(208,238,255,0.25);
+    }
+    .site-plan .dist-label {
+      position: absolute;
+      font-size: 8px;
+      color: rgba(208,238,255,0.45);
+      letter-spacing: 0.04em;
+    }
+    .site-plan .road {
+      position: absolute;
+      background: rgba(208,238,255,0.08);
+      border-top: 1px dashed rgba(208,238,255,0.2);
+      border-bottom: 1px dashed rgba(208,238,255,0.2);
+    }
+    .site-plan .north-arrow {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 10px;
+      color: var(--cyan);
+      text-align: center;
+    }
+
+    /* ── NAV ── */
+    .nav-bar {
+      width: min(960px, 98vw);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0 16px;
+      flex-shrink: 0;
+    }
+    .nav-btn {
+      background: none;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      padding: 6px 16px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: var(--cyan);
+      color: var(--blue2);
+    }
+    .nav-btn:disabled {
+      opacity: 0.25;
+      cursor: default;
+    }
+    .nav-counter {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: rgba(208,238,255,0.6);
+      text-transform: uppercase;
+    }
+
+    /* ── LAYOUT HELPERS ── */
+    .two-col {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+    }
+    .two-col > .col { flex: 1; min-width: 0; }
+    .two-col > .col-narrow { flex: 0 0 200px; }
+
+    .mt8  { margin-top: 8px; }
+    .mt12 { margin-top: 12px; }
+    .mt16 { margin-top: 16px; }
+    .mb8  { margin-bottom: 8px; }
+    .mb12 { margin-bottom: 12px; }
+
+    hr.rule {
+      border: none;
+      border-top: 1px solid rgba(208,238,255,0.15);
+      margin: 12px 0;
+    }
+
+    p.body-text {
+      font-size: 10.5px;
+      color: var(--cyan);
+      line-height: 1.65;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── MEDIA ── */
+    @media (max-width: 640px) {
+      .two-col { flex-direction: column; }
+      .two-col > .col-narrow { flex: none; width: 100%; }
+      .title-block { width: 240px; }
+      .sheet-badge { width: calc(100% - 240px); }
+      .sheet-inner { padding: 18px 14px 140px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="../">← Gallery</a>
+  <span>MEADOW PLAINS RESIDENTIAL DEVELOPMENT — STRUCTURAL ENG. PACKAGE — STONE &amp; ASSOCIATES P.E.</span>
+  <span>PROJECT NO. 51-0847</span>
+</div>
+
+<!-- STAGE -->
+<div class="stage">
+
+  <!-- ══════════════════════════════════════════════
+       SHEET 1: COVER / TITLE SHEET
+       ══════════════════════════════════════════════ -->
+  <div class="sheet active" id="sheet-1">
+    <div class="sheet-inner">
+
+      <div class="sheet-title">MEADOW PLAINS RESIDENTIAL DEVELOPMENT</div>
+      <div class="sheet-subtitle">STRUCTURAL ENGINEERING PACKAGE — COVER SHEET &amp; DRAWING INDEX</div>
+
+      <div class="two-col mt12">
+        <div class="col">
+
+          <div class="section-label">Project Description</div>
+          <p class="body-text">
+            This package documents the structural design and post-incident review of three residential
+            shelters constructed within the Meadow Plains district during the summer and autumn of 1951.
+            All three structures were designed independently by their respective occupants (Pig One,
+            Pig Two, Pig Three) without formal engineering oversight. This office was retained
+            following the wind-loading event of October 3, 1951 to conduct structural assessment and
+            issue recommendations for minimum construction standards in the district.
+          </p>
+
+          <div class="section-label mt12">Engineer of Record</div>
+          <table class="struct-notes">
+            <tbody>
+              <tr><td class="prop">FIRM:</td><td>Stone &amp; Associates Structural Engineering</td></tr>
+              <tr><td class="prop">ENGINEER:</td><td>Archibald Stone, P.E. — License No. 0847</td></tr>
+              <tr><td class="prop">DATE OF ISSUE:</td><td>October 12, 1951</td></tr>
+              <tr><td class="prop">PROJECT NO.:</td><td>51-0847</td></tr>
+              <tr><td class="prop">JURISDICTION:</td><td>Meadow Plains Building Dept., District 3</td></tr>
+            </tbody>
+          </table>
+
+          <div class="section-label mt12">Revision History</div>
+          <table class="rev-table">
+            <thead><tr><th>REV</th><th>DATE</th><th>DESCRIPTION</th><th>BY</th></tr></thead>
+            <tbody>
+              <tr><td class="rev-id">0</td><td>Sep 15, 1951</td><td>Original construction documents issued</td><td>A.S.</td></tr>
+              <tr><td class="rev-id">1</td><td>Oct 12, 1951</td><td>Post-incident structural review; Incident Reports IR-001 &amp; IR-002 incorporated</td><td>A.S.</td></tr>
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class="col-narrow" style="text-align:center; position:relative;">
+          <!-- PE Seal -->
+          <div class="pe-seal" style="position:relative; top:auto; right:auto; display:inline-flex; margin: 0 auto 16px;">
+            <span class="seal-name">ARCHIBALD<br>STONE</span>
+            <span style="font-size:8px; display:block; margin-top:2px;">P.E. NO. 0847</span>
+            <span style="font-size:7px; opacity:0.6; display:block; margin-top:2px;">STRUCTURAL<br>ENGINEERING</span>
+          </div>
+
+          <!-- Compass rose -->
+          <div class="compass-wrap">
+            <div class="compass">
+              <div class="compass-circle"></div>
+              <div class="compass-circle-inner"></div>
+              <div class="compass-arm n"></div>
+              <div class="compass-arm s"></div>
+              <div class="compass-arm e"></div>
+              <div class="compass-arm w"></div>
+              <div class="compass-arm ne"></div>
+              <div class="compass-arm se"></div>
+              <div class="compass-arm sw"></div>
+              <div class="compass-arm nw"></div>
+              <div class="arrow-n"></div>
+              <span class="compass-label n">N</span>
+              <span class="compass-label s">S</span>
+              <span class="compass-label e">E</span>
+              <span class="compass-label w">W</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="rule">
+
+      <div class="section-label">Drawing Index</div>
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>SHEET</th>
+            <th>DRAWING NO.</th>
+            <th>DESCRIPTION</th>
+            <th>REV</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="sheet-num">S-001</td>
+            <td>COVER-01</td>
+            <td>Cover Sheet, Drawing Index, Project Information</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td class="sheet-num">S-002</td>
+            <td>UNIT1-FP-01</td>
+            <td>Unit 1 (Straw) — Floor Plan &amp; Elevations — AS-BUILT</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td class="sheet-num">S-003</td>
+            <td>UNIT2-FP-01</td>
+            <td>Unit 2 (Sticks) — Floor Plan &amp; Elevations — AS-BUILT</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td class="sheet-num">S-004</td>
+            <td>UNIT3-FP-01</td>
+            <td>Unit 3 (Brick) — Floor Plan &amp; Elevations — AS-BUILT</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td class="sheet-num">S-005</td>
+            <td>COMP-01</td>
+            <td>Comparative Structural Analysis — All Units</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td class="sheet-num">S-006</td>
+            <td>SITE-01</td>
+            <td>Site Plan, Lessons Learned, Final Recommendations</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div><!-- /.sheet-inner -->
+
+    <div class="sheet-badge">DRAWING NO. COVER-01 &nbsp;|&nbsp; STONE &amp; ASSOCIATES STRUCTURAL ENGINEERING &nbsp;|&nbsp; PROJECT 51-0847</div>
+    <div class="title-block">
+      <table>
+        <tr>
+          <td colspan="2">
+            <span class="label">PROJECT</span>
+            <span class="project-name">Meadow Plains Residential Development<br>Structural Engineering Package</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="label">DRAWN BY</span><span class="val">A. Stone P.E.</span></td>
+          <td><span class="label">DATE</span><span class="val">Oct 12, 1951</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SCALE</span><span class="val">N.T.S.</span></td>
+          <td><span class="label">REVISION</span><span class="val">1</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SHEET</span><span class="val" style="color:var(--amber); font-size:13px;">S-001</span></td>
+          <td><span class="label">OF</span><span class="val" style="font-size:13px;">6</span></td>
+        </tr>
+        <tr>
+          <td colspan="2"><span class="label">FIRM</span><span class="firm">Stone &amp; Associates Structural Eng.</span></td>
+        </tr>
+      </table>
+    </div>
+  </div><!-- /#sheet-1 -->
+
+
+  <!-- ══════════════════════════════════════════════
+       SHEET 2: STRAW HOUSE
+       ══════════════════════════════════════════════ -->
+  <div class="sheet" id="sheet-2">
+    <div class="sheet-inner">
+
+      <div class="sheet-title">UNIT 1 — STRAW CONSTRUCTION — AS-BUILT</div>
+      <div class="sheet-subtitle">FLOOR PLAN &amp; FRONT ELEVATION &nbsp;|&nbsp; INCIDENT REPORT IR-001 INCORPORATED</div>
+
+      <div class="two-col mt12">
+        <div class="col">
+
+          <div class="section-label">Floor Plan — Scale 1:48</div>
+          <div style="position:relative; display:inline-block; margin-bottom: 4px;">
+            <!-- Floor plan: small straw house -->
+            <div class="floorplan" style="width:140px; height:110px;">
+              <!-- door gap on front wall -->
+              <div class="door-gap" style="bottom:-2px; left:50px; width:28px; height:3px;"></div>
+              <!-- windows -->
+              <div class="window" style="top:20px; left:-1px; width:10px; height:22px;"></div>
+              <div class="window" style="top:20px; right:-1px; width:10px; height:22px;"></div>
+            </div>
+            <!-- dimension lines -->
+            <div class="dim-text" style="bottom:-18px; left:0; width:140px; text-align:center;">←  14'-0"  →</div>
+            <div class="dim-text" style="top:0; right:-38px; height:110px; writing-mode:vertical-rl; text-align:center;">← 11'-0" →</div>
+          </div>
+
+          <div style="margin-top:28px;">
+            <div class="section-label">Front Elevation — Scale 1:48</div>
+            <!-- Elevation with red X overlay -->
+            <div style="position:relative; display:inline-block;">
+              <div class="elevation" style="width:160px; height:90px; position:relative; overflow:hidden;">
+                <!-- roof triangle -->
+                <div style="position:absolute; bottom:50px; left:-1px; width:162px; height:0; border-left:81px solid transparent; border-right:81px solid transparent; border-bottom:42px solid rgba(208,238,255,0.15); border-top:none;"></div>
+                <!-- door -->
+                <div style="position:absolute; bottom:0; left:63px; width:28px; height:38px; border:1px solid var(--cyan); border-bottom:none; background:rgba(0,50,100,0.5);"></div>
+                <!-- window left -->
+                <div style="position:absolute; bottom:20px; left:18px; width:24px; height:20px; border:1px solid var(--cyan); background:rgba(208,238,255,0.1);"></div>
+                <!-- window right -->
+                <div style="position:absolute; bottom:20px; right:18px; width:24px; height:20px; border:1px solid var(--cyan); background:rgba(208,238,255,0.1);"></div>
+              </div>
+              <!-- Red X lines using SVG -->
+              <svg style="position:absolute;top:0;left:0;" width="162" height="92" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="0" x2="162" y2="92" stroke="#e05040" stroke-width="2" opacity="0.85"/>
+                <line x1="162" y1="0" x2="0" y2="92" stroke="#e05040" stroke-width="2" opacity="0.85"/>
+              </svg>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col">
+
+          <div class="section-label">Structural Notes</div>
+          <table class="struct-notes">
+            <thead><tr><th>PROPERTY</th><th>VALUE</th></tr></thead>
+            <tbody>
+              <tr><td class="prop">Material:</td><td>Straw bale (unbound, uncured)</td></tr>
+              <tr><td class="prop">Est. R-value:</td><td>0.4 (thermal; structural negligible)</td></tr>
+              <tr><td class="prop">Wall thickness:</td><td>Approx. 3 in.</td></tr>
+              <tr><td class="prop">Shear wall:</td><td>NONE</td></tr>
+              <tr><td class="prop">Roof load cap.:</td><td>NONE — no rigid frame</td></tr>
+              <tr><td class="prop">Wind resistance:</td><td>NONE — no rating possible</td></tr>
+              <tr><td class="prop">Foundation:</td><td>Compacted soil only — no footing</td></tr>
+              <tr><td class="prop">Occupant:</td><td>Pig One (sole occupant)</td></tr>
+              <tr><td class="prop">Completion:</td><td>August 2, 1951</td></tr>
+            </tbody>
+          </table>
+
+          <div class="annotation">
+            <span class="ann-label">FIELD NOTE — REV 1 — A. STONE P.E. — OCT 12, 1951</span>
+            ⚠ Structure failed under lateral wind load approx. 47 mph sustained, October 3, 1951.
+            Complete structural collapse observed. All straw bale walls displaced. No element of
+            the structure remained standing. Duration from first load application to full collapse:
+            estimated under 60 seconds. Pig One evacuated prior to collapse; no injuries reported.
+            See Incident Report IR-001.<br><br>
+            <strong>DO NOT REBUILD TO THIS SPECIFICATION.</strong>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="verdict" style="position:absolute; bottom:120px; left:28px;">STRUCTURE: FAILED</div>
+
+    </div><!-- /.sheet-inner -->
+
+    <div class="sheet-badge">DRAWING NO. UNIT1-FP-01 &nbsp;|&nbsp; STONE &amp; ASSOCIATES STRUCTURAL ENGINEERING &nbsp;|&nbsp; PROJECT 51-0847</div>
+    <div class="title-block">
+      <table>
+        <tr>
+          <td colspan="2">
+            <span class="label">PROJECT</span>
+            <span class="project-name">Meadow Plains Residential Development<br>Unit 1 — Straw Construction</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="label">DRAWN BY</span><span class="val">A. Stone P.E.</span></td>
+          <td><span class="label">DATE</span><span class="val">Oct 12, 1951</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SCALE</span><span class="val">1:48</span></td>
+          <td><span class="label">REVISION</span><span class="val">1</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SHEET</span><span class="val" style="color:var(--amber); font-size:13px;">S-002</span></td>
+          <td><span class="label">OF</span><span class="val" style="font-size:13px;">6</span></td>
+        </tr>
+        <tr>
+          <td colspan="2"><span class="label">FIRM</span><span class="firm">Stone &amp; Associates Structural Eng.</span></td>
+        </tr>
+      </table>
+    </div>
+  </div><!-- /#sheet-2 -->
+
+
+  <!-- ══════════════════════════════════════════════
+       SHEET 3: STICKS HOUSE
+       ══════════════════════════════════════════════ -->
+  <div class="sheet" id="sheet-3">
+    <div class="sheet-inner">
+
+      <div class="sheet-title">UNIT 2 — TIMBER STICK CONSTRUCTION — AS-BUILT</div>
+      <div class="sheet-subtitle">FLOOR PLAN &amp; FRONT ELEVATION &nbsp;|&nbsp; INCIDENT REPORT IR-002 INCORPORATED</div>
+
+      <div class="two-col mt12">
+        <div class="col">
+
+          <div class="section-label">Floor Plan — Scale 1:48</div>
+          <div style="position:relative; display:inline-block; margin-bottom: 4px;">
+            <div class="floorplan" style="width:165px; height:130px;">
+              <div class="door-gap" style="bottom:-2px; left:60px; width:30px; height:3px;"></div>
+              <div class="window" style="top:25px; left:-1px; width:12px; height:26px;"></div>
+              <div class="window" style="top:25px; right:-1px; width:12px; height:26px;"></div>
+              <div class="window" style="top:25px; left:60px; width:38px; height:10px;"></div>
+              <!-- interior partition (partial) -->
+              <div style="position:absolute; bottom:40px; left:10px; width:55px; height:1px; background:rgba(208,238,255,0.4);"></div>
+            </div>
+            <div class="dim-text" style="bottom:-18px; left:0; width:165px; text-align:center;">← 16'-6" →</div>
+            <div class="dim-text" style="top:0; right:-40px; height:130px; writing-mode:vertical-rl; text-align:center;">← 13'-0" →</div>
+          </div>
+
+          <div style="margin-top:28px;">
+            <div class="section-label">Front Elevation — Scale 1:48</div>
+            <div style="position:relative; display:inline-block;">
+              <div class="elevation" style="width:180px; height:100px; position:relative; overflow:hidden;">
+                <div style="position:absolute; bottom:55px; left:-1px; width:182px; height:0; border-left:91px solid transparent; border-right:91px solid transparent; border-bottom:48px solid rgba(208,238,255,0.15); border-top:none;"></div>
+                <!-- chimney suggestion -->
+                <div style="position:absolute; bottom:96px; left:30px; width:14px; height:20px; border:1px solid rgba(208,238,255,0.4);"></div>
+                <div style="position:absolute; bottom:0; left:73px; width:30px; height:42px; border:1px solid var(--cyan); border-bottom:none; background:rgba(0,50,100,0.5);"></div>
+                <div style="position:absolute; bottom:24px; left:20px; width:28px; height:22px; border:1px solid var(--cyan); background:rgba(208,238,255,0.1);"></div>
+                <div style="position:absolute; bottom:24px; right:20px; width:28px; height:22px; border:1px solid var(--cyan); background:rgba(208,238,255,0.1);"></div>
+              </div>
+              <svg style="position:absolute;top:0;left:0;" width="182" height="102" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="0" x2="182" y2="102" stroke="#e05040" stroke-width="2" opacity="0.85"/>
+                <line x1="182" y1="0" x2="0" y2="102" stroke="#e05040" stroke-width="2" opacity="0.85"/>
+              </svg>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col">
+
+          <div class="section-label">Structural Notes</div>
+          <table class="struct-notes">
+            <thead><tr><th>PROPERTY</th><th>VALUE</th></tr></thead>
+            <tbody>
+              <tr><td class="prop">Material:</td><td>Timber sticks (ungraded, irregular diameter)</td></tr>
+              <tr><td class="prop">Wall thickness:</td><td>Approx. 2–4 in. (variable)</td></tr>
+              <tr><td class="prop">Shear wall:</td><td>NONE — no diagonal bracing</td></tr>
+              <tr><td class="prop">Roof system:</td><td>Stick-framed, no ridge beam</td></tr>
+              <tr><td class="prop">Roof load cap.:</td><td>Minimal — estimated 8 psf max</td></tr>
+              <tr><td class="prop">Wind resistance:</td><td>LOW — field-estimated 20–30 mph max</td></tr>
+              <tr><td class="prop">Foundation:</td><td>Shallow post holes, no concrete</td></tr>
+              <tr><td class="prop">Occupants:</td><td>Pig Two (original); Pig One (displaced)</td></tr>
+              <tr><td class="prop">Completion:</td><td>August 19, 1951</td></tr>
+            </tbody>
+          </table>
+
+          <div class="annotation">
+            <span class="ann-label">FIELD NOTE — REV 1 — A. STONE P.E. — OCT 12, 1951</span>
+            ⚠ Structure failed under same wind loading event as Unit 1, October 3, 1951.
+            Sustained lateral load of approx. 47 mph caused progressive racking failure of
+            all stick-frame walls. Collapse followed Unit 1 failure by approximately 2 hours.
+            Both occupants (Pig One and Pig Two) evacuated to Unit 3 prior to full collapse.
+            No injuries reported. See Incident Report IR-002.<br><br>
+            Note: Ungraded timber and absence of any shear wall system guaranteed failure
+            under the applied load. This was not an unusual wind event.
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="verdict" style="position:absolute; bottom:120px; left:28px;">STRUCTURE: FAILED</div>
+
+    </div><!-- /.sheet-inner -->
+
+    <div class="sheet-badge">DRAWING NO. UNIT2-FP-01 &nbsp;|&nbsp; STONE &amp; ASSOCIATES STRUCTURAL ENGINEERING &nbsp;|&nbsp; PROJECT 51-0847</div>
+    <div class="title-block">
+      <table>
+        <tr>
+          <td colspan="2">
+            <span class="label">PROJECT</span>
+            <span class="project-name">Meadow Plains Residential Development<br>Unit 2 — Timber Stick Construction</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="label">DRAWN BY</span><span class="val">A. Stone P.E.</span></td>
+          <td><span class="label">DATE</span><span class="val">Oct 12, 1951</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SCALE</span><span class="val">1:48</span></td>
+          <td><span class="label">REVISION</span><span class="val">1</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SHEET</span><span class="val" style="color:var(--amber); font-size:13px;">S-003</span></td>
+          <td><span class="label">OF</span><span class="val" style="font-size:13px;">6</span></td>
+        </tr>
+        <tr>
+          <td colspan="2"><span class="label">FIRM</span><span class="firm">Stone &amp; Associates Structural Eng.</span></td>
+        </tr>
+      </table>
+    </div>
+  </div><!-- /#sheet-3 -->
+
+
+  <!-- ══════════════════════════════════════════════
+       SHEET 4: BRICK HOUSE
+       ══════════════════════════════════════════════ -->
+  <div class="sheet" id="sheet-4">
+    <div class="sheet-inner">
+
+      <div class="sheet-title">UNIT 3 — FIRED CLAY BRICK CONSTRUCTION — AS-BUILT</div>
+      <div class="sheet-subtitle">FLOOR PLAN &amp; FRONT ELEVATION &nbsp;|&nbsp; REV 1: POST-EVENT INSPECTION — NO DAMAGE OBSERVED</div>
+
+      <div class="two-col mt12">
+        <div class="col">
+
+          <div class="section-label">Floor Plan — Scale 1:48</div>
+          <div style="position:relative; display:inline-block; margin-bottom: 4px;">
+            <!-- Brick house: thicker walls, more rooms -->
+            <div class="floorplan thick" style="width:190px; height:155px; border-color: var(--white);">
+              <div class="door-gap" style="bottom:-6px; left:74px; width:30px; height:8px; background:var(--blue2);"></div>
+              <!-- interior walls -->
+              <div style="position:absolute; top:10px; bottom:10px; left:80px; width:5px; background:rgba(208,238,255,0.5);"></div>
+              <div style="position:absolute; top:75px; left:10px; width:70px; height:5px; background:rgba(208,238,255,0.5);"></div>
+              <!-- windows -->
+              <div class="window" style="top:30px; left:-5px; width:14px; height:28px; border-color:rgba(208,238,255,0.6);"></div>
+              <div class="window" style="top:30px; right:-5px; width:14px; height:28px; border-color:rgba(208,238,255,0.6);"></div>
+              <div class="window" style="top:-5px; left:100px; width:40px; height:14px; border-color:rgba(208,238,255,0.6);"></div>
+              <!-- room labels -->
+              <div style="position:absolute; top:20px; left:10px; font-size:7px; color:rgba(208,238,255,0.4); letter-spacing:0.05em;">LIVING</div>
+              <div style="position:absolute; bottom:20px; left:10px; font-size:7px; color:rgba(208,238,255,0.4); letter-spacing:0.05em;">SLEEP</div>
+              <div style="position:absolute; top:20px; left:94px; font-size:7px; color:rgba(208,238,255,0.4); letter-spacing:0.05em;">KITCHEN</div>
+            </div>
+            <div class="dim-text" style="bottom:-20px; left:0; width:200px; text-align:center;">← 19'-0" →</div>
+            <div class="dim-text" style="top:0; right:-44px; height:155px; writing-mode:vertical-rl; text-align:center;">← 15'-6" →</div>
+            <div class="dim-text" style="top:70px; left:-32px; font-size:7px; color:rgba(240,192,64,0.6);">WALL:<br>12 in.</div>
+          </div>
+
+          <div style="margin-top:30px;">
+            <div class="section-label">Front Elevation — Scale 1:48</div>
+            <!-- No red X; green checkmark instead -->
+            <div style="position:relative; display:inline-block;">
+              <div class="elevation" style="width:200px; height:115px; position:relative; overflow:hidden; border-color:var(--white);">
+                <!-- gable roof -->
+                <div style="position:absolute; bottom:62px; left:-1px; width:202px; height:0; border-left:101px solid transparent; border-right:101px solid transparent; border-bottom:55px solid rgba(255,255,255,0.12); border-top:none;"></div>
+                <!-- chimney -->
+                <div style="position:absolute; bottom:108px; left:28px; width:18px; height:26px; border:1.5px solid rgba(255,255,255,0.5); background:rgba(0,40,90,0.4);"></div>
+                <!-- door arch -->
+                <div style="position:absolute; bottom:0; left:80px; width:34px; height:50px; border:1.5px solid var(--white); border-radius:17px 17px 0 0; border-bottom:none; background:rgba(0,50,100,0.5);"></div>
+                <!-- windows -->
+                <div style="position:absolute; bottom:26px; left:18px; width:32px; height:26px; border:1.5px solid var(--white); background:rgba(208,238,255,0.12);"></div>
+                <div style="position:absolute; bottom:26px; right:18px; width:32px; height:26px; border:1.5px solid var(--white); background:rgba(208,238,255,0.12);"></div>
+                <!-- window cross bars -->
+                <div style="position:absolute; bottom:39px; left:18px; width:32px; height:1px; background:rgba(255,255,255,0.4);"></div>
+                <div style="position:absolute; bottom:26px; left:34px; width:1px; height:26px; background:rgba(255,255,255,0.4);"></div>
+                <div style="position:absolute; bottom:39px; right:18px; width:32px; height:1px; background:rgba(255,255,255,0.4);"></div>
+                <div style="position:absolute; bottom:26px; right:34px; width:1px; height:26px; background:rgba(255,255,255,0.4);"></div>
+              </div>
+              <!-- Green checkmark SVG -->
+              <svg style="position:absolute;top:8px;right:8px;" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="18" cy="18" r="16" fill="none" stroke="#40d080" stroke-width="2" opacity="0.9"/>
+                <polyline points="9,18 15,25 28,11" fill="none" stroke="#40d080" stroke-width="2.5" opacity="0.9"/>
+              </svg>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col">
+
+          <div class="section-label">Structural Notes</div>
+          <table class="struct-notes">
+            <thead><tr><th>PROPERTY</th><th>VALUE</th></tr></thead>
+            <tbody>
+              <tr><td class="prop">Material:</td><td>Fired clay brick, Grade A (ASTM C62)</td></tr>
+              <tr><td class="prop">Mortar:</td><td>Type S portland-lime</td></tr>
+              <tr><td class="prop">Wall thickness:</td><td>12 in. (double wythe)</td></tr>
+              <tr><td class="prop">Shear wall:</td><td>Full perimeter — all four walls</td></tr>
+              <tr><td class="prop">Roof system:</td><td>Timber rafter, ridge beam, collar ties</td></tr>
+              <tr><td class="prop">Roof load cap.:</td><td>40 psf dead + 20 psf live</td></tr>
+              <tr><td class="prop">Wind resistance:</td><td><span style="color:var(--green)">120 mph rated</span></td></tr>
+              <tr><td class="prop">Foundation:</td><td>Reinforced concrete pad, 18 in. depth</td></tr>
+              <tr><td class="prop">Occupants:</td><td>Pig Three (original); + Pigs One &amp; Two (displaced, Oct 3)</td></tr>
+              <tr><td class="prop">Completion:</td><td>September 28, 1951</td></tr>
+            </tbody>
+          </table>
+
+          <div class="annotation" style="border-left-color:var(--green); background:rgba(64,208,128,0.06); color:var(--green);">
+            <span class="ann-label" style="color:rgba(64,208,128,0.7);">FIELD NOTE — REV 1 — A. STONE P.E. — OCT 12, 1951</span>
+            ✓ Structure withstood full wind loading event of Oct 3, 1951 with NO DAMAGE OBSERVED.
+            On-site inspection confirmed: no cracking, no displacement, no mortar failure.
+            All three occupants (Pigs One, Two, and Three) sheltered safely inside throughout
+            the event. Applied load (47 mph sustained) is well within the 120 mph design rating.<br><br>
+            This structure is the model for future residential construction in this district.
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="verdict pass" style="position:absolute; bottom:120px; left:28px;">STRUCTURE: HOLDS</div>
+
+    </div><!-- /.sheet-inner -->
+
+    <div class="sheet-badge">DRAWING NO. UNIT3-FP-01 &nbsp;|&nbsp; STONE &amp; ASSOCIATES STRUCTURAL ENGINEERING &nbsp;|&nbsp; PROJECT 51-0847</div>
+    <div class="title-block">
+      <table>
+        <tr>
+          <td colspan="2">
+            <span class="label">PROJECT</span>
+            <span class="project-name">Meadow Plains Residential Development<br>Unit 3 — Fired Clay Brick Construction</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="label">DRAWN BY</span><span class="val">A. Stone P.E.</span></td>
+          <td><span class="label">DATE</span><span class="val">Oct 12, 1951</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SCALE</span><span class="val">1:48</span></td>
+          <td><span class="label">REVISION</span><span class="val">1</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SHEET</span><span class="val" style="color:var(--amber); font-size:13px;">S-004</span></td>
+          <td><span class="label">OF</span><span class="val" style="font-size:13px;">6</span></td>
+        </tr>
+        <tr>
+          <td colspan="2"><span class="label">FIRM</span><span class="firm">Stone &amp; Associates Structural Eng.</span></td>
+        </tr>
+      </table>
+    </div>
+  </div><!-- /#sheet-4 -->
+
+
+  <!-- ══════════════════════════════════════════════
+       SHEET 5: COMPARATIVE STRUCTURAL ANALYSIS
+       ══════════════════════════════════════════════ -->
+  <div class="sheet" id="sheet-5">
+    <div class="sheet-inner">
+
+      <div class="sheet-title">COMPARATIVE STRUCTURAL ANALYSIS — ALL UNITS</div>
+      <div class="sheet-subtitle">WIND RESISTANCE CAPACITY vs. APPLIED LOAD &nbsp;|&nbsp; ENGINEER'S OPINION OF RECORD</div>
+
+      <div class="two-col mt12">
+        <div class="col">
+
+          <div class="section-label">Unit Comparison Matrix</div>
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>PARAMETER</th>
+                <th>UNIT 1 — STRAW</th>
+                <th>UNIT 2 — STICKS</th>
+                <th>UNIT 3 — BRICK</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="prop">Material</td>
+                <td>Unbound straw bale</td>
+                <td>Ungraded timber stick</td>
+                <td>Grade A fired brick</td>
+              </tr>
+              <tr>
+                <td class="prop">Foundation</td>
+                <td class="fail-cell">Compacted soil</td>
+                <td class="fail-cell">Shallow post holes</td>
+                <td class="pass-cell">Reinf. concrete pad</td>
+              </tr>
+              <tr>
+                <td class="prop">Shear wall</td>
+                <td class="fail-cell">None</td>
+                <td class="fail-cell">None</td>
+                <td class="pass-cell">Full perimeter</td>
+              </tr>
+              <tr>
+                <td class="prop">Wall thickness</td>
+                <td>~3 in.</td>
+                <td>2–4 in. (var.)</td>
+                <td class="pass-cell">12 in. solid</td>
+              </tr>
+              <tr>
+                <td class="prop">Wind rating</td>
+                <td class="fail-cell">NONE</td>
+                <td class="fail-cell">~20–30 mph</td>
+                <td class="pass-cell">120 mph rated</td>
+              </tr>
+              <tr>
+                <td class="prop">Applied load</td>
+                <td class="fail-cell">47 mph (FAIL)</td>
+                <td class="fail-cell">47 mph (FAIL)</td>
+                <td class="pass-cell">47 mph (PASS)</td>
+              </tr>
+              <tr>
+                <td class="prop">Outcome</td>
+                <td class="fail-cell"><strong>COLLAPSED</strong></td>
+                <td class="fail-cell"><strong>COLLAPSED</strong></td>
+                <td class="pass-cell"><strong>STANDING</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-label mt12">Wind Resistance Capacity — Bar Chart</div>
+          <div style="font-size:9px; color:rgba(208,238,255,0.5); margin-bottom:6px; letter-spacing:0.06em;">
+            MAX WIND CAPACITY (mph) — APPLIED LOAD LINE = 47 mph
+          </div>
+          <!-- Bar chart -->
+          <div class="bar-chart">
+            <!-- Applied load dashed line at 47/120 = 39.2% from top -->
+            <!-- chart height 100px; 47mph = 47/130 * 100 = 36.2px from bottom -->
+            <div class="load-line" style="bottom: 36px;">
+              <span class="load-label">← APPLIED LOAD: 47 MPH</span>
+            </div>
+
+            <div class="bar-col">
+              <!-- straw: ~0 mph capacity — show 2px stub -->
+              <div class="bar" style="height:3px; background:var(--red); margin:0 auto; max-width:44px;"></div>
+              <div class="bar-label" style="color:var(--red);">UNIT 1<br>STRAW<br>&lt;1 mph</div>
+            </div>
+            <div class="bar-col">
+              <!-- sticks: ~25 mph = 25/130 * 100 = 19px -->
+              <div class="bar" style="height:19px; background:var(--red); margin:0 auto; max-width:44px;"></div>
+              <div class="bar-label" style="color:var(--red);">UNIT 2<br>STICKS<br>~25 mph</div>
+            </div>
+            <div class="bar-col">
+              <!-- brick: 120 mph = 120/130 * 100 = 92px -->
+              <div class="bar" style="height:92px; background:var(--green); margin:0 auto; max-width:44px;"></div>
+              <div class="bar-label" style="color:var(--green);">UNIT 3<br>BRICK<br>120 mph</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col">
+
+          <div class="section-label">Applied Load Diagram</div>
+          <div style="border:1px solid rgba(208,238,255,0.2); padding:10px; margin-bottom:12px; font-size:10px; background:rgba(0,30,70,0.3);">
+            <div style="color:var(--amber); font-size:9px; letter-spacing:0.1em; margin-bottom:6px;">LOAD CASE: LATERAL WIND — LARGE CARNIVORE RESPIRATORY EVENT</div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <!-- wolf icon suggestion via text -->
+              <div style="font-size:22px; line-height:1;">🐺</div>
+              <div>
+                <div style="font-size:16px; color:var(--red); letter-spacing:0.06em;">→→→ 47 MPH</div>
+                <div style="font-size:8px; color:rgba(208,238,255,0.5); letter-spacing:0.06em;">SUSTAINED LATERAL FORCE</div>
+              </div>
+            </div>
+            <div style="border-top:1px solid rgba(208,238,255,0.15); padding-top:6px; margin-top:4px;">
+              <div style="color:rgba(208,238,255,0.5); font-size:8px; letter-spacing:0.06em;">SOURCE: Field measurement, Oct 3 1951 event</div>
+              <div style="color:rgba(208,238,255,0.5); font-size:8px; letter-spacing:0.06em;">LOAD TYPE: Short-duration, high-intensity respiratory</div>
+              <div style="color:rgba(208,238,255,0.5); font-size:8px; letter-spacing:0.06em;">DURATION: Approx. 4 hours, intermittent</div>
+            </div>
+          </div>
+
+          <div class="section-label">Engineer's Opinion</div>
+          <p class="body-text" style="margin-bottom:10px;">
+            It is the professional opinion of this office that Straw and Stick construction
+            is wholly inadequate for residential use in any district with known large-carnivore
+            respiratory hazard classifications. Neither Unit 1 nor Unit 2 met minimum structural
+            requirements for the applied load conditions, and their failure was entirely predictable
+            from first principles.
+          </p>
+          <p class="body-text" style="margin-bottom:10px;">
+            Unit 3, constructed to a substantially higher specification by Pig Three, performed
+            exactly as a properly engineered masonry structure should. Its survival under the
+            October 3 event is unremarkable from an engineering standpoint — it was built correctly.
+          </p>
+          <p class="body-text">
+            Brick construction per Sheet 4 specifications is hereby recommended as the minimum
+            acceptable standard for all future residential construction in the Meadow Plains district
+            and surrounding areas within the known wolf respiratory range.
+          </p>
+
+
+        </div>
+      </div>
+
+      <div class="verdict approved" style="position:absolute; bottom:120px; left:28px; font-size:14px;">APPROVED — A. Stone P.E.</div>
+
+    </div><!-- /.sheet-inner -->
+
+    <div class="sheet-badge">DRAWING NO. COMP-01 &nbsp;|&nbsp; STONE &amp; ASSOCIATES STRUCTURAL ENGINEERING &nbsp;|&nbsp; PROJECT 51-0847</div>
+    <div class="title-block">
+      <table>
+        <tr>
+          <td colspan="2">
+            <span class="label">PROJECT</span>
+            <span class="project-name">Meadow Plains Residential Development<br>Comparative Structural Analysis</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="label">DRAWN BY</span><span class="val">A. Stone P.E.</span></td>
+          <td><span class="label">DATE</span><span class="val">Oct 12, 1951</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SCALE</span><span class="val">N.T.S.</span></td>
+          <td><span class="label">REVISION</span><span class="val">1</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SHEET</span><span class="val" style="color:var(--amber); font-size:13px;">S-005</span></td>
+          <td><span class="label">OF</span><span class="val" style="font-size:13px;">6</span></td>
+        </tr>
+        <tr>
+          <td colspan="2"><span class="label">FIRM</span><span class="firm">Stone &amp; Associates Structural Eng.</span></td>
+        </tr>
+      </table>
+    </div>
+  </div><!-- /#sheet-5 -->
+
+
+  <!-- ══════════════════════════════════════════════
+       SHEET 6: SITE PLAN & LESSONS LEARNED
+       ══════════════════════════════════════════════ -->
+  <div class="sheet" id="sheet-6">
+    <div class="sheet-inner">
+
+      <div class="sheet-title">SITE PLAN &amp; LESSONS LEARNED — MEADOW PLAINS DISTRICT</div>
+      <div class="sheet-subtitle">FINAL REPORT — SUBMITTED AS EVIDENCE, CASE NO. 51-CRIM-0847</div>
+
+      <div class="two-col mt12">
+        <div class="col">
+
+          <div class="section-label">Site Plan — Scale 1:480</div>
+          <!-- Site plan: three houses positioned in meadow -->
+          <div class="site-plan">
+            <!-- Road running horizontally -->
+            <div class="road" style="top:50%; left:0; right:0; height:22px; transform:translateY(-50%);"></div>
+            <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:8px; color:rgba(208,238,255,0.25); letter-spacing:0.1em;">MEADOW PLAINS RD.</div>
+
+            <!-- Unit 1 - straw - top left area -->
+            <div class="site-house failed-house" style="width:42px; height:34px; top:18px; left:60px;">
+              <span>UNIT 1<br>STRAW<br>⚠ FAIL</span>
+            </div>
+
+            <!-- Unit 2 - sticks - top center -->
+            <div class="site-house failed-house" style="width:48px; height:38px; top:14px; left:240px;">
+              <span>UNIT 2<br>STICKS<br>⚠ FAIL</span>
+            </div>
+
+            <!-- Unit 3 - brick - right side, below road -->
+            <div class="site-house standing-house" style="width:58px; height:46px; bottom:20px; right:60px;">
+              <span>UNIT 3<br>BRICK<br>✓ HOLDS</span>
+            </div>
+
+            <!-- Distance indicators -->
+            <div class="distance-line" style="top:38px; left:102px; width:138px;"></div>
+            <div class="dist-label" style="top:28px; left:145px;">← 138 ft →</div>
+
+            <!-- North arrow -->
+            <div class="north-arrow">
+              ↑<br><span style="font-size:9px;">N</span>
+            </div>
+
+            <!-- Legend -->
+            <div style="position:absolute; bottom:6px; left:8px; font-size:8px; color:rgba(208,238,255,0.4); letter-spacing:0.06em;">
+              <span style="color:var(--red);">■</span> FAILED &nbsp;
+              <span style="color:var(--green);">■</span> STANDING
+            </div>
+          </div>
+
+          <div class="section-label mt12">Formal Recommendations</div>
+          <table class="struct-notes" style="font-size:9.5px;">
+            <thead><tr><th>#</th><th>RECOMMENDATION</th></tr></thead>
+            <tbody>
+              <tr><td class="prop" style="width:24px;">R-01</td><td>All new residential construction shall use minimum Grade A fired brick or equivalent engineered masonry.</td></tr>
+              <tr><td class="prop">R-02</td><td>Reinforced concrete pad foundations (min. 18 in. depth) required in all large-carnivore respiratory hazard zones.</td></tr>
+              <tr><td class="prop">R-03</td><td>Full perimeter shear wall required. No exemptions for single-occupancy dwellings.</td></tr>
+              <tr><td class="prop">R-04</td><td>All structures must be rated for minimum 80 mph wind uplift. Wolf respiratory events shall be classified as a design load condition.</td></tr>
+              <tr><td class="prop">R-05</td><td>Straw and ungraded timber prohibited as primary structural materials in this jurisdiction effective immediately.</td></tr>
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class="col">
+
+          <div class="section-label">Lessons Learned</div>
+          <p class="body-text mb12">
+            The Meadow Plains wind-loading event of October 3, 1951 provides a clear and
+            unambiguous case study in the consequences of under-engineered residential construction.
+            Three structures were subjected to identical load conditions. Two failed. One did not.
+            The outcome was entirely determined by the quality of construction prior to the event —
+            not by luck, not by circumstance.
+          </p>
+          <p class="body-text mb12">
+            The occupant of Unit 3 (Pig Three) made a rational engineering decision: use the
+            best available material, build a proper foundation, and do not cut corners. That
+            decision, made weeks before the threat materialized, is the reason all three pigs
+            are alive today.
+          </p>
+          <p class="body-text mb12">
+            The occupants of Units 1 and 2 made different decisions — prioritizing speed and
+            convenience over structural integrity. Those decisions were corrected only by the
+            fortunate circumstance that Unit 3 was available as a refuge. In another scenario,
+            that refuge would not have existed.
+          </p>
+
+          <hr class="rule">
+
+          <div class="annotation">
+            <span class="ann-label">FINAL NOTE — A. STONE P.E.</span>
+            All three pigs are safe. The brick house stands. This report and all supporting
+            documentation are hereby submitted as evidence in Case No. 51-CRIM-0847
+            (The District v. B. Wolf, Re: Destruction of Property × 2, Criminal Huffing with
+            Intent, Menacing). The structural evidence is unambiguous.<br><br>
+            The wolf blew. The bricks held. Case closed.
+          </div>
+
+          <div class="mt12">
+            <div style="font-size:9px; color:rgba(208,238,255,0.45); line-height:1.6; letter-spacing:0.06em; padding-top:4px;">
+              REV 1 COMPLETE<br>
+              DATE: OCT 12, 1951<br>
+              ALL SHEETS ISSUED<br>
+              FILE: PROJECT 51-0847<br>
+              STATUS: CLOSED
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="verdict approved" style="position:absolute; bottom:120px; left:28px; font-size:12px; transform:rotate(3deg);">FINAL SIGN-OFF<br>A. Stone P.E.</div>
+
+    </div><!-- /.sheet-inner -->
+
+    <div class="sheet-badge">DRAWING NO. SITE-01 &nbsp;|&nbsp; STONE &amp; ASSOCIATES STRUCTURAL ENGINEERING &nbsp;|&nbsp; PROJECT 51-0847</div>
+    <div class="title-block">
+      <table>
+        <tr>
+          <td colspan="2">
+            <span class="label">PROJECT</span>
+            <span class="project-name">Meadow Plains Residential Development<br>Site Plan &amp; Lessons Learned</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="label">DRAWN BY</span><span class="val">A. Stone P.E.</span></td>
+          <td><span class="label">DATE</span><span class="val">Oct 12, 1951</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SCALE</span><span class="val">1:480 / N.T.S.</span></td>
+          <td><span class="label">REVISION</span><span class="val">1</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">SHEET</span><span class="val" style="color:var(--amber); font-size:13px;">S-006</span></td>
+          <td><span class="label">OF</span><span class="val" style="font-size:13px;">6</span></td>
+        </tr>
+        <tr>
+          <td colspan="2"><span class="label">FIRM</span><span class="firm">Stone &amp; Associates Structural Eng.</span></td>
+        </tr>
+      </table>
+    </div>
+  </div><!-- /#sheet-6 -->
+
+</div><!-- /.stage -->
+
+<!-- NAVIGATION -->
+<div class="nav-bar">
+  <button class="nav-btn" id="btn-prev" disabled>[&#9664; PREV SHEET]</button>
+  <span class="nav-counter" id="nav-counter">SHEET 1 OF 6</span>
+  <button class="nav-btn" id="btn-next">[NEXT SHEET &#9654;]</button>
+</div>
+
+<script>
+  (function () {
+    const TOTAL = 6;
+    let current = 1;
+
+    const sheets  = Array.from({ length: TOTAL }, (_, i) => document.getElementById('sheet-' + (i + 1)));
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const counter = document.getElementById('nav-counter');
+
+    function show(n) {
+      sheets.forEach((s, i) => s.classList.toggle('active', i + 1 === n));
+      counter.textContent = 'SHEET ' + n + ' OF ' + TOTAL;
+      btnPrev.disabled = (n === 1);
+      btnNext.disabled = (n === TOTAL);
+      // Scroll sheet to top on change
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    btnPrev.addEventListener('click', function () {
+      if (current > 1) { current--; show(current); }
+    });
+
+    btnNext.addEventListener('click', function () {
+      if (current < TOTAL) { current++; show(current); }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        if (current < TOTAL) { current++; show(current); }
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        if (current > 1) { current--; show(current); }
+      }
+    });
+
+    show(1);
+  }());
+</script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080">
+  <defs>
+    <!-- Cool, ominous, purple-dark base -->
+    <radialGradient id="bg5-base" cx="50%" cy="42%" r="65%">
+      <stop offset="0%"   stop-color="#100e14"/>
+      <stop offset="52%"  stop-color="#0c0b10"/>
+      <stop offset="100%" stop-color="#08080f"/>
+    </radialGradient>
+    <!-- Cold blue-violet edge -->
+    <radialGradient id="bg5-edge" cx="50%" cy="50%" r="60%">
+      <stop offset="40%" stop-color="#0c0b10" stop-opacity="0"/>
+      <stop offset="80%" stop-color="#0c0a1a" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#080815" stop-opacity="0.8"/>
+    </radialGradient>
+    <!-- Top darkening — storm overhead -->
+    <linearGradient id="bg5-top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#050508" stop-opacity="0.7"/>
+      <stop offset="25%" stop-color="#0c0b10" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Driving rain — very high vertical frequency, low horizontal -->
+    <filter id="bg5-rain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="turbulence" baseFrequency="0.012 0.28" numOctaves="2" seed="5" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <!-- Secondary heavier downpour layer — slightly different angle feel -->
+    <filter id="bg5-rain2" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="turbulence" baseFrequency="0.008 0.35" numOctaves="1" seed="14" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <filter id="bg5-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.63" numOctaves="3" seed="19" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg5-base)"/>
+  <rect width="1920" height="1080" fill="url(#bg5-edge)"/>
+  <rect width="1920" height="1080" fill="url(#bg5-top)"/>
+  <!-- Driving rain streaks -->
+  <rect width="1920" height="1080" fill="white" opacity="0.07" filter="url(#bg5-rain)"/>
+  <rect width="1920" height="1080" fill="white" opacity="0.045" filter="url(#bg5-rain2)"/>
+  <!-- Film grain -->
+  <rect width="1920" height="1080" fill="white" opacity="0.055" filter="url(#bg5-grain)"/>
+</svg>

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visit the Northern Plains — Northern Plains Tourism Board</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #fdf8ed;
+    --cream-dark: #f5ead6;
+    --turquoise: #0b9dbd;
+    --turquoise-dark: #087a93;
+    --gold: #f2a600;
+    --coral: #d94f37;
+    --coral-dark: #b03828;
+    --green: #2e7d32;
+    --brown: #5c3d1e;
+    --ink: #1a1008;
+    --ink-light: #3d2b10;
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: #8b7355;
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+  }
+
+  /* ===== OUTER STAGE ===== */
+  .stage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    position: relative;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(0,0,0,0.04) 10px,
+        rgba(0,0,0,0.04) 11px
+      ),
+      #7a6245;
+  }
+
+  /* ===== BROCHURE PANEL ===== */
+  .panel {
+    display: none;
+    width: 100%;
+    max-width: 720px;
+    max-height: calc(100vh - 100px);
+    background: var(--cream);
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.4), 12px 12px 0 rgba(0,0,0,0.15);
+    overflow-y: auto;
+    position: relative;
+    flex-direction: column;
+  }
+
+  .panel.active {
+    display: flex;
+  }
+
+  /* Aged paper texture overlay */
+  .panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 28px,
+        rgba(150,100,30,0.04) 28px,
+        rgba(150,100,30,0.04) 29px
+      );
+    z-index: 1;
+  }
+
+  .panel-inner {
+    padding: 28px 32px 24px;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+  }
+
+  /* ===== DOTTED BORDER FRAME ===== */
+  .dotted-frame {
+    border: 3px dotted var(--turquoise);
+    padding: 6px;
+  }
+  .dotted-frame-inner {
+    border: 1.5px solid var(--turquoise);
+    padding: 16px;
+  }
+
+  /* ===== PANEL HEADER BANDS ===== */
+  .header-band {
+    background: var(--turquoise);
+    color: #fff;
+    text-align: center;
+    padding: 8px 16px 6px;
+    letter-spacing: 0.15em;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .header-band.gold { background: var(--gold); color: var(--ink); }
+  .header-band.coral { background: var(--coral); color: #fff; }
+  .header-band.green { background: var(--green); color: #fff; }
+
+  /* ===== TYPOGRAPHY ===== */
+  .panel-title {
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--turquoise);
+  }
+
+  .panel-title.lg { font-size: clamp(2rem, 6vw, 3.2rem); }
+  .panel-title.md { font-size: clamp(1.5rem, 4vw, 2.2rem); }
+  .panel-title.sm { font-size: clamp(1.1rem, 3vw, 1.6rem); }
+  .panel-title.coral { color: var(--coral); }
+  .panel-title.gold  { color: var(--gold); }
+  .panel-title.green { color: var(--green); }
+  .panel-title.ink   { color: var(--ink); }
+
+  .subtitle {
+    text-align: center;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: clamp(0.9rem, 2vw, 1.15rem);
+    color: var(--ink-light);
+    margin-top: 4px;
+  }
+
+  .body-text {
+    font-family: Georgia, serif;
+    font-size: clamp(0.78rem, 1.8vw, 0.92rem);
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  /* ===== PHOTO PLACEHOLDER BOX ===== */
+  .photo-box {
+    background: var(--turquoise);
+    border: 2px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 14px 10px;
+    margin: 12px 0;
+    min-height: 90px;
+    position: relative;
+  }
+
+  .photo-box::before, .photo-box::after {
+    content: '';
+    position: absolute;
+    border: 1px dashed rgba(255,255,255,0.5);
+    inset: 4px;
+    pointer-events: none;
+  }
+  .photo-box::after {
+    inset: 7px;
+  }
+
+  .photo-box-label {
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 1.4;
+  }
+
+  .photo-box.gold-bg { background: var(--gold); }
+  .photo-box.gold-bg .photo-box-label { color: var(--ink); }
+  .photo-box.coral-bg { background: var(--coral); }
+  .photo-box.green-bg { background: var(--green); }
+  .photo-box.cream-bg { background: var(--cream-dark); border: 2px dashed var(--ink); }
+  .photo-box.cream-bg .photo-box-label { color: var(--ink); }
+
+  /* Crossed-out photo box */
+  .photo-box.crossed {
+    background: #ccc;
+    position: relative;
+    overflow: hidden;
+  }
+  .photo-box.crossed .photo-box-label { color: #555; }
+  .photo-box.crossed::before, .photo-box.crossed::after {
+    border-color: transparent;
+  }
+  .cross-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--coral);
+    transform: rotate(-8deg);
+    border-radius: 2px;
+  }
+  .cross-line-2 {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--coral);
+    transform: rotate(8deg);
+    border-radius: 2px;
+  }
+
+  /* ===== SIDEBAR BOX ===== */
+  .sidebar-box {
+    background: var(--gold);
+    border: 2px solid var(--ink);
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 0.78rem;
+  }
+  .sidebar-box.coral-bg { background: var(--coral); color: #fff; }
+  .sidebar-box.green-bg { background: var(--green); color: #fff; }
+  .sidebar-box.cream-bg { background: var(--cream-dark); }
+  .sidebar-box.turquoise-bg { background: var(--turquoise); color: #fff; }
+
+  .sidebar-box-title {
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  /* ===== STARBURST BADGE ===== */
+  .badge-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  .starburst {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 90px;
+    height: 90px;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.52rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.3;
+    padding: 14px;
+    border-radius: 50%;
+    position: relative;
+    clip-path: polygon(
+      50% 0%, 61% 15%, 79% 9%, 78% 28%,
+      97% 32%, 87% 48%, 97% 63%, 79% 67%,
+      82% 86%, 64% 82%, 55% 98%, 43% 84%,
+      25% 91%, 27% 72%, 8% 68%, 19% 52%,
+      5% 37%, 24% 34%, 22% 15%, 40% 21%
+    );
+  }
+  .starburst.sm {
+    width: 70px;
+    height: 70px;
+    font-size: 0.45rem;
+  }
+  .starburst.coral-bg { background: var(--coral); color: #fff; }
+  .starburst.green-bg { background: var(--green); color: #fff; }
+  .starburst.turquoise-bg { background: var(--turquoise); color: #fff; }
+
+  /* ===== DECORATIVE DIVIDERS ===== */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+    color: var(--turquoise);
+    font-size: 0.7rem;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1.5px;
+    background: var(--turquoise);
+  }
+  .divider-deco {
+    letter-spacing: 0.1em;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  .divider.coral .divider-line { background: var(--coral); }
+  .divider.coral .divider-deco { color: var(--coral); }
+  .divider.gold .divider-line { background: var(--gold); }
+  .divider.gold .divider-deco { color: var(--gold); }
+  .divider.ink .divider-line { background: var(--ink); }
+  .divider.ink .divider-deco { color: var(--ink); }
+
+  /* ===== ATTRACTIONS LIST ===== */
+  .attractions {
+    list-style: none;
+    text-align: center;
+    padding: 8px 0;
+  }
+  .attractions li {
+    font-family: Georgia, serif;
+    font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+    padding: 3px 0;
+    color: var(--ink);
+  }
+
+  /* ===== FOLD LINE ===== */
+  .fold-line {
+    position: relative;
+    border: none;
+    border-top: 3px dashed var(--ink);
+    margin: 16px -32px;
+    overflow: visible;
+  }
+  .fold-stamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--coral);
+    color: #fff;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border: 2px solid var(--ink);
+    white-space: nowrap;
+    transform: translate(-50%, -50%) rotate(-2deg);
+  }
+
+  /* ===== FINE PRINT ===== */
+  .fine-print {
+    font-family: Georgia, serif;
+    font-size: 0.62rem;
+    font-style: italic;
+    color: var(--ink-light);
+    line-height: 1.4;
+    margin-top: 8px;
+  }
+
+  /* ===== ADVISORY BANNER ===== */
+  .advisory-banner {
+    background: var(--coral);
+    color: #fff;
+    text-align: center;
+    padding: 8px 12px;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(0.72rem, 2vw, 0.9rem);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 3px solid var(--ink);
+    margin-bottom: 14px;
+  }
+
+  /* ===== INFO BLOCK ===== */
+  .info-block {
+    text-align: center;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--turquoise);
+    padding: 6px 0;
+    border-top: 1.5px solid var(--turquoise);
+    border-bottom: 1.5px solid var(--turquoise);
+    margin: 10px 0;
+  }
+
+  /* ===== TWO-COLUMN LAYOUT ===== */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 10px 0;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  /* ===== PORTRAIT BOX ===== */
+  .portrait-box {
+    background: var(--cream-dark);
+    border: 2px solid var(--ink);
+    text-align: center;
+    padding: 10px 8px 8px;
+  }
+  .portrait-face {
+    width: 52px;
+    height: 52px;
+    background: var(--turquoise);
+    border-radius: 50%;
+    margin: 0 auto 6px;
+    border: 2px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+  }
+  .portrait-name {
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+  .portrait-role {
+    font-family: Georgia, serif;
+    font-size: 0.6rem;
+    font-style: italic;
+    color: var(--ink-light);
+    line-height: 1.3;
+  }
+
+  /* ===== TOURISM BOARD LOGO ===== */
+  .tb-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--turquoise);
+    border: 3px solid var(--ink);
+    color: #fff;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-align: center;
+    line-height: 1.1;
+  }
+
+  /* ===== STAMP ===== */
+  .stamp {
+    display: inline-block;
+    border: 3px solid var(--coral);
+    color: var(--coral);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    transform: rotate(-5deg);
+    opacity: 0.85;
+  }
+
+  /* ===== DIRECTIONS BOX ===== */
+  .directions-box {
+    background: var(--cream-dark);
+    border: 2px solid var(--brown);
+    padding: 10px 14px;
+    margin: 10px 0;
+  }
+
+  /* ===== SPACERS ===== */
+  .mt-4 { margin-top: 4px; }
+  .mt-8 { margin-top: 8px; }
+  .mt-12 { margin-top: 12px; }
+  .mt-16 { margin-top: 16px; }
+  .mb-4 { margin-bottom: 4px; }
+  .mb-8 { margin-bottom: 8px; }
+  .mb-12 { margin-bottom: 12px; }
+  .center { text-align: center; }
+  .bold { font-weight: bold; }
+
+  /* ===== NAVIGATION ===== */
+  .nav-bar {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+
+  .nav-btn {
+    background: var(--turquoise);
+    color: #fff;
+    border: 2.5px solid var(--ink);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.35);
+  }
+
+  .nav-btn:hover:not(:disabled) {
+    background: var(--turquoise-dark);
+    transform: translateY(-1px);
+  }
+
+  .nav-btn:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.35);
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .nav-btn.coral-btn {
+    background: var(--coral);
+  }
+  .nav-btn.coral-btn:hover:not(:disabled) {
+    background: var(--coral-dark);
+  }
+
+  .nav-counter {
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* ===== GALLERY LINK ===== */
+  .gallery-link {
+    position: fixed;
+    top: 10px;
+    left: 14px;
+    z-index: 100;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    background: rgba(0,0,0,0.45);
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .gallery-link:hover {
+    background: rgba(0,0,0,0.65);
+  }
+
+  /* ===== SCROLLBAR styling ===== */
+  .panel::-webkit-scrollbar { width: 6px; }
+  .panel::-webkit-scrollbar-track { background: var(--cream-dark); }
+  .panel::-webkit-scrollbar-thumb { background: var(--turquoise); border-radius: 3px; }
+
+  /* ===== PANEL-SPECIFIC OVERRIDES ===== */
+
+  /* Panel 1: Cover */
+  #p1 .panel-inner { padding-top: 22px; }
+
+  /* Panel 3: Advisory – red accent throughout */
+  #p3 .panel-inner { border-top: 6px solid var(--coral); }
+
+  /* Panel 5: Gold hero */
+  #p5 .panel-inner { border-top: 6px solid var(--gold); }
+
+  /* Wolf sighting box */
+  .wolf-sighting {
+    border: 2px solid var(--coral);
+    background: rgba(217, 79, 55, 0.07);
+    padding: 10px 14px;
+    margin: 10px 0;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 500px) {
+    .panel-inner { padding: 18px 16px 16px; }
+    .two-col { grid-template-columns: 1fr; }
+    .three-col { grid-template-columns: 1fr; }
+    .fold-line { margin: 14px -16px; }
+  }
+</style>
+</head>
+<body>
+
+<a class="gallery-link" href="../">&#8592; Gallery</a>
+
+<div class="stage" id="stage">
+
+  <!-- ========== PANEL 1: COVER ========== -->
+  <article class="panel active" id="p1" aria-label="Panel 1 of 6">
+    <div class="header-band">Northern Plains Tourism Board &mdash; Official Travel Guide &mdash; 1951</div>
+    <div class="panel-inner">
+      <div class="dotted-frame">
+        <div class="dotted-frame-inner">
+
+          <div class="badge-wrap">
+            <div class="starburst sm turquoise-bg" style="width:80px;height:80px;font-size:0.48rem;">
+              FEATURED<br>IN MEADOW<br>MONTHLY<br>&middot; 1951 &middot;
+            </div>
+          </div>
+
+          <p class="panel-title lg" style="margin-top:2px;">Visit the<br>Northern Plains!</p>
+          <p class="subtitle">Where Three Brothers Are Building the Future!</p>
+
+          <div class="photo-box" style="min-height:110px; margin-top:14px;">
+            <p class="photo-box-label">
+              Aerial View of Meadow<br>
+              &mdash; Photograph by M. Lark &mdash;<br>
+              <em style="font-style:italic;font-weight:400;font-size:0.9em;">Spring, 1951</em>
+            </p>
+          </div>
+
+          <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-deco">✦ Attractions ✦</span>
+            <div class="divider-line"></div>
+          </div>
+
+          <ul class="attractions">
+            <li>✦ &nbsp;Three Unique Residential Experiences</li>
+            <li>✦ &nbsp;Fresh Meadow Air &amp; Scenic Countryside</li>
+            <li>✦ &nbsp;Friendly, Industrious Locals</li>
+            <li>✦ &nbsp;Complimentary Pastoral Ambiance</li>
+            <li>✦ &nbsp;No Wolves <em>(At Time Of Printing)</em></li>
+          </ul>
+
+          <div class="divider" style="margin-top:10px;">
+            <div class="divider-line"></div>
+            <span class="divider-deco">✦</span>
+            <div class="divider-line"></div>
+          </div>
+
+          <p class="body-text center mt-8" style="font-style:italic; font-size:0.8rem;">
+            "A destination for the discerning traveler who enjoys open skies,<br>
+            hearty architecture, and a good story." &mdash; <em>Meadow Monthly</em>
+          </p>
+
+          <div class="fine-print center mt-8">
+            Northern Plains Tourism Board &middot; Est. 1903 &middot; Printed October 1951
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ========== PANEL 2: STOP 1 – STRAW COTTAGE ========== -->
+  <article class="panel" id="p2" aria-label="Panel 2 of 6">
+    <div class="header-band gold">Stop 1 of 3 &mdash; Official Attraction Guide</div>
+    <div class="panel-inner">
+
+      <p class="panel-title md gold" style="margin-bottom:4px;">A Charming Straw Escape!</p>
+      <div class="divider gold">
+        <div class="divider-line"></div>
+        <span class="divider-deco">Pig One&rsquo;s Straw Cottage</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="photo-box gold-bg" style="min-height:95px;">
+        <p class="photo-box-label">
+          Exterior View &mdash; Straw Cottage<br>
+          Meadow Road, Northern Plains<br>
+          <em style="font-weight:400;">Est. One Day, Early September</em>
+        </p>
+      </div>
+
+      <p class="body-text mt-12">
+        Built in just <strong>one day</strong> by the industrious Pig One, this rustic straw retreat offers an authentic pastoral experience unlike anything found in the modern city. Light, airy, and proudly eco-conscious! Every wall breathes with character. Every room hums with the gentle rustle of nature.
+      </p>
+      <p class="body-text mt-8">
+        Perfect for the traveler who appreciates speed, efficiency, and an open relationship with the outdoors.
+      </p>
+
+      <div class="two-col mt-12">
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Visitor Rating</div>
+          &#9733;&#9733;&#9733;&#9733;&#9734;<br>
+          <em style="font-size:0.74rem;">"Very breezy! Loved the ventilation."</em><br>
+          <span style="font-size:0.66rem;">&mdash; Anonymous Visitor, Oct. 1951</span>
+        </div>
+        <div class="sidebar-box cream-bg" style="border-color: var(--ink);">
+          <div class="sidebar-box-title" style="color:var(--turquoise);">Visitor Info</div>
+          <span style="font-size:0.76rem;">
+            Open Daily<br>
+            Admission: Free<br>
+            <em>Bring a jacket.</em>
+          </span>
+        </div>
+      </div>
+
+      <div class="info-block">
+        Straw Cottage &nbsp;&#183;&nbsp; Meadow Road &nbsp;&#183;&nbsp; Northern Plains &nbsp;&#183;&nbsp; Built Sept. 1951
+      </div>
+
+      <p class="fine-print">
+        * Structural integrity not guaranteed under adverse wind conditions. The Northern Plains Tourism Board makes no warranty, express or implied, regarding the load-bearing capacity of compressed grasses under respiratory duress.
+      </p>
+
+    </div>
+  </article>
+
+  <!-- ========== PANEL 3: ADVISORY – STRAW ========== -->
+  <article class="panel" id="p3" aria-label="Panel 3 of 6">
+    <div class="header-band coral">&#9888;&nbsp; Travel Advisory &mdash; Urgent Notice to Visitors &nbsp;&#9888;</div>
+    <div class="panel-inner">
+
+      <div class="advisory-banner">
+        &#9888;&nbsp; Stop 1 Temporarily Unavailable &nbsp;&#9888;
+      </div>
+
+      <p class="panel-title sm ink" style="margin-bottom:10px;">Notice to All Visitors</p>
+
+      <p class="body-text">
+        Due to an <strong>unforeseen meteorological event</strong> (see: wolf, large, bad), the Straw Cottage has been temporarily&hellip; <em>relocated</em>. We regret any inconvenience this may cause to visitors who had planned to experience the renowned Pig One rustic hospitality.
+      </p>
+
+      <p class="body-text mt-8">
+        The incident occurred on the evening of October 2nd. All details are still being gathered. The Northern Plains Tourism Board is cooperating fully with relevant authorities and also with the general concept of physics.
+      </p>
+
+      <div class="photo-box crossed" style="min-height:80px; margin-top:14px;">
+        <div class="cross-line"></div>
+        <div class="cross-line-2"></div>
+        <p class="photo-box-label">
+          [Exterior View &mdash; Straw Cottage]<br>
+          <em>Attraction Currently Unavailable</em>
+        </p>
+      </div>
+
+      <div class="sidebar-box green-bg mt-12">
+        <div class="sidebar-box-title" style="color:#c8e6c9;">&#127775; Silver Lining</div>
+        <p style="font-size:0.78rem; line-height:1.5;">
+          <strong>Good News:</strong> Pig One has joined his brother at Stop 2 — the Stick Lodge — which is now operating at <strong>double capacity</strong>. We are assured this is fine.
+        </p>
+      </div>
+
+      <div class="divider coral mt-12">
+        <div class="divider-line"></div>
+        <span class="divider-deco">Official Notice</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <p class="fine-print">
+        The Northern Plains Tourism Board is not responsible for property damage caused by wildlife respiratory events. Wolf-force winds are excluded from all standard coverage policies (see Clause 14-B: Acts of Carnivore). Pig One's straw was fully certified at time of construction. We stand by this.
+      </p>
+
+    </div>
+  </article>
+
+  <!-- ========== PANEL 4: STOP 2 + FATE ========== -->
+  <article class="panel" id="p4" aria-label="Panel 4 of 6">
+    <div class="header-band">Stop 2 of 3 &mdash; Feature Article</div>
+    <div class="panel-inner">
+
+      <!-- TOP HALF: promotion -->
+      <p class="panel-title md" style="margin-bottom:4px;">A Step Up From Straw!</p>
+      <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-deco">Pig Two&rsquo;s Stick Lodge</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="two-col" style="align-items:start; margin-top:10px;">
+        <div>
+          <div class="photo-box" style="min-height:80px; margin-top:0;">
+            <p class="photo-box-label">
+              Exterior View<br>
+              Stick Lodge<br>
+              Woodland Drive
+            </p>
+          </div>
+        </div>
+        <div>
+          <p class="body-text" style="font-size:0.8rem; margin-top:4px;">
+            Constructed from <strong>hand-gathered timber</strong> over the course of a productive afternoon, the Stick Lodge offers a natural woodland aesthetic at a fraction of the effort.
+          </p>
+          <p class="body-text mt-8" style="font-size:0.8rem;">
+            Features: rustic charm, open-beam ceilings, and two resident pigs (as of this printing).
+          </p>
+        </div>
+      </div>
+
+      <div class="sidebar-box" style="font-size:0.76rem; margin-top:8px;">
+        <div class="sidebar-box-title">Stick Lodge Highlights</div>
+        ✦ Hand-gathered timber &nbsp;&#183;&nbsp; ✦ Natural woodland aesthetic<br>
+        ✦ Sleeps two (or three, in a pinch) &nbsp;&#183;&nbsp; ✦ "Very stick-y!" &mdash; <em>Meadow Monthly</em>
+      </div>
+
+      <!-- FOLD LINE -->
+      <div class="fold-line">
+        <div class="fold-stamp">&#128227;&nbsp; Late Edition &mdash; Stop Press</div>
+      </div>
+
+      <!-- BOTTOM HALF: advisory -->
+      <div class="advisory-banner" style="margin-top:14px;">
+        &#9888;&nbsp; Stop 2 Also Temporarily Unavailable &nbsp;&#9888;
+      </div>
+
+      <p class="body-text">
+        Stop 2 has been affected by the <strong>same meteorological event</strong> that claimed Stop 1. A pattern is emerging. We are looking into it with great urgency and mild panic.
+      </p>
+
+      <div class="sidebar-box cream-bg mt-8" style="border-color:var(--coral);">
+        <div class="sidebar-box-title" style="color:var(--coral);">Current Status</div>
+        <p style="font-size:0.78rem; line-height:1.5;">
+          Pig One and Pig Two are now confirmed to be <em>en route</em> to their sibling&rsquo;s residence — the <strong>Brick House</strong> at Stop 3. We are cautiously optimistic.
+        </p>
+      </div>
+
+      <p class="fine-print mt-8">
+        The Board wishes to note that these incidents are statistically unusual and should not be taken as reflective of the region's general structural standards. We are a resilient community with a bright future. (Please see Stop 3.)
+      </p>
+
+    </div>
+  </article>
+
+  <!-- ========== PANEL 5: STOP 3 – BRICK HOUSE ========== -->
+  <article class="panel" id="p5" aria-label="Panel 5 of 6">
+    <div class="header-band green">Stop 3 of 3 &mdash; The Crown Jewel &mdash; Fully Operational</div>
+    <div class="panel-inner">
+
+      <div class="badge-wrap">
+        <div class="starburst gold" style="width:100px;height:100px;font-size:0.55rem;">
+          NOW AT<br>3&times; NORMAL<br>CAPACITY<br>&#9733; VERIFIED &#9733;
+        </div>
+      </div>
+
+      <p class="panel-title lg green" style="margin-top:4px; font-size:clamp(1.6rem,5vw,2.6rem);">The Crown Jewel<br>of the Northern Plains!</p>
+      <div class="divider green" style="margin-top:6px;">
+        <div class="divider-line"></div>
+        <span class="divider-deco">Pig Three&rsquo;s Brick Residence</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="photo-box green-bg mt-8" style="min-height:90px;">
+        <p class="photo-box-label">
+          Exterior View &mdash; Brick Residence<br>
+          Fully Intact &nbsp;&#183;&nbsp; All Walls Present<br>
+          <em style="font-weight:400;">Photograph: Oct. 4th, 1951</em>
+        </p>
+      </div>
+
+      <p class="body-text mt-12">
+        Constructed over <strong>several weeks</strong> by the meticulous Pig Three &mdash; Licensed Structural Engineer &mdash; this Grade-A brick residence has proven impervious to all known weather conditions, including wolf-related incidents. <strong>Spacious. Sturdy. Safe.</strong>
+      </p>
+
+      <div class="wolf-sighting mt-12">
+        <div class="sidebar-box-title" style="color:var(--coral); font-family:'Arial Black',Arial,sans-serif; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:5px;">&#128062; Wolf Sighting Report &mdash; Oct. 3rd</div>
+        <p class="body-text" style="font-size:0.8rem;">
+          On the evening of October 3rd, a large wolf was observed applying considerable respiratory force to the exterior of the Brick Residence. The structure was <strong>unaffected</strong>. The wolf was not. He was last seen retreating north at speed.
+        </p>
+      </div>
+
+      <div class="sidebar-box turquoise-bg mt-8">
+        <div class="sidebar-box-title" style="color:#e0f7fa;">&#10003;&nbsp; Area Security Status</div>
+        <p style="font-size:0.78rem; line-height:1.5;">
+          Wolf last seen heading north. This area is considered <strong>fully secured</strong>. All three residents accounted for and in excellent spirits.
+        </p>
+      </div>
+
+      <div class="info-block">
+        Grade-A Brick &nbsp;&#183;&nbsp; Licensed Engineer &nbsp;&#183;&nbsp; Impervious to Wolf &nbsp;&#183;&nbsp; Sleeping Three Comfortably
+      </div>
+
+    </div>
+  </article>
+
+  <!-- ========== PANEL 6: PLAN YOUR VISIT ========== -->
+  <article class="panel" id="p6" aria-label="Panel 6 of 6">
+    <div class="header-band gold">Plan Your Visit &mdash; Practical Travel Information</div>
+    <div class="panel-inner">
+
+      <p class="panel-title md ink" style="margin-bottom:4px;">Plan Your Visit</p>
+      <p class="subtitle" style="margin-bottom:12px;">Everything You Need to Know Before You Go</p>
+
+      <div class="directions-box">
+        <div class="sidebar-box-title" style="font-family:'Arial Black',Arial,sans-serif; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--turquoise); margin-bottom:6px;">How to Get There</div>
+        <p class="body-text" style="font-size:0.82rem;">
+          Follow Meadow Road heading north past the <em>two vacant lots</em> (formerly Stops 1 and 2). Continue until you see a very solid-looking brick house. You will know it immediately. It will look like it has seen things.
+        </p>
+      </div>
+
+      <div class="sidebar-box cream-bg mt-8" style="border-color:var(--brown);">
+        <div class="sidebar-box-title" style="font-family:'Arial Black',Arial,sans-serif; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--brown); margin-bottom:6px;">What to Bring</div>
+        <p class="body-text" style="font-size:0.82rem;">
+          Warm clothes. A good attitude. <em>Bricks, if you&rsquo;re thinking of building anything.</em>
+        </p>
+      </div>
+
+      <div class="divider ink mt-12">
+        <div class="divider-line"></div>
+        <span class="divider-deco">Meet the Locals</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="three-col mt-8">
+        <div class="portrait-box">
+          <div class="portrait-face" style="background:var(--gold); font-size:1.3rem;">&#127831;</div>
+          <p class="portrait-name">Pig One</p>
+          <p class="portrait-role">Straw Enthusiast<br><em>Now Wiser</em></p>
+        </div>
+        <div class="portrait-box">
+          <div class="portrait-face" style="background:var(--turquoise); font-size:1.3rem;">&#127807;</div>
+          <p class="portrait-name">Pig Two</p>
+          <p class="portrait-role">Stick Architect<br><em>Also Now Wiser</em></p>
+        </div>
+        <div class="portrait-box">
+          <div class="portrait-face" style="background:var(--green); font-size:1.3rem;">&#127968;</div>
+          <p class="portrait-name">Pig Three</p>
+          <p class="portrait-role">Structural Engineer<br><em>Always Knew</em></p>
+        </div>
+      </div>
+
+      <div class="divider mt-12">
+        <div class="divider-line"></div>
+        <span class="divider-deco">&#10022;</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <p class="panel-title sm turquoise mt-8" style="font-size:clamp(0.9rem,2.5vw,1.3rem); line-height:1.3;">
+        "The Northern Plains:<br>
+        Where Every Story Has a Happy Ending.<br>
+        <em style="font-style:italic;">(Eventually.)</em>"
+      </p>
+
+      <div class="center mt-12">
+        <div class="tb-logo">NPTB<br><span style="font-size:0.45rem; letter-spacing:0.05em;">EST.<br>1903</span></div>
+      </div>
+
+      <p class="fine-print center mt-8">
+        This brochure printed October 1951 by the Northern Plains Tourism Board.<br>
+        Events described herein are ongoing. Please verify attraction availability before visiting.<br>
+        The NPTB is not liable for wolf encounters, structural collapses, or existential realizations about the value of patience.
+      </p>
+
+    </div>
+  </article>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav-bar" aria-label="Brochure navigation">
+    <button class="nav-btn" id="btn-prev" aria-label="Previous panel" disabled>&#9664; Back</button>
+    <div class="nav-counter" id="nav-counter" aria-live="polite">
+      PANEL 1 OF 6<br>
+      <span style="font-size:0.55rem; letter-spacing:0.08em; opacity:0.75;">USE ARROW KEYS OR BUTTONS</span>
+    </div>
+    <button class="nav-btn coral-btn" id="btn-next" aria-label="Next panel">Forward &#9654;</button>
+  </nav>
+
+</div><!-- /stage -->
+
+<script>
+(function () {
+  'use strict';
+
+  var TOTAL = 6;
+  var current = 1;
+
+  var panels = [];
+  var btnPrev = document.getElementById('btn-prev');
+  var btnNext = document.getElementById('btn-next');
+  var counter = document.getElementById('nav-counter');
+
+  for (var i = 1; i <= TOTAL; i++) {
+    panels.push(document.getElementById('p' + i));
+  }
+
+  function show(n) {
+    if (n < 1 || n > TOTAL) return;
+    panels[current - 1].classList.remove('active');
+    // Scroll new panel to top before showing
+    panels[n - 1].scrollTop = 0;
+    panels[n - 1].classList.add('active');
+    current = n;
+
+    btnPrev.disabled = (current === 1);
+    btnNext.disabled = (current === TOTAL);
+
+    counter.innerHTML =
+      'PANEL ' + current + ' OF ' + TOTAL +
+      '<br><span style="font-size:0.55rem;letter-spacing:0.08em;opacity:0.75;">USE ARROW KEYS OR BUTTONS</span>';
+  }
+
+  btnPrev.addEventListener('click', function () { show(current - 1); });
+  btnNext.addEventListener('click', function () { show(current + 1); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      show(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      show(current - 1);
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>

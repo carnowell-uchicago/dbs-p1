@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPERATION: LITTLE HOUSES — CASE FILE #51-WOLF-003</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --olive-dark: #2d3a1e;
+    --olive-mid: #3d4f28;
+    --olive-light: #c8c9a8;
+    --cream: #f5f0e8;
+    --cream-dark: #e8e0cc;
+    --red-stamp: #8b0000;
+    --black: #111;
+    --ink: #1a1a1a;
+    --type: 'Courier New', Courier, monospace;
+  }
+
+  html, body {
+    height: 100%;
+    background: #1a1a1a;
+    font-family: var(--type);
+    color: var(--ink);
+  }
+
+  /* ── Outer shell ── */
+  .shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 16px 32px;
+    gap: 20px;
+  }
+
+  /* Gallery link */
+  .gallery-link {
+    align-self: flex-start;
+    color: var(--olive-light);
+    font-family: var(--type);
+    font-size: 0.78rem;
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--olive-light);
+    padding-bottom: 1px;
+    transition: color 0.15s;
+  }
+  .gallery-link:hover { color: #fff; border-color: #fff; }
+
+  /* ── Document viewport ── */
+  .doc-viewport {
+    width: 100%;
+    max-width: 760px;
+    position: relative;
+  }
+
+  /* ── Each document page ── */
+  .doc {
+    display: none;
+    width: 100%;
+    min-height: 560px;
+    position: relative;
+    box-shadow: 4px 4px 24px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,0,0,0.5);
+  }
+  .doc.active { display: block; }
+
+  /* Dark folder cover pages */
+  .doc.folder {
+    background: var(--olive-dark);
+    color: var(--olive-light);
+    padding: 48px 52px;
+  }
+
+  /* Light document interior pages */
+  .doc.interior {
+    background: var(--cream);
+    color: var(--ink);
+    padding: 40px 52px 40px 72px; /* left padding for hole punches */
+  }
+
+  /* Aged paper texture overlay on interior */
+  .doc.interior::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 27px,
+        rgba(0,0,0,0.03) 27px,
+        rgba(0,0,0,0.03) 28px
+      );
+    pointer-events: none;
+  }
+
+  /* ── Hole punches ── */
+  .holes {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 24px;
+    padding: 60px 0;
+    pointer-events: none;
+  }
+  .hole {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    border: 1px solid #999;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+  }
+
+  /* ── Classification banners ── */
+  .class-banner {
+    background: var(--red-stamp);
+    color: #fff;
+    text-align: center;
+    font-family: var(--type);
+    font-size: 0.72rem;
+    font-weight: bold;
+    letter-spacing: 0.25em;
+    padding: 4px 0;
+    text-transform: uppercase;
+  }
+  .class-banner.top { margin-bottom: 0; }
+  .class-banner.bottom { margin-top: 0; }
+
+  /* Folder cover layout */
+  .folder-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 0;
+  }
+
+  /* ── Stamps ── */
+  .stamp {
+    display: inline-block;
+    border: 3px solid var(--red-stamp);
+    color: var(--red-stamp);
+    font-family: var(--type);
+    font-weight: bold;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    position: relative;
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+  .stamp.big {
+    font-size: 2.2rem;
+    border-width: 5px;
+    padding: 10px 28px;
+    transform: rotate(-4deg);
+    letter-spacing: 0.22em;
+    opacity: 0.92;
+  }
+  .stamp.medium {
+    font-size: 1.1rem;
+    border-width: 3px;
+    transform: rotate(2deg);
+    opacity: 0.88;
+  }
+  .stamp.small {
+    font-size: 0.75rem;
+    border-width: 2px;
+    padding: 4px 10px;
+    transform: rotate(-1.5deg);
+    opacity: 0.85;
+  }
+  .stamp.green {
+    border-color: #2a5a2a;
+    color: #2a5a2a;
+  }
+  .stamp.light {
+    border-color: var(--olive-light);
+    color: var(--olive-light);
+  }
+
+  /* In-document stamp (inline/overlay) */
+  .stamp-overlay {
+    display: inline-block;
+    border: 3px solid var(--red-stamp);
+    color: var(--red-stamp);
+    font-family: var(--type);
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    font-size: 1rem;
+    transform: rotate(-8deg);
+    opacity: 0.85;
+    vertical-align: middle;
+  }
+
+  /* ── Folder text elements ── */
+  .folder-agency {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--olive-light);
+    text-align: center;
+    border-top: 1px solid var(--olive-light);
+    border-bottom: 1px solid var(--olive-light);
+    padding: 6px 0;
+    width: 100%;
+  }
+  .folder-title {
+    font-size: 1.15rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e8e0c8;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .folder-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--olive-light);
+    text-align: center;
+    line-height: 2;
+    opacity: 0.8;
+  }
+
+  /* Page corner fold */
+  .corner-fold {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 52px 52px;
+    border-color: transparent transparent #1a1a1a transparent;
+  }
+  .corner-fold::after {
+    content: '';
+    position: absolute;
+    bottom: -52px;
+    right: -52px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 52px 52px 0 0;
+    border-color: #3d4f28 transparent transparent transparent;
+  }
+
+  /* ── Document header ── */
+  .doc-header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  .doc-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .doc-header-agency {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 1.8;
+  }
+  .doc-header-meta {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-align: right;
+    line-height: 1.9;
+  }
+  .doc-header-meta .class-tag {
+    color: var(--red-stamp);
+    font-weight: bold;
+  }
+  .doc-title {
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 8px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ── Body text ── */
+  .doc-body {
+    font-size: 0.78rem;
+    line-height: 1.85;
+    position: relative;
+    z-index: 1;
+  }
+  .doc-body p {
+    margin-bottom: 12px;
+  }
+  .doc-body .field-label {
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+  }
+  .doc-body .field-row {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 2px;
+  }
+  .doc-body .field-value {
+    font-size: 0.78rem;
+  }
+
+  /* Redaction bar */
+  .redact {
+    display: inline-block;
+    background: #000;
+    color: #000;
+    vertical-align: baseline;
+    line-height: 1;
+    margin: 0 2px;
+    border-radius: 1px;
+    user-select: none;
+  }
+  .redact.sm { padding: 2px 28px; }
+  .redact.md { padding: 2px 52px; }
+  .redact.lg { padding: 2px 88px; }
+  .redact.xl { padding: 2px 130px; }
+
+  /* Severity / status tags */
+  .tag-severe {
+    display: inline-block;
+    background: var(--red-stamp);
+    color: #fff;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    padding: 2px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .tag-secure {
+    display: inline-block;
+    background: #2a5a2a;
+    color: #fff;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    padding: 2px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .tag-active {
+    display: inline-block;
+    background: #4a4a00;
+    color: #e8e000;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    padding: 2px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  /* Surveillance photo placeholder */
+  .photo-placeholder {
+    background: #aaa;
+    border: 1px solid #888;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #333;
+    font-family: var(--type);
+  }
+  .photo-placeholder .photo-icon {
+    font-size: 1.5rem;
+    opacity: 0.4;
+  }
+
+  /* Asset profiles grid */
+  .asset-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .asset-card {
+    border: 1px solid var(--ink);
+    padding: 10px;
+    background: rgba(255,255,255,0.4);
+    position: relative;
+  }
+  .asset-card-header {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+  }
+  .asset-card .photo-placeholder {
+    height: 70px;
+    margin-bottom: 8px;
+    font-size: 0.52rem;
+  }
+  .asset-card .field-row {
+    font-size: 0.6rem;
+    margin-bottom: 3px;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .asset-card .field-label { font-size: 0.6rem; }
+  .asset-card .field-value { font-size: 0.6rem; }
+  .asset-card .assessment {
+    font-size: 0.58rem;
+    line-height: 1.5;
+    margin-top: 6px;
+    border-top: 1px solid rgba(0,0,0,0.2);
+    padding-top: 5px;
+    font-style: italic;
+  }
+
+  /* Field note style */
+  .field-note {
+    border-left: 3px solid var(--olive-mid);
+    background: rgba(61,79,40,0.08);
+    padding: 8px 12px;
+    margin: 12px 0;
+    font-size: 0.72rem;
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .field-note::before {
+    content: 'FIELD AGENT NOTE: ';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    display: block;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+  }
+
+  /* Section divider */
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.25);
+    margin: 14px 0;
+  }
+
+  /* Handwritten-style italic note */
+  .handwritten {
+    font-style: italic;
+    font-size: 0.82rem;
+    line-height: 1.9;
+    color: #2a2a5a;
+    margin-top: 12px;
+  }
+
+  /* Damage/result table */
+  .report-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.68rem;
+    margin: 10px 0;
+  }
+  .report-table td {
+    padding: 4px 8px;
+    border: 1px solid rgba(0,0,0,0.3);
+    vertical-align: top;
+  }
+  .report-table td:first-child {
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: rgba(0,0,0,0.04);
+    width: 38%;
+  }
+
+  /* Case closed folder */
+  .case-closed-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 0 10px;
+  }
+
+  /* ── Navigation ── */
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    font-family: var(--type);
+    background: #2a2a1a;
+    border: 1px solid #555;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  }
+  .nav-btn {
+    background: #3a3a22;
+    color: var(--olive-light);
+    border: none;
+    padding: 11px 22px;
+    font-family: var(--type);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    border-right: 1px solid #555;
+    white-space: nowrap;
+  }
+  .nav-btn:last-child { border-right: none; border-left: 1px solid #555; }
+  .nav-btn:hover:not(:disabled) {
+    background: var(--olive-mid);
+    color: #fff;
+  }
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  .nav-counter {
+    padding: 11px 24px;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--olive-light);
+    white-space: nowrap;
+    min-width: 160px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <a class="gallery-link" href="../">← Gallery</a>
+
+  <div class="doc-viewport">
+
+    <!-- ════════════════════════════════════════
+         DOC 1: TOP SECRET FOLDER COVER
+         ════════════════════════════════════════ -->
+    <div class="doc folder active" id="doc-1">
+      <div class="class-banner top">TOP SECRET // EYES ONLY // NPID CLASSIFIED MATERIAL</div>
+      <div class="folder-inner" style="min-height:480px; justify-content:center;">
+        <div class="stamp big" style="margin-top:18px;">TOP SECRET</div>
+        <div class="folder-agency">Northern Plains Intelligence Division (NPID)</div>
+        <div class="folder-title">
+          OPERATION: LITTLE HOUSES<br>
+          CASE FILE #51-WOLF-003
+        </div>
+        <div class="stamp medium light">EYES ONLY</div>
+        <div class="folder-sub">
+          AUTHORIZED PERSONNEL ONLY<br>
+          THIS DOCUMENT SELF-DESTRUCTS (METAPHORICALLY)<br>
+          ─────────────────────────────────────────<br>
+          DO NOT REPRODUCE &nbsp;·&nbsp; DO NOT DISTRIBUTE<br>
+          DO NOT LEAVE IN STRAW HOUSES
+        </div>
+        <div style="display:flex; gap:14px; align-items:center; margin-top:8px; flex-wrap:wrap; justify-content:center;">
+          <div class="stamp small light">CLASSIFICATION: MOST SECRET</div>
+          <div class="stamp small light">COMPARTMENT: LUPINE-3</div>
+        </div>
+        <div style="border:1px solid #5a6a40; padding:8px 24px; margin-top:12px; text-align:center;">
+          <div style="font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.7; line-height:2;">
+            Originating Office: NPID Field Division · Northern Region<br>
+            Classification Authority: Director H. Trotter<br>
+            Handling: Per NPID Directive 51-C · Destroy after review
+          </div>
+        </div>
+      </div>
+      <div class="class-banner bottom">TOP SECRET // EYES ONLY // NPID CLASSIFIED MATERIAL</div>
+      <div class="corner-fold"></div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         DOC 2: THREAT ASSESSMENT — B.B. WOLF
+         ════════════════════════════════════════ -->
+    <div class="doc interior" id="doc-2">
+      <div class="holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+      <div class="class-banner top">TOP SECRET // NPID // WOLF THREAT DOSSIER</div>
+      <div style="padding: 18px 0 0;">
+        <div class="doc-header">
+          <div class="doc-header-row">
+            <div class="doc-header-agency">
+              Northern Plains Intelligence Division<br>
+              Field Analysis Branch · Northern Region HQ
+            </div>
+            <div class="doc-header-meta">
+              <span class="class-tag">CLASSIFICATION: TOP SECRET</span><br>
+              NPID DOC #51-003-A<br>
+              DATE: 03 OCT 1951<br>
+              COPY: 1 OF 3
+            </div>
+          </div>
+          <div class="doc-title">Threat Assessment — Subject: B.B. Wolf</div>
+        </div>
+
+        <div class="doc-body">
+          <div style="display:grid; grid-template-columns:1fr 140px; gap:18px; align-items:start;">
+            <div>
+              <div class="field-row"><span class="field-label">Name:</span><span class="field-value">B.B. Wolf (given name: <span class="redact sm"></span>)</span></div>
+              <div class="field-row"><span class="field-label">Aliases:</span><span class="field-value">"The Big One," "Lupus Magnus," "The Huffington"</span></div>
+              <div class="field-row"><span class="field-label">Height:</span><span class="field-value">6'4" (estimated, subject uncooperative)</span></div>
+              <div class="field-row"><span class="field-label">Weight:</span><span class="field-value"><span class="redact sm"></span> lbs</span></div>
+              <div class="field-row"><span class="field-label">Nationality:</span><span class="field-value">Northern Plains (citizenship status: <span class="redact sm"></span>)</span></div>
+              <div class="field-row"><span class="field-label">Last Known Location:</span><span class="field-value"><span class="redact md"></span></span></div>
+              <div class="field-row"><span class="field-label">Known Associates:</span><span class="field-value">None confirmed. Operates alone.</span></div>
+            </div>
+            <div>
+              <div class="photo-placeholder" style="height:120px;">
+                <div class="photo-icon">⬛</div>
+                <div>[SURVEILLANCE PHOTO]</div>
+                <div>REDACTED LOCATION</div>
+              </div>
+              <div style="font-size:0.58rem; text-align:center; opacity:0.6; margin-top:3px; letter-spacing:0.08em;">PHOTO REF: WOLF-IMG-003A</div>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <p><span class="field-label">Known Capabilities:</span><br>
+          Subject has demonstrated ability to produce <em>sustained high-velocity exhalation</em>. Field measurements estimate wind speed at 47+ mph (duration: unknown; upper limit not yet established). Capable of destroying structures composed of straw and wood-stick materials. <span class="redact md"></span> capability unconfirmed but suspected.</p>
+
+          <p><span class="field-label">Threat Level:</span> <span class="tag-severe">SEVERE</span></p>
+
+          <p><span class="field-label">Assessed Motive:</span> <span class="redact xl"></span></p>
+
+          <p>Subject considered armed and dangerous. Primary method of engagement: verbal ultimatum followed by respiratory assault. Do <em>not</em> approach without level-4 windbreak countermeasures in place. Subject has shown willingness to <span class="redact md"></span> without warning.</p>
+
+          <div class="field-note">
+            Intelligence on subject's lung capacity sourced from <span class="redact sm"></span> field agent embedded near wolf territory. Source reliability: HIGH. Asset safety: <span class="redact sm"></span>.
+          </div>
+        </div>
+      </div>
+      <div class="class-banner bottom" style="position:absolute;bottom:0;left:0;right:0;">TOP SECRET // NPID // WOLF THREAT DOSSIER</div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         DOC 3: ASSET PROFILES
+         ════════════════════════════════════════ -->
+    <div class="doc interior" id="doc-3">
+      <div class="holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+      <div class="class-banner top">TOP SECRET // NPID // ASSET PROFILES — OP. LITTLE HOUSES</div>
+      <div style="padding: 18px 0 0;">
+        <div class="doc-header">
+          <div class="doc-header-row">
+            <div class="doc-header-agency">
+              Northern Plains Intelligence Division<br>
+              Asset Management Section
+            </div>
+            <div class="doc-header-meta">
+              <span class="class-tag">CLASSIFICATION: TOP SECRET</span><br>
+              NPID DOC #51-003-B<br>
+              DATE: 03 OCT 1951<br>
+              COPY: 1 OF 3
+            </div>
+          </div>
+          <div class="doc-title">Asset Profiles — Operation: Little Houses — Three Subjects of Interest</div>
+        </div>
+
+        <div class="doc-body">
+          <p style="font-size:0.68rem; font-style:italic; opacity:0.8;">All three assets are siblings. Codenames assigned per NPID protocol. Refer to codename only in field communications. Real identities: <span class="redact md"></span>.</p>
+
+          <div class="asset-grid">
+            <!-- PIG ONE -->
+            <div class="asset-card">
+              <div class="asset-card-header">Asset: STRAW &nbsp;<span class="tag-active" style="font-size:0.5rem;">REGROUPING</span></div>
+              <div class="photo-placeholder" style="height:70px;">
+                <div>[ASSET PHOTO]</div>
+                <div>STRAW / PIG ONE</div>
+              </div>
+              <div class="field-row"><span class="field-label">Codename:</span><span class="field-value">STRAW</span></div>
+              <div class="field-row"><span class="field-label">Cover:</span><span class="field-value"><span class="redact sm"></span></span></div>
+              <div class="field-row"><span class="field-label">Location:</span><span class="field-value">Asset 3's site</span></div>
+              <div class="field-row"><span class="field-label">Structure:</span><span class="field-value">Straw. (Yes.)</span></div>
+              <div class="assessment">ASSESSMENT: Severely underestimated threat. Structure fully compromised. Asset evacuated. Alive. We have questions about the straw decision.</div>
+              <div style="margin-top:6px;"><span class="tag-active" style="font-size:0.52rem;">STATUS: ACTIVE / REGROUPING</span></div>
+            </div>
+            <!-- PIG TWO -->
+            <div class="asset-card">
+              <div class="asset-card-header">Asset: STICK &nbsp;<span class="tag-active" style="font-size:0.5rem;">REGROUPING</span></div>
+              <div class="photo-placeholder" style="height:70px;">
+                <div>[ASSET PHOTO]</div>
+                <div>STICK / PIG TWO</div>
+              </div>
+              <div class="field-row"><span class="field-label">Codename:</span><span class="field-value">STICK</span></div>
+              <div class="field-row"><span class="field-label">Cover:</span><span class="field-value"><span class="redact sm"></span></span></div>
+              <div class="field-row"><span class="field-label">Location:</span><span class="field-value">Asset 3's site</span></div>
+              <div class="field-row"><span class="field-label">Structure:</span><span class="field-value">Sticks. (Also yes.)</span></div>
+              <div class="assessment">ASSESSMENT: Improved construction vs. Asset STRAW but insufficient against wolf's respiratory output. Structure compromised. Asset evacuated.</div>
+              <div style="margin-top:6px;"><span class="tag-active" style="font-size:0.52rem;">STATUS: ACTIVE / REGROUPING</span></div>
+            </div>
+            <!-- PIG THREE -->
+            <div class="asset-card" style="border-color:#2a5a2a; background:rgba(42,90,42,0.07);">
+              <div class="asset-card-header" style="border-color:#2a5a2a;">Asset: BRICK &nbsp;<span class="tag-secure" style="font-size:0.5rem;">SECURE</span></div>
+              <div class="photo-placeholder" style="height:70px; background:#8aaa8a;">
+                <div>[ASSET PHOTO]</div>
+                <div>BRICK / PIG THREE</div>
+              </div>
+              <div class="field-row"><span class="field-label">Codename:</span><span class="field-value">BRICK</span></div>
+              <div class="field-row"><span class="field-label">Cover:</span><span class="field-value"><span class="redact sm"></span></span></div>
+              <div class="field-row"><span class="field-label">Location:</span><span class="field-value">Primary site (SECURE)</span></div>
+              <div class="field-row"><span class="field-label">Structure:</span><span class="field-value">Brick. Finally.</span></div>
+              <div class="assessment">ASSESSMENT: Optimal construction strategy. Structure intact. HIGH VALUE ASSET. Currently housing all three siblings.</div>
+              <div style="margin-top:6px;"><span class="tag-secure" style="font-size:0.52rem;">STATUS: SECURE</span></div>
+            </div>
+          </div>
+
+          <div class="field-note" style="margin-top:14px;">
+            All three assets have been advised — repeatedly, in writing, with diagrams — that brick is the recommended construction material per NPID Structural Security Directive 12-B (1948). Two of three assets did not comply. This is noted for the record.
+          </div>
+        </div>
+      </div>
+      <div class="class-banner bottom" style="position:absolute;bottom:0;left:0;right:0;">TOP SECRET // NPID // ASSET PROFILES — OP. LITTLE HOUSES</div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         DOC 4: INCIDENT REPORT IR-001
+         ════════════════════════════════════════ -->
+    <div class="doc interior" id="doc-4">
+      <div class="holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+      <div class="class-banner top">TOP SECRET // NPID // INCIDENT REPORT</div>
+      <div style="padding:18px 0 0;">
+        <div class="doc-header">
+          <div class="doc-header-row">
+            <div class="doc-header-agency">
+              Northern Plains Intelligence Division<br>
+              Incident Documentation Unit
+            </div>
+            <div class="doc-header-meta">
+              <span class="class-tag">CLASSIFICATION: TOP SECRET</span><br>
+              INCIDENT REPORT: IR-001<br>
+              DATE: 03 OCT 1951 / 14:32 HRS<br>
+              COPY: 1 OF 3
+            </div>
+          </div>
+          <div class="doc-title">Incident Report IR-001 — Straw Structure Compromise</div>
+        </div>
+
+        <div class="doc-body">
+          <table class="report-table">
+            <tr><td>Incident Type</td><td>Hostile Respiratory Assault / Structural Failure</td></tr>
+            <tr><td>Location</td><td><span class="redact md"></span> Meadow Road, Northern Plains</td></tr>
+            <tr><td>Incident Time</td><td>03 OCT 1951 / 14:00–14:21 HRS</td></tr>
+            <tr><td>Subject (Threat)</td><td>B.B. Wolf (see Threat Assessment NPID DOC #51-003-A)</td></tr>
+            <tr><td>Assets Involved</td><td>Asset STRAW (primary); Bystanders: none confirmed</td></tr>
+            <tr><td>Reporting Agent</td><td><span class="redact sm"></span> / Field Badge #<span class="redact sm"></span></td></tr>
+          </table>
+
+          <hr class="divider">
+          <p><span class="field-label">Sequence of Events:</span></p>
+          <p>At approximately 14:00 hrs, subject B.B. Wolf approached Asset STRAW's residence. Subject issued verbal ultimatum in the following terms (paraphrased): <em>"Little pig, little pig, let me come in."</em> Asset STRAW refused. Subject responded with <em>"Then I'll huff, and I'll puff, and I'll blow your house down"</em> — a statement our analysts had flagged as a specific credible threat in Memo #47 (attached; see also #48 and #49).</p>
+          <p>Subject commenced sustained respiratory assault at 14:03 hrs. Structure integrity began failing at 14:18 hrs. Full structural collapse recorded at 14:21 hrs. Asset STRAW evacuated successfully and relocated to Asset STICK's position at <span class="redact md"></span>.</p>
+
+          <table class="report-table">
+            <tr><td>Structure Status</td><td><span class="tag-severe">TOTAL LOSS</span></td></tr>
+            <tr><td>Evidence Recovered</td><td><span class="redact lg"></span></td></tr>
+            <tr><td>Asset STRAW Status</td><td><span class="tag-active">ACTIVE / REGROUPING</span></td></tr>
+            <tr><td>Wolf Status</td><td>AT LARGE</td></tr>
+          </table>
+
+          <div class="field-note">
+            I have now recommended brick construction in memos #47, #48, and #49. This is memo #50. I am recommending brick construction. Recommend immediate upgrade to brick. This is the fourth time I have written that sentence. — Agent <span class="redact sm"></span>
+          </div>
+        </div>
+      </div>
+      <div class="class-banner bottom" style="position:absolute;bottom:0;left:0;right:0;">TOP SECRET // NPID // INCIDENT REPORT IR-001</div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         DOC 5: INCIDENT REPORT IR-002
+         ════════════════════════════════════════ -->
+    <div class="doc interior" id="doc-5">
+      <div class="holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+      <div class="class-banner top">TOP SECRET // NPID // INCIDENT REPORT</div>
+      <div style="padding:18px 0 0;">
+        <div class="doc-header">
+          <div class="doc-header-row">
+            <div class="doc-header-agency">
+              Northern Plains Intelligence Division<br>
+              Incident Documentation Unit
+            </div>
+            <div class="doc-header-meta">
+              <span class="class-tag">CLASSIFICATION: TOP SECRET</span><br>
+              INCIDENT REPORT: IR-002<br>
+              DATE: 03 OCT 1951 / 16:47 HRS<br>
+              COPY: 1 OF 3
+            </div>
+          </div>
+          <div class="doc-title">Incident Report IR-002 — Stick Structure Compromise</div>
+        </div>
+
+        <div class="doc-body">
+          <table class="report-table">
+            <tr><td>Incident Type</td><td>Hostile Respiratory Assault / Structural Failure (REPEAT INCIDENT)</td></tr>
+            <tr><td>Location</td><td><span class="redact md"></span> Forest Lane, Northern Plains</td></tr>
+            <tr><td>Incident Time</td><td>03 OCT 1951 / 16:22–16:44 HRS</td></tr>
+            <tr><td>Subject (Threat)</td><td>B.B. Wolf — same subject, same method, same wolf</td></tr>
+            <tr><td>Assets Involved</td><td>Asset STICK (primary); Asset STRAW (co-occupant at time of incident)</td></tr>
+            <tr><td>Reporting Agent</td><td><span class="redact sm"></span> / Field Badge #<span class="redact sm"></span></td></tr>
+          </table>
+
+          <hr class="divider">
+          <p><span class="field-label">Sequence of Events:</span></p>
+          <p>B.B. Wolf located Asset STICK's residence — likely by tracking Asset STRAW's evacuation route, a possibility flagged in memo #<span class="redact sm"></span>. Wolf issued identical verbal ultimatum at 16:22 hrs. Asset STICK also refused. Subject commenced respiratory assault. Despite improved structural materials (sticks vs. straw), the structure failed at 16:44 hrs.</p>
+
+          <p>Both Asset STRAW and Asset STICK evacuated successfully to Asset BRICK's location at <span class="redact md"></span>. All three siblings now co-located in the brick structure. This is the outcome we should have engineered at the start. See attached Memo #49.</p>
+
+          <table class="report-table">
+            <tr><td>Structure Status</td><td><span class="tag-severe">TOTAL LOSS</span></td></tr>
+            <tr><td>Evidence Recovered</td><td><span class="redact lg"></span></td></tr>
+            <tr><td>Assets STRAW + STICK</td><td><span class="tag-active">ACTIVE / REGROUPING → ASSET BRICK SITE</span></td></tr>
+            <tr><td>Wolf Status</td><td>AT LARGE — HEADING NORTHEAST</td></tr>
+          </table>
+
+          <div class="field-note">
+            This was entirely predictable. I said it would be predictable in Memo #48. This is now Memo #51. I am submitting my vacation request effective immediately upon case closure. — Agent <span class="redact sm"></span>
+          </div>
+
+          <p style="font-size:0.68rem; margin-top:8px;">
+            <span class="field-label">Analyst Note:</span> The pattern is clear. Wolf targets structures sequentially by material weakness. Asset BRICK's structure is the only one meeting NPID structural minimums. Recommend all assets remain in place and do not open the door under <em>any</em> circumstances until Wolf has been neutralized or has departed the area.
+          </p>
+        </div>
+      </div>
+      <div class="class-banner bottom" style="position:absolute;bottom:0;left:0;right:0;">TOP SECRET // NPID // INCIDENT REPORT IR-002</div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         DOC 6: FIELD REPORT — BRICK STANDOFF
+         ════════════════════════════════════════ -->
+    <div class="doc interior" id="doc-6">
+      <div class="holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+      <div class="class-banner top">TOP SECRET // NPID // FIELD REPORT — STANDOFF RESOLVED</div>
+      <div style="padding:18px 0 0;">
+        <div class="doc-header">
+          <div class="doc-header-row">
+            <div class="doc-header-agency">
+              Northern Plains Intelligence Division<br>
+              Field Operations — Northern Region
+            </div>
+            <div class="doc-header-meta">
+              <span class="class-tag">CLASSIFICATION: TOP SECRET</span><br>
+              FIELD REPORT: FR-003<br>
+              DATE: 03 OCT 1951 / 19:00 HRS<br>
+              COPY: 1 OF 3
+            </div>
+          </div>
+          <div class="doc-title">Field Report FR-003 — Brick Structure Standoff — All Assets Secured</div>
+        </div>
+
+        <div class="doc-body">
+          <p><span class="field-label">Situation at 19:00 Hrs:</span> All three assets (STRAW, STICK, BRICK) confirmed secure inside Asset BRICK's brick-construction residence at <span class="redact md"></span>. B.B. Wolf present at the perimeter. Standoff conditions in effect.</p>
+
+          <p><span class="field-label">Assault Duration:</span> Wolf initiated respiratory assault at 18:55 hrs. Duration of continuous exhalation: <span class="redact sm"></span> minutes. Estimated wind output: 52+ mph (exceeding previous recorded maximum). <span class="field-label">Structure Response:</span> <span class="tag-secure">NO STRUCTURAL DAMAGE.</span></p>
+
+          <table class="report-table" style="margin:10px 0;">
+            <tr><td>Wall Integrity</td><td>100% — No cracks, no displacement, no material loss</td></tr>
+            <tr><td>Chimney Integrity</td><td>Intact. Wolf attempted entry via chimney at 19:38 hrs. Outcome: <span class="redact md"></span>. Wolf did not repeat attempt.</td></tr>
+            <tr><td>Asset Status</td><td>All three assets: <span class="tag-secure">CONFIRMED SECURE</span></td></tr>
+            <tr><td>Wolf Outcome</td><td>Retreated north at 19:42 hrs. Direction: <span class="redact sm"></span> Forest. Status: AT LARGE.</td></tr>
+          </table>
+
+          <p><span class="field-label">Wolf Disposition:</span> Subject retreated at 19:42 hrs, heading north. Surveillance tracked subject to <span class="redact lg"></span>. Current location: unknown. Restraining order petition filed with Northern Plains Magistrate Court (Case #<span class="redact sm"></span>).</p>
+
+          <div class="field-note">
+            The brick house held. Let me be very clear: the brick house held. This is the outcome we recommended in reports #47, #48, and #49. We are attaching those reports again for reference. We will continue attaching them until someone reads them.
+          </div>
+
+          <div style="text-align:center; margin-top:20px;">
+            <div class="stamp-overlay" style="font-size:1.3rem; padding:8px 24px; transform:rotate(-3deg); display:inline-block;">MISSION ACCOMPLISHED</div>
+          </div>
+        </div>
+      </div>
+      <div class="class-banner bottom" style="position:absolute;bottom:0;left:0;right:0;">TOP SECRET // NPID // FIELD REPORT FR-003</div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         DOC 7: FINAL DEBRIEF / CASE CLOSED
+         ════════════════════════════════════════ -->
+    <div class="doc folder" id="doc-7">
+      <div class="class-banner top" style="background:#3a3000; color:#d4c060;">CASE CLOSED // NPID // OPERATION: LITTLE HOUSES — FILE ARCHIVED</div>
+      <div class="case-closed-banner" style="min-height:430px; justify-content:center;">
+        <div class="stamp big" style="border-color:#4a7a4a; color:#4a7a4a; transform:rotate(3deg);">CASE CLOSED</div>
+        <div class="folder-agency">Northern Plains Intelligence Division — Final Debrief Summary</div>
+        <div class="folder-title">Operation: Little Houses — Lessons Learned</div>
+
+        <div style="width:100%; border:1px solid #5a6a40; padding:16px 20px; font-size:0.72rem; line-height:2; color:var(--olive-light); letter-spacing:0.05em;">
+          <div style="font-size:0.62rem; font-weight:bold; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:8px; border-bottom:1px solid #5a6a40; padding-bottom:4px;">Outcome Summary</div>
+          <div>Assets STRAW, STICK, and BRICK: <span style="color:#88cc88; font-weight:bold;">SAFE AND ACCOUNTED FOR.</span></div>
+          <div>Subject B.B. Wolf: AT LARGE. Restraining order: PENDING.</div>
+          <div>Structures destroyed: 2 of 3. Total loss: Straw, Stick residences.</div>
+          <div>Structure intact: Brick residence. Occupancy: 3 siblings. Status: <span style="color:#88cc88; font-weight:bold;">SECURE.</span></div>
+          <div style="margin-top:10px; padding-top:8px; border-top:1px solid #5a6a40;">
+            <span style="font-size:0.62rem; font-weight:bold; letter-spacing:0.2em; text-transform:uppercase;">Recommendation (Final):</span><br>
+            All future residential construction in Northern Plains to meet NPID Grade A brick standards per Directive 12-B. Wolf threat ongoing but containable. Do not build in straw. Do not build in sticks. Build in brick. We cannot state this more plainly than we already have in memos <span class="redact sm" style="background:#555;"></span> through #51.
+          </div>
+        </div>
+
+        <div style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center;">
+          <div class="stamp small light">REVIEWED: DIR. H. TROTTER</div>
+          <div class="stamp small light">ARCHIVED: 04 OCT 1951</div>
+          <div class="stamp small light">WOLF FILE: OPEN / ONGOING</div>
+        </div>
+
+        <div class="handwritten" style="color:#b8c890; text-align:center; border-top:1px solid #4a5a30; padding-top:14px; width:100%;">
+          "Three pigs. One wolf. One lesson. Build better."<br>
+          — Field Agent <span style="display:inline-block; background:#2d3a1e; color:#2d3a1e; padding:0 40px;">REDACTED</span>
+        </div>
+      </div>
+      <div class="class-banner bottom" style="background:#3a3000; color:#d4c060;">CASE CLOSED // NPID // OPERATION: LITTLE HOUSES — FILE ARCHIVED</div>
+      <div class="corner-fold"></div>
+    </div>
+
+  </div><!-- /doc-viewport -->
+
+  <!-- ── Navigation ── -->
+  <nav class="nav" role="navigation" aria-label="Document navigation">
+    <button class="nav-btn" id="btn-prev" aria-label="Previous document">&#9664; PREV DOCUMENT</button>
+    <div class="nav-counter" id="nav-counter" aria-live="polite">DOCUMENT 1 OF 7</div>
+    <button class="nav-btn" id="btn-next" aria-label="Next document">NEXT DOCUMENT &#9654;</button>
+  </nav>
+
+</div><!-- /shell -->
+
+<script>
+  (function () {
+    const TOTAL = 7;
+    let current = 1;
+
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const counter = document.getElementById('nav-counter');
+
+    function show(n) {
+      // Clamp
+      n = Math.max(1, Math.min(TOTAL, n));
+
+      // Hide old, show new
+      const oldDoc = document.getElementById('doc-' + current);
+      const newDoc = document.getElementById('doc-' + n);
+      if (oldDoc) oldDoc.classList.remove('active');
+      if (newDoc) newDoc.classList.add('active');
+
+      current = n;
+
+      // Update counter
+      counter.textContent = 'DOCUMENT ' + current + ' OF ' + TOTAL;
+
+      // Update button states
+      btnPrev.disabled = (current === 1);
+      btnNext.disabled = (current === TOTAL);
+
+      // Scroll to top of viewport on mobile
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    btnPrev.addEventListener('click', function () { show(current - 1); });
+    btnNext.addEventListener('click', function () { show(current + 1); });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        show(current + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        show(current - 1);
+      }
+    });
+
+    // Init
+    show(1);
+  })();
+</script>
+</body>
+</html>

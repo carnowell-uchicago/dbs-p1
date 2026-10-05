@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Meadow Gazette — Three Little Pigs</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1408;
+    --cream: #f4f0e4;
+    --red: #c0140a;
+    --rule: #1a1408;
+    --muted: #4a4030;
+    --light-rule: #c8c0a8;
+  }
+
+  html, body {
+    height: 100%;
+    background: #2a2418;
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+  }
+
+  /* Gallery link */
+  #gallery-link {
+    position: fixed;
+    top: 12px;
+    left: 16px;
+    z-index: 9999;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--ink);
+    padding: 4px 8px;
+    border: 1px solid var(--cream);
+  }
+  #gallery-link:hover { background: #2a2418; }
+
+  /* Main stage */
+  #stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 48px 16px 32px;
+  }
+
+  /* Navigation bar */
+  #nav-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  #nav-bar button {
+    background: var(--cream);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    cursor: pointer;
+    transition: background 0.1s, color 0.1s;
+  }
+  #nav-bar button:hover:not(:disabled) { background: var(--ink); color: var(--cream); }
+  #nav-bar button:disabled { opacity: 0.35; cursor: default; }
+
+  #edition-counter {
+    color: var(--cream);
+    padding: 6px 20px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    min-width: 160px;
+    text-align: center;
+  }
+
+  /* Paper */
+  .paper {
+    display: none;
+    width: min(940px, 100%);
+    background: var(--cream);
+    border: 2px solid var(--ink);
+    box-shadow: 4px 4px 0 #000, 8px 8px 0 #0004;
+    position: relative;
+  }
+  .paper.active { display: block; }
+
+  /* ============================================================
+     SHARED NEWSPAPER ELEMENTS
+  ============================================================ */
+
+  .masthead-bar {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    padding: 10px 24px 8px;
+    letter-spacing: 0.04em;
+  }
+  .masthead-bar .paper-name {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    display: block;
+  }
+  .masthead-bar .paper-motto {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c8c0a8;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .edition-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--ink);
+    border-bottom: 3px double var(--ink);
+    padding: 3px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--cream);
+  }
+
+  .paper-body {
+    padding: 16px 20px 20px;
+  }
+
+  hr.rule { border: none; border-top: 1px solid var(--rule); margin: 10px 0; }
+  hr.rule-heavy { border: none; border-top: 3px solid var(--rule); margin: 10px 0; }
+  hr.rule-double { border-top: 3px double var(--rule); margin: 10px 0; }
+
+  /* Headlines */
+  .banner-headline {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: bold;
+    line-height: 1.0;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    text-align: center;
+    margin: 8px 0 4px;
+  }
+  .banner-headline.red { color: var(--red); }
+
+  .deck-headline {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(14px, 2.2vw, 20px);
+    font-style: italic;
+    line-height: 1.3;
+    text-align: center;
+    color: var(--muted);
+    margin: 4px 0 8px;
+  }
+
+  .section-head {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(16px, 2.5vw, 24px);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+
+  .sub-head {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .byline {
+    font-family: 'Courier New', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-top: 1px solid var(--light-rule);
+    border-bottom: 1px solid var(--light-rule);
+    padding: 2px 0;
+    margin: 6px 0 8px;
+  }
+
+  .dateline {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  p.body-copy {
+    font-size: 13px;
+    line-height: 1.65;
+    text-align: justify;
+    hyphens: auto;
+    margin-bottom: 8px;
+  }
+  p.body-copy + p.body-copy { text-indent: 1.2em; }
+
+  /* Pull quote */
+  .pull-quote {
+    border-top: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(14px, 2vw, 18px);
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* Verdict stamp */
+  .verdict {
+    display: inline-block;
+    border: 3px solid var(--red);
+    color: var(--red);
+    font-family: 'Courier New', monospace;
+    font-size: clamp(11px, 1.8vw, 15px);
+    font-weight: bold;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    transform: rotate(-4deg);
+    background: transparent;
+    margin: 8px auto;
+    display: table;
+  }
+  .verdict.holds {
+    border-color: #1a6614;
+    color: #1a6614;
+    transform: rotate(2deg);
+  }
+
+  /* Two-column layout */
+  .cols-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 24px;
+    position: relative;
+  }
+  .cols-2::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--light-rule);
+    transform: translateX(-50%);
+  }
+
+  /* Three-column layout */
+  .cols-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 20px;
+    position: relative;
+  }
+  .cols-3::before {
+    content: '';
+    position: absolute;
+    left: 33.33%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--light-rule);
+  }
+  .cols-3::after {
+    content: '';
+    position: absolute;
+    left: 66.66%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--light-rule);
+  }
+
+  /* Sidebar box */
+  .sidebar-box {
+    border: 1px solid var(--ink);
+    padding: 10px 12px;
+    background: #ede8d8;
+  }
+  .sidebar-box .box-head {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--light-rule);
+    margin-bottom: 6px;
+    padding-bottom: 3px;
+  }
+  .sidebar-box p {
+    font-size: 12px;
+    line-height: 1.55;
+    text-align: left;
+  }
+
+  /* Large drop cap */
+  .drop-cap::first-letter {
+    float: left;
+    font-size: 3.8em;
+    line-height: 0.78;
+    margin: 4px 6px 0 0;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+
+  /* Photo placeholder */
+  .photo-placeholder {
+    background: #d0c8b0;
+    border: 1px solid #a09070;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    flex-direction: column;
+    gap: 4px;
+  }
+  .photo-placeholder .caption {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--muted);
+    text-align: center;
+    padding: 3px 6px 0;
+    line-height: 1.3;
+  }
+
+  /* Weather / classified sidebar */
+  .classified-box {
+    border: 1px solid var(--light-rule);
+    padding: 8px;
+    margin-top: 8px;
+    font-size: 10.5px;
+    line-height: 1.5;
+  }
+  .classified-box strong {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: block;
+    border-bottom: 1px solid var(--light-rule);
+    margin-bottom: 4px;
+  }
+
+  /* Editorial column ornament */
+  .ornament {
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 0.5em;
+    color: var(--light-rule);
+    margin: 6px 0;
+  }
+
+  /* ---- EDITION 1 SPECIFIC ---- */
+  #ed1 .teaser-strip {
+    display: flex;
+    border-top: 3px double var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  #ed1 .teaser-item {
+    flex: 1;
+    padding: 8px 12px;
+    border-right: 1px solid var(--light-rule);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  #ed1 .teaser-item:last-child { border-right: none; }
+  #ed1 .teaser-item strong {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    margin-bottom: 2px;
+  }
+
+  /* ---- PAGE NUMBER ---- */
+  .page-footer {
+    border-top: 3px double var(--ink);
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 640px) {
+    .cols-2, .cols-3 { grid-template-columns: 1fr; }
+    .cols-2::before, .cols-3::before, .cols-3::after { display: none; }
+    .banner-headline { font-size: clamp(28px, 8vw, 52px); }
+  }
+</style>
+</head>
+<body>
+
+<a id="gallery-link" href="../">← Gallery</a>
+
+<div id="stage">
+  <div id="nav-bar">
+    <button id="btn-prev" disabled>◀ Prev Edition</button>
+    <span id="edition-counter">Edition 1 of 6</span>
+    <button id="btn-next">Next Edition ▶</button>
+  </div>
+
+  <!-- ============================================================
+       EDITION 1 — MASTHEAD / TITLE
+  ============================================================ -->
+  <div class="paper active" id="ed1">
+    <div class="masthead-bar">
+      <span class="paper-name">The Meadow Gazette</span>
+      <span class="paper-motto">"All The News That Fits — And Then Some" &nbsp;·&nbsp; Est. 1903</span>
+    </div>
+
+    <div class="edition-line">
+      <span>Vol. XLVIII &nbsp;·&nbsp; No. 214</span>
+      <span>Monday, October 5, 1951</span>
+      <span>Price: Two Cents</span>
+    </div>
+
+    <div class="paper-body">
+      <hr class="rule-heavy">
+      <div class="banner-headline" style="font-size: clamp(30px, 5.5vw, 60px); margin-bottom: 6px;">Three Local Pigs Strike Out On Their Own</div>
+      <div class="deck-headline">A Story in Three Parts: Straw, Sticks &amp; Bricks — Three Brothers, Three Choices, One Outcome Worth Heeding</div>
+      <hr class="rule-heavy">
+
+      <div class="cols-3" style="margin-top: 12px;">
+        <!-- Column 1 -->
+        <div>
+          <div class="byline">By Our Meadow Correspondent</div>
+          <p class="body-copy drop-cap">The Meadow Valley stirred with excitement this week as three young pig brothers — heretofore resident at the family farm on Clover Road — announced their departure from the family sty to seek independent lodgings in the wider countryside. The brothers, whose names are known to all regular readers of this paper, embarked on what sources describe as "a great adventure in self-sufficiency."</p>
+          <p class="body-copy">Neighbours gathered at the gate to wave farewell as the three brothers set off along different roads, each carrying a modest satchel and considerably more confidence than most observers felt the situation warranted.</p>
+          <p class="body-copy">"They're good lads," said one passerby who declined to be named. "But I do hope they've given proper thought to structural integrity."</p>
+        </div>
+
+        <!-- Column 2 -->
+        <div>
+          <div class="section-head" style="font-size: 15px;">The Brothers: A Profile</div>
+          <hr class="rule">
+          <div class="sidebar-box" style="margin-bottom: 8px;">
+            <div class="box-head">The First Brother</div>
+            <p>Known for his fleet-footed nature and preference for leisure. Chose to settle near the eastern meadow. Construction material: <strong>straw</strong>. Projected build time: one afternoon.</p>
+          </div>
+          <div class="sidebar-box" style="margin-bottom: 8px;">
+            <div class="box-head">The Second Brother</div>
+            <p>A middling sort — more industrious than the eldest but wary of hard labour. Settled near Willowbrook. Material: <strong>sticks</strong>. Projected build time: two days.</p>
+          </div>
+          <div class="sidebar-box">
+            <div class="box-head">The Third Brother</div>
+            <p>The most deliberate of the three. Selected a plot near Stonecroft Ridge. Material: <strong>bricks</strong>. Projected build time: several weeks.</p>
+          </div>
+        </div>
+
+        <!-- Column 3 -->
+        <div>
+          <div class="section-head" style="font-size: 15px;">What Lies Ahead?</div>
+          <hr class="rule">
+          <p class="body-copy" style="font-size: 12px;">This paper has obtained intelligence suggesting that a certain B. Wolf — recently released from a two-year residency at the Fernwood Reformatory — has taken an interest in the brothers' new settlements. Sheriff Oakley declined to comment directly but urged all valley residents to "exercise appropriate caution."</p>
+          <p class="body-copy" style="font-size: 12px;">The Gazette will be reporting on this story in full as it develops. Our readers may expect further editions covering the completion of each dwelling, and — sources hint — the dramatic events that may follow.</p>
+          <div class="classified-box">
+            <strong>Today's Editions</strong>
+            Edition 2 · The Straw House Rises<br>
+            Edition 3 · Disaster Strikes<br>
+            Edition 4 · Wolf Strikes Again<br>
+            Edition 5 · The Fortress Holds<br>
+            Edition 6 · Editorial: The Moral
+          </div>
+        </div>
+      </div>
+
+      <!-- Teaser strip -->
+      <div class="teaser-strip" style="margin-top: 12px;">
+        <div class="teaser-item">
+          <strong>Weather</strong>
+          Fair skies over Meadow Valley. Mild winds from the north. Conditions suitable for outdoor construction — though experts advise building in brick regardless.
+        </div>
+        <div class="teaser-item">
+          <strong>Markets</strong>
+          Straw: down 3 pts. Timber: steady. Brick &amp; Mortar: up sharply on rumoured demand from prudent local buyers.
+        </div>
+        <div class="teaser-item">
+          <strong>Notice</strong>
+          B. Wolf, of no fixed address, is considered a person of significant interest. Citizens are urged to keep their doors locked and their chimneys blocked.
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>The Meadow Gazette &nbsp;·&nbsp; Monday, October 5, 1951</span>
+      <span>Page One</span>
+    </div>
+  </div><!-- /ed1 -->
+
+
+  <!-- ============================================================
+       EDITION 2 — STRAW HOUSE BUILT
+  ============================================================ -->
+  <div class="paper" id="ed2">
+    <div class="masthead-bar">
+      <span class="paper-name">The Meadow Gazette</span>
+      <span class="paper-motto">"All The News That Fits — And Then Some" &nbsp;·&nbsp; Est. 1903</span>
+    </div>
+    <div class="edition-line">
+      <span>Vol. XLVIII &nbsp;·&nbsp; No. 215 &nbsp;·&nbsp; Special Edition</span>
+      <span>Tuesday, October 6, 1951</span>
+      <span>Price: Two Cents</span>
+    </div>
+
+    <div class="paper-body">
+      <hr class="rule-heavy">
+      <div class="banner-headline" style="font-size: clamp(28px, 4.5vw, 54px);">First Pig Completes Straw Residence in Record Time</div>
+      <div class="deck-headline">Brothers Celebrates New Independence in Eastern Meadow; Neighbours Offer Mixed Reviews of Novel Construction</div>
+      <hr class="rule-heavy">
+
+      <div class="cols-2" style="margin-top: 10px;">
+        <!-- Left column -->
+        <div>
+          <div class="byline">By Our Housing Correspondent &nbsp;·&nbsp; Eastern Meadow Bureau</div>
+          <p class="body-copy drop-cap">In what may stand as the swiftest recorded construction project in Meadow Valley history, the eldest of the three pig brothers completed his new straw dwelling yesterday afternoon — a full six hours ahead of his own optimistic schedule. The structure, erected on a pleasant rise overlooking the eastern meadow, was declared "absolutely marvellous" by its sole occupant.</p>
+          <p class="body-copy">"I finished by lunchtime," the pig told this reporter, leaning against the door frame with evident satisfaction. "Left the whole afternoon free for napping." He then demonstrated the front door, which opened and closed with what he described as "pleasing ease."</p>
+          <p class="body-copy">The house stands approximately eight feet at its peak, with walls fashioned from locally sourced golden straw — bundled, stacked, and secured with lengths of twine. Ventilation, the owner noted, was "excellent, perhaps a touch excessive." A small wind gust during this reporter's visit caused the south wall to ripple perceptibly.</p>
+
+          <div class="pull-quote">"I finished by lunchtime. Left the whole afternoon free for napping."</div>
+
+          <p class="body-copy">When asked about weather resistance and, specifically, about the potential threat posed by a certain B. Wolf, the pig waved a trotter dismissively. "People worry too much," he said. "Besides, I run very fast."</p>
+        </div>
+
+        <!-- Right column -->
+        <div>
+          <div class="photo-placeholder" style="height: 140px; margin-bottom: 10px;">
+            <span>[ Photo: New Straw Dwelling, Eastern Meadow ]</span>
+            <span class="caption">The eldest pig poses proudly before his new straw home, Tuesday morning.</span>
+          </div>
+
+          <div class="section-head" style="font-size: 14px; margin-bottom: 4px;">Expert Opinion</div>
+          <hr class="rule">
+          <div class="sidebar-box" style="margin-bottom: 10px;">
+            <div class="box-head">Prof. H. Badger — Dept. of Structural Engineering, Meadow Valley College</div>
+            <p>"Straw has a long history as a building material. In warm, calm climates with no natural predators and a complete absence of large carnivores, it performs adequately. I would say no more than that."</p>
+          </div>
+
+          <div class="section-head" style="font-size: 14px; margin-bottom: 4px;">Meanwhile...</div>
+          <hr class="rule">
+          <p class="body-copy" style="font-size: 12px;">The second brother has broken ground on his stick construction near Willowbrook and expects to be move-in ready by week's end. The third brother continues his methodical brick-laying and declines all interview requests, citing "too much work to do."</p>
+
+          <div class="classified-box">
+            <strong>Human Interest: The Straw Life</strong>
+            This correspondent notes that the interior of the straw house was, unexpectedly, rather charming. A small straw mat. A straw-woven chair. A straw-stuffed cushion. The eldest pig has committed entirely to his aesthetic, whatever one may say about its structural merits.
+          </div>
+
+          <div class="verdict" style="margin-top: 14px;">Structure: Standing</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>The Meadow Gazette &nbsp;·&nbsp; Tuesday, October 6, 1951 &nbsp;·&nbsp; Special Edition</span>
+      <span>Page One</span>
+    </div>
+  </div><!-- /ed2 -->
+
+
+  <!-- ============================================================
+       EDITION 3 — STRAW HOUSE DEMOLISHED
+  ============================================================ -->
+  <div class="paper" id="ed3">
+    <div class="masthead-bar">
+      <span class="paper-name">The Meadow Gazette</span>
+      <span class="paper-motto">"All The News That Fits — And Then Some" &nbsp;·&nbsp; Est. 1903</span>
+    </div>
+    <div class="edition-line">
+      <span>Vol. XLVIII &nbsp;·&nbsp; No. 216 &nbsp;·&nbsp; LATE EDITION — EXTRA</span>
+      <span>Wednesday, October 7, 1951</span>
+      <span>Price: Two Cents</span>
+    </div>
+
+    <div class="paper-body">
+      <hr class="rule-heavy">
+      <div class="banner-headline red">Wolf Destroys Straw Dwelling</div>
+      <hr class="rule" style="margin: 4px 0;">
+      <div class="deck-headline" style="font-size: clamp(13px, 2vw, 17px); color: var(--red); font-style: normal; font-weight: bold; text-transform: uppercase; letter-spacing: 0.03em;">Local Pig Barely Escapes With Life — Flees To Brother's Stick House — Wolf At Large</div>
+      <hr class="rule-heavy">
+
+      <div class="cols-3" style="margin-top: 10px;">
+        <!-- Col 1 -->
+        <div>
+          <div class="byline">By Our Crime Correspondent &nbsp;·&nbsp; Eastern Meadow</div>
+          <p class="body-copy drop-cap">The straw house standing — until yesterday — on the rise above the eastern meadow is no more. In a brazen daylight attack that has left valley residents shaken, the notorious B. Wolf appeared at the dwelling shortly after noon and, in full view of at least two witnesses, proceeded to huff and puff with considerable vigour until the structure collapsed entirely.</p>
+          <p class="body-copy">The attack lasted approximately four minutes. The pig escaped through the back, sprinting east toward his brother's stick house in Willowbrook. He was reached by this reporter late in the afternoon, still visibly shaken.</p>
+          <p class="body-copy">"I told you he runs fast," said a neighbour who asked to remain anonymous, "but not fast enough to stay home."</p>
+        </div>
+
+        <!-- Col 2 -->
+        <div>
+          <p class="body-copy">Witnesses at the scene report that the wolf issued a verbal demand before commencing his assault. Mrs. Rabbit, of Clover Lane, recalled the exchange as follows:</p>
+
+          <div class="pull-quote">"Little pig, little pig, let me come in!" — B. Wolf. "Not by the hair of my chinny chin chin!" — First Pig. What followed, Mrs. Rabbit said, she would not soon forget.</div>
+
+          <p class="body-copy">"He took a great big breath," she told this reporter, "and he <em>blew</em>. I've never seen anything like it. The whole wall just went sideways. The door came off entirely. I went inside after and there wasn't a wall standing."</p>
+
+          <p class="body-copy">The wolf reportedly paused amid the wreckage, surveyed the scene with evident satisfaction, then turned and followed the pig's tracks toward Willowbrook. Sheriff Oakley has issued an alert.</p>
+        </div>
+
+        <!-- Col 3 -->
+        <div>
+          <div class="sidebar-box" style="margin-bottom: 10px;">
+            <div class="box-head">Wolf's Known Record — From County Files</div>
+            <p style="font-size: 11px; line-height: 1.5;">B. Wolf, age unknown. Resident: no fixed address. Prior incidents: 1947 — trespassing, dropped. 1949 — destruction of property (henhouse), settled out of court. 1951 — currently at large. Do not approach. Contact Sheriff Oakley's office.</p>
+          </div>
+
+          <div class="section-head" style="font-size: 13px;">Structural Verdict</div>
+          <hr class="rule">
+          <p style="font-size: 11px; line-height: 1.5; margin-bottom: 8px;">Engineers from Meadow Valley College visited the site this afternoon. Lead investigator Prof. Badger's written assessment, in full: <em>"As anticipated."</em></p>
+
+          <div class="verdict">Structure: Failed</div>
+
+          <div class="classified-box" style="margin-top: 12px;">
+            <strong>Safety Notice</strong>
+            The Meadow Valley Sheriff's Office urges all residents to remain indoors. If approached by a large wolf claiming to represent any official body, do not open the door. Report immediately to the sheriff's office at Main &amp; Elm.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>The Meadow Gazette &nbsp;·&nbsp; Wednesday, October 7, 1951 &nbsp;·&nbsp; Late Extra</span>
+      <span>Page One</span>
+    </div>
+  </div><!-- /ed3 -->
+
+
+  <!-- ============================================================
+       EDITION 4 — STICKS HOUSE DEMOLISHED
+  ============================================================ -->
+  <div class="paper" id="ed4">
+    <div class="masthead-bar">
+      <span class="paper-name">The Meadow Gazette</span>
+      <span class="paper-motto">"All The News That Fits — And Then Some" &nbsp;·&nbsp; Est. 1903</span>
+    </div>
+    <div class="edition-line">
+      <span>Vol. XLVIII &nbsp;·&nbsp; No. 217 &nbsp;·&nbsp; EXTRA</span>
+      <span>Thursday, October 8, 1951</span>
+      <span>Price: Two Cents</span>
+    </div>
+
+    <div class="paper-body">
+      <hr class="rule-heavy">
+      <div class="banner-headline red" style="font-size: clamp(32px, 5.2vw, 62px);">Wolf Strikes Again</div>
+      <hr class="rule" style="margin: 4px 0;">
+      <div class="deck-headline" style="color: var(--red); font-style: normal; font-weight: bold; font-size: 15px; text-transform: uppercase; letter-spacing: 0.03em;">Stick Dwelling Collapses in Willowbrook; Second Pig Escapes Narrowly — Both Brothers Now Sheltering With Third</div>
+      <hr class="rule-heavy">
+
+      <div class="cols-2" style="margin-top: 10px;">
+        <!-- Left -->
+        <div>
+          <div class="byline">By Our Crime Correspondent &nbsp;·&nbsp; Willowbrook Bureau</div>
+          <p class="body-copy drop-cap">In scenes distressingly familiar to readers of yesterday's Late Extra, the wolf known as B. Wolf arrived at the second pig's stick house in Willowbrook at approximately nine o'clock Thursday morning and proceeded to demolish it with the same terrifying respiratory exertion that levelled the straw dwelling forty-eight hours prior.</p>
+          <p class="body-copy">The second pig — who had reportedly been reinforcing the south-facing wall since dawn — barely had time to alert his visiting elder brother before both fled the property at speed. Witnesses describe the two pigs departing "like the wind itself was behind them, which, in a sense, it was."</p>
+          <p class="body-copy">The stick structure held for precisely eleven seconds longer than the straw house. This was noted in official reports as "not meaningfully different."</p>
+
+          <div class="pull-quote">"I'll huff, and I'll puff, and I'll blow your house down!" — B. Wolf, at approximately 9:04 a.m.</div>
+
+          <p class="body-copy">The two brothers are reported to have arrived, breathless, at the brick house on Stonecroft Ridge, where their third brother greeted them with, by several accounts, an expression that required no words.</p>
+        </div>
+
+        <!-- Right -->
+        <div>
+          <div class="photo-placeholder" style="height: 100px; margin-bottom: 10px;">
+            <span>[ Photo: Willowbrook Site, Post-Incident ]</span>
+            <span class="caption">What remains of the stick dwelling. Structural experts note the pile is "essentially tidy."</span>
+          </div>
+
+          <div class="section-head" style="font-size: 14px;">Second Incident: A Pattern Emerges</div>
+          <hr class="rule">
+          <p class="body-copy" style="font-size: 12px;">Law enforcement sources confirm that B. Wolf's attacks appear methodical. "He's working in order," said one deputy, "from least to most solid. That tells us something." What it tells us, the deputy declined to elaborate, but the implication for the remaining brick house is not lost on this reporter.</p>
+
+          <div class="sidebar-box" style="margin: 10px 0;">
+            <div class="box-head">Material Comparison — Gazette Analysis</div>
+            <p style="font-size: 11.5px; line-height: 1.5;">
+              <strong>Straw:</strong> Held 4 minutes. Demolished entirely.<br>
+              <strong>Sticks:</strong> Held ~4 min 11 sec. Demolished entirely.<br>
+              <strong>Brick:</strong> Status unknown. All eyes on Stonecroft Ridge.
+            </p>
+          </div>
+
+          <div class="verdict">Structure: Failed</div>
+
+          <p class="body-copy" style="font-size: 11px; margin-top: 10px;">The second pig, reached by telephone at his brother's brick house, offered a single statement: "I should have used bricks." He then asked this reporter to please stop calling and let him get some rest.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>The Meadow Gazette &nbsp;·&nbsp; Thursday, October 8, 1951 &nbsp;·&nbsp; Extra</span>
+      <span>Page One</span>
+    </div>
+  </div><!-- /ed4 -->
+
+
+  <!-- ============================================================
+       EDITION 5 — BRICK HOUSE STANDS
+  ============================================================ -->
+  <div class="paper" id="ed5">
+    <div class="masthead-bar">
+      <span class="paper-name">The Meadow Gazette</span>
+      <span class="paper-motto">"All The News That Fits — And Then Some" &nbsp;·&nbsp; Est. 1903</span>
+    </div>
+    <div class="edition-line">
+      <span>Vol. XLVIII &nbsp;·&nbsp; No. 218 &nbsp;·&nbsp; MORNING EDITION</span>
+      <span>Friday, October 9, 1951</span>
+      <span>Price: Two Cents</span>
+    </div>
+
+    <div class="paper-body">
+      <hr class="rule-heavy">
+      <div class="banner-headline" style="font-size: clamp(26px, 4.5vw, 54px);">Wolf Repelled at Brick Fortress</div>
+      <hr class="rule" style="margin: 4px 0;">
+      <div class="deck-headline" style="font-size: clamp(13px, 1.9vw, 17px);">Three Pigs Safe Inside Stonecroft Ridge Residence — Wolf's Efforts Described as "Considerable But Futile" — Structure Holds Without Incident</div>
+      <hr class="rule-heavy">
+
+      <div class="cols-3" style="margin-top: 10px;">
+        <!-- Col 1 -->
+        <div>
+          <div class="byline">By Our Senior Correspondent &nbsp;·&nbsp; Stonecroft Ridge</div>
+          <p class="body-copy drop-cap">In a dramatic conclusion to four days of escalating menace across the valley, B. Wolf arrived at the brick house on Stonecroft Ridge yesterday evening and attempted, for a period of no less than forty minutes, to blow it down. He failed entirely. The house did not move. Not one brick shifted. Not one mortar joint cracked. The chimney, which an anxious deputy had flagged as a potential vulnerability, stood perfectly firm.</p>
+          <p class="body-copy">The three pig brothers — all present inside — reportedly watched through the shuttered windows, at first anxiously and then, as the wolf's efforts proved repeatedly futile, with increasing composure. By the thirty-minute mark, sources indicate, they had made tea.</p>
+        </div>
+
+        <!-- Col 2 -->
+        <div>
+          <p class="body-copy">The wolf's huffing-and-puffing, by all accounts, was of the same tremendous force that had levelled the straw and stick dwellings without apparent effort. This reporter, positioned at a safe distance on the ridge, can confirm the sound was formidable — a deep, sustained blast that bent the grass flat and sent leaves spiralling twenty feet in the air.</p>
+          <p class="body-copy">The brick house was unmoved.</p>
+
+          <div class="pull-quote">"He huffed. He puffed. He huffed again. Then he sat down on the path and looked at the house for quite a long time." — Deputy W. Fox, eyewitness.</div>
+
+          <p class="body-copy">Eventually, the wolf departed north along the ridge road and has not been seen since. Sheriff Oakley has confirmed that a warrant for his arrest has been issued on charges of destruction of property (two counts) and criminal threatening.</p>
+        </div>
+
+        <!-- Col 3 -->
+        <div>
+          <div class="sidebar-box" style="margin-bottom: 10px;">
+            <div class="box-head">Third Pig's Statement — In Full</div>
+            <p style="font-size: 11.5px; line-height: 1.55;">"I built with brick because I planned ahead. The house took six weeks. My brothers thought I was being excessive. I was not being excessive. My brothers are welcome to stay as long as they need. There is plenty of room. I told them so at the time, but they wanted their own houses. Well. Here we are."</p>
+          </div>
+
+          <div class="section-head" style="font-size: 13px;">By The Numbers</div>
+          <hr class="rule">
+          <div class="classified-box">
+            <strong>Final Tally</strong>
+            Straw house: destroyed. Sticks house: destroyed. Brick house: <strong>standing</strong>.<br><br>
+            Wolf attacks: 3 attempted &nbsp;|&nbsp; 1 success &nbsp;|&nbsp; 2 failures.<br><br>
+            Pigs safe: <strong>all three</strong>.
+          </div>
+
+          <div class="verdict holds" style="margin-top: 12px;">Structure: Holds</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>The Meadow Gazette &nbsp;·&nbsp; Friday, October 9, 1951 &nbsp;·&nbsp; Morning Edition</span>
+      <span>Page One</span>
+    </div>
+  </div><!-- /ed5 -->
+
+
+  <!-- ============================================================
+       EDITION 6 — EDITORIAL / CONCLUSION
+  ============================================================ -->
+  <div class="paper" id="ed6">
+    <div class="masthead-bar">
+      <span class="paper-name">The Meadow Gazette</span>
+      <span class="paper-motto">"All The News That Fits — And Then Some" &nbsp;·&nbsp; Est. 1903</span>
+    </div>
+    <div class="edition-line">
+      <span>Vol. XLVIII &nbsp;·&nbsp; No. 218 &nbsp;·&nbsp; Editorial Page</span>
+      <span>Friday, October 9, 1951</span>
+      <span>Price: Two Cents</span>
+    </div>
+
+    <div class="paper-body">
+      <hr class="rule-heavy">
+      <div style="text-align: center; font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin: 6px 0;">
+        The Meadow Gazette &nbsp;·&nbsp; Editorial &amp; Opinion
+      </div>
+      <hr class="rule">
+
+      <div class="cols-2" style="margin-top: 10px; align-items: start;">
+        <!-- Left: main editorial -->
+        <div>
+          <div class="section-head">What Can We Learn From the Pigs?</div>
+          <div class="sub-head">A Gazette Editorial — The Editors Speak</div>
+          <hr class="rule">
+
+          <p class="body-copy drop-cap">The events of this week — three houses tested, two destroyed, one standing firm — have given this newspaper, and we trust our readers, considerable cause for reflection. We have reported the facts as they occurred. Now we offer what newspapers have always offered: perspective.</p>
+
+          <div class="ornament">— ✦ —</div>
+
+          <p class="body-copy">The eldest pig built quickly. He valued his leisure, and there is nothing wrong with leisure — except when it is purchased at the cost of safety. A home that takes one afternoon to build is a home that takes less than one afternoon to destroy. This is not a paradox. It is arithmetic.</p>
+
+          <p class="body-copy">The second pig was not without industry. He built something sturdier than straw and took genuine pride in it. He simply stopped before the job was done properly. Half measures, this week's events remind us, are not measures at all. They are gestures.</p>
+
+          <p class="body-copy">The third pig — and we say this as a statement of fact, not flattery — built a house. A real house. It cost him time, effort, and the good-natured mockery of his brothers. He paid all three costs without complaint and ended the week the only pig with an undamaged home. He also ended the week housing two guests, which speaks well of his character.</p>
+
+          <div class="pull-quote">"The house took six weeks. My brothers thought I was being excessive. I was not."</div>
+
+          <p class="body-copy">We do not say that every project must be the most ambitious version of itself. But we do say this: when the stakes are real — when the wolf is at the door, literally or otherwise — the time spent on the foundation is never wasted. Build the thing properly or do not build it at all.</p>
+        </div>
+
+        <!-- Right: secondary pieces -->
+        <div>
+          <div class="section-head" style="font-size: 14px;">Letters to the Editor</div>
+          <hr class="rule">
+          <div class="sidebar-box" style="margin-bottom: 10px;">
+            <div class="box-head">From: The First Pig — Via Telephone</div>
+            <p style="font-size: 12px; line-height: 1.5; font-style: italic;">"In my defence, I did run very fast. Also my brother's brick house is quite comfortable and his pantry is well stocked. I have offered to help with dishes. Things could be worse."</p>
+          </div>
+          <div class="sidebar-box" style="margin-bottom: 10px;">
+            <div class="box-head">From: The Second Pig — In Person</div>
+            <p style="font-size: 12px; line-height: 1.5; font-style: italic;">"I have ordered bricks. I intend to rebuild properly. I will not be taking questions at this time. Also, please stop calling our brother's telephone."</p>
+          </div>
+          <div class="sidebar-box" style="margin-bottom: 14px;">
+            <div class="box-head">From: The Third Pig — Written Statement</div>
+            <p style="font-size: 12px; line-height: 1.5; font-style: italic;">"My brothers are safe. That is the only thing that matters. We are together and the wolf is gone. I have made soup."</p>
+          </div>
+
+          <div class="section-head" style="font-size: 14px;">The Lesson, Plain &amp; Simple</div>
+          <hr class="rule">
+          <p class="body-copy" style="font-size: 12px;">This paper has covered floods, droughts, crop failures, market panics, and one memorable incident involving a runaway barrel of molasses on Main Street. We have seen, time and again, that preparation is not pessimism. It is wisdom dressed in work clothes.</p>
+          <p class="body-copy" style="font-size: 12px;">The three pigs are safe. They are together. And in the end — which is to say, this edition — that is everything.</p>
+
+          <div class="ornament">— ✦ —</div>
+
+          <div style="border: 2px solid var(--ink); padding: 10px 12px; text-align: center; background: #ede8d8; margin-top: 4px;">
+            <div style="font-family: 'Courier New', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px;">The End</div>
+            <div style="font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: bold; margin-bottom: 4px;">Finis.</div>
+            <div style="font-size: 11px; font-style: italic; color: var(--muted); line-height: 1.4;">The Meadow Gazette thanks its readers for following this story.<br>All three pigs declined our request for a group photograph.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>The Meadow Gazette &nbsp;·&nbsp; Friday, October 9, 1951 &nbsp;·&nbsp; Editorial</span>
+      <span>Final Edition</span>
+    </div>
+  </div><!-- /ed6 -->
+
+</div><!-- /stage -->
+
+<script>
+  (function () {
+    var panels = document.querySelectorAll('.paper');
+    var btnPrev = document.getElementById('btn-prev');
+    var btnNext = document.getElementById('btn-next');
+    var counter = document.getElementById('edition-counter');
+    var current = 0;
+    var total = panels.length;
+
+    function show(index) {
+      panels[current].classList.remove('active');
+      current = index;
+      panels[current].classList.add('active');
+      counter.textContent = 'Edition ' + (current + 1) + ' of ' + total;
+      btnPrev.disabled = (current === 0);
+      btnNext.disabled = (current === total - 1);
+      // Scroll top of paper into view
+      panels[current].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    btnPrev.addEventListener('click', function () {
+      if (current > 0) show(current - 1);
+    });
+
+    btnNext.addEventListener('click', function () {
+      if (current < total - 1) show(current + 1);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        if (current < total - 1) show(current + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        if (current > 0) show(current - 1);
+      }
+    });
+  })();
+</script>
+</body>
+</html>

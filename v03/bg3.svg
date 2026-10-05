@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080">
+  <defs>
+    <!-- Warm dark amber base -->
+    <radialGradient id="bg3-base" cx="58%" cy="42%" r="65%">
+      <stop offset="0%"   stop-color="#17150e"/>
+      <stop offset="50%"  stop-color="#120f0b"/>
+      <stop offset="100%" stop-color="#09080a"/>
+    </radialGradient>
+    <!-- Warm amber glow — suggests straw pile or lantern light -->
+    <radialGradient id="bg3-glow" cx="58%" cy="38%" r="40%">
+      <stop offset="0%"   stop-color="#2e2010" stop-opacity="0.5"/>
+      <stop offset="55%"  stop-color="#1a1208" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#120f0b" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Second subtle glow, lower and warmer -->
+    <radialGradient id="bg3-glow2" cx="35%" cy="65%" r="35%">
+      <stop offset="0%"   stop-color="#261a08" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#120f0b" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Edge darkening -->
+    <radialGradient id="bg3-vignette" cx="50%" cy="50%" r="65%">
+      <stop offset="50%" stop-color="#120f0b" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#050404" stop-opacity="0.8"/>
+    </radialGradient>
+    <!-- Horizontal fibrous texture — straw-like streaks -->
+    <filter id="bg3-fiber" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85 0.12" numOctaves="4" seed="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="0.7" intercept="0.08"/>
+        <feFuncG type="linear" slope="0.45" intercept="0.04"/>
+        <feFuncB type="linear" slope="0.12" intercept="0"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="bg3-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" seed="11" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg3-base)"/>
+  <rect width="1920" height="1080" fill="url(#bg3-glow)"/>
+  <rect width="1920" height="1080" fill="url(#bg3-glow2)"/>
+  <!-- Fibrous straw texture — warm tinted noise, horizontal emphasis -->
+  <rect width="1920" height="1080" fill="white" opacity="0.09" filter="url(#bg3-fiber)"/>
+  <rect width="1920" height="1080" fill="url(#bg3-vignette)"/>
+  <!-- Fine grain -->
+  <rect width="1920" height="1080" fill="white" opacity="0.05" filter="url(#bg3-grain)"/>
+</svg>
