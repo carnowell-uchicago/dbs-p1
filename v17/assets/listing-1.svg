@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Sky -->
+  <rect width="800" height="500" fill="#c8e6f5"/>
+  <!-- Clouds -->
+  <ellipse cx="150" cy="80" rx="70" ry="35" fill="white" opacity="0.9"/>
+  <ellipse cx="200" cy="70" rx="55" ry="30" fill="white" opacity="0.9"/>
+  <ellipse cx="110" cy="90" rx="45" ry="25" fill="white" opacity="0.9"/>
+  <ellipse cx="600" cy="60" rx="60" ry="28" fill="white" opacity="0.8"/>
+  <ellipse cx="650" cy="55" rx="45" ry="22" fill="white" opacity="0.8"/>
+  <!-- Ground -->
+  <rect x="0" y="360" width="800" height="140" fill="#7fb76a"/>
+  <!-- Meadow texture -->
+  <ellipse cx="100" cy="370" rx="60" ry="15" fill="#6da35a" opacity="0.5"/>
+  <ellipse cx="650" cy="375" rx="80" ry="12" fill="#6da35a" opacity="0.5"/>
+
+  <!-- Straw House - messy, askew -->
+  <g transform="rotate(-2, 400, 300)">
+    <!-- House body - straw colored, irregular -->
+    <rect x="220" y="240" width="360" height="130" fill="#e8c547" rx="4"/>
+    <!-- Straw texture lines horizontal -->
+    <line x1="220" y1="255" x2="580" y2="252" stroke="#c8a030" stroke-width="2"/>
+    <line x1="220" y1="270" x2="580" y2="268" stroke="#c8a030" stroke-width="2"/>
+    <line x1="220" y1="285" x2="580" y2="283" stroke="#d4aa35" stroke-width="1.5"/>
+    <line x1="220" y1="300" x2="580" y2="298" stroke="#c8a030" stroke-width="2"/>
+    <line x1="220" y1="315" x2="580" y2="313" stroke="#d4aa35" stroke-width="1.5"/>
+    <line x1="220" y1="330" x2="580" y2="328" stroke="#c8a030" stroke-width="2"/>
+    <line x1="220" y1="345" x2="580" y2="343" stroke="#d4aa35" stroke-width="1.5"/>
+    <!-- Straw wisps sticking out -->
+    <line x1="580" y1="245" x2="598" y2="238" stroke="#c8a030" stroke-width="2"/>
+    <line x1="580" y1="260" x2="595" y2="255" stroke="#d4b030" stroke-width="2"/>
+    <line x1="580" y1="275" x2="600" y2="270" stroke="#c8a030" stroke-width="1.5"/>
+    <line x1="220" y1="250" x2="205" y2="244" stroke="#c8a030" stroke-width="2"/>
+    <line x1="220" y1="265" x2="208" y2="260" stroke="#d4b030" stroke-width="2"/>
+    <line x1="220" y1="280" x2="203" y2="276" stroke="#c8a030" stroke-width="1.5"/>
+
+    <!-- Roof - uneven straw thatch -->
+    <polygon points="180,245 400,130 620,248" fill="#d4a820"/>
+    <!-- Roof straw lines -->
+    <line x1="180" y1="245" x2="400" y2="130" stroke="#b89018" stroke-width="2"/>
+    <line x1="620" y1="248" x2="400" y2="130" stroke="#b89018" stroke-width="2"/>
+    <line x1="200" y1="240" x2="380" y2="152" stroke="#c8a020" stroke-width="1.5"/>
+    <line x1="580" y1="242" x2="420" y2="152" stroke="#c8a020" stroke-width="1.5"/>
+    <!-- Straw sticking from roof -->
+    <line x1="300" y1="185" x2="290" y2="170" stroke="#b89018" stroke-width="2"/>
+    <line x1="350" y1="162" x2="345" y2="148" stroke="#c8a020" stroke-width="2"/>
+    <line x1="450" y1="162" x2="458" y2="148" stroke="#b89018" stroke-width="2"/>
+    <line x1="500" y1="182" x2="510" y2="168" stroke="#c8a020" stroke-width="2"/>
+
+    <!-- Door - slightly off-center, askew -->
+    <rect x="355" y="290" width="65" height="80" fill="#8b6914" rx="3" transform="rotate(1, 387, 330)"/>
+    <circle cx="410" cy="330" r="5" fill="#c8a030"/>
+
+    <!-- Window left -->
+    <rect x="245" y="270" width="70" height="55" fill="#a8d4e8" rx="3"/>
+    <line x1="280" y1="270" x2="280" y2="325" stroke="#7ab0c8" stroke-width="2"/>
+    <line x1="245" y1="297" x2="315" y2="297" stroke="#7ab0c8" stroke-width="2"/>
+
+    <!-- Window right -->
+    <rect x="485" y="270" width="70" height="55" fill="#a8d4e8" rx="3"/>
+    <line x1="520" y1="270" x2="520" y2="325" stroke="#7ab0c8" stroke-width="2"/>
+    <line x1="485" y1="297" x2="555" y2="297" stroke="#7ab0c8" stroke-width="2"/>
+
+    <!-- Chimney - leaning -->
+    <rect x="460" y="150" width="40" height="70" fill="#c8a030" transform="rotate(3, 480, 185)"/>
+  </g>
+
+  <!-- Foreclosed sign in yard -->
+  <rect x="340" y="345" width="120" height="40" fill="#cc2200" rx="4"/>
+  <text x="400" y="370" font-family="Arial" font-weight="bold" font-size="16" fill="white" text-anchor="middle">FORECLOSED</text>
+  <rect x="395" y="385" width="10" height="30" fill="#8b5a00"/>
+</svg>

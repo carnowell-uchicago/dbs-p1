@@ -1,0 +1,242 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400">
+  <defs>
+    <linearGradient id="riverGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6aaad4"/>
+      <stop offset="100%" stop-color="#4a8aba"/>
+    </linearGradient>
+    <linearGradient id="roadH" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e8d8b0"/>
+      <stop offset="100%" stop-color="#d8c898"/>
+    </linearGradient>
+    <linearGradient id="roadV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8d8b0"/>
+      <stop offset="100%" stop-color="#d8c898"/>
+    </linearGradient>
+    <filter id="pinShadow">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="#00000055"/>
+    </filter>
+  </defs>
+
+  <!-- Map paper background -->
+  <rect width="500" height="400" fill="#f0ede8"/>
+  <!-- Subtle paper texture lines -->
+  <g stroke="#e0dbd4" stroke-width="0.5" opacity="0.5">
+    <line x1="0" y1="50" x2="500" y2="50"/>
+    <line x1="0" y1="100" x2="500" y2="100"/>
+    <line x1="0" y1="150" x2="500" y2="150"/>
+    <line x1="0" y1="200" x2="500" y2="200"/>
+    <line x1="0" y1="250" x2="500" y2="250"/>
+    <line x1="0" y1="300" x2="500" y2="300"/>
+    <line x1="0" y1="350" x2="500" y2="350"/>
+    <line x1="50" y1="0" x2="50" y2="400"/>
+    <line x1="100" y1="0" x2="100" y2="400"/>
+    <line x1="150" y1="0" x2="150" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="250" y1="0" x2="250" y2="400"/>
+    <line x1="300" y1="0" x2="300" y2="400"/>
+    <line x1="350" y1="0" x2="350" y2="400"/>
+    <line x1="400" y1="0" x2="400" y2="400"/>
+    <line x1="450" y1="0" x2="450" y2="400"/>
+  </g>
+
+  <!-- Green park/meadow areas -->
+  <rect x="0" y="0" width="220" height="180" fill="#d4e8c0" rx="4" opacity="0.7"/>
+  <rect x="350" y="50" width="150" height="200" fill="#d4e8c0" rx="4" opacity="0.7"/>
+  <rect x="80" y="280" width="180" height="120" fill="#d4e8c0" rx="4" opacity="0.7"/>
+  <!-- Meadow park label -->
+  <text x="95" y="140" font-family="Georgia, serif" font-size="10" fill="#6a9a4a" opacity="0.7" transform="rotate(-8, 95, 140)">Pig's Meadow</text>
+  <text x="370" y="155" font-family="Georgia, serif" font-size="10" fill="#6a9a4a" opacity="0.7" transform="rotate(5, 370, 155)">Brickfield Park</text>
+  <text x="95" y="330" font-family="Georgia, serif" font-size="10" fill="#6a9a4a" opacity="0.7" transform="rotate(-3, 95, 330)">Wolf's Wood</text>
+
+  <!-- River/stream (diagonal, bottom-left corner) -->
+  <path d="M 0,320 Q 40,300 70,330 Q 100,360 130,340 Q 160,320 180,360 L 180,400 L 0,400 Z" fill="url(#riverGrad)" opacity="0.75"/>
+  <!-- River label -->
+  <text x="55" y="368" font-family="Georgia, serif" font-size="9" fill="#2a5a8a" transform="rotate(-8, 55, 368)">Piglet Creek</text>
+
+  <!-- Main horizontal road -->
+  <!-- Road shadow -->
+  <rect x="0" y="212" width="500" height="26" fill="#c8b888" rx="2" opacity="0.5"/>
+  <!-- Road surface -->
+  <rect x="0" y="210" width="500" height="22" fill="url(#roadH)"/>
+  <!-- Road center dashes -->
+  <g stroke="#c8b060" stroke-width="1.5" stroke-dasharray="18,10" opacity="0.7">
+    <line x1="0" y1="221" x2="500" y2="221"/>
+  </g>
+  <!-- Road label -->
+  <text x="250" y="207" font-family="Arial, sans-serif" font-size="9" fill="#8a7a50" text-anchor="middle">PIGLET PIKE (Rt. 3)</text>
+
+  <!-- Main vertical road -->
+  <rect x="278" y="0" width="24" height="400" fill="#c8b888" rx="2" opacity="0.5"/>
+  <rect x="280" y="0" width="20" height="400" fill="url(#roadV)"/>
+  <g stroke="#c8b060" stroke-width="1.5" stroke-dasharray="18,10" opacity="0.7">
+    <line x1="290" y1="0" x2="290" y2="210"/>
+    <line x1="290" y1="232" x2="290" y2="400"/>
+  </g>
+  <!-- Vertical road label -->
+  <text x="290" y="170" font-family="Arial, sans-serif" font-size="9" fill="#8a7a50" text-anchor="middle" transform="rotate(90, 290, 170)">BRICK LANE</text>
+
+  <!-- Intersection box -->
+  <rect x="280" y="210" width="20" height="22" fill="#e0cc98"/>
+
+  <!-- Smaller side streets -->
+  <rect x="0" y="108" width="280" height="10" fill="#ddd0a0" opacity="0.6"/>
+  <text x="140" y="106" font-family="Arial, sans-serif" font-size="8" fill="#8a7a50" text-anchor="middle">MEADOW LN</text>
+
+  <rect x="300" y="108" width="200" height="10" fill="#ddd0a0" opacity="0.6"/>
+  <text x="400" y="106" font-family="Arial, sans-serif" font-size="8" fill="#8a7a50" text-anchor="middle">FOREST EDGE DR</text>
+
+  <!-- Side street at bottom -->
+  <rect x="0" y="310" width="280" height="10" fill="#ddd0a0" opacity="0.6"/>
+  <text x="130" y="308" font-family="Arial, sans-serif" font-size="8" fill="#8a7a50" text-anchor="middle">UNDERPASS RD</text>
+
+  <!-- Tree clusters -->
+  <!-- Top-left meadow trees -->
+  <g fill="#5aaa3a" opacity="0.8">
+    <circle cx="40" cy="55" r="12"/>
+    <circle cx="58" cy="50" r="10"/>
+    <circle cx="55" cy="65" r="9"/>
+    <circle cx="30" cy="70" r="8"/>
+    <rect x="47" y="65" width="4" height="12" fill="#6a5a3a"/>
+  </g>
+  <g fill="#5aaa3a" opacity="0.8">
+    <circle cx="160" cy="60" r="11"/>
+    <circle cx="178" cy="55" r="9"/>
+    <circle cx="175" cy="70" r="8"/>
+    <rect x="167" y="70" width="4" height="10" fill="#6a5a3a"/>
+  </g>
+  <g fill="#5aaa3a" opacity="0.8">
+    <circle cx="50" cy="165" r="10"/>
+    <circle cx="68" cy="160" r="9"/>
+    <circle cx="65" cy="175" r="8"/>
+    <rect x="57" y="173" width="4" height="11" fill="#6a5a3a"/>
+  </g>
+  <!-- Right park trees -->
+  <g fill="#5aaa3a" opacity="0.8">
+    <circle cx="380" cy="75" r="12"/>
+    <circle cx="398" cy="70" r="10"/>
+    <circle cx="395" cy="85" r="9"/>
+    <rect x="387" y="85" width="4" height="12" fill="#6a5a3a"/>
+    <circle cx="440" cy="80" r="11"/>
+    <circle cx="455" cy="75" r="9"/>
+    <circle cx="452" cy="90" r="8"/>
+    <rect x="448" y="88" width="4" height="11" fill="#6a5a3a"/>
+    <circle cx="415" cy="150" r="10"/>
+    <circle cx="433" cy="145" r="9"/>
+    <circle cx="430" cy="160" r="8"/>
+    <rect x="422" y="158" width="4" height="11" fill="#6a5a3a"/>
+  </g>
+  <!-- Bottom left woods (wolf territory) -->
+  <g fill="#4a7a2a" opacity="0.7">
+    <circle cx="110" cy="298" r="11"/>
+    <circle cx="128" cy="293" r="10"/>
+    <circle cx="125" cy="308" r="9"/>
+    <rect x="117" y="306" width="4" height="12" fill="#4a3a1a"/>
+    <circle cx="148" cy="300" r="10"/>
+    <circle cx="165" cy="295" r="9"/>
+    <circle cx="162" cy="310" r="8"/>
+    <rect x="155" y="308" width="4" height="11" fill="#4a3a1a"/>
+    <circle cx="92" cy="350" r="11"/>
+    <circle cx="110" cy="345" r="10"/>
+    <circle cx="107" cy="360" r="9"/>
+    <rect x="99" y="358" width="4" height="12" fill="#4a3a1a"/>
+  </g>
+
+  <!-- Bridge shape (at bottom-left, wolf lair) -->
+  <rect x="55" y="305" width="70" height="10" fill="#9a9090" rx="2"/>
+  <path d="M 55,315 L 55,340 Q 55,355 90,355 Q 125,355 125,340 L 125,315 Z" fill="#8a8080" opacity="0.7"/>
+  <path d="M 60,315 L 60,335 Q 60,348 90,348 Q 120,348 120,335 L 120,315 Z" fill="#1a1a20" opacity="0.7"/>
+
+  <!-- MAP PINS (teardrop shape = circle on pointed bottom) -->
+
+  <!-- PIN 1: Straw house - Red pin at top-left (1 Meadow Ln) -->
+  <g transform="translate(118, 82)" filter="url(#pinShadow)">
+    <!-- Teardrop: circle top + triangle bottom -->
+    <path d="M 0,-18 A 12,12 0 0 1 12,-6 L 0,16 L -12,-6 A 12,12 0 0 1 0,-18 Z" fill="#e03030"/>
+    <circle cx="0" cy="-6" r="7" fill="white" opacity="0.9"/>
+    <text x="0" y="-3" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#e03030" text-anchor="middle">1</text>
+  </g>
+  <!-- Label 1 -->
+  <g transform="translate(96, 72)">
+    <rect x="-2" y="0" width="76" height="28" fill="white" stroke="#e03030" stroke-width="1.5" rx="3" opacity="0.95"/>
+    <text x="36" y="11" font-family="Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#333" text-anchor="middle">1 Meadow Ln</text>
+    <text x="36" y="23" font-family="Arial, sans-serif" font-size="6.5" fill="#e03030" text-anchor="middle">FORECLOSED</text>
+  </g>
+
+  <!-- PIN 2: Stick house - Red pin at middle area (2 Forest Edge Dr) -->
+  <g transform="translate(350, 100)" filter="url(#pinShadow)">
+    <path d="M 0,-18 A 12,12 0 0 1 12,-6 L 0,16 L -12,-6 A 12,12 0 0 1 0,-18 Z" fill="#e03030"/>
+    <circle cx="0" cy="-6" r="7" fill="white" opacity="0.9"/>
+    <text x="0" y="-3" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#e03030" text-anchor="middle">2</text>
+  </g>
+  <!-- Label 2 -->
+  <g transform="translate(305, 75)">
+    <rect x="-2" y="0" width="86" height="28" fill="white" stroke="#e03030" stroke-width="1.5" rx="3" opacity="0.95"/>
+    <text x="41" y="11" font-family="Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#333" text-anchor="middle">2 Forest Edge Dr</text>
+    <text x="41" y="23" font-family="Arial, sans-serif" font-size="6.5" fill="#e03030" text-anchor="middle">FORECLOSED</text>
+  </g>
+
+  <!-- PIN 3: Brick house - Blue "for sale" pin (3 BrickCore Way) -->
+  <g transform="translate(390, 200)" filter="url(#pinShadow)">
+    <path d="M 0,-20 A 13,13 0 0 1 13,-7 L 0,18 L -13,-7 A 13,13 0 0 1 0,-20 Z" fill="#1a6abf"/>
+    <circle cx="0" cy="-7" r="8" fill="white" opacity="0.9"/>
+    <text x="0" y="-4" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#1a6abf" text-anchor="middle">3</text>
+  </g>
+  <!-- Label 3 -->
+  <g transform="translate(305, 175)">
+    <rect x="-2" y="0" width="86" height="30" fill="white" stroke="#1a6abf" stroke-width="1.5" rx="3" opacity="0.95"/>
+    <text x="41" y="11" font-family="Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#333" text-anchor="middle">3 BrickCore Way</text>
+    <text x="41" y="22" font-family="Arial, sans-serif" font-size="6" fill="#1a6abf" text-anchor="middle">FOR SALE</text>
+    <text x="41" y="31" font-family="Arial, sans-serif" font-size="6" fill="#1a6abf" text-anchor="middle">$2,400,000</text>
+  </g>
+
+  <!-- PIN 4: Wolf lair - Gray ominous pin -->
+  <g transform="translate(90, 310)" filter="url(#pinShadow)">
+    <path d="M 0,-18 A 12,12 0 0 1 12,-6 L 0,16 L -12,-6 A 12,12 0 0 1 0,-18 Z" fill="#555560"/>
+    <circle cx="0" cy="-6" r="7" fill="#888890" opacity="0.9"/>
+    <text x="0" y="-3" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#333" text-anchor="middle">?</text>
+  </g>
+  <!-- Label wolf -->
+  <g transform="translate(106, 295)">
+    <rect x="-2" y="0" width="86" height="30" fill="#2a2a30" stroke="#555560" stroke-width="1.5" rx="3" opacity="0.92"/>
+    <text x="41" y="12" font-family="Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#ddd" text-anchor="middle">Under the Bridge</text>
+    <text x="41" y="24" font-family="Arial, sans-serif" font-size="6.5" fill="#aaa" text-anchor="middle">MAKE OFFER</text>
+  </g>
+
+  <!-- Compass Rose (bottom-right corner) -->
+  <g transform="translate(448, 330)">
+    <!-- Rose background -->
+    <circle cx="0" cy="0" r="30" fill="white" stroke="#c8b888" stroke-width="1.5" opacity="0.9"/>
+    <!-- N/S arrow -->
+    <polygon points="0,-22 4,-8 -4,-8" fill="#cc2222"/>
+    <polygon points="0,22 4,8 -4,8" fill="#888"/>
+    <!-- E/W arrow -->
+    <polygon points="22,0 8,4 8,-4" fill="#888"/>
+    <polygon points="-22,0 -8,4 -8,-4" fill="#888"/>
+    <!-- Center dot -->
+    <circle cx="0" cy="0" r="3" fill="#555"/>
+    <!-- Compass labels -->
+    <text x="0" y="-25" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#cc2222" text-anchor="middle">N</text>
+    <text x="0" y="36" font-family="Arial, sans-serif" font-size="9" fill="#555" text-anchor="middle">S</text>
+    <text x="32" y="4" font-family="Arial, sans-serif" font-size="9" fill="#555" text-anchor="start">E</text>
+    <text x="-32" y="4" font-family="Arial, sans-serif" font-size="9" fill="#555" text-anchor="end">W</text>
+  </g>
+
+  <!-- Map title: "Pig's Hollow, MD" -->
+  <rect x="140" y="6" width="220" height="28" fill="white" stroke="#c8b888" stroke-width="1.5" rx="4" opacity="0.9"/>
+  <text x="250" y="25" font-family="Georgia, serif" font-size="14" fill="#4a3a28" text-anchor="middle" font-weight="bold">Pig's Hollow, MD</text>
+
+  <!-- Scale bar -->
+  <g transform="translate(30, 380)">
+    <rect x="0" y="0" width="60" height="8" fill="#555" rx="1"/>
+    <rect x="0" y="0" width="30" height="8" fill="white" rx="1" opacity="0.8"/>
+    <line x1="0" y1="-3" x2="0" y2="0" stroke="#555" stroke-width="1.5"/>
+    <line x1="30" y1="-3" x2="30" y2="0" stroke="#555" stroke-width="1.5"/>
+    <line x1="60" y1="-3" x2="60" y2="0" stroke="#555" stroke-width="1.5"/>
+    <text x="0" y="-6" font-family="Arial, sans-serif" font-size="7" fill="#555" text-anchor="middle">0</text>
+    <text x="30" y="-6" font-family="Arial, sans-serif" font-size="7" fill="#555" text-anchor="middle">0.5 mi</text>
+    <text x="60" y="-6" font-family="Arial, sans-serif" font-size="7" fill="#555" text-anchor="middle">1 mi</text>
+  </g>
+
+  <!-- Map attribution -->
+  <text x="490" y="395" font-family="Arial, sans-serif" font-size="7" fill="#8a7a60" text-anchor="end" opacity="0.7">© PigMaps 2024</text>
+</svg>

@@ -1,0 +1,259 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280">
+  <defs>
+    <linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff8c42" stop-opacity="0.6"/>
+      <stop offset="40%" stop-color="#f4a460" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#87ceeb"/>
+    </linearGradient>
+    <linearGradient id="skyBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2a6c"/>
+      <stop offset="40%" stop-color="#b21f1f" stop-opacity="0.0"/>
+      <stop offset="100%" stop-color="#a8d8f0"/>
+    </linearGradient>
+    <linearGradient id="goldenHour" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#87ceeb"/>
+      <stop offset="50%" stop-color="#f5c77a"/>
+      <stop offset="100%" stop-color="#ff9a3c"/>
+    </linearGradient>
+    <linearGradient id="grass3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6aaa44"/>
+      <stop offset="100%" stop-color="#4a8a28"/>
+    </linearGradient>
+    <linearGradient id="brickWall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c0503a"/>
+      <stop offset="100%" stop-color="#a83820"/>
+    </linearGradient>
+    <linearGradient id="roofGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a5a6a"/>
+      <stop offset="100%" stop-color="#3a3a4a"/>
+    </linearGradient>
+    <linearGradient id="windowGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffe0a0"/>
+      <stop offset="100%" stop-color="#ffb830"/>
+    </linearGradient>
+    <filter id="shadow3" x="-10%" y="-10%" width="130%" height="140%">
+      <feDropShadow dx="4" dy="6" stdDeviation="6" flood-color="#00000044"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Golden hour sky -->
+  <rect width="400" height="280" fill="url(#goldenHour)"/>
+  <!-- Sun glow near horizon -->
+  <ellipse cx="340" cy="200" rx="100" ry="60" fill="#ffb830" opacity="0.3"/>
+  <ellipse cx="340" cy="200" rx="60" ry="40" fill="#ff8c00" opacity="0.25"/>
+
+  <!-- Soft golden clouds -->
+  <ellipse cx="70" cy="50" rx="70" ry="22" fill="#ffeebb" opacity="0.6"/>
+  <ellipse cx="100" cy="38" rx="50" ry="18" fill="#fff0cc" opacity="0.5"/>
+  <ellipse cx="45" cy="60" rx="40" ry="16" fill="#ffddaa" opacity="0.5"/>
+
+  <ellipse cx="300" cy="60" rx="80" ry="24" fill="#ffeebb" opacity="0.55"/>
+  <ellipse cx="330" cy="46" rx="55" ry="19" fill="#fff0cc" opacity="0.5"/>
+
+  <!-- Ground with warm glow -->
+  <rect x="0" y="195" width="400" height="85" fill="url(#grass3)"/>
+  <!-- Warm golden light on grass -->
+  <ellipse cx="200" cy="200" rx="200" ry="30" fill="#ff9a3c" opacity="0.18"/>
+
+  <!-- Brick house - solid, handsome -->
+  <!-- Foundation -->
+  <rect x="88" y="190" width="224" height="8" fill="#7a4a30"/>
+
+  <!-- Main wall -->
+  <rect x="95" y="110" width="210" height="82" fill="url(#brickWall)" filter="url(#shadow3)"/>
+
+  <!-- Brick pattern (neat rows) -->
+  <g fill="#a83820" stroke="#8a2810" stroke-width="0.5">
+    <!-- Row 1 -->
+    <rect x="95" y="110" width="28" height="10" rx="0.5"/>
+    <rect x="125" y="110" width="28" height="10" rx="0.5"/>
+    <rect x="155" y="110" width="28" height="10" rx="0.5"/>
+    <rect x="185" y="110" width="28" height="10" rx="0.5"/>
+    <rect x="215" y="110" width="28" height="10" rx="0.5"/>
+    <rect x="245" y="110" width="28" height="10" rx="0.5"/>
+    <rect x="275" y="110" width="30" height="10" rx="0.5"/>
+    <!-- Row 2 (offset) -->
+    <rect x="95" y="122" width="14" height="10" rx="0.5"/>
+    <rect x="111" y="122" width="28" height="10" rx="0.5"/>
+    <rect x="141" y="122" width="28" height="10" rx="0.5"/>
+    <rect x="171" y="122" width="28" height="10" rx="0.5"/>
+    <rect x="201" y="122" width="28" height="10" rx="0.5"/>
+    <rect x="231" y="122" width="28" height="10" rx="0.5"/>
+    <rect x="261" y="122" width="28" height="10" rx="0.5"/>
+    <rect x="291" y="122" width="14" height="10" rx="0.5"/>
+    <!-- Row 3 -->
+    <rect x="95" y="134" width="28" height="10" rx="0.5"/>
+    <rect x="125" y="134" width="28" height="10" rx="0.5"/>
+    <rect x="155" y="134" width="28" height="10" rx="0.5"/>
+    <rect x="185" y="134" width="28" height="10" rx="0.5"/>
+    <rect x="215" y="134" width="28" height="10" rx="0.5"/>
+    <rect x="245" y="134" width="28" height="10" rx="0.5"/>
+    <rect x="275" y="134" width="30" height="10" rx="0.5"/>
+    <!-- Row 4 (offset) -->
+    <rect x="95" y="146" width="14" height="10" rx="0.5"/>
+    <rect x="111" y="146" width="28" height="10" rx="0.5"/>
+    <rect x="141" y="146" width="28" height="10" rx="0.5"/>
+    <rect x="171" y="146" width="28" height="10" rx="0.5"/>
+    <rect x="201" y="146" width="28" height="10" rx="0.5"/>
+    <rect x="231" y="146" width="28" height="10" rx="0.5"/>
+    <rect x="261" y="146" width="28" height="10" rx="0.5"/>
+    <rect x="291" y="146" width="14" height="10" rx="0.5"/>
+    <!-- Row 5 -->
+    <rect x="95" y="158" width="28" height="10" rx="0.5"/>
+    <rect x="125" y="158" width="28" height="10" rx="0.5"/>
+    <rect x="155" y="158" width="28" height="10" rx="0.5"/>
+    <rect x="185" y="158" width="28" height="10" rx="0.5"/>
+    <rect x="215" y="158" width="28" height="10" rx="0.5"/>
+    <rect x="245" y="158" width="28" height="10" rx="0.5"/>
+    <rect x="275" y="158" width="30" height="10" rx="0.5"/>
+    <!-- Row 6 (offset) -->
+    <rect x="95" y="170" width="14" height="10" rx="0.5"/>
+    <rect x="111" y="170" width="28" height="10" rx="0.5"/>
+    <rect x="141" y="170" width="28" height="10" rx="0.5"/>
+    <rect x="171" y="170" width="28" height="10" rx="0.5"/>
+    <rect x="201" y="170" width="28" height="10" rx="0.5"/>
+    <rect x="231" y="170" width="28" height="10" rx="0.5"/>
+    <rect x="261" y="170" width="28" height="10" rx="0.5"/>
+    <rect x="291" y="170" width="14" height="10" rx="0.5"/>
+    <!-- Row 7 -->
+    <rect x="95" y="182" width="28" height="10" rx="0.5"/>
+    <rect x="125" y="182" width="28" height="10" rx="0.5"/>
+    <rect x="155" y="182" width="28" height="10" rx="0.5"/>
+    <rect x="185" y="182" width="28" height="10" rx="0.5"/>
+    <rect x="215" y="182" width="28" height="10" rx="0.5"/>
+    <rect x="245" y="182" width="28" height="10" rx="0.5"/>
+    <rect x="275" y="182" width="30" height="10" rx="0.5"/>
+  </g>
+  <!-- Mortar highlight -->
+  <g stroke="#c86848" stroke-width="0.5" opacity="0.3">
+    <line x1="95" y1="120" x2="305" y2="120"/>
+    <line x1="95" y1="132" x2="305" y2="132"/>
+    <line x1="95" y1="144" x2="305" y2="144"/>
+    <line x1="95" y1="156" x2="305" y2="156"/>
+    <line x1="95" y1="168" x2="305" y2="168"/>
+    <line x1="95" y1="180" x2="305" y2="180"/>
+    <line x1="95" y1="192" x2="305" y2="192"/>
+  </g>
+
+  <!-- Pitched slate roof -->
+  <polygon points="78,116 200,62 322,116" fill="url(#roofGrad)" filter="url(#shadow3)"/>
+  <!-- Slate tile lines -->
+  <g stroke="#5a5a6a" stroke-width="1.5" opacity="0.5">
+    <line x1="113" y1="104" x2="287" y2="104"/>
+    <line x1="98" y1="112" x2="302" y2="112"/>
+    <!-- Vertical slate divisions row 1 -->
+    <line x1="140" y1="104" x2="135" y2="112"/>
+    <line x1="165" y1="104" x2="160" y2="112"/>
+    <line x1="190" y1="104" x2="185" y2="112"/>
+    <line x1="215" y1="104" x2="210" y2="112"/>
+    <line x1="240" y1="104" x2="235" y2="112"/>
+    <line x1="265" y1="104" x2="260" y2="112"/>
+    <!-- Row 2 -->
+    <line x1="130" y1="96" x2="125" y2="104"/>
+    <line x1="155" y1="96" x2="150" y2="104"/>
+    <line x1="180" y1="96" x2="175" y2="104"/>
+    <line x1="205" y1="96" x2="200" y2="104"/>
+    <line x1="230" y1="96" x2="225" y2="104"/>
+    <line x1="255" y1="96" x2="250" y2="104"/>
+    <!-- Row 3 near peak -->
+    <line x1="155" y1="84" x2="150" y2="96"/>
+    <line x1="180" y1="78" x2="175" y2="90"/>
+    <line x1="210" y1="80" x2="205" y2="92"/>
+    <line x1="235" y1="86" x2="230" y2="98"/>
+  </g>
+  <!-- Roof ridge cap -->
+  <line x1="78" y1="116" x2="322" y2="116" stroke="#4a4a5a" stroke-width="4"/>
+
+  <!-- Chimney -->
+  <rect x="248" y="60" width="22" height="55" fill="#a83820"/>
+  <!-- Chimney bricks -->
+  <g stroke="#8a2810" stroke-width="0.5" opacity="0.5">
+    <line x1="248" y1="70" x2="270" y2="70"/>
+    <line x1="248" y1="80" x2="270" y2="80"/>
+    <line x1="248" y1="90" x2="270" y2="90"/>
+    <line x1="248" y1="100" x2="270" y2="100"/>
+    <line x1="248" y1="110" x2="270" y2="110"/>
+    <line x1="259" y1="60" x2="259" y2="115"/>
+  </g>
+  <!-- Chimney cap -->
+  <rect x="245" y="56" width="28" height="6" fill="#7a4a30" rx="1"/>
+  <!-- Smoke wisp -->
+  <path d="M 259 56 Q 265 45 255 35 Q 245 25 258 15" stroke="#ddd" stroke-width="3" fill="none" opacity="0.5" stroke-linecap="round"/>
+  <path d="M 262 56 Q 268 42 260 30" stroke="#ccc" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round"/>
+
+  <!-- Left window (glowing warm light) -->
+  <rect x="110" y="126" width="50" height="40" fill="url(#windowGlow)" rx="3" filter="url(#glow)"/>
+  <rect x="110" y="126" width="50" height="40" fill="none" stroke="white" stroke-width="3" rx="3"/>
+  <!-- White frame -->
+  <line x1="135" y1="126" x2="135" y2="166" stroke="white" stroke-width="2.5"/>
+  <line x1="110" y1="146" x2="160" y2="146" stroke="white" stroke-width="2.5"/>
+  <!-- Window sill -->
+  <rect x="107" y="165" width="56" height="5" fill="white" rx="1"/>
+  <!-- Warm glow halo on brick -->
+  <ellipse cx="135" cy="146" rx="35" ry="28" fill="#ffb830" opacity="0.12"/>
+
+  <!-- Right window (glowing warm light) -->
+  <rect x="240" y="126" width="50" height="40" fill="url(#windowGlow)" rx="3" filter="url(#glow)"/>
+  <rect x="240" y="126" width="50" height="40" fill="none" stroke="white" stroke-width="3" rx="3"/>
+  <line x1="265" y1="126" x2="265" y2="166" stroke="white" stroke-width="2.5"/>
+  <line x1="240" y1="146" x2="290" y2="146" stroke="white" stroke-width="2.5"/>
+  <rect x="237" y="165" width="56" height="5" fill="white" rx="1"/>
+  <ellipse cx="265" cy="146" rx="35" ry="28" fill="#ffb830" opacity="0.12"/>
+
+  <!-- Solid dark wood front door -->
+  <rect x="178" y="158" width="44" height="34" fill="#2a1a08" rx="3"/>
+  <rect x="178" y="158" width="44" height="4" fill="#1a0e04" rx="2"/>
+  <!-- Door panels -->
+  <rect x="183" y="163" width="16" height="12" fill="#1a0e04" rx="1" opacity="0.5"/>
+  <rect x="201" y="163" width="16" height="12" fill="#1a0e04" rx="1" opacity="0.5"/>
+  <rect x="183" y="178" width="16" height="10" fill="#1a0e04" rx="1" opacity="0.5"/>
+  <rect x="201" y="178" width="16" height="10" fill="#1a0e04" rx="1" opacity="0.5"/>
+  <!-- Brass knocker -->
+  <circle cx="214" cy="175" r="4" fill="#c8a030"/>
+  <circle cx="214" cy="175" r="2.5" fill="#b89020" stroke="#c8a030" stroke-width="0.5"/>
+
+  <!-- Tidy garden in front -->
+  <ellipse cx="145" cy="198" rx="32" ry="8" fill="#5aaa3a" opacity="0.8"/>
+  <ellipse cx="255" cy="198" rx="32" ry="8" fill="#5aaa3a" opacity="0.8"/>
+  <!-- Garden flowers -->
+  <g>
+    <circle cx="130" cy="196" r="3" fill="#ff6688"/>
+    <circle cx="140" cy="194" r="2.5" fill="#ffaa00"/>
+    <circle cx="150" cy="196" r="3" fill="#ff6688"/>
+    <circle cx="160" cy="194" r="2.5" fill="#ffaa00"/>
+    <circle cx="245" cy="196" r="3" fill="#ff6688"/>
+    <circle cx="255" cy="194" r="2.5" fill="#ffaa00"/>
+    <circle cx="265" cy="196" r="3" fill="#ff6688"/>
+    <circle cx="275" cy="194" r="2.5" fill="#ffaa00"/>
+  </g>
+  <!-- Garden stems -->
+  <g stroke="#3a7a1a" stroke-width="1.5">
+    <line x1="130" y1="196" x2="130" y2="202"/>
+    <line x1="140" y1="194" x2="140" y2="202"/>
+    <line x1="150" y1="196" x2="150" y2="202"/>
+    <line x1="160" y1="194" x2="160" y2="202"/>
+    <line x1="245" y1="196" x2="245" y2="202"/>
+    <line x1="255" y1="194" x2="255" y2="202"/>
+    <line x1="265" y1="196" x2="265" y2="202"/>
+    <line x1="275" y1="194" x2="275" y2="202"/>
+  </g>
+
+  <!-- FOR SALE sign (subtle, premium) -->
+  <g transform="translate(18,162)">
+    <rect x="0" y="0" width="62" height="34" fill="white" stroke="#cc2222" stroke-width="2.5" rx="3"/>
+    <text x="31" y="13" font-family="Georgia, serif" font-size="8" font-weight="bold" fill="#cc2222" text-anchor="middle">FOR SALE</text>
+    <text x="31" y="27" font-family="Arial, sans-serif" font-size="6" fill="#555" text-anchor="middle">PigRealty.com</text>
+    <line x1="31" y1="34" x2="31" y2="50" stroke="#888" stroke-width="2"/>
+    <line x1="20" y1="50" x2="42" y2="50" stroke="#888" stroke-width="2"/>
+  </g>
+
+  <!-- Golden hour light overlay -->
+  <rect width="400" height="280" fill="#ff8c00" opacity="0.06"/>
+
+  <!-- Photo watermark-style text -->
+  <text x="8" y="272" font-family="Arial, sans-serif" font-size="9" fill="white" opacity="0.75">3 BrickCore Way, Pig's Hollow MD · Listed by PigRealty.com</text>
+</svg>
