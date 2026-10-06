@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 360">
+  <defs>
+    <filter id="paper-tex3">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+      <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply" result="blend"/>
+      <feComponentTransfer in="blend">
+        <feFuncR type="linear" slope="0.97" intercept="0.02"/>
+        <feFuncG type="linear" slope="0.94" intercept="0.04"/>
+        <feFuncB type="linear" slope="0.87" intercept="0.03"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="ink-rough3">
+      <feTurbulence type="turbulence" baseFrequency="0.032" numOctaves="2" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="0.9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- Aged paper background - slightly cleaner/whiter for the formal deed -->
+  <rect width="280" height="360" fill="#F7EDD5" filter="url(#paper-tex3)"/>
+  <!-- Light aging stains -->
+  <ellipse cx="30" cy="340" rx="20" ry="15" fill="#D4B87A" opacity="0.12"/>
+  <ellipse cx="250" cy="30" rx="18" ry="14" fill="#C8A96E" opacity="0.10"/>
+
+  <!-- Outer border - more ornate, double thick -->
+  <rect x="6" y="6" width="268" height="348" fill="none" stroke="#3D1F00" stroke-width="3.5"/>
+  <rect x="12" y="12" width="256" height="336" fill="none" stroke="#3D1F00" stroke-width="1.5"/>
+  <rect x="16" y="16" width="248" height="328" fill="none" stroke="#B8860B" stroke-width="0.75"/>
+
+  <!-- Corner flourishes - more elaborate -->
+  <!-- Top-left -->
+  <path d="M6,40 C16,40 22,34 22,24 L22,6" stroke="#3D1F00" stroke-width="1.5" fill="none"/>
+  <path d="M6,46 C20,46 26,40 26,26 L26,6" stroke="#B8860B" stroke-width="0.75" fill="none"/>
+  <!-- Top-right -->
+  <path d="M274,40 C264,40 258,34 258,24 L258,6" stroke="#3D1F00" stroke-width="1.5" fill="none"/>
+  <path d="M274,46 C260,46 254,40 254,26 L254,6" stroke="#B8860B" stroke-width="0.75" fill="none"/>
+  <!-- Bottom-left -->
+  <path d="M6,320 C16,320 22,326 22,336 L22,354" stroke="#3D1F00" stroke-width="1.5" fill="none"/>
+  <path d="M6,314 C20,314 26,320 26,334 L26,354" stroke="#B8860B" stroke-width="0.75" fill="none"/>
+  <!-- Bottom-right -->
+  <path d="M274,320 C264,320 258,326 258,336 L258,354" stroke="#3D1F00" stroke-width="1.5" fill="none"/>
+  <path d="M274,314 C260,314 254,320 254,334 L254,354" stroke="#B8860B" stroke-width="0.75" fill="none"/>
+
+  <!-- Corner diamonds -->
+  <polygon points="14,14 18,18 14,22 10,18" fill="#B8860B"/>
+  <polygon points="266,14 270,18 266,22 262,18" fill="#B8860B"/>
+  <polygon points="14,346 18,342 14,338 10,342" fill="#B8860B"/>
+  <polygon points="266,346 270,342 266,338 262,342" fill="#B8860B"/>
+
+  <!-- Header ornament -->
+  <line x1="28" y1="38" x2="252" y2="38" stroke="#3D1F00" stroke-width="1.5"/>
+  <line x1="28" y1="41" x2="252" y2="41" stroke="#B8860B" stroke-width="0.75"/>
+  <polygon points="140,34 144,38 140,42 136,38" fill="#B8860B"/>
+  <polygon points="60,38 63,41 60,44 57,41" fill="#3D1F00"/>
+  <polygon points="220,38 223,41 220,44 217,41" fill="#3D1F00"/>
+
+  <!-- CERTIFICATE OF DEED header -->
+  <text x="140" y="62" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#3D1F00" letter-spacing="2" filter="url(#ink-rough3)">CERTIFICATE OF DEED</text>
+
+  <!-- Registry line -->
+  <text x="140" y="77" font-family="Georgia, 'Times New Roman', serif" font-size="9" text-anchor="middle" fill="#5A3010">Swine Valley Land Registry · Claim No. 003</text>
+
+  <!-- Brass accent divider -->
+  <line x1="30" y1="83" x2="250" y2="83" stroke="#B8860B" stroke-width="1.5"/>
+  <line x1="30" y1="85" x2="250" y2="85" stroke="#3D1F00" stroke-width="0.5"/>
+
+  <!-- WOLF RESISTANCE rating - certification stamp look -->
+  <rect x="55" y="90" width="170" height="24" rx="2" fill="none" stroke="#3D1F00" stroke-width="1.5"/>
+  <text x="140" y="106" font-family="Georgia, 'Times New Roman', serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#3D1F00">WOLF RESISTANCE: ✓ CERTIFIED</text>
+
+  <!-- Property description box -->
+  <rect x="25" y="120" width="230" height="96" fill="#EDD9A3" stroke="#3D1F00" stroke-width="1.5"/>
+  <rect x="28" y="123" width="224" height="90" fill="none" stroke="#B8860B" stroke-width="0.75"/>
+  <text x="140" y="140" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#3D1F00">BRISTLE BRICK RESIDENCE</text>
+  <text x="140" y="155" font-family="Georgia, 'Times New Roman', serif" font-size="8.5" text-anchor="middle" fill="#3D1F00">Solid Brick Construction · 3 Rooms</text>
+  <text x="140" y="167" font-family="Georgia, 'Times New Roman', serif" font-size="8.5" text-anchor="middle" fill="#3D1F00">Load-bearing: Extreme · Wolf Attacks Repelled: 1</text>
+  <text x="140" y="179" font-family="Georgia, 'Times New Roman', serif" font-size="8.5" text-anchor="middle" fill="#3D1F00">Condition: Excellent</text>
+  <line x1="40" y1="188" x2="240" y2="188" stroke="#3D1F00" stroke-width="0.75"/>
+  <text x="140" y="201" font-family="Georgia, 'Times New Roman', serif" font-size="8.5" font-style="italic" text-anchor="middle" fill="#3D1F00">Owner: Thomasina Bristle, Proprietor</text>
+
+  <!-- Brick house sketch - solid, sturdy -->
+  <g transform="translate(70, 222)">
+    <!-- Ground line -->
+    <line x1="-5" y1="84" x2="148" y2="84" stroke="#3D1F00" stroke-width="1.5"/>
+    <!-- House walls - solid brick pattern -->
+    <rect x="10" y="28" width="122" height="56" fill="#E8C89A" stroke="#3D1F00" stroke-width="2"/>
+    <!-- Brick grid pattern - horizontal mortar lines -->
+    <line x1="10" y1="38" x2="132" y2="38" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="10" y1="48" x2="132" y2="48" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="10" y1="58" x2="132" y2="58" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="10" y1="68" x2="132" y2="68" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="10" y1="78" x2="132" y2="78" stroke="#3D1F00" stroke-width="0.75"/>
+    <!-- Vertical mortar lines (offset per row) - row 1 -->
+    <line x1="40" y1="28" x2="40" y2="38" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="70" y1="28" x2="70" y2="38" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="100" y1="28" x2="100" y2="38" stroke="#3D1F00" stroke-width="0.75"/>
+    <!-- row 2 offset -->
+    <line x1="25" y1="38" x2="25" y2="48" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="55" y1="38" x2="55" y2="48" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="85" y1="38" x2="85" y2="48" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="115" y1="38" x2="115" y2="48" stroke="#3D1F00" stroke-width="0.75"/>
+    <!-- row 3 -->
+    <line x1="40" y1="48" x2="40" y2="58" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="70" y1="48" x2="70" y2="58" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="100" y1="48" x2="100" y2="58" stroke="#3D1F00" stroke-width="0.75"/>
+    <!-- row 4 offset -->
+    <line x1="25" y1="58" x2="25" y2="68" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="55" y1="58" x2="55" y2="68" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="85" y1="58" x2="85" y2="68" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="115" y1="58" x2="115" y2="68" stroke="#3D1F00" stroke-width="0.75"/>
+    <!-- row 5 -->
+    <line x1="40" y1="68" x2="40" y2="78" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="70" y1="68" x2="70" y2="78" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="100" y1="68" x2="100" y2="78" stroke="#3D1F00" stroke-width="0.75"/>
+    <!-- row 6 offset -->
+    <line x1="25" y1="78" x2="25" y2="84" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="55" y1="78" x2="55" y2="84" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="85" y1="78" x2="85" y2="84" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="115" y1="78" x2="115" y2="84" stroke="#3D1F00" stroke-width="0.75"/>
+    <!-- Pitched roof -->
+    <polygon points="5,28 71,5 137,28" fill="#D4A574" stroke="#3D1F00" stroke-width="2"/>
+    <!-- Chimney -->
+    <rect x="100" y="5" width="16" height="22" fill="#E8C89A" stroke="#3D1F00" stroke-width="1.5"/>
+    <rect x="97" y="3" width="22" height="5" fill="#E8C89A" stroke="#3D1F00" stroke-width="1.5"/>
+    <!-- Door - solid, arched -->
+    <path d="M59,84 L59,62 Q71,52 83,62 L83,84 Z" fill="none" stroke="#3D1F00" stroke-width="1.5"/>
+    <circle cx="79" cy="73" r="2" fill="#3D1F00"/>
+    <!-- Windows - with shutters suggested -->
+    <rect x="16" y="35" width="24" height="18" rx="1" fill="#D4E8F0" opacity="0.4" stroke="#3D1F00" stroke-width="1.5"/>
+    <line x1="28" y1="35" x2="28" y2="53" stroke="#3D1F00" stroke-width="1"/>
+    <line x1="16" y1="44" x2="40" y2="44" stroke="#3D1F00" stroke-width="1"/>
+    <rect x="102" y="35" width="24" height="18" rx="1" fill="#D4E8F0" opacity="0.4" stroke="#3D1F00" stroke-width="1.5"/>
+    <line x1="114" y1="35" x2="114" y2="53" stroke="#3D1F00" stroke-width="1"/>
+    <line x1="102" y1="44" x2="126" y2="44" stroke="#3D1F00" stroke-width="1"/>
+  </g>
+
+  <!-- Official seal - more elaborate -->
+  <circle cx="140" cy="320" r="25" fill="#EDD9A3" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="140" cy="320" r="22" fill="none" stroke="#3D1F00" stroke-width="1.5"/>
+  <circle cx="140" cy="320" r="18" fill="none" stroke="#B8860B" stroke-width="0.75"/>
+  <!-- Star in seal -->
+  <polygon points="140,302 143.5,312 155,312 146,319 149,330 140,323 131,330 134,319 125,312 136.5,312" fill="#3D1F00" opacity="0.75"/>
+  <!-- Inner text ring -->
+  <text x="140" y="344" font-family="Georgia, 'Times New Roman', serif" font-size="5.5" text-anchor="middle" fill="#3D1F00">CERTIFIED WOLF-RESISTANT · STRUCTURAL ENGINEER APPROVED</text>
+
+  <!-- Footer text -->
+  <text x="140" y="351" font-family="Georgia, 'Times New Roman', serif" font-size="6" font-style="italic" text-anchor="middle" fill="#5A3010">This deed supersedes filings Nos. 001 and 002, which are hereby condemned.</text>
+</svg>

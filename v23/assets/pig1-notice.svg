@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 360">
+  <defs>
+    <filter id="paper-tex">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+      <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply" result="blend"/>
+      <feComponentTransfer in="blend">
+        <feFuncR type="linear" slope="0.96" intercept="0.03"/>
+        <feFuncG type="linear" slope="0.93" intercept="0.05"/>
+        <feFuncB type="linear" slope="0.86" intercept="0.04"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="ink-rough">
+      <feTurbulence type="turbulence" baseFrequency="0.035" numOctaves="2" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="1" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- Aged paper background -->
+  <rect width="280" height="360" fill="#F5E6C8" filter="url(#paper-tex)"/>
+  <!-- Aging stains -->
+  <ellipse cx="35" cy="45" rx="25" ry="18" fill="#C8A96E" opacity="0.16"/>
+  <ellipse cx="245" cy="320" rx="22" ry="16" fill="#BFA060" opacity="0.14"/>
+
+  <!-- Outer border -->
+  <rect x="8" y="8" width="264" height="344" fill="none" stroke="#3D1F00" stroke-width="2.5"/>
+  <rect x="13" y="13" width="254" height="334" fill="none" stroke="#3D1F00" stroke-width="1"/>
+
+  <!-- Corner ornaments - small crosses -->
+  <line x1="8" y1="24" x2="18" y2="24" stroke="#3D1F00" stroke-width="1.5"/>
+  <line x1="24" y1="8" x2="24" y2="18" stroke="#3D1F00" stroke-width="1.5"/>
+  <line x1="272" y1="24" x2="262" y2="24" stroke="#3D1F00" stroke-width="1.5"/>
+  <line x1="256" y1="8" x2="256" y2="18" stroke="#3D1F00" stroke-width="1.5"/>
+  <line x1="8" y1="336" x2="18" y2="336" stroke="#3D1F00" stroke-width="1.5"/>
+  <line x1="24" y1="352" x2="24" y2="342" stroke="#3D1F00" stroke-width="1.5"/>
+  <line x1="272" y1="336" x2="262" y2="336" stroke="#3D1F00" stroke-width="1.5"/>
+  <line x1="256" y1="352" x2="256" y2="342" stroke="#3D1F00" stroke-width="1.5"/>
+
+  <!-- Header ornament - decorative divider -->
+  <line x1="25" y1="35" x2="255" y2="35" stroke="#3D1F00" stroke-width="1.5"/>
+  <line x1="25" y1="38" x2="255" y2="38" stroke="#3D1F00" stroke-width="0.75"/>
+  <circle cx="50" cy="36.5" r="3" fill="#3D1F00"/>
+  <circle cx="140" cy="36.5" r="4" fill="#3D1F00"/>
+  <circle cx="230" cy="36.5" r="3" fill="#3D1F00"/>
+  <diamond x="137" y="33.5" width="6" height="6" fill="#3D1F00"/>
+  <!-- Diamond shape at center -->
+  <polygon points="140,32 144,36.5 140,41 136,36.5" fill="#3D1F00"/>
+
+  <!-- PROPERTY NOTICE header -->
+  <text x="140" y="62" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#3D1F00" letter-spacing="3" filter="url(#ink-rough)">PROPERTY NOTICE</text>
+
+  <!-- Registry line -->
+  <text x="140" y="78" font-family="Georgia, 'Times New Roman', serif" font-size="9" text-anchor="middle" fill="#5A3010">Swine Valley Land Registry · Claim No. 001</text>
+
+  <!-- Divider -->
+  <line x1="30" y1="84" x2="250" y2="84" stroke="#3D1F00" stroke-width="1"/>
+
+  <!-- Property description box -->
+  <rect x="25" y="92" width="230" height="90" fill="#EDD9A3" stroke="#3D1F00" stroke-width="1.5"/>
+  <rect x="28" y="95" width="224" height="84" fill="none" stroke="#3D1F00" stroke-width="0.5"/>
+  <text x="140" y="110" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#3D1F00">STRAW HOMESTEAD</text>
+  <text x="140" y="124" font-family="Georgia, 'Times New Roman', serif" font-size="8.5" text-anchor="middle" fill="#3D1F00">1 Room · No Foundation · Flammable</text>
+  <text x="140" y="136" font-family="Georgia, 'Times New Roman', serif" font-size="8.5" text-anchor="middle" fill="#3D1F00">Adjacent to Wolf Territory</text>
+  <text x="140" y="148" font-family="Georgia, 'Times New Roman', serif" font-size="8.5" text-anchor="middle" fill="#5A3010">Load-bearing capacity: Optimistic</text>
+  <line x1="40" y1="156" x2="240" y2="156" stroke="#3D1F00" stroke-width="0.75"/>
+  <text x="140" y="169" font-family="Georgia, 'Times New Roman', serif" font-size="8.5" font-style="italic" text-anchor="middle" fill="#3D1F00">Owner: Percival Snout, Proprietor</text>
+
+  <!-- Straw house sketch -->
+  <g transform="translate(70, 200)">
+    <!-- Ground line -->
+    <line x1="0" y1="85" x2="140" y2="85" stroke="#3D1F00" stroke-width="1.5"/>
+    <!-- House walls - slightly leaning -->
+    <polygon points="15,85 18,30 122,28 125,85" fill="#EDD9A3" stroke="#3D1F00" stroke-width="1.5"/>
+    <!-- Straw hatching on walls -->
+    <line x1="20" y1="85" x2="25" y2="30" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="35" y1="85" x2="40" y2="29" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="50" y1="85" x2="55" y2="29" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="65" y1="85" x2="70" y2="29" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="80" y1="85" x2="82" y2="29" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="95" y1="85" x2="95" y2="29" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="110" y1="85" x2="108" y2="29" stroke="#3D1F00" stroke-width="0.75"/>
+    <!-- Roof - thatched, slightly askew -->
+    <polygon points="8,30 70,5 132,28" fill="#EDD9A3" stroke="#3D1F00" stroke-width="1.5"/>
+    <!-- Straw roof texture lines -->
+    <line x1="8" y1="30" x2="70" y2="5" stroke="#3D1F00" stroke-width="0.5"/>
+    <line x1="20" y1="29" x2="70" y2="8" stroke="#3D1F00" stroke-width="0.5"/>
+    <line x1="35" y1="29" x2="74" y2="8" stroke="#3D1F00" stroke-width="0.5"/>
+    <line x1="50" y1="29" x2="82" y2="8" stroke="#3D1F00" stroke-width="0.5"/>
+    <line x1="70" y1="5" x2="110" y2="26" stroke="#3D1F00" stroke-width="0.5"/>
+    <line x1="70" y1="8" x2="120" y2="27" stroke="#3D1F00" stroke-width="0.5"/>
+    <!-- Door -->
+    <rect x="55" y="58" width="28" height="27" rx="3" fill="none" stroke="#3D1F00" stroke-width="1.5"/>
+    <!-- Window -->
+    <rect x="25" y="48" width="22" height="20" rx="1" fill="none" stroke="#3D1F00" stroke-width="1"/>
+    <line x1="36" y1="48" x2="36" y2="68" stroke="#3D1F00" stroke-width="0.75"/>
+    <line x1="25" y1="58" x2="47" y2="58" stroke="#3D1F00" stroke-width="0.75"/>
+  </g>
+
+  <!-- Official seal -->
+  <circle cx="140" cy="320" r="22" fill="none" stroke="#3D1F00" stroke-width="1.5"/>
+  <circle cx="140" cy="320" r="18" fill="none" stroke="#3D1F00" stroke-width="0.75"/>
+  <!-- Star in seal -->
+  <polygon points="140,304 143,314 154,314 145,320 148,331 140,325 132,331 135,320 126,314 137,314" fill="#3D1F00" opacity="0.7"/>
+  <text x="140" y="342" font-family="Georgia, 'Times New Roman', serif" font-size="6" text-anchor="middle" fill="#3D1F00">SWINE VALLEY · EST. 1849</text>
+
+  <!-- Footer text -->
+  <text x="140" y="351" font-family="Georgia, 'Times New Roman', serif" font-size="6.5" font-style="italic" text-anchor="middle" fill="#5A3010">Registered in good faith. Valley takes no responsibility for structural integrity.</text>
+</svg>
