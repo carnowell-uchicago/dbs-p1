@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200">
+  <defs>
+    <!-- Forest texture -->
+    <pattern id="forestPat" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#8ab878"/>
+    </pattern>
+    <!-- Water texture -->
+    <pattern id="waterPat" x="0" y="0" width="8" height="4" patternUnits="userSpaceOnUse">
+      <rect width="8" height="4" fill="#7ab0d0"/>
+      <line x1="0" y1="2" x2="8" y2="2" stroke="#6a9ec0" stroke-width="0.4" opacity="0.6"/>
+    </pattern>
+    <!-- Map border shadow -->
+    <filter id="mapShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="1" dy="1" stdDeviation="1.5" flood-color="#8a8078" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Map background / base terrain — muted green land -->
+  <rect width="300" height="200" fill="#d8e8c8" rx="0"/>
+
+  <!-- Outer border (map frame) -->
+  <rect x="0" y="0" width="300" height="200" fill="none" stroke="#8a8278" stroke-width="1.5"/>
+
+  <!-- TERRAIN REGIONS -->
+
+  <!-- Dense forest area — The Forest region (north center) -->
+  <ellipse cx="130" cy="80" rx="100" ry="65" fill="#9ac888" stroke="#6a9858" stroke-width="0.8"/>
+  <!-- Forest fill texture (darker green blobs for tree canopy) -->
+  <ellipse cx="75" cy="65" rx="22" ry="18" fill="#7aaa60" stroke="#5a9048" stroke-width="0.5"/>
+  <ellipse cx="110" cy="55" rx="18" ry="15" fill="#7aaa60" stroke="#5a9048" stroke-width="0.5"/>
+  <ellipse cx="148" cy="60" rx="20" ry="16" fill="#82b868" stroke="#5a9048" stroke-width="0.5"/>
+  <ellipse cx="180" cy="70" rx="16" ry="14" fill="#7aaa60" stroke="#5a9048" stroke-width="0.5"/>
+  <ellipse cx="90" cy="90" rx="18" ry="14" fill="#82b868" stroke="#5a9048" stroke-width="0.5"/>
+  <ellipse cx="128" cy="88" rx="16" ry="13" fill="#7aaa60" stroke="#5a9048" stroke-width="0.5"/>
+  <ellipse cx="162" cy="85" rx="14" ry="12" fill="#82b868" stroke="#5a9048" stroke-width="0.5"/>
+  <ellipse cx="60" cy="85" rx="14" ry="12" fill="#7aaa60" stroke="#5a9048" stroke-width="0.5"/>
+
+  <!-- Open meadow / farmland (south) — lighter green -->
+  <rect x="0" y="140" width="300" height="60" fill="#c8dc98" rx="0"/>
+  <!-- Field division lines -->
+  <line x1="50" y1="140" x2="50" y2="200" stroke="#a8c070" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <line x1="120" y1="140" x2="120" y2="200" stroke="#a8c070" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <line x1="200" y1="140" x2="200" y2="200" stroke="#a8c070" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <line x1="260" y1="140" x2="260" y2="200" stroke="#a8c070" stroke-width="0.8" stroke-dasharray="3,3"/>
+
+  <!-- Hills (east, subtle) -->
+  <ellipse cx="265" cy="95" rx="45" ry="30" fill="#b8c890" stroke="#98a870" stroke-width="0.8"/>
+  <ellipse cx="285" cy="85" rx="30" ry="22" fill="#c0d098" stroke="#98a870" stroke-width="0.8"/>
+
+  <!-- RIVER — meandering through map -->
+  <path d="M 0 115 Q 30 108 55 118 Q 80 128 105 120 Q 125 114 148 122 Q 170 130 195 125 Q 218 120 245 128 Q 268 135 300 130"
+        stroke="#6ab0d8" stroke-width="9" fill="none" stroke-linecap="round" opacity="0.9"/>
+  <!-- River center line (water sheen) -->
+  <path d="M 0 115 Q 30 108 55 118 Q 80 128 105 120 Q 125 114 148 122 Q 170 130 195 125 Q 218 120 245 128 Q 268 135 300 130"
+        stroke="#88c4e8" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- ROADS -->
+  <!-- Main road (north-south, slightly west) -->
+  <line x1="85" y1="0" x2="85" y2="200" stroke="#e8dcc0" stroke-width="4" opacity="0.9"/>
+  <line x1="85" y1="0" x2="85" y2="200" stroke="#d8c8a0" stroke-width="2" stroke-dasharray="8,5" opacity="0.7"/>
+
+  <!-- Secondary road (east-west, through south) -->
+  <line x1="0" y1="162" x2="300" y2="162" stroke="#e8dcc0" stroke-width="3" opacity="0.9"/>
+  <line x1="0" y1="162" x2="300" y2="162" stroke="#d8c8a0" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
+
+  <!-- Track road (to incident site) -->
+  <line x1="85" y1="95" x2="148" y2="95" stroke="#e0d4b0" stroke-width="2" stroke-dasharray="4,4" opacity="0.8"/>
+
+  <!-- REGION LABEL — "The Forest" -->
+  <text x="130" y="48" font-family="Georgia, serif" font-size="11" font-style="italic" fill="#3a5030" text-anchor="middle" opacity="0.85">The Forest</text>
+  <!-- Region boundary suggestion -->
+  <ellipse cx="130" cy="76" rx="100" ry="63" fill="none" stroke="#5a8048" stroke-width="0.8" stroke-dasharray="4,3" opacity="0.6"/>
+
+  <!-- INCIDENT SITE — red dot at clearing -->
+  <circle cx="148" cy="95" r="6" fill="#cc3030" stroke="white" stroke-width="1.5"/>
+  <circle cx="148" cy="95" r="3" fill="#ff4040"/>
+  <!-- Label -->
+  <text x="155" y="90" font-family="Arial, sans-serif" font-size="8.5" fill="#880000" font-weight="bold">Incident Site (2018)</text>
+
+  <!-- Village label -->
+  <circle cx="85" cy="162" r="3.5" fill="#8a6040" stroke="white" stroke-width="1"/>
+  <text x="90" y="158" font-family="Arial, sans-serif" font-size="8" fill="#4a3020">Swine Village</text>
+
+  <!-- River label -->
+  <text x="45" y="112" font-family="Georgia, serif" font-size="8" font-style="italic" fill="#3a6888" transform="rotate(-8, 45, 112)">River Lupine</text>
+
+  <!-- COMPASS ROSE (bottom right) -->
+  <g transform="translate(262, 22)">
+    <!-- Background circle -->
+    <circle cx="0" cy="0" r="18" fill="white" stroke="#8a8278" stroke-width="1" opacity="0.9"/>
+    <!-- N/S arrow -->
+    <polygon points="0,-14 -4,-4 4,-4" fill="#2a2822"/>
+    <polygon points="0,14 -4,4 4,4" fill="#9a9890"/>
+    <!-- E/W arrow -->
+    <polygon points="14,0 4,-4 4,4" fill="#9a9890"/>
+    <polygon points="-14,0 -4,-4 -4,4" fill="#9a9890"/>
+    <!-- Center dot -->
+    <circle cx="0" cy="0" r="2.5" fill="white" stroke="#2a2822" stroke-width="1"/>
+    <!-- Cardinal letters -->
+    <text x="0" y="-16" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#1a1815" text-anchor="middle">N</text>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#6a6860" text-anchor="middle">S</text>
+    <text x="20" y="3" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#6a6860" text-anchor="middle">E</text>
+    <text x="-20" y="3" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#6a6860" text-anchor="middle">W</text>
+  </g>
+
+  <!-- LEGEND BOX (bottom left) -->
+  <rect x="5" y="148" width="105" height="48" fill="white" stroke="#8a8278" stroke-width="1" opacity="0.92" rx="1"/>
+  <text x="10" y="160" font-family="Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#2a2822">Legend</text>
+  <line x1="10" y1="163" x2="108" y2="163" stroke="#c8c4c0" stroke-width="0.8"/>
+  <!-- Legend items -->
+  <circle cx="17" cy="172" r="4.5" fill="#cc3030" stroke="white" stroke-width="1"/>
+  <text x="26" y="175" font-family="Arial, sans-serif" font-size="8" fill="#2a2822">Incident Site</text>
+  <rect x="12" y="181" width="10" height="6" fill="#9ac888" stroke="#6a9858" stroke-width="0.8"/>
+  <text x="26" y="188" font-family="Arial, sans-serif" font-size="8" fill="#2a2822">Forest / Woodland</text>
+  <line x1="12" y1="193" x2="22" y2="193" stroke="#6ab0d8" stroke-width="3"/>
+  <text x="26" y="196" font-family="Arial, sans-serif" font-size="8" fill="#2a2822">River</text>
+
+  <!-- Scale bar (bottom center) -->
+  <g transform="translate(140, 188)">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="#3a3330" stroke-width="1.2"/>
+    <line x1="0" y1="-3" x2="0" y2="3" stroke="#3a3330" stroke-width="1.2"/>
+    <line x1="30" y1="-2" x2="30" y2="2" stroke="#3a3330" stroke-width="1"/>
+    <line x1="60" y1="-3" x2="60" y2="3" stroke="#3a3330" stroke-width="1.2"/>
+    <rect x="0" y="-1" width="30" height="2" fill="#3a3330"/>
+    <text x="0" y="-5" font-family="Arial, sans-serif" font-size="7" fill="#3a3330" text-anchor="middle">0</text>
+    <text x="30" y="-5" font-family="Arial, sans-serif" font-size="7" fill="#3a3330" text-anchor="middle">5 km</text>
+    <text x="60" y="-5" font-family="Arial, sans-serif" font-size="7" fill="#3a3330" text-anchor="middle">10 km</text>
+  </g>
+
+  <!-- Attribution / source line (top right — wikipedia map style) -->
+  <text x="296" y="196" font-family="Arial, sans-serif" font-size="6.5" fill="#8a8278" text-anchor="end" font-style="italic">Map data: Porcine Geographic Survey, 2019</text>
+</svg>

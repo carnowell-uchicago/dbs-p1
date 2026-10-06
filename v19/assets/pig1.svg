@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <!-- Hatching pattern for engraving effect -->
+    <pattern id="hatch1" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#b0a8a0" stroke-width="0.6"/>
+    </pattern>
+    <pattern id="crossHatch1" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#9a9290" stroke-width="0.5"/>
+      <line x1="0" y1="0" x2="4" y2="0" stroke="#9a9290" stroke-width="0.5"/>
+    </pattern>
+    <pattern id="shadowHatch" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
+      <line x1="0" y1="0" x2="0" y2="3" stroke="#8a8480" stroke-width="0.7"/>
+    </pattern>
+  </defs>
+
+  <!-- White background -->
+  <rect width="200" height="200" fill="white"/>
+
+  <!-- Ground line -->
+  <line x1="20" y1="178" x2="180" y2="178" stroke="#3a3330" stroke-width="1.5"/>
+  <!-- Ground hatching -->
+  <rect x="20" y="178" width="160" height="12" fill="url(#hatch1)" opacity="0.5"/>
+
+  <!-- Straw bundle -->
+  <!-- Individual straws radiating from bundle -->
+  <g stroke="#8a7840" stroke-width="1" fill="none" opacity="0.85">
+    <line x1="118" y1="100" x2="145" y2="75"/>
+    <line x1="120" y1="105" x2="150" y2="80"/>
+    <line x1="122" y1="110" x2="152" y2="90"/>
+    <line x1="120" y1="115" x2="148" y2="98"/>
+    <line x1="118" y1="120" x2="144" y2="105"/>
+    <line x1="116" y1="108" x2="140" y2="78"/>
+    <line x1="114" y1="112" x2="136" y2="82"/>
+    <line x1="124" y1="108" x2="150" y2="85"/>
+    <line x1="126" y1="113" x2="154" y2="93"/>
+    <line x1="112" y1="116" x2="138" y2="88"/>
+  </g>
+  <!-- Bundle tie -->
+  <ellipse cx="122" cy="112" rx="12" ry="8" fill="#c8b060" stroke="#5a4820" stroke-width="1.5" transform="rotate(-20, 122, 112)"/>
+  <!-- Straw tops (tufted) -->
+  <g stroke="#6a5830" stroke-width="0.8" fill="none">
+    <path d="M 143 76 Q 145 70 148 72 Q 146 66 150 68"/>
+    <path d="M 148 81 Q 151 75 154 77 Q 152 71 156 73"/>
+    <path d="M 138 79 Q 140 73 143 75 Q 141 69 145 71"/>
+  </g>
+
+  <!-- Pig body -->
+  <ellipse cx="95" cy="140" rx="48" ry="38" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.8"/>
+  <!-- Body shadow/depth hatch -->
+  <clipPath id="bodyClip1">
+    <ellipse cx="95" cy="140" rx="48" ry="38"/>
+  </clipPath>
+  <rect x="47" y="140" width="96" height="40" fill="url(#hatch1)" opacity="0.35" clip-path="url(#bodyClip1)"/>
+
+  <!-- Arm extended holding straw -->
+  <path d="M 110 130 Q 125 118 122 112" stroke="#3a3330" stroke-width="1.8" fill="#f0d8d0"/>
+  <ellipse cx="113" cy="133" rx="16" ry="9" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.5" transform="rotate(-30, 113, 133)"/>
+
+  <!-- Legs -->
+  <ellipse cx="78" cy="172" rx="12" ry="8" fill="#e8c8bc" stroke="#3a3330" stroke-width="1.5"/>
+  <ellipse cx="112" cy="172" rx="12" ry="8" fill="#e8c8bc" stroke="#3a3330" stroke-width="1.5"/>
+  <!-- Hooves -->
+  <ellipse cx="78" cy="177" rx="10" ry="5" fill="#8a6858" stroke="#3a3330" stroke-width="1.2"/>
+  <ellipse cx="112" cy="177" rx="10" ry="5" fill="#8a6858" stroke="#3a3330" stroke-width="1.2"/>
+
+  <!-- Head -->
+  <ellipse cx="90" cy="100" rx="35" ry="32" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.8"/>
+  <!-- Head shadow hatch -->
+  <clipPath id="headClip1">
+    <ellipse cx="90" cy="100" rx="35" ry="32"/>
+  </clipPath>
+  <rect x="90" y="100" width="35" height="35" fill="url(#shadowHatch)" opacity="0.25" clip-path="url(#headClip1)"/>
+
+  <!-- Snout -->
+  <ellipse cx="90" cy="114" rx="18" ry="13" fill="#e8b8a8" stroke="#3a3330" stroke-width="1.5"/>
+  <!-- Nostrils -->
+  <ellipse cx="83" cy="113" rx="4" ry="3.5" fill="#c89080" stroke="#3a3330" stroke-width="1"/>
+  <ellipse cx="97" cy="113" rx="4" ry="3.5" fill="#c89080" stroke="#3a3330" stroke-width="1"/>
+
+  <!-- Smile — optimistic! -->
+  <path d="M 76 122 Q 90 132 104 122" stroke="#3a3330" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Eyes — bright, hopeful -->
+  <ellipse cx="77" cy="95" rx="7" ry="8" fill="white" stroke="#3a3330" stroke-width="1.5"/>
+  <ellipse cx="103" cy="95" rx="7" ry="8" fill="white" stroke="#3a3330" stroke-width="1.5"/>
+  <ellipse cx="78" cy="95" rx="3.5" ry="4" fill="#1a1815"/>
+  <ellipse cx="104" cy="95" rx="3.5" ry="4" fill="#1a1815"/>
+  <!-- Eye glints -->
+  <circle cx="80" cy="93" r="1.2" fill="white"/>
+  <circle cx="106" cy="93" r="1.2" fill="white"/>
+
+  <!-- Ears -->
+  <ellipse cx="65" cy="78" rx="10" ry="13" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.5" transform="rotate(-15, 65, 78)"/>
+  <ellipse cx="65" cy="79" rx="6" ry="9" fill="#e8a898" transform="rotate(-15, 65, 79)"/>
+  <ellipse cx="115" cy="78" rx="10" ry="13" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.5" transform="rotate(15, 115, 78)"/>
+  <ellipse cx="115" cy="79" rx="6" ry="9" fill="#e8a898" transform="rotate(15, 115, 79)"/>
+
+  <!-- Tail (curly) -->
+  <path d="M 47 132 Q 38 128 40 122 Q 42 116 48 118 Q 52 120 50 125" stroke="#3a3330" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Caption -->
+  <text x="100" y="196" font-family="Georgia, serif" font-size="9.5" fill="#3a3330" text-anchor="middle" font-style="italic">Fig. 2 — Eldest sibling (Sus domesticus primum) with straw materials</text>
+</svg>

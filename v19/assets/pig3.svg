@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <pattern id="hatch3" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(50)">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#b0a8a0" stroke-width="0.6"/>
+    </pattern>
+    <pattern id="brickPat" x="0" y="0" width="20" height="10" patternUnits="userSpaceOnUse">
+      <rect width="20" height="10" fill="#c87858"/>
+      <rect x="0" y="0" width="19" height="9" fill="#d08868" rx="0.5"/>
+      <line x1="0" y1="5" x2="20" y2="5" stroke="#a05838" stroke-width="0.8"/>
+      <line x1="10" y1="0" x2="10" y2="5" stroke="#a05838" stroke-width="0.8"/>
+      <line x1="0" y1="5" x2="0" y2="10" stroke="#a05838" stroke-width="0.8"/>
+      <line x1="20" y1="5" x2="20" y2="10" stroke="#a05838" stroke-width="0.8"/>
+    </pattern>
+    <pattern id="shadowHatch3" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(-40)">
+      <line x1="0" y1="0" x2="0" y2="3" stroke="#8a8480" stroke-width="0.7"/>
+    </pattern>
+  </defs>
+
+  <rect width="200" height="200" fill="white"/>
+
+  <!-- Ground line -->
+  <line x1="20" y1="178" x2="180" y2="178" stroke="#3a3330" stroke-width="1.5"/>
+  <rect x="20" y="178" width="160" height="12" fill="url(#hatch3)" opacity="0.5"/>
+
+  <!-- Partial brick wall being built (lower right) -->
+  <g>
+    <!-- Wall base — a few rows of bricks -->
+    <rect x="118" y="138" width="60" height="40" fill="url(#brickPat)" stroke="#8a5838" stroke-width="1"/>
+    <rect x="118" y="138" width="60" height="40" fill="none" stroke="#3a2818" stroke-width="1.2"/>
+    <!-- Mortar lines -->
+    <line x1="118" y1="148" x2="178" y2="148" stroke="#c8b0a0" stroke-width="1.5"/>
+    <line x1="118" y1="158" x2="178" y2="158" stroke="#c8b0a0" stroke-width="1.5"/>
+    <line x1="118" y1="168" x2="178" y2="168" stroke="#c8b0a0" stroke-width="1.5"/>
+    <line x1="138" y1="138" x2="138" y2="148" stroke="#c8b0a0" stroke-width="1.2"/>
+    <line x1="158" y1="148" x2="158" y2="158" stroke="#c8b0a0" stroke-width="1.2"/>
+    <line x1="138" y1="158" x2="138" y2="168" stroke="#c8b0a0" stroke-width="1.2"/>
+    <line x1="158" y1="168" x2="158" y2="178" stroke="#c8b0a0" stroke-width="1.2"/>
+    <!-- Top brick being placed -->
+    <rect x="120" y="130" width="38" height="10" fill="#d08868" stroke="#8a5838" stroke-width="1"/>
+    <!-- Fresh mortar squish -->
+    <path d="M 120 140 Q 130 142 140 140 Q 150 142 158 140" stroke="#c8b0a0" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Trowel in hand -->
+  <g transform="rotate(-45, 118, 130)">
+    <!-- Handle -->
+    <rect x="110" y="128" width="4" height="18" rx="2" fill="#8a6040" stroke="#3a2818" stroke-width="1"/>
+    <!-- Blade -->
+    <polygon points="112,146 106,162 118,162" fill="#a8a8a8" stroke="#3a3330" stroke-width="1"/>
+  </g>
+
+  <!-- Pig body -->
+  <ellipse cx="88" cy="143" rx="46" ry="36" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.8"/>
+  <clipPath id="bodyClip3">
+    <ellipse cx="88" cy="143" rx="46" ry="36"/>
+  </clipPath>
+  <rect x="88" y="148" width="46" height="33" fill="url(#hatch3)" opacity="0.3" clip-path="url(#bodyClip3)"/>
+
+  <!-- Arm extended with trowel -->
+  <ellipse cx="112" cy="136" rx="16" ry="9" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.5" transform="rotate(-40, 112, 136)"/>
+
+  <!-- Other arm — on hip, smug -->
+  <path d="M 68 145 Q 58 148 55 158" stroke="#3a3330" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <ellipse cx="60" cy="152" rx="10" ry="8" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.5" transform="rotate(15, 60, 152)"/>
+
+  <!-- Legs -->
+  <ellipse cx="74" cy="172" rx="11" ry="8" fill="#e8c8bc" stroke="#3a3330" stroke-width="1.5"/>
+  <ellipse cx="106" cy="172" rx="11" ry="8" fill="#e8c8bc" stroke="#3a3330" stroke-width="1.5"/>
+  <ellipse cx="74" cy="177" rx="10" ry="5" fill="#8a6858" stroke="#3a3330" stroke-width="1.2"/>
+  <ellipse cx="106" cy="177" rx="10" ry="5" fill="#8a6858" stroke="#3a3330" stroke-width="1.2"/>
+
+  <!-- Head -->
+  <ellipse cx="86" cy="103" rx="34" ry="31" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.8"/>
+  <clipPath id="headClip3">
+    <ellipse cx="86" cy="103" rx="34" ry="31"/>
+  </clipPath>
+  <rect x="86" y="105" width="34" height="31" fill="url(#shadowHatch3)" opacity="0.2" clip-path="url(#headClip3)"/>
+
+  <!-- Hardhat / construction cap — showing expertise -->
+  <ellipse cx="86" cy="83" rx="36" ry="12" fill="#e8c840" stroke="#8a7820" stroke-width="1.5"/>
+  <rect x="52" y="74" width="68" height="15" rx="2" fill="#f0d850" stroke="#8a7820" stroke-width="1.5"/>
+  <ellipse cx="86" cy="74" rx="30" ry="10" fill="#f8e060" stroke="#8a7820" stroke-width="1.5"/>
+
+  <!-- Snout -->
+  <ellipse cx="86" cy="116" rx="17" ry="12" fill="#e8b8a8" stroke="#3a3330" stroke-width="1.5"/>
+  <ellipse cx="80" cy="115" rx="3.5" ry="3" fill="#c89080" stroke="#3a3330" stroke-width="1"/>
+  <ellipse cx="92" cy="115" rx="3.5" ry="3" fill="#c89080" stroke="#3a3330" stroke-width="1"/>
+
+  <!-- Smug, knowing smile -->
+  <path d="M 74 124 Q 86 136 98 124" stroke="#3a3330" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Extra smug — slight dimple corners -->
+  <line x1="74" y1="124" x2="72" y2="121" stroke="#3a3330" stroke-width="1" stroke-linecap="round"/>
+  <line x1="98" y1="124" x2="100" y2="121" stroke="#3a3330" stroke-width="1" stroke-linecap="round"/>
+
+  <!-- Eyes — knowing, slightly narrowed, smug -->
+  <ellipse cx="73" cy="99" rx="7" ry="6.5" fill="white" stroke="#3a3330" stroke-width="1.5"/>
+  <ellipse cx="99" cy="99" rx="7" ry="6.5" fill="white" stroke="#3a3330" stroke-width="1.5"/>
+  <!-- Smug half-closed look -->
+  <line x1="66" y1="96" x2="80" y2="96" stroke="#3a3330" stroke-width="2" stroke-linecap="round"/>
+  <line x1="92" y1="96" x2="106" y2="96" stroke="#3a3330" stroke-width="2" stroke-linecap="round"/>
+  <ellipse cx="74" cy="100" rx="3.5" ry="3" fill="#1a1815"/>
+  <ellipse cx="100" cy="100" rx="3.5" ry="3" fill="#1a1815"/>
+  <circle cx="76" cy="98" r="1.2" fill="white"/>
+  <circle cx="102" cy="98" r="1.2" fill="white"/>
+
+  <!-- Ears (under hardhat) -->
+  <ellipse cx="55" cy="86" rx="8" ry="10" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.5" transform="rotate(-10, 55, 86)"/>
+  <ellipse cx="55" cy="87" rx="5" ry="7" fill="#e8a898" transform="rotate(-10, 55, 87)"/>
+  <ellipse cx="117" cy="86" rx="8" ry="10" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.5" transform="rotate(10, 117, 86)"/>
+  <ellipse cx="117" cy="87" rx="5" ry="7" fill="#e8a898" transform="rotate(10, 117, 87)"/>
+
+  <!-- Tail -->
+  <path d="M 43 137 Q 34 132 36 126 Q 38 120 44 122 Q 48 124 46 129" stroke="#3a3330" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Caption -->
+  <text x="100" y="196" font-family="Georgia, serif" font-size="9" fill="#3a3330" text-anchor="middle" font-style="italic">Fig. 4 — Youngest sibling (Sus domesticus tertium) with masonry materials</text>
+</svg>

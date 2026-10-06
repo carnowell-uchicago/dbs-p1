@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <pattern id="hatch2" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#b0a8a0" stroke-width="0.6"/>
+    </pattern>
+    <pattern id="shadowHatch2" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(-25)">
+      <line x1="0" y1="0" x2="0" y2="3" stroke="#8a8480" stroke-width="0.7"/>
+    </pattern>
+  </defs>
+
+  <rect width="200" height="200" fill="white"/>
+
+  <!-- Ground -->
+  <line x1="20" y1="178" x2="180" y2="178" stroke="#3a3330" stroke-width="1.5"/>
+  <rect x="20" y="178" width="160" height="12" fill="url(#hatch2)" opacity="0.5"/>
+
+  <!-- Bundle of sticks / twigs -->
+  <!-- Main sticks -->
+  <g stroke="#6a5030" stroke-width="2" stroke-linecap="round">
+    <line x1="115" y1="95" x2="148" y2="68"/>
+    <line x1="118" y1="102" x2="152" y2="76"/>
+    <line x1="119" y1="109" x2="150" y2="84"/>
+    <line x1="117" y1="116" x2="146" y2="93"/>
+    <line x1="115" y1="122" x2="143" y2="100"/>
+    <line x1="112" y1="106" x2="142" y2="74"/>
+    <line x1="122" y1="106" x2="155" y2="82"/>
+  </g>
+  <!-- Smaller twigs branching off -->
+  <g stroke="#5a4228" stroke-width="1" stroke-linecap="round">
+    <line x1="130" y1="86" x2="137" y2="79"/>
+    <line x1="130" y1="86" x2="124" y2="80"/>
+    <line x1="138" y1="78" x2="144" y2="72"/>
+    <line x1="140" y1="92" x2="148" y2="85"/>
+    <line x1="140" y1="92" x2="133" y2="86"/>
+    <line x1="125" y1="95" x2="118" y2="88"/>
+    <line x1="148" y1="80" x2="154" y2="73"/>
+    <line x1="148" y1="80" x2="144" y2="74"/>
+  </g>
+  <!-- Bundle tie/rope -->
+  <ellipse cx="120" cy="111" rx="11" ry="7" fill="#8a7060" stroke="#3a2818" stroke-width="1.5" transform="rotate(-25, 120, 111)"/>
+  <!-- Rope texture -->
+  <line x1="112" y1="107" x2="128" y2="115" stroke="#6a5040" stroke-width="0.8"/>
+
+  <!-- Pig body -->
+  <ellipse cx="92" cy="142" rx="47" ry="37" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.8"/>
+  <clipPath id="bodyClip2">
+    <ellipse cx="92" cy="142" rx="47" ry="37"/>
+  </clipPath>
+  <rect x="92" y="145" width="47" height="37" fill="url(#hatch2)" opacity="0.3" clip-path="url(#bodyClip2)"/>
+
+  <!-- Arm holding sticks -->
+  <path d="M 108 133 Q 120 120 120 111" stroke="#3a3330" stroke-width="1.8" fill="#f0d8d0"/>
+  <ellipse cx="112" cy="135" rx="15" ry="9" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.5" transform="rotate(-35, 112, 135)"/>
+
+  <!-- Other arm — relaxed confidence gesture -->
+  <ellipse cx="72" cy="148" rx="14" ry="9" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.5" transform="rotate(20, 72, 148)"/>
+
+  <!-- Legs -->
+  <ellipse cx="76" cy="172" rx="11" ry="8" fill="#e8c8bc" stroke="#3a3330" stroke-width="1.5"/>
+  <ellipse cx="109" cy="172" rx="11" ry="8" fill="#e8c8bc" stroke="#3a3330" stroke-width="1.5"/>
+  <ellipse cx="76" cy="177" rx="10" ry="5" fill="#8a6858" stroke="#3a3330" stroke-width="1.2"/>
+  <ellipse cx="109" cy="177" rx="10" ry="5" fill="#8a6858" stroke="#3a3330" stroke-width="1.2"/>
+
+  <!-- Head -->
+  <ellipse cx="88" cy="101" rx="34" ry="32" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.8"/>
+  <clipPath id="headClip2">
+    <ellipse cx="88" cy="101" rx="34" ry="32"/>
+  </clipPath>
+  <rect x="88" y="103" width="34" height="32" fill="url(#shadowHatch2)" opacity="0.22" clip-path="url(#headClip2)"/>
+
+  <!-- Snout -->
+  <ellipse cx="88" cy="115" rx="17" ry="12" fill="#e8b8a8" stroke="#3a3330" stroke-width="1.5"/>
+  <ellipse cx="82" cy="114" rx="3.5" ry="3" fill="#c89080" stroke="#3a3330" stroke-width="1"/>
+  <ellipse cx="94" cy="114" rx="3.5" ry="3" fill="#c89080" stroke="#3a3330" stroke-width="1"/>
+
+  <!-- Moderately confident smile -->
+  <path d="M 76 123 Q 88 131 100 123" stroke="#3a3330" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Eyes — confident, slightly squinting -->
+  <ellipse cx="75" cy="97" rx="7" ry="7" fill="white" stroke="#3a3330" stroke-width="1.5"/>
+  <ellipse cx="101" cy="97" rx="7" ry="7" fill="white" stroke="#3a3330" stroke-width="1.5"/>
+  <!-- Slight squint via upper lid -->
+  <line x1="68" y1="93" x2="82" y2="93" stroke="#3a3330" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="94" y1="93" x2="108" y2="93" stroke="#3a3330" stroke-width="1.8" stroke-linecap="round"/>
+  <ellipse cx="76" cy="98" rx="3.5" ry="3.5" fill="#1a1815"/>
+  <ellipse cx="102" cy="98" rx="3.5" ry="3.5" fill="#1a1815"/>
+  <circle cx="78" cy="96" r="1.2" fill="white"/>
+  <circle cx="104" cy="96" r="1.2" fill="white"/>
+
+  <!-- Ears -->
+  <ellipse cx="63" cy="80" rx="10" ry="12" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.5" transform="rotate(-12, 63, 80)"/>
+  <ellipse cx="63" cy="81" rx="6" ry="8" fill="#e8a898" transform="rotate(-12, 63, 81)"/>
+  <ellipse cx="113" cy="80" rx="10" ry="12" fill="#f0d8d0" stroke="#3a3330" stroke-width="1.5" transform="rotate(12, 113, 80)"/>
+  <ellipse cx="113" cy="81" rx="6" ry="8" fill="#e8a898" transform="rotate(12, 113, 81)"/>
+
+  <!-- Tail -->
+  <path d="M 45 135 Q 36 130 38 124 Q 40 118 46 120 Q 50 122 48 127" stroke="#3a3330" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Caption -->
+  <text x="100" y="196" font-family="Georgia, serif" font-size="9.5" fill="#3a3330" text-anchor="middle" font-style="italic">Fig. 3 — Middle sibling (Sus domesticus secundum) with timber materials</text>
+</svg>

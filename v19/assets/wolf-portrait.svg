@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <!-- Grain/photo texture filter -->
+    <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+      <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply" result="blended"/>
+      <feComposite in="blended" in2="SourceGraphic" operator="in"/>
+    </filter>
+    <filter id="photoGrain" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9 0.85" numOctaves="4" seed="2" result="turbulence"/>
+      <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="2" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+      <feColorMatrix type="matrix"
+        values="0.33 0.33 0.33 0 0
+                0.33 0.33 0.33 0 0
+                0.33 0.33 0.33 0 0
+                0    0    0    1 0"
+        in="displaced" result="gray"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="8" result="grain"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.12 0" in="grain" result="grayGrain"/>
+      <feComposite in="gray" in2="grayGrain" operator="arithmetic" k1="0" k2="1" k3="0.15" k4="0"/>
+    </filter>
+    <!-- Vignette gradient -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="60%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.45)"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Photo frame border -->
+  <rect x="0" y="0" width="300" height="400" fill="#d4cfc8"/>
+  <rect x="6" y="6" width="288" height="388" fill="#f5f2ee"/>
+  <rect x="10" y="10" width="280" height="380" fill="#2a2622" rx="1"/>
+  <rect x="12" y="12" width="276" height="376" fill="#e8e4df" rx="1"/>
+
+  <!-- Background -->
+  <rect x="14" y="14" width="272" height="372" fill="#c8c0b8" filter="url(#photoGrain)"/>
+
+  <!-- Wolf illustration group — grey tones -->
+  <g filter="url(#photoGrain)">
+
+    <!-- Shoulders / upper body -->
+    <ellipse cx="150" cy="370" rx="110" ry="60" fill="#5a5450"/>
+    <!-- Neck -->
+    <rect x="120" y="290" width="60" height="80" rx="10" fill="#6a6460"/>
+    <!-- Collar / lapels -->
+    <polygon points="120,310 90,370 150,340" fill="#3a3330"/>
+    <polygon points="180,310 210,370 150,340" fill="#3a3330"/>
+    <!-- Tie suggestion -->
+    <polygon points="150,320 143,370 157,370 150,355" fill="#2a2520"/>
+
+    <!-- Head -->
+    <ellipse cx="150" cy="230" rx="75" ry="80" fill="#8a8480"/>
+
+    <!-- Snout -->
+    <ellipse cx="150" cy="255" rx="38" ry="28" fill="#7a7470"/>
+    <!-- Nostrils -->
+    <ellipse cx="138" cy="248" rx="6" ry="4" fill="#3a3330"/>
+    <ellipse cx="162" cy="248" rx="6" ry="4" fill="#3a3330"/>
+
+    <!-- Mouth — slight scowl -->
+    <path d="M 128 270 Q 150 278 172 270" stroke="#3a3330" stroke-width="2" fill="none"/>
+    <!-- Fang hint -->
+    <line x1="145" y1="272" x2="143" y2="280" stroke="#e8e4df" stroke-width="2"/>
+    <line x1="155" y1="272" x2="157" y2="280" stroke="#e8e4df" stroke-width="2"/>
+
+    <!-- Eyes — narrowed, slightly menacing -->
+    <ellipse cx="120" cy="215" rx="16" ry="10" fill="#3a3330"/>
+    <ellipse cx="180" cy="215" rx="16" ry="10" fill="#3a3330"/>
+    <!-- Eye whites -->
+    <ellipse cx="120" cy="215" rx="10" ry="7" fill="#c8c4c0"/>
+    <ellipse cx="180" cy="215" rx="10" ry="7" fill="#c8c4c0"/>
+    <!-- Pupils -->
+    <ellipse cx="122" cy="215" rx="5" ry="6" fill="#1a1815"/>
+    <ellipse cx="182" cy="215" rx="5" ry="6" fill="#1a1815"/>
+    <!-- Brow ridge — furrowed -->
+    <path d="M 104 205 Q 120 198 136 205" stroke="#3a3330" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 164 205 Q 180 198 196 205" stroke="#3a3330" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- Ears — pointed, alert -->
+    <polygon points="100,170 85,115 130,160" fill="#7a7470"/>
+    <polygon points="92,162 85,118 120,158" fill="#5a5450"/>
+    <!-- Inner ear -->
+    <polygon points="98,162 90,125 118,157" fill="#6a6460"/>
+
+    <polygon points="200,170 215,115 170,160" fill="#7a7470"/>
+    <polygon points="208,162 215,118 180,158" fill="#5a5450"/>
+    <!-- Inner ear -->
+    <polygon points="202,162 210,125 182,157" fill="#6a6460"/>
+
+    <!-- Fur texture on face — hatching suggestion -->
+    <path d="M 95 240 Q 100 235 98 228" stroke="#6a6460" stroke-width="0.8" fill="none" opacity="0.7"/>
+    <path d="M 102 248 Q 107 242 104 234" stroke="#6a6460" stroke-width="0.8" fill="none" opacity="0.7"/>
+    <path d="M 205 240 Q 200 235 202 228" stroke="#6a6460" stroke-width="0.8" fill="none" opacity="0.7"/>
+    <path d="M 198 248 Q 193 242 196 234" stroke="#6a6460" stroke-width="0.8" fill="none" opacity="0.7"/>
+
+    <!-- Forehead fur lines -->
+    <path d="M 130 175 Q 135 168 140 175" stroke="#5a5450" stroke-width="0.8" fill="none" opacity="0.6"/>
+    <path d="M 145 170 Q 150 162 155 170" stroke="#5a5450" stroke-width="0.8" fill="none" opacity="0.6"/>
+    <path d="M 160 175 Q 165 168 170 175" stroke="#5a5450" stroke-width="0.8" fill="none" opacity="0.6"/>
+  </g>
+
+  <!-- Vignette overlay -->
+  <rect x="14" y="14" width="272" height="372" fill="url(#vignette)" opacity="0.6"/>
+
+  <!-- Frame inner shadow -->
+  <rect x="12" y="12" width="276" height="376" fill="none" stroke="#8a8278" stroke-width="1" rx="1"/>
+
+  <!-- Photo caption area -->
+  <rect x="0" y="368" width="300" height="32" fill="#d4cfc8"/>
+  <text x="150" y="387" font-family="Georgia, serif" font-size="10" fill="#3a3330" text-anchor="middle" font-style="italic">Fig. 1 — B. B. Wolf (Canis lupus ferox), est. 1845–present</text>
+</svg>

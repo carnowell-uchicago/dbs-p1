@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Literature / The Three Little Pigs - TV Tropes</title>
+<style>
+/* === RESET === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* === ROOT VARIABLES === */
+:root {
+  --bg-page: #f5f0e0;
+  --bg-content: #fff;
+  --bg-sidebar: #eeeeee;
+  --nav-blue: #6699cc;
+  --nav-blue-dark: #5588bb;
+  --link-blue: #5566aa;
+  --link-blue-hover: #3344aa;
+  --folder-bg: #ddeeff;
+  --folder-border: #336699;
+  --tab-active-bg: #fff;
+  --tab-inactive-bg: #ccddee;
+  --border-color: #aabbcc;
+  --text: #333;
+  --muted: #666;
+  --warn-bg: #fff8e1;
+  --warn-border: #f0c040;
+  --trope-highlight: #e8f4ff;
+  --filter-active: #5566aa;
+  --filter-bg: #e8eef8;
+}
+
+html { font-size: 14px; scroll-behavior: smooth; }
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: var(--bg-page);
+  color: var(--text);
+  line-height: 1.6;
+  padding-bottom: 80px;
+}
+
+a { color: var(--link-blue); text-decoration: underline; }
+a:hover { color: var(--link-blue-hover); }
+
+/* === TOP NAV BAR === */
+#topnav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: var(--nav-blue);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+#nav-logo {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+#nav-logo:hover { color: #ddeeff; }
+
+#nav-search {
+  flex: 1;
+  max-width: 300px;
+}
+#nav-search input {
+  width: 100%;
+  padding: 4px 8px;
+  border: 1px solid #88aacc;
+  border-radius: 2px;
+  font-size: 12px;
+  background: rgba(255,255,255,0.9);
+  color: #333;
+}
+
+#nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+#nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  white-space: nowrap;
+}
+#nav-links a:hover { text-decoration: underline; color: #ddeeff; }
+
+#nav-troper {
+  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+  white-space: nowrap;
+}
+
+/* === PAGE WRAPPER === */
+#page-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 44px;
+  padding: 0 16px;
+}
+
+/* === SITE BREADCRUMB === */
+#breadcrumb {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+  padding: 8px 0 4px;
+  border-bottom: 1px solid #ccc;
+  background: var(--bg-page);
+}
+#breadcrumb a { color: var(--link-blue); }
+
+/* === PAGE TITLE AREA === */
+#page-title-area {
+  padding: 12px 0 0;
+  background: var(--bg-page);
+}
+
+#page-namespace {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+#page-title {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #222;
+  line-height: 1.2;
+  margin: 4px 0 8px;
+}
+
+/* === TAB BAR === */
+#tab-bar {
+  display: flex;
+  gap: 2px;
+  border-bottom: 2px solid var(--folder-border);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 6px 14px;
+  background: var(--tab-inactive-bg);
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+  cursor: pointer;
+  color: var(--link-blue);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  text-decoration: underline;
+  border-radius: 3px 3px 0 0;
+  transition: background 0.15s;
+}
+.tab-btn:hover { background: #b8ccee; }
+.tab-btn.active {
+  background: var(--tab-active-bg);
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 2px solid #fff;
+  margin-bottom: -2px;
+  position: relative;
+  z-index: 1;
+}
+
+/* === MAIN LAYOUT === */
+#main-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding-top: 16px;
+}
+
+#content-area {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg-content);
+  border: 1px solid #ccc;
+  padding: 16px 20px;
+}
+
+#sidebar {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+/* === WARNING BANNER === */
+#warn-banner {
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+  border-left: 4px solid #e0a000;
+  padding: 8px 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: #665500;
+  margin-bottom: 14px;
+  border-radius: 2px;
+}
+#warn-banner strong { font-weight: bold; }
+
+/* === OPENING BLURB === */
+#blurb {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+  color: #222;
+}
+
+#blurb em { font-style: italic; }
+
+/* === TROPE HEADER === */
+.trope-section-header {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: #336699;
+  border-bottom: 1px solid #aabbcc;
+  padding-bottom: 4px;
+  margin: 16px 0 10px;
+}
+
+/* === TROPE FILTER BAR === */
+#filter-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+#filter-bar span { color: var(--muted); margin-right: 4px; }
+
+.filter-btn {
+  padding: 3px 10px;
+  background: var(--filter-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: var(--link-blue);
+  transition: background 0.15s, color 0.15s;
+}
+.filter-btn:hover { background: #c8d8f0; }
+.filter-btn.active {
+  background: var(--filter-active);
+  color: #fff;
+  border-color: var(--filter-active);
+}
+
+/* === FOLDERS (details/summary) === */
+.trope-folder {
+  margin-bottom: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+}
+
+.trope-folder summary {
+  background: var(--folder-bg);
+  border-left: 3px solid var(--folder-border);
+  padding: 7px 12px;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  color: #336699;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+.trope-folder summary::-webkit-details-marker { display: none; }
+.trope-folder summary::before {
+  content: "▶";
+  font-size: 10px;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+.trope-folder[open] summary::before { transform: rotate(90deg); }
+.trope-folder summary:hover { background: #cce4ff; }
+
+.folder-range {
+  font-weight: normal;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* === TROPE LIST === */
+.trope-list {
+  list-style: none;
+  padding: 10px 14px 12px;
+  background: #fff;
+}
+
+.trope-item {
+  padding: 8px 10px;
+  border-bottom: 1px dotted #ddd;
+  font-size: 13.5px;
+  line-height: 1.65;
+  position: relative;
+  transition: background 0.15s;
+}
+.trope-item:last-child { border-bottom: none; }
+.trope-item.highlighted {
+  background: var(--trope-highlight);
+  outline: 2px solid var(--folder-border);
+  outline-offset: -2px;
+}
+.trope-item.hidden { display: none; }
+
+.trope-item::before {
+  content: "•";
+  color: var(--folder-border);
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.trope-name {
+  font-weight: bold;
+  color: var(--link-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.trope-name:hover { color: var(--link-blue-hover); }
+
+/* Pothole links */
+.pothole {
+  color: var(--link-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.pothole:hover { color: var(--link-blue-hover); }
+
+/* Natter (indented replies) */
+.natter {
+  margin: 6px 0 2px 22px;
+  font-size: 12.5px;
+  color: var(--muted);
+  border-left: 2px solid #ccd;
+  padding-left: 8px;
+  font-style: italic;
+}
+.natter::before { content: "↳ "; color: #aab; }
+
+/* Citation needed */
+.cn {
+  font-size: 11px;
+  color: #888;
+  font-style: italic;
+  vertical-align: super;
+}
+
+/* === SIDEBAR === */
+.sidebar-box {
+  background: var(--bg-sidebar);
+  border: 1px solid #bbb;
+  margin-bottom: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+.sidebar-box-title {
+  background: #99bbdd;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 6px 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.sidebar-box-body { padding: 10px; }
+
+.sidebar-img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  display: block;
+  background: #f0f0f0;
+  padding: 8px;
+}
+
+.sidebar-caption {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  padding: 4px 8px 8px;
+  font-style: italic;
+}
+
+.sidebar-links { padding: 8px 10px; }
+.sidebar-links li {
+  list-style: none;
+  padding: 3px 0;
+  border-bottom: 1px dotted #ccc;
+}
+.sidebar-links li:last-child { border-bottom: none; }
+
+.ad-placeholder {
+  background: #ddd;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 11px;
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* === TAB PANELS === */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* === CHARACTERS TAB === */
+.char-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.char-card {
+  border: 1px solid var(--border-color);
+  background: #fff;
+}
+
+.char-img-wrap {
+  background: #f5f0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  border-bottom: 1px solid var(--border-color);
+}
+.char-img {
+  height: 120px;
+  width: auto;
+  object-fit: contain;
+}
+
+.char-body { padding: 12px; }
+
+.char-name {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--folder-border);
+  margin-bottom: 4px;
+}
+
+.char-desc {
+  font-size: 12.5px;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+
+.char-tropes {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+}
+.char-tropes strong { color: var(--folder-border); }
+
+/* === LACONIC TAB === */
+#laconic-box {
+  border: 2px solid var(--folder-border);
+  background: var(--folder-bg);
+  padding: 20px;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 600px;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+#laconic-box .laconic-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--folder-border);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+#laconic-box blockquote {
+  font-style: italic;
+  font-size: 15px;
+  color: #222;
+  border: none;
+}
+
+.laconic-disclaimer {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 16px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* === TROPER WALL TAB === */
+#troper-wall-box {
+  border: 1px solid var(--border-color);
+  background: #fff;
+  padding: 16px;
+  margin-top: 12px;
+}
+#troper-wall-box .wall-header {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--folder-border);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+.wall-message {
+  background: #f0f4ff;
+  border: 1px solid #cce;
+  border-radius: 2px;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+.wall-message .wm-author {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: var(--link-blue);
+  font-size: 12px;
+}
+.wall-message .wm-date {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 8px;
+}
+
+/* === FANFIC RECS TAB === */
+#fanfic-box {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  margin-top: 12px;
+}
+.fanfic-disclaimer {
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+  padding: 8px 12px;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #665500;
+  margin-bottom: 12px;
+}
+.fanfic-item {
+  border-bottom: 1px dotted #ccc;
+  padding: 10px 0;
+}
+.fanfic-item:last-child { border-bottom: none; }
+.fanfic-title { font-weight: bold; color: var(--link-blue); text-decoration: underline; cursor: pointer; }
+.fanfic-meta { font-size: 11px; color: var(--muted); font-family: Arial, Helvetica, sans-serif; }
+
+/* === NAV FLOATING BUTTONS === */
+#trope-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: rgba(51, 102, 153, 0.92);
+  border-radius: 24px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  z-index: 900;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  backdrop-filter: blur(4px);
+}
+
+.tnav-btn {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background 0.15s;
+}
+.tnav-btn:hover { background: rgba(255,255,255,0.35); }
+.tnav-btn:disabled { opacity: 0.35; cursor: default; }
+
+#trope-counter {
+  color: rgba(255,255,255,0.9);
+  font-size: 12px;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* === PAGE FOOTER === */
+#page-footer {
+  max-width: 1100px;
+  margin: 40px auto 0;
+  padding: 16px;
+  border-top: 1px solid #bbb;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.8;
+}
+
+/* === CREATE NEW ARTICLE TAB === */
+#create-box {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  margin-top: 12px;
+  text-align: center;
+}
+#create-box p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+#create-box input[type=text] {
+  width: 60%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  font-size: 14px;
+  font-family: Georgia, serif;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+#create-box button {
+  padding: 8px 18px;
+  background: var(--nav-blue);
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+#create-box button:hover { background: var(--nav-blue-dark); }
+
+/* === RESPONSIVE === */
+@media (max-width: 720px) {
+  #main-layout { flex-direction: column; }
+  #sidebar { width: 100%; }
+  #page-title { font-size: 22px; }
+  .char-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV BAR -->
+<nav id="topnav">
+  <a id="nav-logo" href="#">TV Tropes</a>
+  <div id="nav-search">
+    <input type="text" placeholder="Search tropes...">
+  </div>
+  <div id="nav-links">
+    <a href="#">Browse Tropes</a>
+    <a href="#">Media</a>
+    <a href="#">Forums</a>
+    <span id="nav-troper">Troper: Anonymous</span>
+    <a href="../index.html" style="border-left:1px solid rgba(255,255,255,0.4);padding-left:12px;">← Back to Gallery</a>
+  </div>
+</nav>
+
+<div id="page-wrap">
+
+  <!-- BREADCRUMB -->
+  <div id="breadcrumb">
+    <a href="#">Main</a> › <a href="#">Literature</a> › The Three Little Pigs
+  </div>
+
+  <!-- PAGE TITLE AREA -->
+  <div id="page-title-area">
+    <div id="page-namespace">Literature /</div>
+    <h1 id="page-title">The Three Little Pigs</h1>
+  </div>
+
+  <!-- TAB BAR -->
+  <div id="tab-bar">
+    <button class="tab-btn active" data-tab="main">Main</button>
+    <button class="tab-btn" data-tab="characters">Characters</button>
+    <button class="tab-btn" data-tab="fanfic">Fanfic Recs</button>
+    <button class="tab-btn" data-tab="laconic">Laconic</button>
+    <button class="tab-btn" data-tab="create">Create New Article</button>
+    <button class="tab-btn" data-tab="troper-wall">Administrivia / Troper Wall</button>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div id="main-layout">
+
+    <!-- CONTENT AREA -->
+    <div id="content-area">
+
+      <!-- ===== MAIN TAB ===== -->
+      <div id="panel-main" class="tab-panel active">
+
+        <div id="warn-banner">
+          <strong>⚠ This article has been flagged for excessive natter.</strong> Please help by removing indented replies that don't add new information. See <a href="#">Administrivia/Handling Natter</a> for guidelines.
+        </div>
+
+        <div id="blurb">
+          <em>The Three Little Pigs</em> is a <a href="#" class="pothole">Fairy Tale</a> of disputed provenance — likely English, possibly older — in which three <a href="#" class="pothole">Sibling Team</a> swine independently construct residences of straw, sticks, and bricks, and are subsequently pressured to vacate by a <a href="#" class="pothole">Big Bad Wolf</a> who claims extraordinary pulmonary capacity. The first two shelters <a href="#" class="pothole">Fail Dramatically</a>; the third does not. Everyone ends up in the brick house. <a href="#" class="pothole">The End</a>.
+          <br><br>
+          Beloved by <a href="#" class="pothole">Parental Figures Everywhere</a> as a story about the virtue of hard work, and by literary theorists as a story about <a href="#" class="pothole">Survivorship Bias</a>. The wolf's motivations remain <a href="#" class="pothole">Ambiguously Evil</a> to this day.
+        </div>
+
+        <div class="trope-section-header">This work provides examples of:</div>
+
+        <!-- FILTER BAR -->
+        <div id="filter-bar">
+          <span>Filter by:</span>
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="pig1">🐷 Pig 1</button>
+          <button class="filter-btn" data-filter="pig2">🐷 Pig 2</button>
+          <button class="filter-btn" data-filter="pig3">🐷 Pig 3</button>
+          <button class="filter-btn" data-filter="wolf">🐺 The Wolf</button>
+        </div>
+
+        <!-- FOLDER A–F -->
+        <details class="trope-folder" open>
+          <summary>Tropes A–F <span class="folder-range">(10 tropes)</span></summary>
+          <ul class="trope-list">
+
+            <li class="trope-item" data-chars="pig1 pig2 pig3">
+              <span class="trope-name">Always Someone Better</span> — Pig 3 is to Pig 1 and Pig 2 what a <a href="#" class="pothole">Reinforced Concrete Wall</a> is to a fruit salad. Pig 3 completed her brick house on a Sunday and spent the remainder of the week reviewing load-bearing specifications. Neither sibling has commented publicly.
+            </li>
+
+            <li class="trope-item" data-chars="pig1">
+              <span class="trope-name">Attention Deficit... Oh Shiny</span> — Pig 1's total construction timeline has been estimated at forty-five minutes, including a lunch break. She declared herself finished when the walls were "basically up" and went to find a meadow. This is presented, in the original text, without irony.
+              <div class="natter">This troper built a straw fort as a child. Can confirm. It lasted until a light breeze from a passing car took out the eastern wall.</div>
+            </li>
+
+            <li class="trope-item" data-chars="wolf">
+              <span class="trope-name">Big Bad</span> — The Wolf. The <a href="#" class="pothole">Trope Namer</a> isn't quite this wolf — that's a different franchise — but close enough that the lawyers haven't weighed in.
+            </li>
+
+            <li class="trope-item" data-chars="pig1 pig2 pig3">
+              <span class="trope-name">Building of Adventure</span> — All three houses qualify, briefly. In Pig 1's case, very briefly.
+            </li>
+
+            <li class="trope-item" data-chars="pig3">
+              <span class="trope-name">Cassandra Truth</span> — Pig 3 sent both siblings a <a href="#" class="pothole">Strongly Worded Letter</a> regarding wind-load tolerances, compressive strength-to-weight ratios, and the inadvisability of organic thatching without adequate waterproofing. The letters were returned unopened. Pig 3 has kept them.
+              <div class="natter">This troper's mother always skipped the second pig entirely to get to the wolf scene faster. The letter subplot was thus lost to an entire generation.</div>
+            </li>
+
+            <li class="trope-item" data-chars="wolf">
+              <span class="trope-name">Combat Pragmatist</span> — The Wolf never physically attacks the pigs. He identifies structural vulnerabilities and applies pneumatic pressure to exploit them. This is, by some readings, a sophisticated form of <a href="#" class="pothole">Psychological Warfare</a>. By other readings, he is just blowing very hard.
+            </li>
+
+            <li class="trope-item" data-chars="pig1">
+              <span class="trope-name">Death Trap</span> — The straw house in a strong breeze. Also, arguably, during construction, due to <a href="#" class="pothole">No OSHA Compliance</a> (see below). Pig 1 disputes this characterization and maintains that the house was "a vibe."
+            </li>
+
+            <li class="trope-item" data-chars="pig3">
+              <span class="trope-name">Determinator</span> — Pig 3 lays 2,847 individual bricks before considering herself done. She uses a spirit level. She checks corners twice. She is the protagonist this story deserves and the one most children underestimate until adulthood.
+            </li>
+
+            <li class="trope-item" data-chars="wolf">
+              <span class="trope-name">Evil Sounds Deep</span> — The Wolf's speaking voice registers at approximately 40 Hz. <span class="cn">[citation needed]</span> This is deeper than most tubas. Forest wildlife have reportedly begun subwoofer-related insurance claims.
+            </li>
+
+            <li class="trope-item" data-chars="pig1">
+              <span class="trope-name">Foreshadowing</span> — The straw blows away when Pig 1 sneezes near it during construction. She reassembles it and calls it "artistic texture." The wolf arrives approximately twelve pages later.
+            </li>
+
+          </ul>
+        </details>
+
+        <!-- FOLDER G–M -->
+        <details class="trope-folder">
+          <summary>Tropes G–M <span class="folder-range">(6 tropes)</span></summary>
+          <ul class="trope-list">
+
+            <li class="trope-item" data-chars="pig3">
+              <span class="trope-name">Genre Savvy</span> — Pig 3 has clearly read the <a href="#" class="pothole">Trope Page</a>. She builds in brick. She installs a chimney with a grate. She stockpiles provisions. She has read every <a href="#" class="pothole">Wolf Attack Survival Guide</a> available in the forest library. She is prepared. She is, arguably, the only character in this work behaving rationally.
+            </li>
+
+            <li class="trope-item" data-chars="pig1">
+              <span class="trope-name">Glass Cannon</span> — Pig 1's straw house looks <em>magnificent</em> in the portfolio shots. Excellent natural light. Strong rustic aesthetic. Collapses at approximately 15 mph wind speed. HGTV has not returned calls.
+            </li>
+
+            <li class="trope-item" data-chars="wolf">
+              <span class="trope-name">Hoist by His Own Petard</span> — The Wolf's lungs give out after the brick house attempt. He is last seen wheezing in a meadow. Pig 3 reportedly sends a get-well card annually. It is not clear whether this is kindness or <a href="#" class="pothole">Passive-Aggressive Gesture</a>.
+            </li>
+
+            <li class="trope-item" data-chars="wolf">
+              <span class="trope-name">Informed Ability</span> — The Wolf insists he can blow down "any house." The brick house disagrees. This claim now appears on his resume under "Skills," unmodified.
+            </li>
+
+            <li class="trope-item" data-chars="wolf">
+              <span class="trope-name">It's Personal</span> — By the third house, the Wolf's motivation has visibly shifted from hunger to <a href="#" class="pothole">Wounded Pride</a>. He is no longer doing this for food. He is doing this because a pig said bricks were stronger and he simply cannot let that stand.
+            </li>
+
+            <li class="trope-item" data-chars="wolf pig3">
+              <span class="trope-name">Karma Houdini Warranty</span> — The Wolf successfully demolishes two houses. By the third, the warranty expires. Pig 3's brickwork voided it retroactively. The insurance adjusters have been notified.
+            </li>
+
+          </ul>
+        </details>
+
+        <!-- FOLDER N–Z -->
+        <details class="trope-folder">
+          <summary>Tropes N–Z <span class="folder-range">(8 tropes)</span></summary>
+          <ul class="trope-list">
+
+            <li class="trope-item" data-chars="pig1">
+              <span class="trope-name">No OSHA Compliance</span> — Pig 1's building site has zero safety signage, no hard-hat zone demarcation, and the structural integrity assessment was apparently conducted by looking at it and saying "yeah, that's fine." The Forest Safety Board has opened an inquiry.
+              <div class="natter">This troper worked in construction and this really bothered me. No scaffolding. No toe boards. Nothing. She didn't even have a hi-viz vest.</div>
+              <div class="natter">↳ To be fair, she's a pig. The vis would never fit.</div>
+            </li>
+
+            <li class="trope-item" data-chars="pig1 pig2 pig3">
+              <span class="trope-name">The Pig Pen</span> — Averted. These pigs are remarkably tidy. Pig 3's brick house has been described by visitors as "almost uncomfortably organized." Pig 1's straw house was also technically clean, in the brief period it stood.
+            </li>
+
+            <li class="trope-item" data-chars="wolf">
+              <span class="trope-name">Pyrrhic Victory</span> — The Wolf destroys two houses. He is now exhausted, wheezing, 0 for 3 against brick architecture, and has developed what woodland medical staff have diagnosed as a deviated septum. He won the battles and lost the war, the structural engineering competition, and his respiratory health.
+            </li>
+
+            <li class="trope-item" data-chars="pig1 pig2 pig3 wolf">
+              <span class="trope-name">Rule of Three</span> — Three pigs. Three houses. Three attempts. Three materials. Three narrative beats. TV Tropes wouldn't have it any other way. (This wiki runs on this trope, come to think of it.)
+            </li>
+
+            <li class="trope-item" data-chars="pig3">
+              <span class="trope-name">Shown Their Work</span> — Pig 3's brick coursework is structurally accurate. Flemish bond pattern, appropriate mortar joints, correct header-to-stretcher ratio. Civil engineers who have reviewed available illustrations confirm: that house is not coming down. Not from wind. Not from a wolf. Possibly not from anything short of a controlled demolition permit.
+            </li>
+
+            <li class="trope-item" data-chars="pig1 pig2">
+              <span class="trope-name">Too Dumb to Live</span> — Pig 1 builds in straw and calls it a day. Pig 2 <em>watches Pig 1's house blow down</em> and builds in sticks anyway. Both characters have subsequently claimed this was about "freedom of expression." The wolf was unavailable for comment but did leave a voicemail.
+            </li>
+
+            <li class="trope-item" data-chars="wolf">
+              <span class="trope-name">Villain Has a Point</span> — The Wolf has, in several revisionist adaptations, argued that he just wanted somewhere warm to sleep and that the pigs' property values were inflating the local housing market. Nobody asked. The narrative does not engage with this. The wolf ends the story alone in a field.
+              <div class="natter">This troper finds the wolf genuinely sympathetic and has written 40,000 words of fanfiction exploring his backstory. It's linked in the Fanfic Recs tab.</div>
+            </li>
+
+            <li class="trope-item" data-chars="pig1 pig2 pig3">
+              <span class="trope-name">Warm Place, Warm Heart</span> — The brick house is cozy and warm. A fire burns. There is presumably soup. All three pigs are together and safe. The story ends here. That's the whole story. Everyone's okay. Genuinely, for a fairy tale, that's remarkable.
+            </li>
+
+          </ul>
+        </details>
+
+      </div>
+      <!-- end panel-main -->
+
+      <!-- ===== CHARACTERS TAB ===== -->
+      <div id="panel-characters" class="tab-panel">
+        <div class="trope-section-header">Character Sheet</div>
+        <p style="font-size:12px;color:var(--muted);font-family:Arial,Helvetica,sans-serif;margin-bottom:14px;">
+          Characters are listed in order of structural common sense, ascending.
+        </p>
+        <div class="char-grid">
+
+          <div class="char-card">
+            <div class="char-img-wrap">
+              <img class="char-img" src="assets/pig1.svg" alt="Pig 1">
+            </div>
+            <div class="char-body">
+              <div class="char-name">Pig 1 — The Straw One</div>
+              <div class="char-desc">
+                The eldest, fastest, and most philosophically relaxed of the three. Pig 1 is deeply committed to the idea that a house is "finished when it feels right," a position the Wolf found easy to test. She remains optimistic, unbothered, and has since pivoted to landscape design.
+              </div>
+              <div class="char-tropes">
+                <strong>Notable tropes:</strong><br>
+                <a href="#" class="pothole">Attention Deficit Oh Shiny</a> · <a href="#" class="pothole">Glass Cannon</a> · <a href="#" class="pothole">Plucky Girl</a> · <a href="#" class="pothole">The Pollyanna</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-img-wrap">
+              <img class="char-img" src="assets/pig2.svg" alt="Pig 2">
+            </div>
+            <div class="char-body">
+              <div class="char-name">Pig 2 — The Sticks One</div>
+              <div class="char-desc">
+                More industrious than Pig 1, less paranoid than Pig 3. Pig 2 chose wood because it "felt sturdy." This turned out to be technically incorrect. He watched Pig 1's house collapse before building his own, and yet. He has since enrolled in a structural engineering night class.
+              </div>
+              <div class="char-tropes">
+                <strong>Notable tropes:</strong><br>
+                <a href="#" class="pothole">Middle Child Syndrome</a> · <a href="#" class="pothole">Too Dumb to Live</a> · <a href="#" class="pothole">Nice Guy</a> · <a href="#" class="pothole">Unwitting Instigator of Doom</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-img-wrap">
+              <img class="char-img" src="assets/pig3.svg" alt="Pig 3">
+            </div>
+            <div class="char-body">
+              <div class="char-name">Pig 3 — The Brick One</div>
+              <div class="char-desc">
+                The hero of the piece, though the story rarely frames her as such. Pig 3 built a structurally sound home, admitted her siblings when the wolf arrived, and faced down the wolf from behind 12-inch reinforced masonry. She has since written a memoir. It's mostly about load distribution.
+              </div>
+              <div class="char-tropes">
+                <strong>Notable tropes:</strong><br>
+                <a href="#" class="pothole">The Reliable One</a> · <a href="#" class="pothole">Genre Savvy</a> · <a href="#" class="pothole">Determinator</a> · <a href="#" class="pothole">Team Mom</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="margin-top:20px;border:1px solid var(--border-color);background:#fff;padding:14px;">
+          <div class="trope-section-header" style="margin-top:0;">The Wolf</div>
+          <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+            <img src="assets/wolf-portrait.svg" alt="The Wolf" style="width:100px;height:auto;object-fit:contain;flex-shrink:0;background:#f5f0e0;padding:6px;border:1px solid #ccc;">
+            <div>
+              <div class="char-desc">
+                The antagonist, though whether he is truly <em>evil</em> or simply <a href="#" class="pothole">Sympathetic Enemy</a> is a matter of ongoing debate in the <a href="#" class="pothole">Wild Mass Guessing</a> section. He has extraordinary lung capacity, a troubled personal history (implied), and a documented inability to accept defeat gracefully. His post-story whereabouts are unknown. His Yelp reviews of the three properties are, however, available.
+              </div>
+              <div class="char-tropes">
+                <strong>Notable tropes:</strong><br>
+                <a href="#" class="pothole">Big Bad</a> · <a href="#" class="pothole">Evil Sounds Deep</a> · <a href="#" class="pothole">Determinator</a> (tragically applied) · <a href="#" class="pothole">Pyrrhic Victory</a> · <a href="#" class="pothole">Villain Has a Point</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end panel-characters -->
+
+      <!-- ===== FANFIC RECS TAB ===== -->
+      <div id="panel-fanfic" class="tab-panel">
+        <div class="trope-section-header">Fanfic Recommendations</div>
+        <div id="fanfic-box">
+          <div class="fanfic-disclaimer">
+            <strong>Note:</strong> These are recommendations made by fellow tropers. Listing here does not constitute official endorsement. <a href="#">Add your own</a>.
+          </div>
+
+          <div class="fanfic-item">
+            <div class="fanfic-title">The Wolf Was Right All Along</div>
+            <div class="fanfic-meta">Author: BigBadWolf99 · Rating: T · Words: 40,221 · Posted: 2019</div>
+            <div style="font-size:12.5px;margin-top:6px;">A sympathetic retelling from the Wolf's perspective. Explores his childhood, his complicated relationship with forest real estate, and his deeply held belief that pigs have been writing history to make him look bad. The author's passion is evident. Possibly too evident. Goes to the <a href="#">WMG tab</a> in spirit if not in form.</div>
+            <div class="natter">Recommended by: <a href="#" class="pothole">Anonymous Troper</a>. This changed how I read the source material. I cried at chapter 7.</div>
+          </div>
+
+          <div class="fanfic-item">
+            <div class="fanfic-title">A Study in Mortar: Pig 3's Case Files</div>
+            <div class="fanfic-meta">Author: BrickByBrick · Rating: G · Words: 8,450 · Posted: 2021</div>
+            <div style="font-size:12.5px;margin-top:6px;">A mystery-genre AU in which Pig 3 is a consulting detective and the Wolf's attempts are not huffing but a series of targeted structural sabotages. Pig 2 is Watson. The writing is dry, precise, and absolutely committed to the bit.</div>
+          </div>
+
+          <div class="fanfic-item">
+            <div class="fanfic-title">Three Little Pigs In Space (The Asteroid Remix)</div>
+            <div class="fanfic-meta">Author: NASAPig · Rating: K+ · Words: 12,003 · Posted: 2022</div>
+            <div style="font-size:12.5px;margin-top:6px;">What if the pigs were astronauts, the wolf was an asteroid, and the houses were colony shields of varying tensile strength? This fic answers that question in exhaustive technical detail. There's a glossary. It's forty pages. The asteroid is sympathetic in a way that really makes you think.</div>
+          </div>
+        </div>
+      </div>
+      <!-- end panel-fanfic -->
+
+      <!-- ===== LACONIC TAB ===== -->
+      <div id="panel-laconic" class="tab-panel">
+        <div class="trope-section-header">Laconic</div>
+        <div id="laconic-box">
+          <div class="laconic-title">The Three Little Pigs — Laconic</div>
+          <blockquote>
+            "Wolf huffs and puffs at three increasingly sturdy houses. First two fall. Third doesn't. Everyone survives."
+          </blockquote>
+        </div>
+        <div class="laconic-disclaimer">
+          The Laconic Wiki is a separate wiki that summarizes pages in one or two sentences. Visit <a href="#">TV Tropes/Laconic</a> for more. If you can read this disclaimer, you are technically capable of writing the full article. Please do not. We have enough of those.
+        </div>
+        <div style="margin-top:20px;border:1px solid var(--border-color);background:#fff;padding:14px;">
+          <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;color:var(--folder-border);margin-bottom:8px;">Wild Mass Guessing</div>
+          <p style="font-size:13px;margin-bottom:8px;"><strong><a href="#">The Wolf Was Right All Along</a></strong></p>
+          <p style="font-size:12.5px;color:#444;">The Wolf's stated motivation is never quite clear. He wants to eat the pigs in some versions, which is at least honest hunger. In others, he seems to simply want them out of the forest. A small but vocal contingent of tropers maintains that the Wolf was, in fact, looking for warmth and shelter and simply expressed this very badly. The brick house would have had room. Nobody offered.</p>
+          <div class="natter">This troper has read 40,000 words of fanfiction about this theory and it checks out.</div>
+        </div>
+      </div>
+      <!-- end panel-laconic -->
+
+      <!-- ===== CREATE NEW ARTICLE TAB ===== -->
+      <div id="panel-create" class="tab-panel">
+        <div class="trope-section-header">Create New Article</div>
+        <div id="create-box">
+          <p>Think you've found a new trope lurking in <em>The Three Little Pigs</em>? Create an article for it below. Note: if the trope already exists, you will be redirected to that page. If it exists but was deleted, you will be redirected to a message explaining why it was deleted, which you will probably disagree with.</p>
+          <input type="text" placeholder="Enter new trope name...">
+          <button>Create Article</button>
+          <p style="margin-top:14px;font-size:11px;color:var(--muted);">Please check the <a href="#">Five P Guide</a> before creating. TV Tropes is not a dumping ground. This is a lie we tell ourselves.</p>
+        </div>
+      </div>
+      <!-- end panel-create -->
+
+      <!-- ===== TROPER WALL TAB ===== -->
+      <div id="panel-troper-wall" class="tab-panel">
+        <div class="trope-section-header">Administrivia / Troper Wall</div>
+        <div id="troper-wall-box">
+          <div class="wall-header">The Three Little Pigs — Troper Wall</div>
+          <p style="font-size:12px;color:var(--muted);font-family:Arial,Helvetica,sans-serif;margin-bottom:14px;">Leave a message for other tropers about this work. Be kind. No spoilers in the first line. No natter.</p>
+
+          <div class="wall-message">
+            <span class="wm-author"><a href="#">BigBadWolf99</a></span>
+            <span class="wm-date">posted 14 years ago</span>
+            <p style="margin-top:6px;font-size:13px;">"I was framed. The deviated septum was pre-existing. The brick house was a fire hazard — I was doing them a favor by testing the ventilation. No one ever asks my side. I have a page. Please visit it. It has very few edits."</p>
+          </div>
+        </div>
+      </div>
+      <!-- end panel-troper-wall -->
+
+    </div>
+    <!-- end content-area -->
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+
+      <!-- Wolf portrait -->
+      <div class="sidebar-box">
+        <div class="sidebar-box-title">The Wolf</div>
+        <img class="sidebar-img" src="assets/wolf-portrait.svg" alt="The Wolf, formal portrait">
+        <div class="sidebar-caption">The Wolf. Formal portrait, date unknown. Lung capacity: exceptional. Track record against brick: poor.</div>
+      </div>
+
+      <!-- You may also like -->
+      <div class="sidebar-box">
+        <div class="sidebar-box-title">You May Also Like</div>
+        <ul class="sidebar-links">
+          <li><a href="#">Literature / Red Riding Hood</a></li>
+          <li><a href="#">Literature / Goldilocks</a></li>
+          <li><a href="#">Film / Bambi</a></li>
+          <li><a href="#">Literature / The Big Bad Wolf Anthology</a></li>
+          <li><a href="#">Literature / The Tortoise and the Hare</a></li>
+          <li><a href="#">TabletopGame / HuffAndPuff RPG</a></li>
+          <li><a href="#">WMG / The Wolf Was Right</a></li>
+        </ul>
+      </div>
+
+      <!-- Ad placeholder -->
+      <div class="sidebar-box">
+        <div class="ad-placeholder">Advertisement</div>
+      </div>
+
+      <!-- Trope count stats -->
+      <div class="sidebar-box">
+        <div class="sidebar-box-title">Article Stats</div>
+        <div class="sidebar-box-body" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:2;">
+          <div>Tropes indexed: <strong>24</strong></div>
+          <div>Natter warnings: <strong>3</strong></div>
+          <div>Pothole count: <strong>many</strong></div>
+          <div>Edit wars resolved: <strong>2</strong></div>
+          <div>Edit wars ongoing: <strong>1</strong> <a href="#" style="font-size:10px;">(The Wolf's motivation)</a></div>
+          <div>Last edited: <strong>yesterday</strong></div>
+        </div>
+      </div>
+
+    </aside>
+    <!-- end sidebar -->
+
+  </div>
+  <!-- end main-layout -->
+
+</div>
+<!-- end page-wrap -->
+
+<!-- FLOATING TROPE NAV -->
+<div id="trope-nav">
+  <button class="tnav-btn" id="btn-prev">← Prev trope</button>
+  <span id="trope-counter">Trope 1 / 24</span>
+  <button class="tnav-btn" id="btn-next">Next trope →</button>
+</div>
+
+<!-- PAGE FOOTER -->
+<div id="page-footer">
+  TV Tropes by TV Tropes Foundation, LLC is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.<br>
+  Basically, do whatever you want but attribute us and don't make money off it.<br>
+  <a href="../index.html">← Back to Design Gallery</a>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ===== TAB SWITCHING =====
+  var tabs = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.tab-panel');
+
+  tabs.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var target = btn.getAttribute('data-tab');
+      tabs.forEach(function(b) { b.classList.remove('active'); });
+      panels.forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      var panel = document.getElementById('panel-' + target);
+      if (panel) {
+        panel.classList.add('active');
+      }
+      // Reset trope nav when switching tabs
+      updateTropeNav();
+    });
+  });
+
+  // ===== TROPE FILTER =====
+  var filterBtns = document.querySelectorAll('.filter-btn');
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var filter = btn.getAttribute('data-filter');
+      filterBtns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      var items = document.querySelectorAll('.trope-item');
+      items.forEach(function(item) {
+        if (filter === 'all') {
+          item.classList.remove('hidden');
+        } else {
+          var chars = item.getAttribute('data-chars') || '';
+          if (chars.indexOf(filter) !== -1) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        }
+      });
+
+      // Reset trope nav
+      currentTropeIdx = -1;
+      updateTropeNav();
+    });
+  });
+
+  // ===== TROPE NAV (next/prev) =====
+  var currentTropeIdx = -1;
+  var prevBtn = document.getElementById('btn-prev');
+  var nextBtn = document.getElementById('btn-next');
+  var counterEl = document.getElementById('trope-counter');
+
+  function getVisibleTropes() {
+    // Only works on main tab
+    return Array.from(document.querySelectorAll('#panel-main .trope-item:not(.hidden)'));
+  }
+
+  function updateTropeNav() {
+    var items = getVisibleTropes();
+    var total = items.length;
+    if (currentTropeIdx < 0) {
+      counterEl.textContent = 'Trope — / ' + total;
+    } else {
+      counterEl.textContent = 'Trope ' + (currentTropeIdx + 1) + ' / ' + total;
+    }
+    prevBtn.disabled = (currentTropeIdx <= 0);
+    nextBtn.disabled = (total === 0 || currentTropeIdx >= total - 1);
+  }
+
+  function highlightTrope(idx) {
+    var items = getVisibleTropes();
+    // Remove highlight from all
+    document.querySelectorAll('.trope-item').forEach(function(el) {
+      el.classList.remove('highlighted');
+    });
+    if (idx >= 0 && idx < items.length) {
+      var item = items[idx];
+      item.classList.add('highlighted');
+      // Open parent details if closed
+      var parent = item.closest('details');
+      if (parent && !parent.open) { parent.open = true; }
+      // Scroll into view
+      item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      currentTropeIdx = idx;
+    }
+    updateTropeNav();
+  }
+
+  nextBtn.addEventListener('click', function() {
+    var items = getVisibleTropes();
+    var newIdx = currentTropeIdx + 1;
+    if (newIdx >= items.length) { newIdx = items.length - 1; }
+    highlightTrope(newIdx);
+  });
+
+  prevBtn.addEventListener('click', function() {
+    var newIdx = currentTropeIdx - 1;
+    if (newIdx < 0) { newIdx = 0; }
+    highlightTrope(newIdx);
+  });
+
+  // ===== KEYBOARD NAVIGATION =====
+  document.addEventListener('keydown', function(e) {
+    // Don't hijack if user is typing in an input
+    var tag = document.activeElement ? document.activeElement.tagName : '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA') { return; }
+
+    // Only navigate on main tab
+    var mainPanel = document.getElementById('panel-main');
+    if (!mainPanel || !mainPanel.classList.contains('active')) { return; }
+
+    if (e.key === 'ArrowRight' && !nextBtn.disabled) {
+      e.preventDefault();
+      nextBtn.click();
+    } else if (e.key === 'ArrowLeft' && !prevBtn.disabled) {
+      e.preventDefault();
+      prevBtn.click();
+    }
+  });
+
+  // ===== INIT =====
+  updateTropeNav();
+
+  // Make pothole/trope links not navigate
+  document.addEventListener('click', function(e) {
+    var el = e.target;
+    if (el.classList.contains('pothole') || el.classList.contains('trope-name')) {
+      e.preventDefault();
+    }
+  });
+
+  // Create new article button — just for fun
+  var createBtn = document.querySelector('#create-box button');
+  var createInput = document.querySelector('#create-box input');
+  if (createBtn && createInput) {
+    createBtn.addEventListener('click', function() {
+      var val = createInput.value.trim();
+      if (!val) { return; }
+      alert('The article "' + val + '" already exists. It was created by BigBadWolf99 in 2009 and was later deleted for being a Zero-Context Example. Welcome to TV Tropes.');
+      createInput.value = '';
+    });
+  }
+
+})();
+</script>
+</body>
+</html>

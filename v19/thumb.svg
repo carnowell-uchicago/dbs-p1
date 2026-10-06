@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Georgia, serif">
+  <!-- Page background -->
+  <rect width="800" height="600" fill="#f5f0e0"/>
+
+  <!-- Top nav bar -->
+  <rect width="800" height="44" fill="#6699cc"/>
+  <text x="14" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">TV Tropes</text>
+  <rect x="260" y="10" width="160" height="22" rx="3" fill="#5588bb"/>
+  <text x="268" y="25" font-family="Arial, sans-serif" font-size="11" fill="#cce0ff">Search TV Tropes...</text>
+  <text x="700" y="28" font-family="Arial, sans-serif" font-size="11" fill="#ddeeff">Troper: Anonymous</text>
+
+  <!-- Tabs -->
+  <rect x="0" y="44" width="800" height="28" fill="#ddeeff"/>
+  <rect x="0" y="44" width="68" height="28" fill="white"/>
+  <text x="10" y="62" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#336699">Main</text>
+  <text x="80" y="62" font-family="Arial, sans-serif" font-size="12" fill="#5566aa">Characters</text>
+  <text x="170" y="62" font-family="Arial, sans-serif" font-size="12" fill="#5566aa">Fanfic Recs</text>
+  <text x="258" y="62" font-family="Arial, sans-serif" font-size="12" fill="#5566aa">Laconic</text>
+  <text x="320" y="62" font-family="Arial, sans-serif" font-size="12" fill="#5566aa">Troper Wall</text>
+  <line x1="0" y1="72" x2="800" y2="72" stroke="#aabbcc" stroke-width="1"/>
+
+  <!-- Page title -->
+  <text x="20" y="110" font-family="Georgia, serif" font-size="22" font-weight="bold" fill="#222">Literature / The Three Little Pigs</text>
+  <line x1="20" y1="118" x2="600" y2="118" stroke="#aaaaaa" stroke-width="1"/>
+
+  <!-- Warning banner -->
+  <rect x="20" y="126" width="560" height="28" rx="3" fill="#fff8dc" stroke="#ccaa44" stroke-width="1"/>
+  <text x="30" y="144" font-family="Arial, sans-serif" font-size="11" fill="#886600">⚠ This article has been flagged for excessive natter. Please help by removing indented replies.</text>
+
+  <!-- Opening blurb -->
+  <text x="20" y="175" font-family="Georgia, serif" font-size="12" fill="#333">A classic work of <tspan fill="#5566aa" text-decoration="underline">Fairy Tale</tspan> literature, featuring three pig siblings who construct</text>
+  <text x="20" y="191" font-family="Georgia, serif" font-size="12" fill="#333">increasingly sturdy shelters, and a <tspan fill="#5566aa" text-decoration="underline">Big Bad</tspan> wolf with impressive lung capacity.</text>
+
+  <!-- Filter bar -->
+  <text x="20" y="218" font-family="Arial, sans-serif" font-size="11" fill="#555">Filter by character:</text>
+  <rect x="120" y="206" width="32" height="18" rx="9" fill="#6699cc"/>
+  <text x="128" y="218" font-family="Arial, sans-serif" font-size="10" fill="white">All</text>
+  <rect x="158" y="206" width="38" height="18" rx="9" fill="#ddeeff" stroke="#6699cc" stroke-width="1"/>
+  <text x="164" y="218" font-family="Arial, sans-serif" font-size="10" fill="#336699">Pig 1</text>
+  <rect x="202" y="206" width="38" height="18" rx="9" fill="#ddeeff" stroke="#6699cc" stroke-width="1"/>
+  <text x="208" y="218" font-family="Arial, sans-serif" font-size="10" fill="#336699">Pig 2</text>
+  <rect x="246" y="206" width="38" height="18" rx="9" fill="#ddeeff" stroke="#6699cc" stroke-width="1"/>
+  <text x="252" y="218" font-family="Arial, sans-serif" font-size="10" fill="#336699">Pig 3</text>
+  <rect x="290" y="206" width="48" height="18" rx="9" fill="#ddeeff" stroke="#6699cc" stroke-width="1"/>
+  <text x="296" y="218" font-family="Arial, sans-serif" font-size="10" fill="#336699">The Wolf</text>
+
+  <!-- Trope folder A-F -->
+  <rect x="20" y="234" width="560" height="24" rx="3" fill="#ddeeff" stroke="#336699" stroke-width="1"/>
+  <text x="30" y="250" font-family="Arial, sans-serif" font-size="13" fill="#336699">▶ Tropes A–F</text>
+
+  <!-- Trope folder G-M (open) -->
+  <rect x="20" y="264" width="560" height="24" rx="3" fill="#ddeeff" stroke="#336699" stroke-width="1"/>
+  <text x="30" y="280" font-family="Arial, sans-serif" font-size="13" fill="#336699">▼ Tropes G–M</text>
+  <!-- Trope items -->
+  <text x="36" y="305" font-family="Georgia, serif" font-size="12" fill="#333">• <tspan fill="#5566aa" text-decoration="underline">Genre Savvy</tspan>: Pig 3 has clearly read the trope page.</text>
+  <text x="36" y="321" font-family="Georgia, serif" font-size="12" fill="#333">• <tspan fill="#5566aa" text-decoration="underline">Hoist by His Own Petard</tspan>: The Wolf's lungs give out after the brick house attempt.</text>
+  <text x="52" y="337" font-family="Arial, sans-serif" font-size="11" fill="#777">↳ This troper felt genuine sympathy. He was just trying to eat.</text>
+  <text x="36" y="353" font-family="Georgia, serif" font-size="12" fill="#333">• <tspan fill="#5566aa" text-decoration="underline">Informed Ability</tspan>: The Wolf insists he can blow down "any house." The brick house disagrees.</text>
+
+  <!-- Trope folder N-Z -->
+  <rect x="20" y="368" width="560" height="24" rx="3" fill="#ddeeff" stroke="#336699" stroke-width="1"/>
+  <text x="30" y="384" font-family="Arial, sans-serif" font-size="13" fill="#336699">▶ Tropes N–Z</text>
+
+  <!-- Sidebar -->
+  <rect x="600" y="80" width="185" height="420" fill="#eeeeee" stroke="#cccccc" stroke-width="1"/>
+  <!-- Wolf portrait placeholder -->
+  <rect x="615" y="90" width="155" height="160" fill="#cccccc" rx="2"/>
+  <text x="670" y="175" font-family="Arial, sans-serif" font-size="11" fill="#666">Wolf portrait</text>
+  <text x="615" y="270" font-family="Arial, sans-serif" font-size="10" font-style="italic" fill="#555">B. B. Wolf (Canis lupus ferox),</text>
+  <text x="615" y="283" font-family="Arial, sans-serif" font-size="10" font-style="italic" fill="#555">photographed during deposition</text>
+
+  <rect x="615" y="300" width="155" height="14" fill="#cccccc" rx="2"/>
+  <text x="615" y="330" font-family="Arial, sans-serif" font-size="10" fill="#5566aa" text-decoration="underline">Literature/Red Riding Hood</text>
+  <text x="615" y="346" font-family="Arial, sans-serif" font-size="10" fill="#5566aa" text-decoration="underline">Film/Bambi</text>
+  <text x="615" y="362" font-family="Arial, sans-serif" font-size="10" fill="#5566aa" text-decoration="underline">Literature/Goldilocks</text>
+
+  <!-- Ad placeholder -->
+  <rect x="615" y="380" width="155" height="80" fill="#dddddd" rx="2"/>
+  <text x="655" y="425" font-family="Arial, sans-serif" font-size="11" fill="#999">Advertisement</text>
+
+  <!-- Nav pill -->
+  <rect x="270" y="555" width="260" height="32" rx="16" fill="#5566aa"/>
+  <text x="310" y="575" font-family="Arial, sans-serif" font-size="13" fill="white">← Prev trope   Trope 7 / 24   Next →</text>
+</svg>
