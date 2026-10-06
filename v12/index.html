@@ -125,7 +125,7 @@
 
     .scene-object {
       position: absolute;
-      width: clamp(100px, 14vw, 220px);
+      width: clamp(140px, 18vw, 280px);
       transform: translateY(-50%);
       filter: drop-shadow(3px 4px 6px rgba(0,0,0,0.25));
       transition: transform 0.3s ease;
@@ -193,28 +193,42 @@
     /* End marker */
     #end-marker {
       position: absolute;
-      top: 5800px;
+      top: 5780px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
       text-align: center;
-      background: rgba(255, 248, 220, 0.95);
-      padding: 20px 40px;
-      border-radius: 16px;
-      border: 3px solid #D4A843;
-      box-shadow: 6px 6px 0 #C49030;
-    }
-
-    #end-marker p {
-      font-family: Georgia, serif;
-      font-style: italic;
-      font-size: clamp(16px, 2vw, 28px);
-      color: #8B1A00;
+      background: rgba(255, 248, 220, 0.97);
+      padding: 30px 52px;
+      border-radius: 20px;
+      border: 5px solid #D4A843;
+      box-shadow: 8px 8px 0 #C49030;
+      white-space: nowrap;
     }
 
     #end-marker .fin {
-      font-size: clamp(24px, 4vw, 48px);
-      margin-top: 8px;
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: clamp(36px, 6vw, 72px);
+      color: #8B1A00;
+      text-shadow: 3px 3px 0 #D4A843;
+      display: block;
+    }
+
+    #end-marker .tagline {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: clamp(14px, 2vw, 26px);
+      color: #7A5020;
+      margin-top: 10px;
+      display: block;
+    }
+
+    #end-marker .pigs {
+      font-size: clamp(28px, 4vw, 52px);
+      margin-top: 12px;
+      display: block;
+      letter-spacing: 0.2em;
     }
   </style>
 </head>
@@ -413,10 +427,12 @@
     <line x1="85" y1="3307" x2="85" y2="3318" stroke="#3D9B3D" stroke-width="2"/>
     <line x1="70" y1="4707" x2="70" y2="4718" stroke="#3D9B3D" stroke-width="2"/>
 
-    <!-- "The End" road sign at bottom -->
-    <rect x="450" y="5750" width="100" height="60" rx="6" fill="#FFF8DC" stroke="#8B1A00" stroke-width="4"/>
-    <line x1="500" y1="5810" x2="500" y2="5870" stroke="#5A3A08" stroke-width="8" stroke-linecap="round"/>
-    <text x="500" y="5788" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="22" fill="#8B1A00">The End</text>
+    <!-- Stars / sparkles near the end -->
+    <polygon points="500,5680 506,5698 524,5698 510,5710 516,5728 500,5718 484,5728 490,5710 476,5698 494,5698" fill="#F5D020" stroke="#D4A843" stroke-width="2"/>
+    <polygon points="340,5700 344,5712 356,5712 348,5720 352,5732 340,5724 328,5732 332,5720 324,5712 336,5712" fill="#F5D020" stroke="#D4A843" stroke-width="1.5"/>
+    <polygon points="660,5695 664,5707 676,5707 668,5715 672,5727 660,5719 648,5727 652,5715 644,5707 656,5707" fill="#F5D020" stroke="#D4A843" stroke-width="1.5"/>
+    <polygon points="420,5740 423,5749 432,5749 425,5754 428,5763 420,5758 412,5763 415,5754 408,5749 417,5749" fill="#FFEA70" stroke="#D4A843" stroke-width="1"/>
+    <polygon points="580,5735 583,5744 592,5744 585,5749 588,5758 580,5753 572,5758 575,5749 568,5744 577,5744" fill="#FFEA70" stroke="#D4A843" stroke-width="1"/>
   </svg>
 
   <!-- Title block -->
@@ -471,6 +487,13 @@
   <div class="scene road-left" style="top: 5100px;">
     <img class="scene-object" src="assets/house-bricks.svg" alt="Brick house with pigs">
     <div class="scene-text">All three little pigs were safe inside, warm and together. And the wolf never came back. 🐷🐷🐷</div>
+  </div>
+
+  <!-- End of road -->
+  <div id="end-marker">
+    <span class="fin">The End</span>
+    <span class="tagline">And they all lived happily ever after.</span>
+    <span class="pigs">🐷 🐷 🐷</span>
   </div>
 
   <script>
