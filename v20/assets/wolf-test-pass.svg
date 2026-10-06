@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300">
+  <rect width="500" height="300" fill="#f0ede6"/>
+
+  <!-- Outer border (technical drawing style) -->
+  <rect x="5" y="5" width="490" height="290" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="8" y="8" width="484" height="248" fill="none" stroke="#1a1a1a" stroke-width="0.8"/>
+
+  <!-- Title block divider -->
+  <line x1="5" y1="256" x2="495" y2="256" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- === WOLF FIGURE (left side) === -->
+  <g transform="translate(30, 60)">
+    <!-- Wolf body (profile, facing right) -->
+    <ellipse cx="55" cy="100" rx="38" ry="28" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.8"/>
+    <!-- Head -->
+    <ellipse cx="88" cy="78" rx="22" ry="19" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.8"/>
+    <!-- Snout extended open -->
+    <path d="M106,72 L128,62 L128,82 L106,88 Z" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.8"/>
+    <!-- Teeth -->
+    <polygon points="112,72 116,68 120,72 124,67 128,72" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1"/>
+    <!-- Tongue -->
+    <ellipse cx="118" cy="82" rx="8" ry="4" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1"/>
+    <!-- Eye -->
+    <circle cx="98" cy="72" r="3" fill="#1a1a1a"/>
+    <!-- Ears -->
+    <polygon points="78,60 72,42 88,58" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.8"/>
+    <polygon points="95,58 90,42 104,56" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.8"/>
+    <!-- Legs -->
+    <rect x="22" y="120" width="12" height="28" rx="4" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.8"/>
+    <rect x="38" y="122" width="12" height="26" rx="4" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.8"/>
+    <rect x="68" y="120" width="12" height="28" rx="4" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.8"/>
+    <rect x="54" y="122" width="12" height="26" rx="4" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.8"/>
+    <!-- Tail -->
+    <path d="M20,90 Q-5,72 8,52 Q18,38 10,22" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- Stars/dizzy marks from bouncing back -->
+    <text x="125" y="55" font-family="Arial, sans-serif" font-size="14" fill="#1a1a1a">★</text>
+    <text x="138" y="45" font-family="Arial, sans-serif" font-size="10" fill="#1a1a1a">✦</text>
+  </g>
+
+  <!-- Force arrow pointing right then bounced-back arrow -->
+  <!-- Forward arrow (blocked) -->
+  <line x1="168" y1="126" x2="228" y2="126" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="228,126 216,120 216,132" fill="#1a1a1a"/>
+  <!-- Bounced-back curved arrow -->
+  <path d="M228,120 Q250,98 230,110 Q215,116 168,110" fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-dasharray="4,3"/>
+  <polygon points="168,110 180,104 178,116" fill="#1a1a1a"/>
+  <!-- Force label -->
+  <line x1="196" y1="126" x2="196" y2="104" stroke="#1a1a1a" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <rect x="154" y="92" width="86" height="14" fill="#f0ede6"/>
+  <text x="196" y="103" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F = 87.3 N</text>
+
+  <!-- === BRICK HOUSE (right side) === -->
+  <g transform="translate(250, 60)">
+    <!-- House body -->
+    <rect x="0" y="50" width="120" height="90" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.8"/>
+    <!-- Brick grid pattern -->
+    <line x1="0" y1="64" x2="120" y2="64" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="0" y1="78" x2="120" y2="78" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="0" y1="92" x2="120" y2="92" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="0" y1="106" x2="120" y2="106" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="0" y1="120" x2="120" y2="120" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="0" y1="134" x2="120" y2="134" stroke="#1a1a1a" stroke-width="0.9"/>
+    <!-- Vertical joints row 1 -->
+    <line x1="40" y1="50" x2="40" y2="64" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="80" y1="50" x2="80" y2="64" stroke="#1a1a1a" stroke-width="0.9"/>
+    <!-- Vertical joints row 2 (offset) -->
+    <line x1="20" y1="64" x2="20" y2="78" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="60" y1="64" x2="60" y2="78" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="100" y1="64" x2="100" y2="78" stroke="#1a1a1a" stroke-width="0.9"/>
+    <!-- Row 3 -->
+    <line x1="40" y1="78" x2="40" y2="92" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="80" y1="78" x2="80" y2="92" stroke="#1a1a1a" stroke-width="0.9"/>
+    <!-- Row 4 -->
+    <line x1="20" y1="92" x2="20" y2="106" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="60" y1="92" x2="60" y2="106" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="100" y1="92" x2="100" y2="106" stroke="#1a1a1a" stroke-width="0.9"/>
+    <!-- Row 5 -->
+    <line x1="40" y1="106" x2="40" y2="120" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="80" y1="106" x2="80" y2="120" stroke="#1a1a1a" stroke-width="0.9"/>
+    <!-- Row 6 -->
+    <line x1="20" y1="120" x2="20" y2="134" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="60" y1="120" x2="60" y2="134" stroke="#1a1a1a" stroke-width="0.9"/>
+    <line x1="100" y1="120" x2="100" y2="134" stroke="#1a1a1a" stroke-width="0.9"/>
+    <!-- Chimney -->
+    <rect x="90" y="18" width="14" height="36" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Roof -->
+    <polygon points="60,5 -10,54 130,54" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.8"/>
+    <!-- Door -->
+    <rect x="46" y="105" width="28" height="35" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Window -->
+    <rect x="8" y="68" width="24" height="20" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="8" y1="78" x2="32" y2="78" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="20" y1="68" x2="20" y2="88" stroke="#1a1a1a" stroke-width="1"/>
+  </g>
+
+  <!-- Big green checkmark over house -->
+  <polyline points="262,165 288,198 380,88" fill="none" stroke="#226622" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Title block content -->
+  <text x="15" y="273" font-family="'Arial Black', Arial, sans-serif" font-size="9" font-weight="900" fill="#1a1a1a">STRUCTURAL INTEGRITY TEST — RESULT: PASS</text>
+  <!-- Vertical dividers in title block -->
+  <line x1="340" y1="256" x2="340" y2="295" stroke="#1a1a1a" stroke-width="0.8"/>
+  <line x1="420" y1="256" x2="420" y2="295" stroke="#1a1a1a" stroke-width="0.8"/>
+  <line x1="5" y1="275" x2="495" y2="275" stroke="#1a1a1a" stroke-width="0.8"/>
+  <text x="345" y="268" font-family="Arial, sans-serif" font-size="8" fill="#1a1a1a">DWG NO:</text>
+  <text x="345" y="278" font-family="Arial, sans-serif" font-size="8" fill="#1a1a1a">SIT-003</text>
+  <text x="425" y="268" font-family="Arial, sans-serif" font-size="8" fill="#1a1a1a">SCALE:</text>
+  <text x="425" y="278" font-family="Arial, sans-serif" font-size="8" fill="#1a1a1a">1:1</text>
+  <text x="345" y="291" font-family="Arial, sans-serif" font-size="8" fill="#1a1a1a">REV: C</text>
+  <text x="425" y="291" font-family="Arial, sans-serif" font-size="8" fill="#1a1a1a">SHT: 1/1</text>
+  <text x="15" y="291" font-family="Arial, sans-serif" font-size="8" fill="#1a1a1a">IKEA Engineering Division — Wolf-Resistance Testing Lab</text>
+</svg>

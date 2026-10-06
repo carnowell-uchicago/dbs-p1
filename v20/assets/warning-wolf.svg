@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Warning triangle: ISO style, yellow fill, black border -->
+  <polygon points="50,8 95,88 5,88" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Wolf head silhouette centered inside triangle -->
+  <!-- Position: centered around 50, 62 -->
+  <g transform="translate(50, 60)">
+    <!-- Ears (two pointed triangles) -->
+    <polygon points="-12,-22 -18,-36 -4,-22" fill="#1a1a1a"/>
+    <polygon points="12,-22 18,-36 4,-22" fill="#1a1a1a"/>
+
+    <!-- Main head circle -->
+    <circle cx="0" cy="-8" r="18" fill="#1a1a1a"/>
+
+    <!-- Snout / muzzle -->
+    <ellipse cx="0" cy="5" rx="10" ry="8" fill="#1a1a1a"/>
+
+    <!-- Nose -->
+    <ellipse cx="0" cy="-2" rx="5" ry="3" fill="#f0ede6"/>
+
+    <!-- Open mouth / teeth suggestion -->
+    <path d="M-9,8 Q0,16 9,8" fill="#1a1a1a" stroke="none"/>
+    <polygon points="-5,8 -2,13 1,8" fill="#f0ede6"/>
+    <polygon points="1,8 4,13 7,8" fill="#f0ede6"/>
+
+    <!-- Eyes (white circles with black pupils) -->
+    <circle cx="-7" cy="-12" r="4" fill="#f0ede6"/>
+    <circle cx="7" cy="-12" r="4" fill="#f0ede6"/>
+    <circle cx="-7" cy="-12" r="2" fill="#1a1a1a"/>
+    <circle cx="7" cy="-12" r="2" fill="#1a1a1a"/>
+  </g>
+</svg>

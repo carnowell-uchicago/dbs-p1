@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#f0ede6"/>
+
+  <!-- Title -->
+  <text x="200" y="22" font-family="'Arial Black', Arial, sans-serif" font-size="11" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="1">PARTS LIST / DELFÖRTECKNING — TEGELBOENDE</text>
+  <line x1="20" y1="28" x2="380" y2="28" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- ITEM A: Stack of bricks -->
+  <g transform="translate(30, 50)">
+    <!-- Brick stack grid -->
+    <!-- Row 1 -->
+    <rect x="0" y="0" width="35" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="37" y="0" width="35" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="74" y="0" width="22" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Row 2 -->
+    <rect x="0" y="14" width="20" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="22" y="14" width="35" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="59" y="14" width="37" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Row 3 -->
+    <rect x="0" y="28" width="35" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="37" y="28" width="35" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="74" y="28" width="22" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Row 4 -->
+    <rect x="0" y="42" width="20" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="22" y="42" width="35" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="59" y="42" width="37" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Row 5 -->
+    <rect x="0" y="56" width="35" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="37" y="56" width="35" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="74" y="56" width="22" height="12" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+  </g>
+  <line x1="130" y1="100" x2="165" y2="88" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="170" y="86" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a">BRICK × 2,847</text>
+  <text x="170" y="97" font-family="Arial, sans-serif" font-size="8" fill="#1a1a1a">(MURSTEN)</text>
+
+  <!-- ITEM B: Mortar bag -->
+  <g transform="translate(35, 170)">
+    <!-- Bag shape -->
+    <polygon points="5,0 75,0 80,50 0,50" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Bag tie at top -->
+    <ellipse cx="40" cy="0" rx="20" ry="6" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <path d="M30,-6 Q40,-16 50,-6" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Text on bag -->
+    <text x="40" y="28" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BRUK</text>
+    <text x="40" y="39" font-family="Arial, sans-serif" font-size="7" fill="#1a1a1a" text-anchor="middle">25 kg</text>
+  </g>
+  <line x1="115" y1="195" x2="155" y2="188" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="160" y="186" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a">MORTAR × 1 (BRUK)</text>
+  <text x="160" y="197" font-family="Arial, sans-serif" font-size="8" fill="#1a1a1a">(cement adhesive, 25 kg)</text>
+
+  <!-- ITEM C: Pig silhouette -->
+  <g transform="translate(230, 50)">
+    <!-- Body -->
+    <ellipse cx="30" cy="42" rx="22" ry="18" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Head -->
+    <circle cx="52" cy="32" r="14" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Snout -->
+    <ellipse cx="61" cy="35" rx="6" ry="4" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.2"/>
+    <circle cx="59" cy="35" r="1" fill="#1a1a1a"/>
+    <circle cx="63" cy="35" r="1" fill="#1a1a1a"/>
+    <!-- Ear -->
+    <polygon points="48,19 42,10 55,16" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="1.2"/>
+    <!-- Legs -->
+    <rect x="14" y="56" width="8" height="14" rx="2" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="26" y="56" width="8" height="14" rx="2" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Tail -->
+    <path d="M8,40 Q0,35 4,28 Q8,21 4,16" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Eye -->
+    <circle cx="55" cy="29" r="2" fill="#1a1a1a"/>
+    <!-- Hard hat -->
+    <rect x="42" y="14" width="25" height="5" rx="1" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="1"/>
+    <ellipse cx="54" cy="14" rx="12" ry="5" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="1"/>
+  </g>
+  <text x="290" y="145" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PIG × 1 (GRIS)</text>
+
+  <!-- ITEM D: Infinity / determination -->
+  <g transform="translate(234, 165)">
+    <!-- Infinity symbol using two circles -->
+    <path d="M20,20 C20,8 36,8 40,20 C44,32 60,32 60,20 C60,8 76,8 76,20 C76,32 60,32 56,20 C52,8 36,8 36,20 Z" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  </g>
+  <text x="248" y="210" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#1a1a1a">DETERMINATION × ∞</text>
+  <text x="248" y="221" font-family="Arial, sans-serif" font-size="8" fill="#1a1a1a">(BESLUTSAMHET)</text>
+
+  <!-- Extra lone brick -->
+  <g transform="translate(310, 240)">
+    <rect x="0" y="0" width="35" height="12" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="17" y="9" font-family="Arial, sans-serif" font-size="7" fill="#1a1a1a" text-anchor="middle">+ 1</text>
+  </g>
+  <text x="310" y="264" font-family="Arial, sans-serif" font-size="7" fill="#1a1a1a">+ 1 spare</text>
+  <text x="310" y="273" font-family="Arial, sans-serif" font-size="7" fill="#1a1a1a" font-style="italic">(just in case)</text>
+
+  <!-- Item circles -->
+  <circle cx="35" cy="40" r="9" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="35" y="44" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A</text>
+  <circle cx="38" cy="158" r="9" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="38" y="162" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B</text>
+  <circle cx="232" cy="38" r="9" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="232" y="42" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C</text>
+  <circle cx="235" cy="155" r="9" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="235" y="159" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#f0ede6" text-anchor="middle">D</text>
+
+  <!-- Bottom note -->
+  <line x1="20" y1="265" x2="300" y2="265" stroke="#1a1a1a" stroke-width="0.8"/>
+  <text x="160" y="279" font-family="Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle">2,847 bricks. Yes, we counted. This will take a while.</text>
+</svg>

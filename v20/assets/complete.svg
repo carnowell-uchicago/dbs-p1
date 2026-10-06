@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#f0ede6"/>
+
+  <!-- === BRICK HOUSE (centered, larger) === -->
+  <g transform="translate(100, 40)">
+    <!-- Main house body -->
+    <rect x="0" y="80" width="200" height="150" fill="#f0ede6" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Brick pattern on walls -->
+    <!-- Horizontal rows -->
+    <line x1="0" y1="98" x2="200" y2="98" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="0" y1="116" x2="200" y2="116" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="0" y1="134" x2="200" y2="134" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="0" y1="152" x2="200" y2="152" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="0" y1="170" x2="200" y2="170" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="0" y1="188" x2="200" y2="188" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="0" y1="206" x2="200" y2="206" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="0" y1="224" x2="200" y2="224" stroke="#1a1a1a" stroke-width="1"/>
+    <!-- Vertical joints odd rows -->
+    <line x1="50" y1="80" x2="50" y2="98" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="100" y1="80" x2="100" y2="98" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="150" y1="80" x2="150" y2="98" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="50" y1="116" x2="50" y2="134" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="100" y1="116" x2="100" y2="134" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="150" y1="116" x2="150" y2="134" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="50" y1="152" x2="50" y2="170" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="100" y1="152" x2="100" y2="170" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="150" y1="152" x2="150" y2="170" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="50" y1="188" x2="50" y2="206" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="100" y1="188" x2="100" y2="206" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="150" y1="188" x2="150" y2="206" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="50" y1="224" x2="50" y2="230" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="100" y1="224" x2="100" y2="230" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="150" y1="224" x2="150" y2="230" stroke="#1a1a1a" stroke-width="1"/>
+    <!-- Vertical joints even rows (offset) -->
+    <line x1="25" y1="98" x2="25" y2="116" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="75" y1="98" x2="75" y2="116" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="125" y1="98" x2="125" y2="116" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="175" y1="98" x2="175" y2="116" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="25" y1="134" x2="25" y2="152" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="75" y1="134" x2="75" y2="152" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="125" y1="134" x2="125" y2="152" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="175" y1="134" x2="175" y2="152" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="25" y1="170" x2="25" y2="188" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="75" y1="170" x2="75" y2="188" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="125" y1="170" x2="125" y2="188" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="175" y1="170" x2="175" y2="188" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="25" y1="206" x2="25" y2="224" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="75" y1="206" x2="75" y2="224" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="125" y1="206" x2="125" y2="224" stroke="#1a1a1a" stroke-width="1"/>
+    <line x1="175" y1="206" x2="175" y2="224" stroke="#1a1a1a" stroke-width="1"/>
+
+    <!-- Chimney -->
+    <rect x="148" y="32" width="22" height="52" fill="#f0ede6" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- Chimney top -->
+    <rect x="144" y="28" width="30" height="8" rx="1" fill="#f0ede6" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- Smoke puffs -->
+    <circle cx="159" cy="22" r="5" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1"/>
+    <circle cx="162" cy="14" r="7" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1"/>
+    <circle cx="158" cy="6" r="5" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1"/>
+
+    <!-- Roof -->
+    <polygon points="100,8 -18,86 218,86" fill="#f0ede6" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Left window (pig 1 inside) -->
+    <rect x="14" y="100" width="42" height="42" rx="2" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="14" y1="121" x2="56" y2="121" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="35" y1="100" x2="35" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Pig face in left window -->
+    <circle cx="22" cy="112" r="7" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1"/>
+    <ellipse cx="25" cy="114" rx="3" ry="2" fill="#f0ede6" stroke="#1a1a1a" stroke-width="0.8"/>
+    <circle cx="24" cy="114" r="0.8" fill="#1a1a1a"/>
+    <circle cx="26" cy="114" r="0.8" fill="#1a1a1a"/>
+
+    <!-- Right window (pig 2 inside) -->
+    <rect x="144" y="100" width="42" height="42" rx="2" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="144" y1="121" x2="186" y2="121" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="165" y1="100" x2="165" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+    <!-- Pig face in right window -->
+    <circle cx="176" cy="112" r="7" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1"/>
+    <ellipse cx="179" cy="114" rx="3" ry="2" fill="#f0ede6" stroke="#1a1a1a" stroke-width="0.8"/>
+    <circle cx="178" cy="114" r="0.8" fill="#1a1a1a"/>
+    <circle cx="180" cy="114" r="0.8" fill="#1a1a1a"/>
+
+    <!-- Door (pig 3 in doorway) -->
+    <rect x="78" y="175" width="44" height="55" rx="2" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="116" cy="204" r="3" fill="#1a1a1a"/>
+    <!-- Pig in doorway (simple) -->
+    <circle cx="100" cy="190" r="9" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.2"/>
+    <ellipse cx="104" cy="192" rx="4" ry="2.5" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1"/>
+    <circle cx="103" cy="192" r="1" fill="#1a1a1a"/>
+    <circle cx="105" cy="192" r="1" fill="#1a1a1a"/>
+    <!-- Pig body in doorway -->
+    <ellipse cx="100" cy="210" rx="12" ry="10" fill="#f0ede6" stroke="#1a1a1a" stroke-width="1.2"/>
+  </g>
+
+  <!-- Large yellow checkmark in upper-right -->
+  <polyline points="300,30 320,58 365,15" fill="none" stroke="#FFDA1A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Checkmark outline for definition -->
+  <polyline points="300,30 320,58 365,15" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Sparkle stars around the house -->
+  <!-- Star 1: top left -->
+  <g transform="translate(60,55)">
+    <polygon points="0,-8 2,-2 8,0 2,2 0,8 -2,2 -8,0 -2,-2" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="0.8"/>
+  </g>
+  <!-- Star 2: top center -->
+  <g transform="translate(200,30)">
+    <polygon points="0,-6 1.5,-1.5 6,0 1.5,1.5 0,6 -1.5,1.5 -6,0 -1.5,-1.5" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="0.8"/>
+  </g>
+  <!-- Star 3: right -->
+  <g transform="translate(382,90)">
+    <polygon points="0,-7 2,-2 7,0 2,2 0,7 -2,2 -7,0 -2,-2" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="0.8"/>
+  </g>
+  <!-- Star 4: left -->
+  <g transform="translate(55,150)">
+    <polygon points="0,-5 1.5,-1.5 5,0 1.5,1.5 0,5 -1.5,1.5 -5,0 -1.5,-1.5" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="0.8"/>
+  </g>
+  <!-- Star 5: bottom right -->
+  <g transform="translate(370,200)">
+    <polygon points="0,-6 1.5,-1.5 6,0 1.5,1.5 0,6 -1.5,1.5 -6,0 -1.5,-1.5" fill="#FFDA1A" stroke="#1a1a1a" stroke-width="0.8"/>
+  </g>
+
+  <!-- ASSEMBLY COMPLETE text at bottom -->
+  <text x="200" y="285" font-family="'Arial Black', Arial, sans-serif" font-size="14" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="2">ASSEMBLY COMPLETE</text>
+  <!-- Underline decoration -->
+  <line x1="80" y1="289" x2="320" y2="289" stroke="#FFDA1A" stroke-width="3"/>
+</svg>
