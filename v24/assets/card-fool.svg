@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" width="280" height="480">
+  <defs>
+    <filter id="fool-noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise" seed="1"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="fool-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF0A0"/>
+      <stop offset="70%" stop-color="#FFD84A"/>
+      <stop offset="100%" stop-color="#F0C030"/>
+    </linearGradient>
+    <linearGradient id="fool-ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a8c3f"/>
+      <stop offset="100%" stop-color="#2a5c20"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Card background -->
+  <rect width="280" height="480" fill="#F8F0DC"/>
+
+  <!-- Outer border -->
+  <rect x="0" y="0" width="280" height="480" fill="none" stroke="#D4AF37" stroke-width="3"/>
+  <!-- Inner decorative border -->
+  <rect x="10" y="10" width="260" height="460" fill="none" stroke="#D4AF37" stroke-width="1"/>
+
+  <!-- Corner ornaments -->
+  <text x="12" y="22" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="268" y="22" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="12" y="474" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="268" y="474" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+
+  <!-- Card number -->
+  <text x="140" y="38" font-family="Georgia, serif" font-size="14" fill="#1a1a0a" text-anchor="middle" letter-spacing="3">I</text>
+
+  <!-- Illustration area border -->
+  <rect x="30" y="50" width="220" height="320" fill="none" stroke="#D4AF37" stroke-width="1"/>
+
+  <!-- Sky -->
+  <rect x="30" y="50" width="220" height="230" fill="url(#fool-sky)"/>
+
+  <!-- Ground -->
+  <rect x="30" y="280" width="220" height="90" fill="url(#fool-ground)"/>
+
+  <!-- Horizon land continuation -->
+  <rect x="30" y="270" width="220" height="20" fill="#4a8c3f"/>
+
+  <!-- Sun (upper right) -->
+  <circle cx="215" cy="85" r="22" fill="#FFD700" stroke="#E8A800" stroke-width="1.5" opacity="0.9"/>
+  <!-- Sun rays -->
+  <line x1="215" y1="57" x2="215" y2="50" stroke="#FFD700" stroke-width="2"/>
+  <line x1="237" y1="65" x2="242" y2="60" stroke="#FFD700" stroke-width="2"/>
+  <line x1="243" y1="85" x2="248" y2="85" stroke="#FFD700" stroke-width="2"/>
+  <line x1="237" y1="105" x2="242" y2="110" stroke="#FFD700" stroke-width="2"/>
+  <line x1="215" y1="113" x2="215" y2="118" stroke="#FFD700" stroke-width="2"/>
+  <line x1="193" y1="105" x2="188" y2="110" stroke="#FFD700" stroke-width="2"/>
+  <line x1="187" y1="85" x2="182" y2="85" stroke="#FFD700" stroke-width="2"/>
+  <line x1="193" y1="65" x2="188" y2="60" stroke="#FFD700" stroke-width="2"/>
+
+  <!-- Cliff edge -->
+  <!-- Ground platform the pig stands on -->
+  <path d="M30 280 L30 370 L155 370 L155 280 Z" fill="#4a8c3f"/>
+  <!-- Cliff drop - right side -->
+  <path d="M155 280 L155 370 L250 370 L250 320 Q230 310 200 315 Q175 318 155 280 Z" fill="#2a5c20" opacity="0.8"/>
+  <!-- Cliff face -->
+  <path d="M155 270 Q160 275 155 290 L148 290 Q143 275 150 270 Z" fill="#3a6c2f"/>
+
+  <!-- Wolf shadow on far horizon (barely visible) -->
+  <ellipse cx="195" cy="272" rx="25" ry="8" fill="#1a1a0a" opacity="0.12"/>
+  <path d="M180 265 Q195 255 210 265 Q205 272 195 272 Q185 272 180 265 Z" fill="#1a1a0a" opacity="0.1"/>
+  <!-- Wolf ear hints -->
+  <path d="M183 265 L179 258 L188 263 Z" fill="#1a1a0a" opacity="0.08"/>
+  <path d="M207 265 L211 258 L202 263 Z" fill="#1a1a0a" opacity="0.08"/>
+
+  <!-- Small flower at cliff edge -->
+  <circle cx="157" cy="277" r="5" fill="#FF6B8A" stroke="#1a1a0a" stroke-width="0.8"/>
+  <circle cx="157" cy="277" r="2" fill="#FFE060"/>
+  <line x1="157" y1="282" x2="157" y2="290" stroke="#2a7a20" stroke-width="1.5"/>
+  <ellipse cx="152" cy="287" rx="5" ry="3" fill="#3a8a30" transform="rotate(-20,152,287)"/>
+
+  <!-- Straw bundle / bindle (over shoulder) -->
+  <!-- Stick of the bindle -->
+  <line x1="155" y1="175" x2="100" y2="260" stroke="#8B6914" stroke-width="4" stroke-linecap="round"/>
+  <!-- Bundle at the top of the stick -->
+  <ellipse cx="150" cy="180" rx="20" ry="14" fill="#E8C840" stroke="#1a1a0a" stroke-width="1.5" transform="rotate(-30,150,180)"/>
+  <!-- Straw detail lines in bundle -->
+  <line x1="136" y1="171" x2="140" y2="192" stroke="#C8A820" stroke-width="1.2" opacity="0.7"/>
+  <line x1="144" y1="169" x2="148" y2="190" stroke="#C8A820" stroke-width="1.2" opacity="0.7"/>
+  <line x1="152" y1="170" x2="156" y2="191" stroke="#C8A820" stroke-width="1.2" opacity="0.7"/>
+  <line x1="160" y1="173" x2="162" y2="192" stroke="#C8A820" stroke-width="1" opacity="0.6"/>
+  <!-- Bundle tie -->
+  <path d="M138 181 Q150 177 162 183" fill="none" stroke="#8B4513" stroke-width="2"/>
+
+  <!-- Pig body - pink round cheerful pig -->
+  <!-- Body -->
+  <ellipse cx="118" cy="245" rx="28" ry="32" fill="#F4A8A0" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Brown vest -->
+  <path d="M98 230 Q105 220 118 218 Q131 220 138 230 L135 265 Q125 270 118 270 Q111 270 101 265 Z" fill="#8B5E3C" stroke="#1a1a0a" stroke-width="1.2"/>
+  <!-- Vest collar opening -->
+  <path d="M110 220 Q118 225 126 220" fill="none" stroke="#6B3E1C" stroke-width="1"/>
+  <!-- Vest buttons -->
+  <circle cx="118" cy="235" r="2" fill="#D4AF37"/>
+  <circle cx="118" cy="245" r="2" fill="#D4AF37"/>
+  <circle cx="118" cy="255" r="2" fill="#D4AF37"/>
+
+  <!-- Pig legs -->
+  <ellipse cx="108" cy="275" rx="10" ry="7" fill="#F4A8A0" stroke="#1a1a0a" stroke-width="1.2"/>
+  <!-- Right leg raised mid-step -->
+  <ellipse cx="132" cy="268" rx="10" ry="7" fill="#F4A8A0" stroke="#1a1a0a" stroke-width="1.2" transform="rotate(-20,132,268)"/>
+
+  <!-- Pig head -->
+  <ellipse cx="118" cy="208" rx="24" ry="22" fill="#F4A8A0" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Pig snout -->
+  <ellipse cx="118" cy="218" rx="11" ry="8" fill="#E8887A" stroke="#1a1a0a" stroke-width="1"/>
+  <circle cx="114" cy="217" r="3" fill="#1a1a0a"/>
+  <circle cx="122" cy="217" r="3" fill="#1a1a0a"/>
+  <!-- Pig eyes (looking upward, oblivious) -->
+  <ellipse cx="107" cy="202" rx="4" ry="4.5" fill="#1a1a0a"/>
+  <ellipse cx="129" cy="202" rx="4" ry="4.5" fill="#1a1a0a"/>
+  <circle cx="108" cy="200" r="1.5" fill="#fff"/>
+  <circle cx="130" cy="200" r="1.5" fill="#fff"/>
+  <!-- Eyes tilted upward: eyebrows showing wonder -->
+  <path d="M103 196 Q107 193 111 196" fill="none" stroke="#1a1a0a" stroke-width="1.2"/>
+  <path d="M125 196 Q129 193 133 196" fill="none" stroke="#1a1a0a" stroke-width="1.2"/>
+  <!-- Smile -->
+  <path d="M110 222 Q118 228 126 222" fill="none" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Pig ears -->
+  <ellipse cx="99" cy="200" rx="8" ry="10" fill="#F4A8A0" stroke="#1a1a0a" stroke-width="1.5"/>
+  <ellipse cx="137" cy="200" rx="8" ry="10" fill="#F4A8A0" stroke="#1a1a0a" stroke-width="1.5"/>
+  <ellipse cx="99" cy="200" rx="5" ry="6" fill="#E8887A"/>
+  <ellipse cx="137" cy="200" rx="5" ry="6" fill="#E8887A"/>
+
+  <!-- Right arm on the bindle stick (raised, holding stick over shoulder) -->
+  <path d="M138 225 Q148 210 152 190" fill="none" stroke="#F4A8A0" stroke-width="9"/>
+  <path d="M138 225 Q148 210 152 190" fill="none" stroke="#1a1a0a" stroke-width="1.5"/>
+
+  <!-- Left arm relaxed at side -->
+  <path d="M98 232 Q85 240 82 255" fill="none" stroke="#F4A8A0" stroke-width="9"/>
+  <path d="M98 232 Q85 240 82 255" fill="none" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Hoof/hand at left arm -->
+  <circle cx="81" cy="258" r="6" fill="#E8887A" stroke="#1a1a0a" stroke-width="1"/>
+
+  <!-- Bottom text area decorative lines -->
+  <line x1="30" y1="375" x2="250" y2="375" stroke="#D4AF37" stroke-width="0.8"/>
+  <line x1="30" y1="455" x2="250" y2="455" stroke="#D4AF37" stroke-width="0.8"/>
+
+  <!-- Card name -->
+  <text x="140" y="420" font-family="Georgia, serif" font-size="13" fill="#1a1a0a" text-anchor="middle" letter-spacing="4">THE FOOL</text>
+
+  <!-- Subtle texture overlay -->
+  <rect x="0" y="0" width="280" height="480" fill="#F8F0DC" opacity="0.04" filter="url(#fool-noise)"/>
+</svg>

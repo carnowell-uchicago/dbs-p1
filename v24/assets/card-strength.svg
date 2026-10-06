@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" width="280" height="480">
+  <defs>
+    <filter id="strength-noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise" seed="8"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="strength-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="100%" stop-color="#B0E0FF"/>
+    </linearGradient>
+    <linearGradient id="wolf-exhaust" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ccc" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#ccc" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="window-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFA040" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FF8000" stop-opacity="0.4"/>
+    </radialGradient>
+    <!-- Brick pattern -->
+    <pattern id="bricks" x="0" y="0" width="30" height="18" patternUnits="userSpaceOnUse">
+      <rect width="30" height="18" fill="#B85C38"/>
+      <rect x="1" y="1" width="28" height="7" fill="#C07040" stroke="none"/>
+      <rect x="1" y="10" width="13" height="7" fill="#C07040" stroke="none"/>
+      <rect x="16" y="10" width="13" height="7" fill="#C07040" stroke="none"/>
+      <line x1="0" y1="9" x2="30" y2="9" stroke="#8a8a7a" stroke-width="0.8"/>
+      <line x1="15" y1="0" x2="15" y2="9" stroke="#8a8a7a" stroke-width="0.8"/>
+      <line x1="0" y1="9" x2="0" y2="18" stroke="#8a8a7a" stroke-width="0.8"/>
+      <line x1="15" y1="9" x2="15" y2="18" stroke="#8a8a7a" stroke-width="0.8"/>
+    </pattern>
+  </defs>
+
+  <!-- Card background -->
+  <rect width="280" height="480" fill="#F8F0DC"/>
+
+  <!-- Outer border -->
+  <rect x="0" y="0" width="280" height="480" fill="none" stroke="#D4AF37" stroke-width="3"/>
+  <!-- Inner decorative border -->
+  <rect x="10" y="10" width="260" height="460" fill="none" stroke="#D4AF37" stroke-width="1"/>
+
+  <!-- Corner ornaments -->
+  <text x="12" y="22" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="268" y="22" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="12" y="474" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="268" y="474" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+
+  <!-- Card number -->
+  <text x="140" y="38" font-family="Georgia, serif" font-size="14" fill="#1a1a0a" text-anchor="middle" letter-spacing="3">VIII</text>
+
+  <!-- Illustration area border -->
+  <rect x="30" y="50" width="220" height="320" fill="none" stroke="#D4AF37" stroke-width="1"/>
+
+  <!-- Sky background -->
+  <rect x="30" y="50" width="220" height="200" fill="url(#strength-sky)"/>
+
+  <!-- Cloud -->
+  <ellipse cx="195" cy="85" rx="28" ry="14" fill="#fff" opacity="0.9"/>
+  <ellipse cx="175" cy="90" rx="20" ry="12" fill="#fff" opacity="0.9"/>
+  <ellipse cx="215" cy="90" rx="18" ry="11" fill="#fff" opacity="0.85"/>
+
+  <!-- Green grass ground -->
+  <rect x="30" y="250" width="220" height="120" fill="#4a7a30"/>
+  <rect x="30" y="248" width="220" height="8" fill="#5a8a40" rx="2"/>
+
+  <!-- THE BRICK HOUSE -->
+  <!-- House body - brick pattern -->
+  <rect x="90" y="130" width="160" height="138" fill="url(#bricks)"/>
+  <!-- House left wall (slightly lighter for 3D feel) -->
+  <rect x="90" y="130" width="4" height="138" fill="#8a3a20" opacity="0.7"/>
+  <!-- House mortar lines (horizontal) -->
+  <line x1="90" y1="148" x2="250" y2="148" stroke="#8a8a7a" stroke-width="0.6" opacity="0.6"/>
+  <line x1="90" y1="166" x2="250" y2="166" stroke="#8a8a7a" stroke-width="0.6" opacity="0.6"/>
+  <line x1="90" y1="184" x2="250" y2="184" stroke="#8a8a7a" stroke-width="0.6" opacity="0.6"/>
+  <line x1="90" y1="202" x2="250" y2="202" stroke="#8a8a7a" stroke-width="0.6" opacity="0.6"/>
+  <line x1="90" y1="220" x2="250" y2="220" stroke="#8a8a7a" stroke-width="0.6" opacity="0.6"/>
+  <line x1="90" y1="238" x2="250" y2="238" stroke="#8a8a7a" stroke-width="0.6" opacity="0.6"/>
+  <!-- House outline -->
+  <rect x="90" y="130" width="160" height="138" fill="none" stroke="#1a1a0a" stroke-width="2"/>
+
+  <!-- Roof -->
+  <polygon points="80,130 260,130 245,90 95,90" fill="#5a3a18" stroke="#1a1a0a" stroke-width="2"/>
+  <!-- Roof tiles suggestion -->
+  <line x1="110" y1="105" x2="105" y2="130" stroke="#3a2008" stroke-width="1" opacity="0.5"/>
+  <line x1="135" y1="100" x2="128" y2="130" stroke="#3a2008" stroke-width="1" opacity="0.5"/>
+  <line x1="160" y1="95" x2="155" y2="130" stroke="#3a2008" stroke-width="1" opacity="0.5"/>
+  <line x1="185" y1="93" x2="182" y2="130" stroke="#3a2008" stroke-width="1" opacity="0.5"/>
+  <line x1="210" y1="95" x2="208" y2="130" stroke="#3a2008" stroke-width="1" opacity="0.5"/>
+  <line x1="232" y1="100" x2="232" y2="130" stroke="#3a2008" stroke-width="1" opacity="0.5"/>
+
+  <!-- Chimney -->
+  <rect x="215" y="65" width="25" height="45" fill="url(#bricks)" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Chimney cap -->
+  <rect x="212" y="62" width="31" height="5" fill="#3a2008" stroke="#1a1a0a" stroke-width="1"/>
+  <!-- Smoke -->
+  <path d="M225 62 Q220 50 227 40 Q233 30 228 20" fill="none" stroke="#888" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+  <path d="M232 62 Q238 52 234 42 Q230 32 237 22" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+
+  <!-- Window left (glowing warm) -->
+  <rect x="102" y="155" width="35" height="30" rx="2" fill="url(#window-glow)" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Window crossbars -->
+  <line x1="119" y1="155" x2="119" y2="185" stroke="#1a1a0a" stroke-width="1"/>
+  <line x1="102" y1="170" x2="137" y2="170" stroke="#1a1a0a" stroke-width="1"/>
+
+  <!-- Window right (glowing warm) -->
+  <rect x="202" y="155" width="35" height="30" rx="2" fill="url(#window-glow)" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Window crossbars -->
+  <line x1="219" y1="155" x2="219" y2="185" stroke="#1a1a0a" stroke-width="1.5"/>
+  <line x1="202" y1="170" x2="237" y2="170" stroke="#1a1a0a" stroke-width="1"/>
+
+  <!-- Door (centered) -->
+  <rect x="153" y="218" width="34" height="50" rx="3" fill="#5a3a18" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Door arch -->
+  <path d="M153 221 Q170 210 187 221" fill="#5a3a18" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Door knob -->
+  <circle cx="163" cy="245" r="3" fill="#D4AF37" stroke="#1a1a0a" stroke-width="0.8"/>
+
+  <!-- Infinity symbol above house -->
+  <path d="M120 72 Q130 62 140 72 Q150 82 160 72 Q170 62 180 72 Q170 82 160 72 Q150 62 140 72 Q130 82 120 72 Z" fill="none" stroke="#D4AF37" stroke-width="2.5"/>
+  <!-- Infinity fill -->
+  <path d="M120 72 Q130 62 140 72 Q130 82 120 72 Z" fill="#D4AF37" opacity="0.5"/>
+  <path d="M140 72 Q150 62 160 72 Q150 82 140 72 Z" fill="#D4AF37" opacity="0.5"/>
+  <path d="M160 72 Q170 62 180 72 Q170 82 160 72 Z" fill="#D4AF37" opacity="0.5"/>
+
+  <!-- THE WOLF (left side, small, blowing) -->
+  <!-- Wolf body -->
+  <ellipse cx="62" cy="235" rx="22" ry="16" fill="#888" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Wolf head -->
+  <ellipse cx="72" cy="218" rx="16" ry="14" fill="#999" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Wolf snout/muzzle (puffed cheeks - extended right) -->
+  <ellipse cx="84" cy="220" rx="14" ry="10" fill="#aaa" stroke="#1a1a0a" stroke-width="1.2"/>
+  <!-- Puffed cheeks -->
+  <circle cx="88" cy="218" r="8" fill="#c0c0c0" stroke="#1a1a0a" stroke-width="1"/>
+  <!-- Lips/snout tip -->
+  <ellipse cx="96" cy="220" rx="5" ry="4" fill="#888" stroke="#1a1a0a" stroke-width="1"/>
+  <!-- Wolf eyes (dark circles, exhausted) -->
+  <ellipse cx="68" cy="215" rx="3.5" ry="3" fill="#1a1a0a"/>
+  <!-- Dark circle under eye -->
+  <path d="M65 217 Q68 220 71 217" fill="none" stroke="#555" stroke-width="1.5" opacity="0.7"/>
+  <!-- Wolf ears -->
+  <polygon points="58,207 54,195 65,205" fill="#777" stroke="#1a1a0a" stroke-width="1"/>
+  <polygon points="72,205 69,194 78,204" fill="#777" stroke="#1a1a0a" stroke-width="1"/>
+  <!-- Wolf legs (slightly hunched) -->
+  <line x1="50" y1="248" x2="45" y2="265" stroke="#777" stroke-width="5" stroke-linecap="round"/>
+  <line x1="72" y1="250" x2="70" y2="267" stroke="#777" stroke-width="5" stroke-linecap="round"/>
+  <!-- Wolf feet -->
+  <ellipse cx="44" cy="267" rx="7" ry="4" fill="#666" stroke="#1a1a0a" stroke-width="1"/>
+  <ellipse cx="69" cy="268" rx="7" ry="4" fill="#666" stroke="#1a1a0a" stroke-width="1"/>
+  <!-- Wolf tail (drooping) -->
+  <path d="M42 238 Q35 255 40 268" fill="none" stroke="#888" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Wind/breath from wolf's mouth -->
+  <path d="M96 218 Q110 216 120 218 Q130 220 135 215" fill="none" stroke="#ddd" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+  <path d="M97 222 Q112 222 125 225 Q133 227 140 222" fill="none" stroke="#ddd" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <path d="M95 214 Q108 212 118 212" fill="none" stroke="#eee" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+
+  <!-- Grass blades bending from wind -->
+  <path d="M95 252 Q100 242 103 248" fill="none" stroke="#3a6020" stroke-width="1.5"/>
+  <path d="M105 250 Q111 240 114 246" fill="none" stroke="#3a6020" stroke-width="1.5"/>
+  <path d="M115 252 Q120 242 122 248" fill="none" stroke="#4a7030" stroke-width="1.5"/>
+
+  <!-- Bottom text area decorative lines -->
+  <line x1="30" y1="375" x2="250" y2="375" stroke="#D4AF37" stroke-width="0.8"/>
+  <line x1="30" y1="455" x2="250" y2="455" stroke="#D4AF37" stroke-width="0.8"/>
+
+  <!-- Card name -->
+  <text x="140" y="420" font-family="Georgia, serif" font-size="13" fill="#1a1a0a" text-anchor="middle" letter-spacing="4">STRENGTH</text>
+
+  <!-- Texture overlay -->
+  <rect x="0" y="0" width="280" height="480" fill="#F8F0DC" opacity="0.04" filter="url(#strength-noise)"/>
+</svg>

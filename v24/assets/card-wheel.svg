@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" width="280" height="480">
+  <defs>
+    <filter id="wheel-noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise" seed="4"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="wheel-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FF8C50"/>
+      <stop offset="50%" stop-color="#FFB060"/>
+      <stop offset="100%" stop-color="#E87830"/>
+    </linearGradient>
+    <linearGradient id="wheel-ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="100%" stop-color="#5a4010"/>
+    </linearGradient>
+    <radialGradient id="wheel-gradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D4AF37"/>
+      <stop offset="60%" stop-color="#A07828"/>
+      <stop offset="100%" stop-color="#6B4F10"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Card background -->
+  <rect width="280" height="480" fill="#F8F0DC"/>
+
+  <!-- Outer border -->
+  <rect x="0" y="0" width="280" height="480" fill="none" stroke="#D4AF37" stroke-width="3"/>
+  <!-- Inner decorative border -->
+  <rect x="10" y="10" width="260" height="460" fill="none" stroke="#D4AF37" stroke-width="1"/>
+
+  <!-- Corner ornaments -->
+  <text x="12" y="22" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="268" y="22" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="12" y="474" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="268" y="474" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+
+  <!-- Card number -->
+  <text x="140" y="38" font-family="Georgia, serif" font-size="14" fill="#1a1a0a" text-anchor="middle" letter-spacing="3">X</text>
+
+  <!-- Illustration area border -->
+  <rect x="30" y="50" width="220" height="320" fill="none" stroke="#D4AF37" stroke-width="1"/>
+
+  <!-- Dusky orange-pink sky -->
+  <rect x="30" y="50" width="220" height="230" fill="url(#wheel-sky)"/>
+
+  <!-- Dry ground -->
+  <rect x="30" y="280" width="220" height="90" fill="url(#wheel-ground)"/>
+
+  <!-- Horizon line / ground meeting sky -->
+  <rect x="30" y="275" width="220" height="10" fill="#8B6914"/>
+
+  <!-- Collapsed straw house (pile of straw in background left) -->
+  <!-- Rubble heap -->
+  <ellipse cx="70" cy="278" rx="35" ry="12" fill="#8B6914" opacity="0.7"/>
+  <!-- Straw scattered -->
+  <line x1="42" y1="272" x2="65" y2="265" stroke="#E8C840" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+  <line x1="50" y1="268" x2="75" y2="260" stroke="#D4AF30" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+  <line x1="55" y1="275" x2="80" y2="267" stroke="#E8C840" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+  <line x1="38" y1="278" x2="60" y2="272" stroke="#C8A020" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+  <line x1="60" y1="278" x2="85" y2="270" stroke="#E8C840" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="48" y1="265" x2="70" y2="260" stroke="#D4AF30" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+  <line x1="65" y1="280" x2="95" y2="274" stroke="#C8A020" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <!-- Broken wall piece -->
+  <rect x="55" y="262" width="20" height="14" fill="#C8A860" stroke="#1a1a0a" stroke-width="0.8" transform="rotate(-15,65,269)" opacity="0.8"/>
+  <!-- Broken roof pieces -->
+  <polygon points="40,268 52,268 45,258" fill="#B89040" stroke="#1a1a0a" stroke-width="0.8" opacity="0.7"/>
+
+  <!-- Fleeing pig (right side of illustration) -->
+  <!-- Pig body -->
+  <ellipse cx="220" cy="262" rx="18" ry="20" fill="#F4A8A0" stroke="#1a1a0a" stroke-width="1.2"/>
+  <!-- Pig head -->
+  <ellipse cx="232" cy="250" rx="14" ry="13" fill="#F4A8A0" stroke="#1a1a0a" stroke-width="1.2"/>
+  <!-- Pig snout -->
+  <ellipse cx="240" cy="255" rx="6" ry="4.5" fill="#E8887A" stroke="#1a1a0a" stroke-width="0.8"/>
+  <circle cx="238" cy="254" r="1.8" fill="#1a1a0a"/>
+  <circle cx="242" cy="254" r="1.8" fill="#1a1a0a"/>
+  <!-- Eye (alarmed, wide) -->
+  <ellipse cx="228" cy="246" rx="3" ry="3.5" fill="#1a1a0a"/>
+  <circle cx="227" cy="244" r="1.2" fill="#fff"/>
+  <!-- Ear -->
+  <ellipse cx="224" cy="241" rx="5" ry="6" fill="#F4A8A0" stroke="#1a1a0a" stroke-width="1"/>
+  <ellipse cx="224" cy="241" rx="3" ry="4" fill="#E8887A"/>
+  <!-- Running legs -->
+  <path d="M210 278 Q205 290 200 300" fill="none" stroke="#F4A8A0" stroke-width="7"/>
+  <path d="M218 280 Q220 295 215 305" fill="none" stroke="#F4A8A0" stroke-width="7"/>
+  <path d="M210 278 Q205 290 200 300" fill="none" stroke="#1a1a0a" stroke-width="1"/>
+  <path d="M218 280 Q220 295 215 305" fill="none" stroke="#1a1a0a" stroke-width="1"/>
+  <!-- Arm flailing backward (speed lines) -->
+  <path d="M215 258 Q225 250 230 242" fill="none" stroke="#F4A8A0" stroke-width="6"/>
+  <path d="M215 258 Q225 250 230 242" fill="none" stroke="#1a1a0a" stroke-width="1"/>
+  <!-- Speed lines behind fleeing pig -->
+  <line x1="202" y1="258" x2="188" y2="258" stroke="#1a1a0a" stroke-width="1" opacity="0.4"/>
+  <line x1="203" y1="263" x2="187" y2="263" stroke="#1a1a0a" stroke-width="0.8" opacity="0.35"/>
+  <line x1="204" y1="253" x2="190" y2="253" stroke="#1a1a0a" stroke-width="0.8" opacity="0.3"/>
+
+  <!-- The Wheel of Fortune — central, large, prominent -->
+  <!-- Motion blur shadow behind the wheel -->
+  <circle cx="143" cy="175" r="82" fill="#1a1a0a" opacity="0.08" transform="rotate(5,143,175)"/>
+  <!-- Wheel outer wooden frame -->
+  <circle cx="140" cy="175" r="82" fill="#6B4F10" stroke="#1a1a0a" stroke-width="2.5"/>
+  <!-- Gold paint on outer ring -->
+  <circle cx="140" cy="175" r="82" fill="none" stroke="#D4AF37" stroke-width="3" opacity="0.7"/>
+  <!-- Wheel inner ring -->
+  <circle cx="140" cy="175" r="68" fill="#8B6914" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Gold inner paint -->
+  <circle cx="140" cy="175" r="68" fill="none" stroke="#D4AF37" stroke-width="1.5" opacity="0.6"/>
+  <!-- Wheel sections dividers (8 sections) -->
+  <line x1="140" y1="93" x2="140" y2="257" stroke="#1a1a0a" stroke-width="1.5"/>
+  <line x1="58" y1="175" x2="222" y2="175" stroke="#1a1a0a" stroke-width="1.5"/>
+  <line x1="82" y1="117" x2="198" y2="233" stroke="#1a1a0a" stroke-width="1.5"/>
+  <line x1="198" y1="117" x2="82" y2="233" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Section backgrounds alternating -->
+  <!-- Section fills (alternating warm/cool) -->
+  <path d="M140,175 L140,107 A68,68,0,0,1,188,143 Z" fill="#7B5810" opacity="0.8"/>
+  <path d="M140,175 L188,143 A68,68,0,0,1,188,207 Z" fill="#9B7820" opacity="0.8"/>
+  <path d="M140,175 L188,207 A68,68,0,0,1,140,243 Z" fill="#7B5810" opacity="0.8"/>
+  <path d="M140,175 L140,243 A68,68,0,0,1,92,207 Z" fill="#9B7820" opacity="0.8"/>
+  <path d="M140,175 L92,207 A68,68,0,0,1,92,143 Z" fill="#7B5810" opacity="0.8"/>
+  <path d="M140,175 L92,143 A68,68,0,0,1,140,107 Z" fill="#9B7820" opacity="0.8"/>
+  <!-- Extra 2 sections for 8 total -->
+  <!-- The 8 spokes (already drawn above as lines) -->
+  <!-- Spokes decorative -->
+  <line x1="140" y1="107" x2="140" y2="243" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+  <line x1="62" y1="175" x2="218" y2="175" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+  <line x1="84" y1="119" x2="196" y2="231" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+  <line x1="196" y1="119" x2="84" y2="231" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+
+  <!-- Wheel section symbols -->
+  <!-- Straw (top-left section) -->
+  <line x1="112" y1="134" x2="126" y2="126" stroke="#E8C840" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="114" y1="140" x2="128" y2="132" stroke="#D4AF30" stroke-width="2" stroke-linecap="round"/>
+  <line x1="110" y1="146" x2="124" y2="138" stroke="#E8C840" stroke-width="2" stroke-linecap="round"/>
+  <!-- Sticks (top section) -->
+  <line x1="134" y1="118" x2="146" y2="118" stroke="#8B5E3C" stroke-width="3" stroke-linecap="round"/>
+  <line x1="130" y1="125" x2="150" y2="125" stroke="#6B3E1C" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="132" y1="132" x2="148" y2="132" stroke="#8B5E3C" stroke-width="2" stroke-linecap="round"/>
+  <!-- Bricks (top-right section) -->
+  <rect x="154" y="120" width="12" height="6" rx="1" fill="#CC4422" stroke="#1a1a0a" stroke-width="0.7"/>
+  <rect x="160" y="126" width="12" height="6" rx="1" fill="#BB3311" stroke="#1a1a0a" stroke-width="0.7"/>
+  <rect x="154" y="132" width="12" height="6" rx="1" fill="#CC4422" stroke="#1a1a0a" stroke-width="0.7"/>
+  <!-- House (right section) -->
+  <rect x="194" y="163" width="14" height="12" fill="#C8A860" stroke="#1a1a0a" stroke-width="0.8"/>
+  <polygon points="191,163 210,163 201,155" fill="#B89040" stroke="#1a1a0a" stroke-width="0.8"/>
+  <!-- Wolf paw (bottom-right) -->
+  <circle cx="179" cy="214" r="7" fill="#6a6a7a" stroke="#1a1a0a" stroke-width="1"/>
+  <circle cx="172" cy="209" r="4" fill="#6a6a7a" stroke="#1a1a0a" stroke-width="0.8"/>
+  <circle cx="180" cy="206" r="4" fill="#6a6a7a" stroke="#1a1a0a" stroke-width="0.8"/>
+  <circle cx="188" cy="209" r="4" fill="#6a6a7a" stroke="#1a1a0a" stroke-width="0.8"/>
+  <!-- Checkmark (bottom section) -->
+  <path d="M130 234 L136 242 L150 226" fill="none" stroke="#2a8a2a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Question mark (bottom-left) -->
+  <text x="102" y="237" font-family="Georgia, serif" font-size="20" fill="#1a1a0a" text-anchor="middle" font-weight="bold">?</text>
+  <!-- More bricks (left section) -->
+  <rect x="77" y="163" width="12" height="6" rx="1" fill="#CC4422" stroke="#1a1a0a" stroke-width="0.7"/>
+  <rect x="83" y="169" width="12" height="6" rx="1" fill="#BB3311" stroke="#1a1a0a" stroke-width="0.7"/>
+  <rect x="77" y="175" width="12" height="6" rx="1" fill="#CC4422" stroke="#1a1a0a" stroke-width="0.7"/>
+
+  <!-- Motion lines on wheel (spinning effect) -->
+  <circle cx="140" cy="175" r="75" fill="none" stroke="#D4AF37" stroke-width="0.8" stroke-dasharray="3,12" opacity="0.6"/>
+  <circle cx="140" cy="175" r="60" fill="none" stroke="#D4AF37" stroke-width="0.6" stroke-dasharray="2,10" opacity="0.4"/>
+
+  <!-- Wheel center hub -->
+  <circle cx="140" cy="175" r="15" fill="url(#wheel-gradient)" stroke="#1a1a0a" stroke-width="2"/>
+  <circle cx="140" cy="175" r="8" fill="#D4AF37" opacity="0.8" stroke="#1a1a0a" stroke-width="1"/>
+  <circle cx="140" cy="175" r="3" fill="#1a1a0a"/>
+
+  <!-- Bottom text area decorative lines -->
+  <line x1="30" y1="375" x2="250" y2="375" stroke="#D4AF37" stroke-width="0.8"/>
+  <line x1="30" y1="455" x2="250" y2="455" stroke="#D4AF37" stroke-width="0.8"/>
+
+  <!-- Card name -->
+  <text x="140" y="410" font-family="Georgia, serif" font-size="11" fill="#1a1a0a" text-anchor="middle" letter-spacing="3">WHEEL OF FORTUNE</text>
+
+  <!-- Subtle texture overlay -->
+  <rect x="0" y="0" width="280" height="480" fill="#F8F0DC" opacity="0.04" filter="url(#wheel-noise)"/>
+</svg>

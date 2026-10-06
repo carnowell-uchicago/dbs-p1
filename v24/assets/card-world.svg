@@ -1,0 +1,340 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" width="280" height="480">
+  <defs>
+    <filter id="world-noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise" seed="12"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <radialGradient id="interior-warm" cx="50%" cy="60%" r="60%">
+      <stop offset="0%" stop-color="#FFA040" stop-opacity="0.7"/>
+      <stop offset="70%" stop-color="#FF8020" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FF8020" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fireplace-glow" cx="50%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#FF6000" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#FFA040" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#FFA040" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Brick pattern for interior walls -->
+    <pattern id="world-bricks" x="0" y="0" width="24" height="14" patternUnits="userSpaceOnUse">
+      <rect width="24" height="14" fill="#B85C38"/>
+      <rect x="0.5" y="0.5" width="23" height="5.5" fill="#C07040"/>
+      <rect x="0.5" y="7.5" width="11" height="5.5" fill="#C07040"/>
+      <rect x="12.5" y="7.5" width="11" height="5.5" fill="#C07040"/>
+      <line x1="0" y1="7" x2="24" y2="7" stroke="#8a8a7a" stroke-width="0.5"/>
+      <line x1="12" y1="0" x2="12" y2="7" stroke="#8a8a7a" stroke-width="0.5"/>
+      <line x1="0" y1="7" x2="0" y2="14" stroke="#8a8a7a" stroke-width="0.5"/>
+      <line x1="12" y1="7" x2="12" y2="14" stroke="#8a8a7a" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Card background -->
+  <rect width="280" height="480" fill="#F8F0DC"/>
+
+  <!-- Outer border -->
+  <rect x="0" y="0" width="280" height="480" fill="none" stroke="#D4AF37" stroke-width="3"/>
+  <!-- Inner decorative border -->
+  <rect x="10" y="10" width="260" height="460" fill="none" stroke="#D4AF37" stroke-width="1"/>
+
+  <!-- Corner ornaments (with tarot corner symbols) -->
+  <text x="12" y="22" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="268" y="22" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="12" y="474" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="268" y="474" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+
+  <!-- Card number -->
+  <text x="140" y="38" font-family="Georgia, serif" font-size="14" fill="#1a1a0a" text-anchor="middle" letter-spacing="3">XXI</text>
+
+  <!-- Illustration area border -->
+  <rect x="30" y="50" width="220" height="320" fill="none" stroke="#D4AF37" stroke-width="1"/>
+
+  <!-- Dark sky background (exterior of house at corners) -->
+  <rect x="30" y="50" width="220" height="320" fill="#1a1528"/>
+
+  <!-- Night stars (outside corners) -->
+  <circle cx="45" cy="65" r="1" fill="#fff" opacity="0.7"/>
+  <circle cx="60" cy="75" r="0.8" fill="#fff" opacity="0.5"/>
+  <circle cx="38" cy="85" r="1" fill="#fff" opacity="0.6"/>
+  <circle cx="225" cy="68" r="1" fill="#fff" opacity="0.7"/>
+  <circle cx="240" cy="82" r="0.8" fill="#fff" opacity="0.5"/>
+  <circle cx="235" cy="60" r="1" fill="#fff" opacity="0.65"/>
+  <!-- Small single star visible at top (through window) -->
+  <path d="M140 62 L141 58 L142 62 L146 63 L142 64 L141 68 L140 64 L136 63 Z" fill="#D4AF37" opacity="0.8"/>
+
+  <!-- FOUR CORNER TAROT SYMBOLS (outside wreath) -->
+  <!-- Top-left: Pig in straw (The Bull adapted) -->
+  <g transform="translate(35, 57)">
+    <!-- Straw bed/nest -->
+    <line x1="5" y1="38" x2="45" y2="38" stroke="#C8A830" stroke-width="2"/>
+    <line x1="8" y1="36" x2="12" y2="40" stroke="#C8A830" stroke-width="1.5"/>
+    <line x1="16" y1="36" x2="20" y2="40" stroke="#C8A830" stroke-width="1.5"/>
+    <line x1="24" y1="36" x2="28" y2="40" stroke="#C8A830" stroke-width="1.5"/>
+    <line x1="32" y1="36" x2="36" y2="40" stroke="#C8A830" stroke-width="1.5"/>
+    <line x1="40" y1="36" x2="44" y2="40" stroke="#C8A830" stroke-width="1.5"/>
+    <!-- Small pig -->
+    <ellipse cx="25" cy="30" rx="12" ry="8" fill="#E8927A" stroke="#1a1a0a" stroke-width="1"/>
+    <ellipse cx="33" cy="30" rx="5" ry="4" fill="#D4705A" stroke="#1a1a0a" stroke-width="0.8"/>
+    <circle cx="32" cy="29" r="1.5" fill="#1a1a0a"/>
+    <circle cx="35" cy="29" r="1.5" fill="#1a1a0a"/>
+    <ellipse cx="16" cy="27" rx="4" ry="4.5" fill="#E8927A" stroke="#1a1a0a" stroke-width="0.8"/>
+    <ellipse cx="16" cy="27" rx="2.5" ry="3" fill="#D4705A"/>
+    <text x="25" y="50" font-family="Georgia, serif" font-size="7" fill="#F8F0DC" text-anchor="middle" letter-spacing="0.5">PIG I</text>
+  </g>
+
+  <!-- Top-right: Pig in sticks -->
+  <g transform="translate(195, 57)">
+    <!-- Stick pile -->
+    <line x1="5" y1="38" x2="30" y2="32" stroke="#8B6914" stroke-width="1.5"/>
+    <line x1="10" y1="40" x2="35" y2="34" stroke="#7a5a10" stroke-width="1.5"/>
+    <line x1="15" y1="38" x2="40" y2="38" stroke="#8B6914" stroke-width="1.5"/>
+    <!-- Small pig holding stick -->
+    <ellipse cx="25" cy="26" rx="11" ry="8" fill="#E8927A" stroke="#1a1a0a" stroke-width="1"/>
+    <ellipse cx="33" cy="26" rx="5" ry="3.5" fill="#D4705A" stroke="#1a1a0a" stroke-width="0.8"/>
+    <circle cx="31" cy="25" r="1.5" fill="#1a1a0a"/>
+    <circle cx="34" cy="25" r="1.5" fill="#1a1a0a"/>
+    <ellipse cx="17" cy="24" rx="4" ry="4.5" fill="#E8927A" stroke="#1a1a0a" stroke-width="0.8"/>
+    <ellipse cx="17" cy="24" rx="2.5" ry="3" fill="#D4705A"/>
+    <text x="25" y="50" font-family="Georgia, serif" font-size="7" fill="#F8F0DC" text-anchor="middle" letter-spacing="0.5">PIG II</text>
+  </g>
+
+  <!-- Bottom-left: Pig in bricks (The Eagle adapted) -->
+  <g transform="translate(35, 305)">
+    <!-- Brick mini-wall -->
+    <rect x="5" y="28" width="40" height="10" fill="#B85C38" stroke="#1a1a0a" stroke-width="0.8"/>
+    <line x1="5" y1="33" x2="45" y2="33" stroke="#8a8a7a" stroke-width="0.5"/>
+    <line x1="25" y1="28" x2="25" y2="38" stroke="#8a8a7a" stroke-width="0.5"/>
+    <!-- Architect pig with trowel -->
+    <ellipse cx="25" cy="22" rx="11" ry="8" fill="#E8927A" stroke="#1a1a0a" stroke-width="1"/>
+    <ellipse cx="33" cy="22" rx="5" ry="3.5" fill="#D4705A" stroke="#1a1a0a" stroke-width="0.8"/>
+    <circle cx="31" cy="21" r="1.5" fill="#1a1a0a"/>
+    <circle cx="34" cy="21" r="1.5" fill="#1a1a0a"/>
+    <ellipse cx="17" cy="20" rx="4" ry="4.5" fill="#E8927A" stroke="#1a1a0a" stroke-width="0.8"/>
+    <!-- Trowel -->
+    <line x1="35" y1="16" x2="42" y2="10" stroke="#888" stroke-width="2"/>
+    <text x="25" y="52" font-family="Georgia, serif" font-size="7" fill="#F8F0DC" text-anchor="middle" letter-spacing="0.5">PIG III</text>
+  </g>
+
+  <!-- Bottom-right: Wolf defeated -->
+  <g transform="translate(198, 305)">
+    <!-- Seated dejected wolf -->
+    <ellipse cx="22" cy="25" rx="14" ry="10" fill="#777" stroke="#1a1a0a" stroke-width="1"/>
+    <ellipse cx="30" cy="17" rx="10" ry="9" fill="#888" stroke="#1a1a0a" stroke-width="1"/>
+    <!-- Wolf ears drooping -->
+    <path d="M25 11 Q22 5 20 10" fill="#777" stroke="#1a1a0a" stroke-width="0.8"/>
+    <path d="M33 10 Q35 4 37 9" fill="#777" stroke="#1a1a0a" stroke-width="0.8"/>
+    <!-- Sad eye -->
+    <ellipse cx="27" cy="16" rx="2.5" ry="2.5" fill="#1a1a0a"/>
+    <!-- Tear drop -->
+    <ellipse cx="26" cy="20" rx="1.5" ry="2" fill="#87CEEB" opacity="0.8"/>
+    <!-- Dejected posture - slumped -->
+    <path d="M15 32 Q12 38 10 42" stroke="#666" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M28 33 Q30 39 28 43" stroke="#666" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <text x="22" y="52" font-family="Georgia, serif" font-size="7" fill="#F8F0DC" text-anchor="middle" letter-spacing="0.5">WOLF</text>
+  </g>
+
+  <!-- OVAL WREATH -->
+  <!-- Laurel wreath - dark green leaves forming oval frame -->
+  <!-- Outer oval clip area for interior -->
+  <ellipse cx="140" cy="210" rx="80" ry="108" fill="#2a3020" stroke="none"/>
+
+  <!-- Interior warm light fill -->
+  <ellipse cx="140" cy="210" rx="74" ry="102" fill="#3a2010"/>
+  <ellipse cx="140" cy="220" rx="65" ry="88" fill="url(#interior-warm)"/>
+
+  <!-- Interior brick walls -->
+  <rect x="72" y="108" width="136" height="210" fill="url(#world-bricks)" opacity="0.6"/>
+  <ellipse cx="140" cy="210" rx="74" ry="102" fill="#3a2010" opacity="0.4"/>
+
+  <!-- Fireplace (center bottom of interior) -->
+  <rect x="118" y="272" width="44" height="40" fill="#1a1a0a" stroke="#5a3a18" stroke-width="2"/>
+  <!-- Fireplace arch -->
+  <path d="M118 285 Q140 268 162 285" fill="#1a1a0a" stroke="#5a3a18" stroke-width="2"/>
+  <!-- Fire flames -->
+  <g transform="translate(140, 295)">
+    <ellipse cx="0" cy="0" r="18" fill="url(#fireplace-glow)"/>
+    <path d="M-8 8 Q-4 -5 0 -10 Q4 -5 8 8 Z" fill="#FF6000" opacity="0.9"/>
+    <path d="M-5 8 Q-2 0 1 -6 Q5 -2 7 8 Z" fill="#FFA040" opacity="0.85"/>
+    <path d="M-3 8 Q0 2 2 -3 Q4 1 5 8 Z" fill="#FFE060" opacity="0.8"/>
+  </g>
+  <!-- Mantle -->
+  <rect x="110" y="272" width="60" height="6" fill="#5a3a18" stroke="#1a1a0a" stroke-width="1"/>
+
+  <!-- Window on left wall of interior -->
+  <rect x="78" y="170" width="28" height="32" rx="2" fill="#0d1528" stroke="#5a3a18" stroke-width="1.5"/>
+  <!-- Window frame -->
+  <line x1="92" y1="170" x2="92" y2="202" stroke="#5a3a18" stroke-width="1.5"/>
+  <line x1="78" y1="186" x2="106" y2="186" stroke="#5a3a18" stroke-width="1.5"/>
+  <!-- Wolf visible through window (outside, dark, dejected) -->
+  <ellipse cx="92" cy="182" rx="9" ry="7" fill="#555" opacity="0.8"/>
+  <!-- Wolf eyes through window -->
+  <circle cx="89" cy="180" r="2" fill="#1a1a0a"/>
+  <!-- Single star visible outside -->
+  <circle cx="85" cy="174" r="1.5" fill="#D4AF37" opacity="0.7"/>
+
+  <!-- THREE PIGS INSIDE -->
+  <!-- Pig 1 (left, looking relieved) -->
+  <g transform="translate(88, 225)">
+    <!-- Body -->
+    <ellipse cx="0" cy="10" rx="16" ry="14" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.5"/>
+    <!-- Head -->
+    <ellipse cx="0" cy="-8" rx="14" ry="12" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.5"/>
+    <!-- Relieved smile -->
+    <path d="M-6 -4 Q0 2 6 -4" fill="none" stroke="#1a1a0a" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Eyes (wide, relieved) -->
+    <ellipse cx="-5" cy="-11" rx="3" ry="3.5" fill="#1a1a0a"/>
+    <ellipse cx="5" cy="-11" rx="3" ry="3.5" fill="#1a1a0a"/>
+    <circle cx="-4" cy="-12" r="1.2" fill="#fff"/>
+    <circle cx="6" cy="-12" r="1.2" fill="#fff"/>
+    <!-- Snout -->
+    <ellipse cx="0" cy="-1" rx="7" ry="5" fill="#D4705A" stroke="#1a1a0a" stroke-width="1"/>
+    <circle cx="-3" cy="-2" r="2" fill="#1a1a0a"/>
+    <circle cx="3" cy="-2" r="2" fill="#1a1a0a"/>
+    <!-- Ears -->
+    <ellipse cx="-10" cy="-16" rx="5" ry="6" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.2"/>
+    <ellipse cx="10" cy="-16" rx="5" ry="6" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.2"/>
+    <ellipse cx="-10" cy="-16" rx="3" ry="4" fill="#D4705A"/>
+    <ellipse cx="10" cy="-16" rx="3" ry="4" fill="#D4705A"/>
+  </g>
+
+  <!-- Pig 3 (center, looking smug/satisfied) -->
+  <g transform="translate(140, 215)">
+    <!-- Body -->
+    <ellipse cx="0" cy="12" rx="18" ry="15" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.5"/>
+    <!-- Head (slightly larger - this is the hero pig) -->
+    <ellipse cx="0" cy="-8" rx="16" ry="14" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.5"/>
+    <!-- Smug half-smile -->
+    <path d="M-5 -3 Q2 4 7 -2" fill="none" stroke="#1a1a0a" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- One eyebrow raised (smug) -->
+    <path d="M-8 -14 Q-4 -17 0 -14" fill="none" stroke="#1a1a0a" stroke-width="1.2"/>
+    <path d="M3 -15 Q7 -16 9 -14" fill="none" stroke="#1a1a0a" stroke-width="1.2"/>
+    <!-- Eyes -->
+    <ellipse cx="-5" cy="-12" rx="3.5" ry="3" fill="#1a1a0a"/>
+    <ellipse cx="6" cy="-12" rx="3.5" ry="3" fill="#1a1a0a"/>
+    <circle cx="-4" cy="-13" r="1.2" fill="#fff"/>
+    <circle cx="7" cy="-13" r="1.2" fill="#fff"/>
+    <!-- Snout -->
+    <ellipse cx="0" cy="-1" rx="8" ry="6" fill="#D4705A" stroke="#1a1a0a" stroke-width="1"/>
+    <circle cx="-3" cy="-2" r="2.2" fill="#1a1a0a"/>
+    <circle cx="3" cy="-2" r="2.2" fill="#1a1a0a"/>
+    <!-- Ears -->
+    <ellipse cx="-12" cy="-18" rx="6" ry="7" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.2"/>
+    <ellipse cx="12" cy="-18" rx="6" ry="7" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.2"/>
+    <ellipse cx="-12" cy="-18" rx="3.5" ry="4.5" fill="#D4705A"/>
+    <ellipse cx="12" cy="-18" rx="3.5" ry="4.5" fill="#D4705A"/>
+    <!-- Crown of leaves (victorious) -->
+    <path d="M-14 -22 Q-10 -30 -6 -22 Q-2 -30 2 -22 Q6 -30 10 -22 Q14 -28 16 -22" fill="none" stroke="#2a5c2a" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="-6" cy="-29" r="2.5" fill="#2a7c2a"/>
+    <circle cx="2" cy="-31" r="2.5" fill="#3a8c3a"/>
+    <circle cx="10" cy="-29" r="2.5" fill="#2a7c2a"/>
+  </g>
+
+  <!-- Pig 2 (right, in between - slightly uncertain but relieved) -->
+  <g transform="translate(192, 228)">
+    <!-- Body -->
+    <ellipse cx="0" cy="10" rx="16" ry="14" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.5"/>
+    <!-- Head -->
+    <ellipse cx="0" cy="-8" rx="14" ry="12" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.5"/>
+    <!-- Uncertain-but-okay smile -->
+    <path d="M-5 -3 Q0 1 5 -3" fill="none" stroke="#1a1a0a" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Eyes -->
+    <ellipse cx="-5" cy="-12" rx="3" ry="3" fill="#1a1a0a"/>
+    <ellipse cx="5" cy="-12" rx="3" ry="3" fill="#1a1a0a"/>
+    <circle cx="-4" cy="-13" r="1.2" fill="#fff"/>
+    <circle cx="6" cy="-13" r="1.2" fill="#fff"/>
+    <!-- Snout -->
+    <ellipse cx="0" cy="-1" rx="7" ry="5" fill="#D4705A" stroke="#1a1a0a" stroke-width="1"/>
+    <circle cx="-3" cy="-2" r="2" fill="#1a1a0a"/>
+    <circle cx="3" cy="-2" r="2" fill="#1a1a0a"/>
+    <!-- Ears -->
+    <ellipse cx="-10" cy="-16" rx="5" ry="6" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.2"/>
+    <ellipse cx="10" cy="-16" rx="5" ry="6" fill="#E8927A" stroke="#1a1a0a" stroke-width="1.2"/>
+    <ellipse cx="-10" cy="-16" rx="3" ry="4" fill="#D4705A"/>
+    <ellipse cx="10" cy="-16" rx="3" ry="4" fill="#D4705A"/>
+    <!-- Stick bundle held nervously -->
+    <line x1="-16" y1="5" x2="-24" y2="20" stroke="#8B6914" stroke-width="2" stroke-linecap="round"/>
+    <line x1="-14" y1="5" x2="-22" y2="20" stroke="#A0782A" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Bundle tie -->
+    <line x1="-22" y1="14" x2="-16" y2="14" stroke="#D4AF37" stroke-width="1.5"/>
+  </g>
+
+  <!-- Wreath overlay (laurel leaves) - drawn on top of interior scene -->
+  <!-- Left side of wreath -->
+  <g fill="#2a5c2a" stroke="#1a3a1a" stroke-width="0.8">
+    <!-- Left leaves going up -->
+    <ellipse cx="64" cy="290" rx="10" ry="5" transform="rotate(-30, 64, 290)"/>
+    <ellipse cx="61" cy="270" rx="10" ry="5" transform="rotate(-40, 61, 270)"/>
+    <ellipse cx="62" cy="250" rx="10" ry="5" transform="rotate(-50, 62, 250)"/>
+    <ellipse cx="65" cy="230" rx="10" ry="5" transform="rotate(-60, 65, 230)"/>
+    <ellipse cx="70" cy="210" rx="10" ry="5" transform="rotate(-70, 70, 210)"/>
+    <ellipse cx="78" cy="192" rx="10" ry="5" transform="rotate(-80, 78, 192)"/>
+    <ellipse cx="88" cy="176" rx="10" ry="5" transform="rotate(-85, 88, 176)"/>
+    <ellipse cx="100" cy="162" rx="10" ry="5" transform="rotate(-70, 100, 162)"/>
+    <ellipse cx="114" cy="154" rx="10" ry="5" transform="rotate(-55, 114, 154)"/>
+    <ellipse cx="128" cy="150" rx="10" ry="5" transform="rotate(-30, 128, 150)"/>
+  </g>
+  <g fill="#3a7c3a" stroke="#1a4a1a" stroke-width="0.8">
+    <!-- Left leaves inner layer -->
+    <ellipse cx="70" cy="285" rx="8" ry="4" transform="rotate(-25, 70, 285)"/>
+    <ellipse cx="68" cy="264" rx="8" ry="4" transform="rotate(-40, 68, 264)"/>
+    <ellipse cx="69" cy="244" rx="8" ry="4" transform="rotate(-52, 69, 244)"/>
+    <ellipse cx="73" cy="224" rx="8" ry="4" transform="rotate(-65, 73, 224)"/>
+    <ellipse cx="80" cy="206" rx="8" ry="4" transform="rotate(-75, 80, 206)"/>
+    <ellipse cx="90" cy="190" rx="8" ry="4" transform="rotate(-82, 90, 190)"/>
+    <ellipse cx="102" cy="175" rx="8" ry="4" transform="rotate(-75, 102, 175)"/>
+    <ellipse cx="116" cy="162" rx="8" ry="4" transform="rotate(-60, 116, 162)"/>
+    <ellipse cx="130" cy="155" rx="8" ry="4" transform="rotate(-35, 130, 155)"/>
+  </g>
+  <!-- Right side of wreath -->
+  <g fill="#2a5c2a" stroke="#1a3a1a" stroke-width="0.8">
+    <ellipse cx="216" cy="290" rx="10" ry="5" transform="rotate(30, 216, 290)"/>
+    <ellipse cx="219" cy="270" rx="10" ry="5" transform="rotate(40, 219, 270)"/>
+    <ellipse cx="218" cy="250" rx="10" ry="5" transform="rotate(50, 218, 250)"/>
+    <ellipse cx="215" cy="230" rx="10" ry="5" transform="rotate(60, 215, 230)"/>
+    <ellipse cx="210" cy="210" rx="10" ry="5" transform="rotate(70, 210, 210)"/>
+    <ellipse cx="202" cy="192" rx="10" ry="5" transform="rotate(80, 202, 192)"/>
+    <ellipse cx="192" cy="176" rx="10" ry="5" transform="rotate(85, 192, 176)"/>
+    <ellipse cx="180" cy="162" rx="10" ry="5" transform="rotate(70, 180, 162)"/>
+    <ellipse cx="166" cy="154" rx="10" ry="5" transform="rotate(55, 166, 154)"/>
+    <ellipse cx="152" cy="150" rx="10" ry="5" transform="rotate(30, 152, 150)"/>
+  </g>
+  <g fill="#3a7c3a" stroke="#1a4a1a" stroke-width="0.8">
+    <!-- Right leaves inner layer -->
+    <ellipse cx="210" cy="285" rx="8" ry="4" transform="rotate(25, 210, 285)"/>
+    <ellipse cx="212" cy="264" rx="8" ry="4" transform="rotate(40, 212, 264)"/>
+    <ellipse cx="211" cy="244" rx="8" ry="4" transform="rotate(52, 211, 244)"/>
+    <ellipse cx="207" cy="224" rx="8" ry="4" transform="rotate(65, 207, 224)"/>
+    <ellipse cx="200" cy="206" rx="8" ry="4" transform="rotate(75, 200, 206)"/>
+    <ellipse cx="190" cy="190" rx="8" ry="4" transform="rotate(82, 190, 190)"/>
+    <ellipse cx="178" cy="175" rx="8" ry="4" transform="rotate(75, 178, 175)"/>
+    <ellipse cx="164" cy="162" rx="8" ry="4" transform="rotate(60, 164, 162)"/>
+    <ellipse cx="150" cy="155" rx="8" ry="4" transform="rotate(35, 150, 155)"/>
+  </g>
+
+  <!-- Red ribbons at top and bottom of wreath -->
+  <!-- Top ribbon -->
+  <path d="M120 150 Q140 145 160 150" fill="none" stroke="#CC2020" stroke-width="4" stroke-linecap="round"/>
+  <path d="M128 148 Q125 142 120 140" fill="none" stroke="#CC2020" stroke-width="3" stroke-linecap="round"/>
+  <path d="M152 148 Q155 142 160 140" fill="none" stroke="#CC2020" stroke-width="3" stroke-linecap="round"/>
+  <!-- Top ribbon bow -->
+  <circle cx="140" cy="147" r="4" fill="#CC2020" stroke="#990000" stroke-width="1"/>
+
+  <!-- Bottom ribbon -->
+  <path d="M120 308 Q140 313 160 308" fill="none" stroke="#CC2020" stroke-width="4" stroke-linecap="round"/>
+  <path d="M128 310 Q125 316 120 318" fill="none" stroke="#CC2020" stroke-width="3" stroke-linecap="round"/>
+  <path d="M152 310 Q155 316 160 318" fill="none" stroke="#CC2020" stroke-width="3" stroke-linecap="round"/>
+  <!-- Bottom ribbon bow -->
+  <circle cx="140" cy="311" r="4" fill="#CC2020" stroke="#990000" stroke-width="1"/>
+
+  <!-- Oval wreath outline (clean edge) -->
+  <ellipse cx="140" cy="210" rx="80" ry="108" fill="none" stroke="#1a3a1a" stroke-width="2"/>
+  <ellipse cx="140" cy="210" rx="70" ry="98" fill="none" stroke="#2a5c2a" stroke-width="1"/>
+
+  <!-- Bottom text area decorative lines -->
+  <line x1="30" y1="375" x2="250" y2="375" stroke="#D4AF37" stroke-width="0.8"/>
+  <line x1="30" y1="455" x2="250" y2="455" stroke="#D4AF37" stroke-width="0.8"/>
+
+  <!-- Card name -->
+  <text x="140" y="420" font-family="Georgia, serif" font-size="13" fill="#1a1a0a" text-anchor="middle" letter-spacing="4">THE WORLD</text>
+
+  <!-- Texture overlay -->
+  <rect x="0" y="0" width="280" height="480" fill="#F8F0DC" opacity="0.04" filter="url(#world-noise)"/>
+</svg>

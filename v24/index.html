@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Spread of the Three Dwellings</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #D4AF37;
+      --gold-dim: #D4AF3766;
+      --gold-faint: #D4AF3722;
+      --parchment: #F8F0DC;
+      --ink: #2a1a00;
+      --bg: #0d0d2b;
+      --card-w: 120px;
+      --card-h: 200px;
+    }
+
+    html, body {
+      width: 100%; min-height: 100vh;
+      background: var(--bg);
+      color: var(--gold);
+      font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    /* ── Starfield ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 8% 12%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 15% 67%, #fff 100%, transparent),
+        radial-gradient(1.5px 1.5px at 22% 35%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 28% 80%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 35% 20%, #fff 100%, transparent),
+        radial-gradient(1.5px 1.5px at 42% 55%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 50% 8%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 55% 73%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 62% 40%, #fff 100%, transparent),
+        radial-gradient(1.5px 1.5px at 70% 88%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 75% 25%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 80% 60%, #fff 100%, transparent),
+        radial-gradient(1.5px 1.5px at 87% 15%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 92% 48%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 96% 82%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 5% 45%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 18% 90%, #fff 100%, transparent),
+        radial-gradient(1.5px 1.5px at 33% 60%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 48% 30%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 63% 5%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 77% 70%, #fff 100%, transparent),
+        radial-gradient(1.5px 1.5px at 88% 38%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 93% 92%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 3% 72%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 57% 95%, #fff 100%, transparent);
+      opacity: 0.6;
+    }
+
+    /* ── Layout ── */
+    #page {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+      min-height: 100vh;
+      padding: 0 20px 240px;
+    }
+
+    /* ── Gallery link ── */
+    #gallery-link {
+      position: fixed; top: 18px; left: 22px; z-index: 100;
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      opacity: 0.35;
+      transition: opacity 0.3s;
+    }
+    #gallery-link:hover { opacity: 1; }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      padding: 40px 20px 24px;
+    }
+    header h1 {
+      font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+    header .subtitle {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      color: #a08030;
+      font-style: italic;
+    }
+    .gold-line {
+      width: min(480px, 90vw); height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 14px auto 0;
+    }
+
+    /* ── Spread grid ── */
+    #spread {
+      display: grid;
+      grid-template-columns: repeat(4, var(--card-w));
+      grid-template-rows: repeat(2, var(--card-h));
+      gap: 24px 20px;
+      margin: 36px auto;
+    }
+
+    /* ── Card slot ── */
+    .slot {
+      width: var(--card-w);
+      height: var(--card-h);
+      position: relative;
+    }
+
+    /* Rotation per slot */
+    .slot:nth-child(1) { transform: rotate(-3deg); }
+    .slot:nth-child(2) { transform: rotate(2deg); }
+    .slot:nth-child(3) { transform: rotate(-2deg); }
+    .slot:nth-child(4) { transform: rotate(3deg); }
+    .slot:nth-child(5) { transform: rotate(2deg); }
+    .slot:nth-child(6) { transform: rotate(-3deg); }
+    .slot:nth-child(7) { transform: rotate(3deg); }
+    .slot:nth-child(8) { transform: rotate(-2deg); }
+
+    /* Face-down border */
+    .slot.facedown .card-wrap {
+      outline: 1px dashed var(--gold);
+      outline-offset: -1px;
+    }
+
+    /* Active (next to draw) pulsing glow */
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 8px 2px var(--gold-dim); }
+      50%       { box-shadow: 0 0 18px 6px var(--gold); }
+    }
+    .slot.active .card-wrap {
+      animation: pulse-glow 1.6s ease-in-out infinite;
+      border-radius: 6px;
+    }
+
+    /* Revealed glow */
+    .slot.revealed .card-wrap {
+      box-shadow: 0 0 12px var(--gold-dim);
+      border-radius: 6px;
+    }
+
+    /* Gold shimmer animation after flip */
+    @keyframes shimmer {
+      0%   { box-shadow: 0 0 24px 8px var(--gold); }
+      100% { box-shadow: 0 0 12px var(--gold-dim); }
+    }
+    .slot.shimmer .card-wrap {
+      animation: shimmer 1s ease-out forwards;
+      border-radius: 6px;
+    }
+
+    /* ── Card wrapper (for 3D flip) ── */
+    .card-wrap {
+      width: 100%; height: 100%;
+      position: relative;
+      perspective: 600px;
+      border-radius: 6px;
+      cursor: default;
+    }
+
+    .card-inner {
+      width: 100%; height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .card-inner.flipping {
+      /* JS controls incremental steps */
+    }
+
+    .card-face, .card-back-face {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .card-back-face {
+      /* front by default (shows back image) */
+    }
+    .card-face {
+      transform: rotateY(180deg);
+    }
+
+    .card-face img, .card-back-face img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 6px;
+      /* parallax reset on mouse-leave */
+      transition: transform 0.3s ease;
+    }
+
+    /* Reversed card face */
+    .slot.reversed .card-face img {
+      transform: rotate(180deg);
+    }
+
+    /* Card label */
+    .card-label {
+      position: absolute;
+      bottom: -22px; left: 0; right: 0;
+      text-align: center;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.4s 0.3s;
+    }
+    .slot.revealed .card-label { opacity: 1; }
+
+    /* Position label above card */
+    .position-label {
+      position: absolute;
+      top: -18px; left: 0; right: 0;
+      text-align: center;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: #7060a0;
+      white-space: nowrap;
+    }
+
+    /* ── Controls ── */
+    #controls {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    #draw-btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: inherit;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      padding: 12px 32px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    #draw-btn:hover:not(:disabled) {
+      background: var(--gold-faint);
+      box-shadow: 0 0 16px var(--gold-dim);
+    }
+    #draw-btn:disabled {
+      opacity: 0.5; cursor: default;
+      border-style: dashed;
+    }
+    #draw-btn.complete {
+      border-color: #a08030;
+      color: #a08030;
+      font-size: 0.85rem;
+    }
+
+    #counter {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      color: #7060a0;
+      text-transform: uppercase;
+    }
+
+    #reset-link {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: #7060a0;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+      display: none;
+    }
+    #reset-link:hover { color: var(--gold); }
+    #reset-link.visible { display: inline; }
+
+    /* ── Narration panel ── */
+    #narration {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 50;
+      background: var(--parchment);
+      color: var(--ink);
+      min-height: 130px;
+      padding: 18px 28px 20px;
+      border-top: 3px solid var(--gold);
+      /* Diamond border via repeating gradient */
+      border-image: repeating-linear-gradient(
+        90deg,
+        var(--gold) 0, var(--gold) 6px,
+        transparent 6px, transparent 12px,
+        var(--gold) 12px
+      ) 3;
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    #narration-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    #narration-header {
+      display: flex; align-items: baseline; gap: 14px;
+      margin-bottom: 8px;
+    }
+    #narration-card-name {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--ink);
+      padding: 2px 8px;
+    }
+    #narration-position {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: #7a5c1a;
+      font-style: italic;
+    }
+
+    #narration-text {
+      min-height: 3.3em;
+      font-style: italic;
+    }
+
+    #narration-cursor {
+      display: inline-block;
+      width: 2px; height: 0.9em;
+      background: var(--ink);
+      vertical-align: text-bottom;
+      animation: blink 0.8s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ── Keyboard hint ── */
+    #kbd-hint {
+      position: fixed; bottom: 155px; right: 20px; z-index: 60;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: #7060a0;
+      text-align: right;
+    }
+
+    /* ── Responsive: smaller cards on mobile ── */
+    @media (max-width: 600px) {
+      :root { --card-w: 80px; --card-h: 133px; }
+      #spread { gap: 14px 12px; }
+      #narration { font-size: 0.8rem; padding: 14px 16px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="../index.html" id="gallery-link">← Gallery</a>
+
+<div id="page">
+  <header>
+    <h1>✦ The Spread of the Three Dwellings ✦</h1>
+    <div class="subtitle">A Major Arcana reading for a visitor who seeks shelter</div>
+    <div class="gold-line"></div>
+  </header>
+
+  <div id="spread" role="region" aria-label="Tarot card spread">
+    <!-- Cards inserted by JS -->
+  </div>
+
+  <div id="controls">
+    <button id="draw-btn" aria-label="Draw next card">✦ Draw the next card ✦</button>
+    <div id="counter">Card 0 of 8</div>
+    <span id="reset-link" role="button" tabindex="0" aria-label="Shuffle and begin again">Shuffle and begin again</span>
+  </div>
+</div>
+
+<div id="narration" aria-live="polite">
+  <div id="narration-inner">
+    <div id="narration-header">
+      <span id="narration-card-name">The Spread Awaits</span>
+      <span id="narration-position"></span>
+    </div>
+    <div id="narration-text">
+      <em>Eight cards lie before you. The reading has not yet begun. Draw the first card when you are ready.</em>
+    </div>
+  </div>
+</div>
+
+<div id="kbd-hint">Space / → next &nbsp;|&nbsp; ← re-read</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Card data ──────────────────────────────────────────────────────────────
+  const CARDS = [
+    {
+      position: 'The Seeker',
+      name: 'I. THE FOOL',
+      asset: 'assets/card-fool.svg',
+      reversed: false,
+      narration: 'The Fool steps forward, bright-eyed, straw in hand. Hope untempered by experience is a kind of courage. It is also a structural liability.'
+    },
+    {
+      position: 'The Challenge',
+      name: 'XVI. THE TOWER',
+      asset: 'assets/card-tower.svg',
+      reversed: true,
+      narration: 'The Tower. The wolf draws breath. What has been built carelessly shall be returned to its component parts. This card appears reversed — the force comes from without.'
+    },
+    {
+      position: 'The First Path',
+      name: 'X. WHEEL OF FORTUNE',
+      asset: 'assets/card-wheel.svg',
+      reversed: true,
+      narration: "The Wheel turns, and not in the pig's favor. The straw house has achieved horizontal configuration. The Wheel reversed speaks of plans undone by forces beyond the builder's control. Reader's note: This outcome was foreseeable."
+    },
+    {
+      position: 'The Second Seeker',
+      name: 'IX. THE HERMIT',
+      asset: 'assets/card-hermit.svg',
+      reversed: false,
+      narration: "The Hermit seeks solitude and sticks. A wiser path than his sibling's, or so he believes. The Hermit carries his lantern — but a lantern does not stop wind."
+    },
+    {
+      position: 'The Challenge Returns',
+      name: 'XVI. THE TOWER',
+      asset: 'assets/card-tower.svg',
+      reversed: true,
+      narration: 'The Tower, again. The wolf has not learned humility, and neither has the Hermit. The reading does not often show the same card twice. The wolf is exceptional in the worst way.'
+    },
+    {
+      position: 'The Architect',
+      name: 'XVII. THE STAR',
+      asset: 'assets/card-star.svg',
+      reversed: false,
+      narration: 'The Star rises. The third sibling lays her bricks with intention. Where the others built quickly, she builds correctly. The Star is hope made structural.'
+    },
+    {
+      position: 'The Foundation',
+      name: 'VIII. STRENGTH',
+      asset: 'assets/card-strength.svg',
+      reversed: false,
+      narration: "Strength — not the strength of arms, but of mortar and planning. The brick house stands. The wolf's lungs fail against it. What was built with patience cannot be unmade with breath."
+    },
+    {
+      position: 'The Resolution',
+      name: 'XXI. THE WORLD',
+      asset: 'assets/card-world.svg',
+      reversed: false,
+      narration: "The World. All three gather inside the walls that hold. The reading is complete. The spread has spoken: the only shelter that matters is the one built to last. (Reader's note: The wolf is sitting outside. He is thinking about what he did.)"
+    }
+  ];
+
+  // ── State ──────────────────────────────────────────────────────────────────
+  let currentCard = 0; // 0 = none drawn yet, 1..8 = cards drawn
+  let flipping = false;
+  let typewriterTimer = null;
+
+  // ── Build spread ───────────────────────────────────────────────────────────
+  const spread = document.getElementById('spread');
+  const slotEls = [];
+
+  CARDS.forEach((card, i) => {
+    const slot = document.createElement('div');
+    slot.className = 'slot facedown' + (i === 0 ? ' active' : '');
+    slot.dataset.index = i;
+    slot.setAttribute('aria-label', card.position + ' — ' + card.name + (card.reversed ? ' (reversed)' : ''));
+
+    const posLabel = document.createElement('div');
+    posLabel.className = 'position-label';
+    posLabel.textContent = card.position;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'card-wrap';
+
+    const inner = document.createElement('div');
+    inner.className = 'card-inner';
+
+    const backFace = document.createElement('div');
+    backFace.className = 'card-back-face';
+    const backImg = document.createElement('img');
+    backImg.src = 'assets/card-back.svg';
+    backImg.alt = 'Card back';
+    backFace.appendChild(backImg);
+
+    const frontFace = document.createElement('div');
+    frontFace.className = 'card-face';
+    const frontImg = document.createElement('img');
+    frontImg.src = card.asset;
+    frontImg.alt = card.name;
+    frontFace.appendChild(frontImg);
+
+    inner.appendChild(backFace);
+    inner.appendChild(frontFace);
+    wrap.appendChild(inner);
+
+    const label = document.createElement('div');
+    label.className = 'card-label';
+    label.textContent = card.name;
+
+    slot.appendChild(posLabel);
+    slot.appendChild(wrap);
+    slot.appendChild(label);
+
+    spread.appendChild(slot);
+    slotEls.push(slot);
+
+    // Parallax on revealed cards
+    wrap.addEventListener('mousemove', onCardMouseMove);
+    wrap.addEventListener('mouseleave', onCardMouseLeave);
+  });
+
+  // ── Parallax ───────────────────────────────────────────────────────────────
+  function onCardMouseMove(e) {
+    const slot = e.currentTarget.closest('.slot');
+    if (!slot.classList.contains('revealed')) return;
+    const img = e.currentTarget.querySelector('.card-face img');
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / (rect.width / 2);
+    const dy = (e.clientY - cy) / (rect.height / 2);
+    const rotX = -dy * 8;
+    const rotY = dx * 8;
+    // If reversed, negate
+    const isReversed = slot.classList.contains('reversed');
+    const baseRot = isReversed ? 'rotate(180deg) ' : '';
+    img.style.transition = 'transform 0.1s linear';
+    img.style.transform = baseRot + 'perspective(300px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
+  }
+
+  function onCardMouseLeave(e) {
+    const slot = e.currentTarget.closest('.slot');
+    if (!slot.classList.contains('revealed')) return;
+    const img = e.currentTarget.querySelector('.card-face img');
+    const isReversed = slot.classList.contains('reversed');
+    const baseRot = isReversed ? 'rotate(180deg)' : '';
+    img.style.transition = 'transform 0.3s ease';
+    img.style.transform = baseRot;
+  }
+
+  // ── Narration ──────────────────────────────────────────────────────────────
+  const narrationCardName = document.getElementById('narration-card-name');
+  const narrationPosition = document.getElementById('narration-position');
+  const narrationText = document.getElementById('narration-text');
+
+  function typewrite(text, callback) {
+    if (typewriterTimer) clearTimeout(typewriterTimer);
+    narrationText.innerHTML = '';
+    // Add cursor
+    const cursor = document.createElement('span');
+    cursor.id = 'narration-cursor';
+    cursor.setAttribute('aria-hidden', 'true');
+    narrationText.appendChild(cursor);
+
+    let i = 0;
+    function step() {
+      if (i < text.length) {
+        narrationText.insertBefore(document.createTextNode(text[i]), cursor);
+        i++;
+        typewriterTimer = setTimeout(step, 30);
+      } else {
+        cursor.remove();
+        if (callback) callback();
+      }
+    }
+    step();
+  }
+
+  function showNarration(index) {
+    const card = CARDS[index];
+    narrationCardName.textContent = card.name + (card.reversed ? ' ✦ Reversed' : '');
+    narrationPosition.textContent = card.position;
+    typewrite(card.narration);
+  }
+
+  // ── Draw card ──────────────────────────────────────────────────────────────
+  const drawBtn = document.getElementById('draw-btn');
+  const counter = document.getElementById('counter');
+  const resetLink = document.getElementById('reset-link');
+
+  function updateCounter() {
+    counter.textContent = 'Card ' + currentCard + ' of ' + CARDS.length;
+  }
+
+  function flipCard(index) {
+    if (flipping) return;
+    flipping = true;
+    drawBtn.disabled = true;
+
+    const slot = slotEls[index];
+    const inner = slot.querySelector('.card-inner');
+
+    // Phase 1: rotate to 90° (edge-on)
+    inner.style.transition = 'transform 0.3s ease-in';
+    inner.style.transform = 'rotateY(90deg)';
+
+    setTimeout(() => {
+      // Swap: now show face
+      // (face is already loaded via src; just continue rotation)
+      inner.style.transition = 'transform 0.3s ease-out';
+      inner.style.transform = 'rotateY(180deg)';
+
+      setTimeout(() => {
+        // Flip complete
+        slot.classList.remove('facedown', 'active');
+        slot.classList.add('revealed');
+        if (CARDS[index].reversed) slot.classList.add('reversed');
+
+        // Shimmer
+        slot.classList.add('shimmer');
+        setTimeout(() => slot.classList.remove('shimmer'), 1100);
+
+        // Special: last card extra glow
+        if (index === CARDS.length - 1) {
+          slot.querySelector('.card-wrap').style.boxShadow = '0 0 24px 8px ' + 'rgba(212,175,55,0.6)';
+        }
+
+        currentCard++;
+        updateCounter();
+        showNarration(index);
+
+        // Activate next slot
+        if (currentCard < CARDS.length) {
+          slotEls[currentCard].classList.add('active');
+          drawBtn.disabled = false;
+          drawBtn.textContent = '✦ Draw the next card ✦';
+        } else {
+          // All done
+          drawBtn.textContent = '✦ The reading is complete ✦';
+          drawBtn.classList.add('complete');
+          drawBtn.disabled = true;
+          resetLink.classList.add('visible');
+        }
+
+        flipping = false;
+      }, 300);
+    }, 300);
+  }
+
+  function drawNext() {
+    if (flipping || currentCard >= CARDS.length) return;
+    flipCard(currentCard);
+  }
+
+  drawBtn.addEventListener('click', drawNext);
+
+  // ── Reset ──────────────────────────────────────────────────────────────────
+  function reset() {
+    if (flipping) return;
+    if (typewriterTimer) clearTimeout(typewriterTimer);
+    currentCard = 0;
+
+    slotEls.forEach((slot, i) => {
+      const inner = slot.querySelector('.card-inner');
+      // Reset flip
+      inner.style.transition = 'none';
+      inner.style.transform = 'rotateY(0deg)';
+      slot.className = 'slot facedown' + (i === 0 ? ' active' : '');
+      const wrap = slot.querySelector('.card-wrap');
+      wrap.style.boxShadow = '';
+      const faceImg = slot.querySelector('.card-face img');
+      faceImg.style.transform = '';
+      faceImg.style.transition = '';
+    });
+
+    updateCounter();
+    narrationCardName.textContent = 'The Spread Awaits';
+    narrationPosition.textContent = '';
+    narrationText.innerHTML = '<em>Eight cards lie before you. The reading has not yet begun. Draw the first card when you are ready.</em>';
+
+    drawBtn.textContent = '✦ Draw the next card ✦';
+    drawBtn.classList.remove('complete');
+    drawBtn.disabled = false;
+    resetLink.classList.remove('visible');
+  }
+
+  resetLink.addEventListener('click', reset);
+  resetLink.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') reset(); });
+
+  // ── Keyboard ───────────────────────────────────────────────────────────────
+  document.addEventListener('keydown', e => {
+    if (e.key === ' ' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      drawNext();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (currentCard > 0) {
+        showNarration(currentCard - 1);
+      }
+    }
+  });
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  updateCounter();
+
+})();
+</script>
+</body>
+</html>

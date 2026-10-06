@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" width="280" height="480">
+  <defs>
+    <filter id="tower-noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise" seed="3"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="tower-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="50%" stop-color="#1a1a3a"/>
+      <stop offset="100%" stop-color="#2a1a2a"/>
+    </linearGradient>
+    <linearGradient id="wolf-body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4a4a5a"/>
+      <stop offset="100%" stop-color="#6a6a7a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Card background -->
+  <rect width="280" height="480" fill="#F8F0DC"/>
+
+  <!-- Outer border -->
+  <rect x="0" y="0" width="280" height="480" fill="none" stroke="#D4AF37" stroke-width="3"/>
+  <!-- Inner decorative border -->
+  <rect x="10" y="10" width="260" height="460" fill="none" stroke="#D4AF37" stroke-width="1"/>
+
+  <!-- Corner ornaments -->
+  <text x="12" y="22" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="268" y="22" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="12" y="474" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+  <text x="268" y="474" font-family="Georgia, serif" font-size="12" fill="#D4AF37" text-anchor="middle">◆</text>
+
+  <!-- Card number -->
+  <text x="140" y="38" font-family="Georgia, serif" font-size="14" fill="#1a1a0a" text-anchor="middle" letter-spacing="3">XVI</text>
+
+  <!-- Illustration area border -->
+  <rect x="30" y="50" width="220" height="320" fill="none" stroke="#D4AF37" stroke-width="1"/>
+
+  <!-- Dark dramatic sky -->
+  <rect x="30" y="50" width="220" height="320" fill="url(#tower-sky)"/>
+
+  <!-- Storm clouds -->
+  <ellipse cx="140" cy="80" rx="80" ry="30" fill="#1a1a2a" opacity="0.8"/>
+  <ellipse cx="100" cy="90" rx="50" ry="22" fill="#2a2a3a" opacity="0.7"/>
+  <ellipse cx="190" cy="85" rx="55" ry="25" fill="#1e1e2e" opacity="0.7"/>
+  <ellipse cx="60" cy="100" rx="35" ry="18" fill="#242434" opacity="0.6"/>
+
+  <!-- Lightning bolt -->
+  <path d="M185 75 L175 100 L180 100 L168 125" fill="none" stroke="#FFD700" stroke-width="2.5" opacity="0.9"/>
+  <path d="M185 75 L175 100 L180 100 L168 125" fill="none" stroke="#fff" stroke-width="1" opacity="0.7"/>
+
+  <!-- Ground -->
+  <rect x="30" y="320" width="220" height="50" fill="#1a1210"/>
+
+  <!-- Straw house - crumbling on the right side -->
+  <!-- House base / walls (cracking) -->
+  <rect x="155" y="190" width="85" height="110" fill="#C8A860" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- House roof (crumbling) -->
+  <polygon points="145,190 250,190 210,145" fill="#B89040" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Straw thatch texture on roof -->
+  <line x1="155" y1="185" x2="200" y2="155" stroke="#A07828" stroke-width="1" opacity="0.6"/>
+  <line x1="165" y1="190" x2="205" y2="160" stroke="#A07828" stroke-width="1" opacity="0.6"/>
+  <line x1="175" y1="190" x2="210" y2="163" stroke="#A07828" stroke-width="1" opacity="0.5"/>
+  <line x1="185" y1="190" x2="213" y2="168" stroke="#A07828" stroke-width="1" opacity="0.5"/>
+  <!-- Door -->
+  <rect x="183" y="255" width="28" height="45" fill="#8B5E3C" stroke="#1a1a0a" stroke-width="1"/>
+  <!-- Window cracked -->
+  <rect x="163" y="215" width="28" height="22" fill="#4a3a20" stroke="#1a1a0a" stroke-width="1"/>
+  <line x1="177" y1="215" x2="177" y2="237" stroke="#1a1a0a" stroke-width="0.8"/>
+  <line x1="163" y1="226" x2="191" y2="226" stroke="#1a1a0a" stroke-width="0.8"/>
+  <!-- Crack lines in house walls -->
+  <path d="M220 200 L215 230 L222 250" fill="none" stroke="#1a1a0a" stroke-width="2"/>
+  <path d="M235 210 L228 240" fill="none" stroke="#1a1a0a" stroke-width="1.5"/>
+  <path d="M165 240 L158 260 L162 275" fill="none" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Cracks in roof -->
+  <path d="M200 165 L195 180" fill="none" stroke="#1a1a0a" stroke-width="1.5"/>
+  <path d="M175 175 L170 188" fill="none" stroke="#1a1a0a" stroke-width="1"/>
+
+  <!-- Falling debris - red and orange pieces -->
+  <rect x="235" y="160" width="12" height="8" fill="#CC3300" stroke="#1a1a0a" stroke-width="0.8" transform="rotate(25,241,164)"/>
+  <rect x="248" y="185" width="8" height="6" fill="#FF6600" stroke="#1a1a0a" stroke-width="0.8" transform="rotate(-15,252,188)"/>
+  <rect x="230" y="140" width="10" height="7" fill="#CC4400" stroke="#1a1a0a" stroke-width="0.8" transform="rotate(40,235,143)"/>
+  <rect x="220" y="130" width="6" height="5" fill="#FF4400" stroke="#1a1a0a" stroke-width="0.8" transform="rotate(-30,223,132)"/>
+  <polygon points="238,200 244,195 248,205" fill="#CC3300" stroke="#1a1a0a" stroke-width="0.8"/>
+  <polygon points="242,220 250,215 252,225" fill="#FF5500" stroke="#1a1a0a" stroke-width="0.8"/>
+  <!-- Straw debris flying -->
+  <line x1="215" y1="150" x2="232" y2="143" stroke="#E8C840" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="225" y1="165" x2="245" y2="158" stroke="#D4AF30" stroke-width="2" stroke-linecap="round"/>
+  <line x1="208" y1="175" x2="228" y2="167" stroke="#E8C840" stroke-width="2" stroke-linecap="round"/>
+  <line x1="230" y1="135" x2="245" y2="128" stroke="#D4AF30" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Wolf silhouette on the left - grey, mouth open wide -->
+  <!-- Wolf body -->
+  <path d="M30 240 Q45 220 65 225 Q80 228 88 240 Q92 260 88 290 Q80 310 65 315 Q45 312 35 295 Q28 275 30 240 Z" fill="url(#wolf-body)" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Wolf head - large, facing right -->
+  <path d="M60 195 Q85 185 105 195 Q118 205 115 225 Q110 242 95 248 Q75 252 60 240 Q48 228 50 210 Q53 198 60 195 Z" fill="#5a5a6a" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Wolf snout / open jaw -->
+  <path d="M90 220 Q118 225 130 240 Q132 255 118 258 Q100 255 85 248" fill="#6a5a5a" stroke="#1a1a0a" stroke-width="1.5"/>
+  <!-- Wolf upper teeth -->
+  <path d="M90 222 L95 232 L102 222 L109 232 L115 224" fill="none" stroke="#F0F0F0" stroke-width="1.2"/>
+  <!-- Wolf tongue -->
+  <path d="M95 235 Q110 240 118 250 Q110 258 100 255 Q92 250 95 235 Z" fill="#CC3333" stroke="#1a1a0a" stroke-width="0.8"/>
+  <!-- Wolf lower jaw teeth -->
+  <path d="M90 244 L95 234 L102 244 L108 235 L115 245" fill="none" stroke="#F0F0F0" stroke-width="1.2"/>
+  <!-- Wolf ears -->
+  <path d="M60 198 L55 175 L75 192 Z" fill="#5a5a6a" stroke="#1a1a0a" stroke-width="1.2"/>
+  <path d="M80 192 L82 168 L97 188 Z" fill="#5a5a6a" stroke="#1a1a0a" stroke-width="1.2"/>
+  <!-- Wolf eye (menacing) -->
+  <ellipse cx="72" cy="210" rx="6" ry="5" fill="#1a1a0a"/>
+  <ellipse cx="90" cy="207" rx="6" ry="5" fill="#1a1a0a"/>
+  <circle cx="73" cy="208" r="2" fill="#FF4400" opacity="0.6"/>
+  <circle cx="91" cy="205" r="2" fill="#FF4400" opacity="0.6"/>
+  <!-- Wolf tail -->
+  <path d="M36 280 Q20 260 25 235 Q30 225 35 240" fill="none" stroke="#5a5a6a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M36 280 Q20 260 25 235 Q30 225 35 240" fill="none" stroke="#1a1a0a" stroke-width="1.2"/>
+
+  <!-- Wolf breath / huff lines - concentric arcs radiating from mouth -->
+  <path d="M130 240 Q160 200 200 175" fill="none" stroke="#aaaacc" stroke-width="2" opacity="0.6"/>
+  <path d="M128 248 Q165 215 210 195" fill="none" stroke="#aaaacc" stroke-width="2" opacity="0.5"/>
+  <path d="M125 255 Q168 228 215 210" fill="none" stroke="#aaaacc" stroke-width="1.5" opacity="0.4"/>
+  <path d="M122 262 Q170 240 218 222" fill="none" stroke="#aaaacc" stroke-width="1.5" opacity="0.35"/>
+  <path d="M120 268 Q172 252 220 234" fill="none" stroke="#aaaacc" stroke-width="1" opacity="0.3"/>
+  <path d="M132 232 Q158 190 198 163" fill="none" stroke="#aaaacc" stroke-width="2" opacity="0.6"/>
+  <path d="M134 225 Q156 182 193 155" fill="none" stroke="#aaaacc" stroke-width="1.5" opacity="0.5"/>
+  <!-- Diagonal force lines from wolf mouth across the image -->
+  <line x1="130" y1="230" x2="200" y2="155" stroke="#ccccee" stroke-width="1" opacity="0.35" stroke-dasharray="4,3"/>
+  <line x1="130" y1="245" x2="210" y2="180" stroke="#ccccee" stroke-width="1" opacity="0.3" stroke-dasharray="4,3"/>
+  <line x1="130" y1="258" x2="215" y2="200" stroke="#ccccee" stroke-width="1" opacity="0.25" stroke-dasharray="4,3"/>
+
+  <!-- Bottom text area decorative lines -->
+  <line x1="30" y1="375" x2="250" y2="375" stroke="#D4AF37" stroke-width="0.8"/>
+  <line x1="30" y1="455" x2="250" y2="455" stroke="#D4AF37" stroke-width="0.8"/>
+
+  <!-- Card name -->
+  <text x="140" y="420" font-family="Georgia, serif" font-size="13" fill="#1a1a0a" text-anchor="middle" letter-spacing="4">THE TOWER</text>
+
+  <!-- Subtle texture overlay -->
+  <rect x="0" y="0" width="280" height="480" fill="#F8F0DC" opacity="0.04" filter="url(#tower-noise)"/>
+</svg>
