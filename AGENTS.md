@@ -3,10 +3,7 @@ A webpage (one page) that tells and/or reimagines the story of the three little 
 A reimagining could change the characters or what is happening to them without changing the key plot points.
 
 ## Audience
-The page should appeal to both children and audience with the purpose of making the story exciting again.
-
-## Functionality
-A visitor should be able to work through the story at their own pace. They should be able to go back if they miss something.
+The page should appeal to both children and adults with the purpose of making the story exciting again.
 
 ## Claude
 
@@ -86,15 +83,37 @@ After activating every new gallery card, always verify the thumbnail actually re
 - Replace the iframe with `<img src="vNN/thumb.svg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">` in the card
 This check must happen before committing the gallery update.
 
-### Current progress
-- `index.html` (gallery) — committed
-- `v01/` — **built, not yet committed** (awaiting final approval)
+### Current progress — 18 of 25 built, all committed
+Need **v19–v25** (7 more). The exploration arc says v17–v22 should converge (mix what works), v23–v25 refinements only with v25 feeling definitive.
 
-### v01 design decisions
-Direction: brutalist manifesto, half-screen flip book
-- 6 panels: title → preface → straw → sticks → bricks → conclusion
-- Wolf dialogue in bold red; verdicts ("It fell." / "It stood.") are the typographic punch
-- Layout: `.wrapper` (centered, `min(900px, 90vw)`) → `.book-frame` (full wrapper width, left/top/bottom border + center spine line) → `.book` (perspective container) → `.panel` (50% wide, left half, `transform-origin: right center`)
-- Flip mechanic: `rotateY(180deg) → rotateY(0deg)` for forward (new page covers current), `rotateY(0deg) → rotateY(180deg)` for backward (current peels away). No `backface-visibility: hidden` — the full arc is intentional so the free edge peaks toward the viewer at 90°.
-- Z-index stack: visited pages stay rendered at their assigned z-level; forward increments `zCounter`; backward resets the outgoing page to z=0/opacity=0 so it can flip in again
-- Nav sits below `.book-frame`, width 50% of wrapper (aligns under left page), all three controls (Back / counter / Next) visible
+| Version | Title / Direction | Notes |
+|---------|------------------|-------|
+| v01 | Brutalist flip-book | CSS 3D page-turn, 6 panels, type-heavy |
+| v02 | Children's picture book | Illustrated, large type, bright |
+| v03 | Newspaper front page | Breaking news framing |
+| v04 | Horror film poster | Dark, cinematic, scroll-reveal |
+| v05 | Social media feed | Posts from @pig1_straw, @pig2_sticks, @bigbadwolf |
+| v06 | Court transcript | Wolf on trial, 7 pages, deviated septum defense |
+| v07 | Nature documentary | Attenborough-style narration |
+| v08 | Comic strip | Panel-based |
+| v09 | Recipe card | Each shelter as a recipe with ingredients + instructions |
+| v10 | PowerPoint presentation | Slide deck with PPT chrome, dot indicators |
+| v11 | Video game UI | RPG/game interface |
+| v12 | Illustrated side-scroll | Road with houses, scroll to progress |
+| v13 | macOS desktop | Dock with icons, hover shows story captions |
+| v14 | VC pitch deck | Full-bleed slides, TAM/SAM/SOM, wolf ticker |
+| v15 | Classified dossier | CIA-style, redactions, typewriter reveal |
+| v16 | PigInspire (siteinspire clone) | Design gallery, tag filter, lightbox |
+| v17 | PigZillow | Sequential 8-scene real estate narrative, sticky map with pin state transitions |
+| v18 | PigEgg.com (Newegg) | Flash-sale homepage, wolf countdown, product reviews |
+
+### Brainstormed directions not yet built (pick from these for v19–v25)
+- **IKEA instructions** — flat-pack assembly manual for each shelter (isometric diagrams, warning triangles, Swedish product names)
+- **Wine/restaurant menu** — tasting notes for each shelter ("earthy straw, medium blow-throughability, short finish")
+- **Encyclopedia / Wikipedia article** — dry academic entry with footnotes, infoboxes, edit-war notes
+- **Tarot deck** — each card a character or event, illustrated, with divination framing
+- **Infomercial** — "But wait, there's MORE!" selling the pig homes, 1-800 number, testimonials
+- **D&D Monster Manual** — stat block for the wolf, HP rolls for each shelter, combat log
+- **Eurovision scoreboard** — countries awarding points to each pig's shelter design
+- **Wanted poster / Wild West** — bounty on the wolf, sheriff's notices for each fallen house
+- **NASA mission brief** — pigs as astronauts, shelters as capsule grades, wolf as asteroid
