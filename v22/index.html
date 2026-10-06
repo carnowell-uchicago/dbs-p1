@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dungeons & Domestics: The Huffening — v22</title>
+  <style>
+    /* ============================================================
+       BASE & RESET
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --parchment-light: #f4ead5;
+      --parchment-mid:   #e8d5b0;
+      --parchment-dark:  #d4b896;
+      --ink:             #1a1208;
+      --red-header:      #8b0000;
+      --dm-orange-bg:    #fff3e0;
+      --dm-orange-border:#d4851a;
+      --lore-bg:         #e8e4d8;
+      --stat-bg:         #f0f0f0;
+      --stat-border:     #333;
+      --rule-color:      #8b0000;
+    }
+
+    html, body {
+      height: 100%;
+      background: #2c1a0e;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: var(--ink);
+      overflow: hidden;
+    }
+
+    /* ============================================================
+       SCENE (perspective container)
+    ============================================================ */
+    #scene {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1400px;
+    }
+
+    /* ============================================================
+       BOOK SHELL
+    ============================================================ */
+    #book {
+      position: relative;
+      width: min(680px, 96vw);
+      height: min(900px, 92vh);
+    }
+
+    /* ============================================================
+       PAGE CARDS
+    ============================================================ */
+    .page-card {
+      position: absolute;
+      inset: 0;
+      background: var(--parchment-light);
+      border-radius: 4px 12px 12px 4px;
+      box-shadow:
+        inset -4px 0 8px rgba(0,0,0,.15),
+        4px 4px 24px rgba(0,0,0,.6);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 40px 44px 80px;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      transition: transform 0.7s cubic-bezier(.645,.045,.355,1),
+                  opacity 0.4s ease;
+      /* Parchment grain */
+      background-image:
+        linear-gradient(135deg, rgba(255,255,255,.12) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(255,255,255,.12) 25%, transparent 25%),
+        linear-gradient(to bottom, var(--parchment-light), var(--parchment-mid));
+    }
+
+    .page-card:not(.active):not(.was-active) {
+      opacity: 0;
+      pointer-events: none;
+      transform: rotateY(-180deg);
+    }
+
+    .page-card.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: rotateY(0deg);
+      z-index: 10;
+    }
+
+    .page-card.was-active {
+      opacity: 0;
+      pointer-events: none;
+      transform: rotateY(0deg);
+      z-index: 5;
+      transition: opacity 0.3s ease 0.5s;
+    }
+
+    .page-card.flip-out {
+      transform: rotateY(-180deg);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 8;
+    }
+
+    /* ============================================================
+       NAVIGATION BAR (outside book)
+    ============================================================ */
+    #nav-bar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 100;
+      background: rgba(44, 26, 14, 0.88);
+      border: 1px solid var(--parchment-dark);
+      border-radius: 40px;
+      padding: 10px 24px;
+      backdrop-filter: blur(4px);
+    }
+
+    #nav-bar button {
+      background: var(--parchment-mid);
+      border: 1px solid var(--parchment-dark);
+      color: var(--ink);
+      font-family: Georgia, serif;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 6px 18px;
+      border-radius: 20px;
+      transition: background 0.2s;
+      letter-spacing: .03em;
+    }
+    #nav-bar button:hover { background: var(--parchment-dark); }
+    #nav-bar button:disabled { opacity: 0.4; cursor: default; }
+
+    #page-counter {
+      color: var(--parchment-light);
+      font-family: Georgia, serif;
+      font-size: 13px;
+      letter-spacing: .08em;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    /* ============================================================
+       D20 DECORATIVE ICON
+    ============================================================ */
+    .d20-bullet {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+      margin-right: 6px;
+      opacity: 0.7;
+    }
+
+    /* ============================================================
+       TYPOGRAPHIC ELEMENTS
+    ============================================================ */
+    h1.book-title {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      color: var(--red-header);
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: .04em;
+      line-height: 1.15;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0 rgba(0,0,0,.18);
+    }
+
+    h2.section-title {
+      font-size: 1.2rem;
+      color: var(--red-header);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      border-bottom: 2px solid var(--red-header);
+      padding-bottom: 4px;
+      margin: 22px 0 10px;
+      font-weight: bold;
+    }
+
+    h3.sub-title {
+      font-size: 1rem;
+      color: var(--red-header);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin: 14px 0 6px;
+      font-weight: bold;
+    }
+
+    p { font-size: .93rem; line-height: 1.65; margin-bottom: 10px; }
+
+    /* ============================================================
+       STAT BLOCK
+    ============================================================ */
+    .stat-block {
+      background: var(--stat-bg);
+      border: 2px solid var(--stat-border);
+      border-radius: 4px;
+      padding: 16px 18px;
+      margin: 14px 0;
+      font-size: .88rem;
+    }
+
+    .stat-block-header {
+      border-bottom: 2px solid var(--red-header);
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+    }
+
+    .stat-block-name {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: var(--red-header);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .stat-block-subtitle {
+      font-style: italic;
+      color: #555;
+      font-size: .85rem;
+    }
+
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      margin: 8px 0;
+      font-size: .87rem;
+    }
+
+    .stat-row span { white-space: nowrap; }
+    .stat-row strong { color: var(--red-header); }
+
+    .ability-scores {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      background: var(--parchment-mid);
+      border: 1px solid var(--parchment-dark);
+      border-radius: 3px;
+      padding: 8px 4px;
+      margin: 10px 0;
+      text-align: center;
+      font-size: .8rem;
+    }
+
+    .ability-scores .ability {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .ability-scores .ability-name {
+      font-size: .7rem;
+      font-weight: bold;
+      color: var(--red-header);
+      text-transform: uppercase;
+    }
+
+    .ability-scores .ability-score { font-weight: bold; font-size: .95rem; }
+    .ability-scores .ability-mod   { color: #444; font-size: .78rem; }
+
+    .stat-divider {
+      border: none;
+      border-top: 1px solid var(--parchment-dark);
+      margin: 8px 0;
+    }
+
+    .action-header {
+      font-size: .9rem;
+      font-weight: bold;
+      color: var(--red-header);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin: 10px 0 4px;
+      border-bottom: 1px solid var(--parchment-dark);
+    }
+
+    .action-name { font-weight: bold; font-style: italic; }
+
+    .flavor-text-block {
+      background: var(--lore-bg);
+      border-left: 4px solid var(--parchment-dark);
+      border-radius: 0 4px 4px 0;
+      padding: 10px 14px;
+      font-style: italic;
+      font-size: .88rem;
+      color: #444;
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       DM NOTE BOX
+    ============================================================ */
+    .dm-note {
+      background: var(--dm-orange-bg);
+      border: 1px solid var(--dm-orange-border);
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 14px 0;
+      font-size: .88rem;
+      line-height: 1.6;
+    }
+
+    .dm-note-label {
+      font-weight: bold;
+      color: var(--red-header);
+      text-transform: uppercase;
+      font-size: .8rem;
+      letter-spacing: .08em;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* ============================================================
+       LORE BOX
+    ============================================================ */
+    .lore-box {
+      background: var(--lore-bg);
+      border: 1px solid var(--parchment-dark);
+      border-radius: 4px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-style: italic;
+      font-size: .9rem;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       ENCOUNTER SECTION
+    ============================================================ */
+    .encounter-header {
+      background: var(--red-header);
+      color: var(--parchment-light);
+      padding: 10px 16px;
+      border-radius: 4px 4px 0 0;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 0;
+    }
+
+    .encounter-body {
+      border: 2px solid var(--red-header);
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+      padding: 14px;
+      margin-bottom: 14px;
+      font-size: .88rem;
+    }
+
+    .combat-log {
+      background: var(--parchment-mid);
+      border: 1px solid var(--parchment-dark);
+      border-radius: 3px;
+      padding: 10px 12px;
+      font-family: 'Courier New', monospace;
+      font-size: .82rem;
+      margin: 10px 0;
+      line-height: 1.7;
+    }
+
+    .combat-log .round-label {
+      font-weight: bold;
+      color: var(--red-header);
+    }
+
+    /* ============================================================
+       NPC CARDS
+    ============================================================ */
+    .npc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .npc-card {
+      background: var(--stat-bg);
+      border: 2px solid var(--stat-border);
+      border-radius: 4px;
+      padding: 12px;
+      font-size: .82rem;
+      text-align: center;
+    }
+
+    .npc-card .npc-name {
+      font-weight: bold;
+      color: var(--red-header);
+      text-transform: uppercase;
+      font-size: .85rem;
+      letter-spacing: .04em;
+    }
+
+    .npc-card .npc-class {
+      font-style: italic;
+      color: #555;
+      font-size: .78rem;
+      margin-bottom: 6px;
+    }
+
+    .npc-card .npc-hp {
+      background: var(--red-header);
+      color: #fff;
+      border-radius: 3px;
+      padding: 2px 8px;
+      display: inline-block;
+      font-size: .78rem;
+      font-weight: bold;
+      margin: 4px 0;
+    }
+
+    .npc-card p { font-style: italic; font-size: .8rem; margin-top: 6px; color: #444; }
+
+    /* ============================================================
+       LOOT TABLE
+    ============================================================ */
+    .loot-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .87rem;
+      margin: 12px 0;
+    }
+
+    .loot-table th {
+      background: var(--red-header);
+      color: var(--parchment-light);
+      padding: 6px 10px;
+      text-align: left;
+      font-size: .8rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .loot-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--parchment-dark);
+      vertical-align: top;
+    }
+
+    .loot-table tr:nth-child(even) td { background: var(--lore-bg); }
+
+    /* ============================================================
+       HOUSE RULES LIST
+    ============================================================ */
+    .house-rule {
+      border-left: 3px solid var(--red-header);
+      padding: 8px 14px;
+      margin: 10px 0;
+      font-size: .88rem;
+      line-height: 1.6;
+    }
+
+    .house-rule .rule-name {
+      font-weight: bold;
+      color: var(--red-header);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    /* ============================================================
+       COVER PAGE SPECIFIC
+    ============================================================ */
+    .cover-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      padding: 36px 40px 60px;
+    }
+
+    .cover-badge {
+      background: var(--red-header);
+      color: var(--parchment-light);
+      padding: 4px 16px;
+      font-size: .75rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      margin-bottom: 4px;
+    }
+
+    .cover-subtitle {
+      font-style: italic;
+      color: #555;
+      font-size: .92rem;
+      margin-top: -8px;
+    }
+
+    .cover-img-wrap {
+      width: 100%;
+      max-width: 340px;
+      aspect-ratio: 4/3;
+      background: var(--parchment-dark);
+      border: 3px solid var(--ink);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cover-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .cover-rule {
+      width: 100%;
+      border: none;
+      border-top: 2px solid var(--red-header);
+    }
+
+    .cover-footer {
+      font-size: .78rem;
+      color: #777;
+      font-style: italic;
+      margin-top: auto;
+    }
+
+    .gallery-link {
+      display: inline-block;
+      color: var(--red-header);
+      text-decoration: none;
+      font-size: .78rem;
+      border: 1px solid var(--red-header);
+      padding: 4px 12px;
+      border-radius: 3px;
+      margin-top: 6px;
+      font-family: Georgia, serif;
+      letter-spacing: .03em;
+    }
+
+    .gallery-link:hover { background: var(--red-header); color: var(--parchment-light); }
+
+    /* ============================================================
+       MAP / ASSET PLACEHOLDERS
+    ============================================================ */
+    .map-wrap {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--lore-bg);
+      border: 2px solid var(--parchment-dark);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 12px 0;
+    }
+
+    .map-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Page number in corner */
+    .page-num {
+      position: absolute;
+      bottom: 14px;
+      right: 20px;
+      font-size: .75rem;
+      color: #999;
+      font-style: italic;
+    }
+
+    /* Scrollbar styling for pages */
+    .page-card::-webkit-scrollbar { width: 6px; }
+    .page-card::-webkit-scrollbar-track { background: var(--parchment-mid); }
+    .page-card::-webkit-scrollbar-thumb { background: var(--parchment-dark); border-radius: 3px; }
+
+    /* Keyword tooltip-style highlight */
+    .keyword { color: var(--red-header); font-weight: bold; }
+
+    /* Recharge tag */
+    .recharge {
+      font-size: .78rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* XP badge */
+    .xp-badge {
+      display: inline-block;
+      background: var(--red-header);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-left: 8px;
+      letter-spacing: .04em;
+    }
+
+    /* Footnote asterisk style */
+    .footnote {
+      font-size: .75rem;
+      color: #777;
+      font-style: italic;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     BOOK SCENE
+============================================================ -->
+<div id="scene">
+  <div id="book" role="main" aria-label="Dungeons and Domestics: The Huffening">
+
+    <!-- ==================== PAGE 1: COVER ==================== -->
+    <div class="page-card active cover-page" id="page-1" role="region" aria-label="Page 1: Cover">
+
+      <div class="cover-badge">Monster Manual Supplement</div>
+
+      <h1 class="book-title">Dungeons<br>&amp;<br>Domestics</h1>
+
+      <div class="cover-subtitle">THE HUFFENING</div>
+
+      <hr class="cover-rule" />
+
+      <div class="cover-img-wrap">
+        <img src="assets/wolf-art.svg" alt="Dramatic illustration of the Big Bad Wolf" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=&quot;font-size:4rem;opacity:.3&quot;>🐺</div>';" />
+      </div>
+
+      <hr class="cover-rule" />
+
+      <p style="font-size:.9rem;font-style:italic;color:#555;max-width:420px;">
+        An official<sup>*</sup> scenario for 3 players,<br>
+        recommended levels 1–3.<br>
+        Contains: 3 encounters, 1 insufferable wolf,<br>
+        and 1 pig who was right all along.
+      </p>
+
+      <p class="footnote">* Not official.</p>
+
+      <hr class="cover-rule" style="margin-top:auto;" />
+
+      <div class="cover-footer">
+        Published in the Forest Vale · All rights reserved by Pig 3
+        <br>
+        <a class="gallery-link" href="../index.html">← Return to Gallery</a>
+      </div>
+
+      <span class="page-num">1 / 10</span>
+    </div>
+
+    <!-- ==================== PAGE 2: INTRODUCTION ==================== -->
+    <div class="page-card" id="page-2" role="region" aria-label="Page 2: Introduction">
+
+      <h2 class="section-title">
+        <img src="assets/d20.svg" alt="" class="d20-bullet" />
+        Introduction &amp; Lore
+      </h2>
+
+      <div class="lore-box">
+        <p>In the verdant forests of the Swine Vale, three siblings — all of the <em>Sus domesticus</em> lineage — seek shelter from an apex predator of considerable lung capacity. Local legends refer to the creature simply as <strong>The Wolf</strong>. Scholars prefer <em>B. Badwolf</em>. The pigs prefer not to think about it.</p>
+        <p>The three siblings have, through either ingenuity or stubbornness, constructed dwellings of wildly varying structural integrity. The eldest built quickly and cheaply. The middle child aimed for a balance of speed and stability. The youngest, perhaps unfairly mocked by her siblings, spent months sourcing quality masonry.</p>
+        <p>This is their story. It will not end well for the first two houses.</p>
+      </div>
+
+      <h2 class="section-title">Using This Supplement</h2>
+      <p>This scenario is designed for exactly three player characters of levels 1–3. The encounters are linear and will proceed in order. The DM is encouraged to describe each encounter with dramatic flair even though the outcomes are, functionally, predetermined.</p>
+
+      <div class="dm-note">
+        <span class="dm-note-label">DM's Note</span>
+        This is a linear scenario. The pigs cannot be saved from the first two encounters. Roll anyway. The sound of dice hitting the table is half the point. Players who ask "but what if we help reinforce the straw house?" should be told there isn't time. There is never time.
+      </div>
+
+      <h2 class="section-title">Adventure Background</h2>
+      <p>The Wolf has roamed the Swine Vale for three seasons. Tax records show a declining property value in every hex the Wolf has passed through. Local housing inspectors have declined to comment.</p>
+
+      <div class="lore-box">
+        <p>"The wolf was not acting out of malice, per se. He was acting out of hunger, pride, and a concerning belief that he could resolve structural disputes through breathing." — <em>Field Notes, Swine Vale Historical Society</em></p>
+      </div>
+
+      <h2 class="section-title">Setting</h2>
+      <p>All encounters take place in the Swine Vale, a pastoral region notable for its clay deposits, nearby forest, and extremely optimistic building code enforcement. The DM may place this module in any campaign world where pigs and wolves coexist and property law is loosely observed.</p>
+
+      <span class="page-num">2 / 10</span>
+    </div>
+
+    <!-- ==================== PAGE 3: MONSTER STAT BLOCK ==================== -->
+    <div class="page-card" id="page-3" role="region" aria-label="Page 3: Big Bad Wolf Stat Block">
+
+      <h2 class="section-title">
+        <img src="assets/d20.svg" alt="" class="d20-bullet" />
+        Bestiary Entry
+      </h2>
+
+      <div class="stat-block">
+        <div class="stat-block-header">
+          <div class="stat-block-name">Big Bad Wolf <span style="font-size:.85rem;font-weight:normal;font-style:italic;">(B. Badwolf)</span></div>
+          <div class="stat-block-subtitle">Large Beast, Chaotic Hungry</div>
+        </div>
+
+        <div class="stat-row">
+          <span><strong>Armor Class</strong> 13 (Natural Armor)</span>
+          <span><strong>Hit Points</strong> 91 (14d10 + 14)</span>
+          <span><strong>Speed</strong> 50 ft.</span>
+        </div>
+
+        <div class="ability-scores">
+          <div class="ability">
+            <span class="ability-name">STR</span>
+            <span class="ability-score">18</span>
+            <span class="ability-mod">(+4)</span>
+          </div>
+          <div class="ability">
+            <span class="ability-name">DEX</span>
+            <span class="ability-score">15</span>
+            <span class="ability-mod">(+2)</span>
+          </div>
+          <div class="ability">
+            <span class="ability-name">CON</span>
+            <span class="ability-score">12</span>
+            <span class="ability-mod">(+1)</span>
+          </div>
+          <div class="ability">
+            <span class="ability-name">INT</span>
+            <span class="ability-score">8</span>
+            <span class="ability-mod">(-1)</span>
+          </div>
+          <div class="ability">
+            <span class="ability-name">WIS</span>
+            <span class="ability-score">7</span>
+            <span class="ability-mod">(-2)</span>
+          </div>
+          <div class="ability">
+            <span class="ability-name">CHA</span>
+            <span class="ability-score">16</span>
+            <span class="ability-mod">(+3)</span>
+          </div>
+        </div>
+
+        <hr class="stat-divider" />
+
+        <div class="stat-row">
+          <span><strong>Skills</strong> Intimidation +5, Athletics +6, Deception +5</span>
+        </div>
+        <div class="stat-row">
+          <span><strong>Senses</strong> Darkvision 60 ft., Passive Perception 8</span>
+        </div>
+        <div class="stat-row">
+          <span><strong>Languages</strong> Common (speaks; rarely says anything useful)</span>
+        </div>
+        <div class="stat-row">
+          <span><strong>Challenge</strong> 5 (1,800 XP)</span>
+          <span><strong>Proficiency Bonus</strong> +3</span>
+        </div>
+
+        <hr class="stat-divider" />
+
+        <div class="action-header">Traits</div>
+
+        <p><span class="action-name">Legendary Resistance (1/Day).</span> When the Wolf fails a saving throw, it can choose to succeed instead. Note: the Wolf will use this on the brick house. It will not help.</p>
+
+        <p><span class="action-name">Deceptive Charm.</span> The Wolf has advantage on Deception checks related to "just wanting to borrow a cup of sugar."</p>
+
+        <div class="action-header">Actions</div>
+
+        <p><span class="action-name">Huff.</span> <span class="recharge">(Recharge 5–6)</span> Each creature in a 30-foot cone must make a DC 14 STR saving throw or the structure they occupy collapses. <span class="keyword">Straw structures: auto-fail. Stick structures: disadvantage. Brick structures: immune.</span></p>
+
+        <p><span class="action-name">Puff.</span> <em>Melee Weapon Attack:</em> +6 to hit, reach 5 ft., one target. <em>Hit:</em> 2d6+4 bludgeoning damage. (The wolf uses its entire body as a battering ram. OSHA has concerns.)</p>
+
+        <p><span class="action-name">Negotiate (1/Day).</span> The wolf attempts to deceive inhabitants into opening the door. Contested Deception vs. Insight. Insight DC 18 to see through it. No pig has ever failed this check.</p>
+      </div>
+
+      <div class="flavor-text-block">
+        "The Wolf maintains it was merely conducting a voluntary respiratory stress test on local architecture. It did not anticipate that the test results would be so immediately structural in consequence."
+      </div>
+
+      <span class="page-num">3 / 10</span>
+    </div>
+
+    <!-- ==================== PAGE 4: ENCOUNTER 1 ==================== -->
+    <div class="page-card" id="page-4" role="region" aria-label="Page 4: Encounter 1 - Straw House">
+
+      <h2 class="section-title">
+        <img src="assets/d20.svg" alt="" class="d20-bullet" />
+        Encounter 1: The Straw House
+      </h2>
+
+      <div class="map-wrap">
+        <img src="assets/straw-map.svg" alt="Encounter map: the straw house" onerror="this.style.opacity='.3';" />
+      </div>
+
+      <div class="encounter-header">Area 1-A: Exterior Approach</div>
+      <div class="encounter-body">
+        <p>The straw house sits in an open field. Wind speed: moderate. Structural confidence: excessive.</p>
+        <p style="font-style:italic;">Read to players: "The house looks... enthusiastic. You can see daylight through several walls. A small pig waves cheerfully from inside."</p>
+      </div>
+
+      <div class="stat-block" style="margin-bottom:12px;">
+        <div class="stat-block-header">
+          <div class="stat-block-name">Straw House <span style="font-size:.8rem;font-weight:normal;">(Object)</span></div>
+          <div class="stat-block-subtitle">Large Structure, Neutral, Extremely Optimistic</div>
+        </div>
+        <div class="stat-row">
+          <span><strong>AC</strong> 5</span>
+          <span><strong>HP</strong> 15</span>
+          <span><strong>Damage Threshold</strong> 0</span>
+        </div>
+        <div class="stat-row">
+          <span><strong>Immunities</strong> Psychic (it cannot feel shame)</span>
+          <span><strong>Vulnerabilities</strong> Everything else</span>
+        </div>
+      </div>
+
+      <div class="combat-log">
+        <span class="round-label">ROUND 1:</span> Wolf uses HUFF.<br>
+        &nbsp;&nbsp;→ Straw House must make DC 14 STR save. Auto-fail (structure is straw).<br>
+        &nbsp;&nbsp;→ House collapses. Pig 1 must make DEX save DC 10.<br>
+        &nbsp;&nbsp;→ Pig 1 rolls... 14. Success! Pig 1 escapes (barely).<br>
+        <br>
+        <span class="round-label">ENCOUNTER ENDS.</span> Wolf 1 – Straw House 0.
+      </div>
+
+      <div class="dm-note">
+        <span class="dm-note-label">DM's Note</span>
+        This encounter will always end this way. The house was never going to make it. Tell your players the dice feel tense anyway. If Pig 1's player rolls a natural 20, describe it as an <em>incredibly athletic escape</em>. Give them nothing else.
+      </div>
+
+      <p style="font-style:italic;font-size:.85rem;color:#555;margin-top:8px;">Pig 1 retreats toward Pig 2's house. The Wolf follows, slightly out of breath but annoyingly unbothered.</p>
+
+      <span class="page-num">4 / 10</span>
+    </div>
+
+    <!-- ==================== PAGE 5: ENCOUNTER 2 ==================== -->
+    <div class="page-card" id="page-5" role="region" aria-label="Page 5: Encounter 2 - Stick House">
+
+      <h2 class="section-title">
+        <img src="assets/d20.svg" alt="" class="d20-bullet" />
+        Encounter 2: The Stick House
+      </h2>
+
+      <div class="lore-box">
+        <p>Pig 2's house is, objectively, better than Pig 1's house. This is not a high bar. It has load-bearing walls. The roof is technically a roof. The Wolf is not impressed.</p>
+      </div>
+
+      <div class="stat-block" style="margin-bottom:12px;">
+        <div class="stat-block-header">
+          <div class="stat-block-name">Stick House <span style="font-size:.8rem;font-weight:normal;">(Object)</span></div>
+          <div class="stat-block-subtitle">Large Structure, Neutral, Cautiously Optimistic</div>
+        </div>
+        <div class="stat-row">
+          <span><strong>AC</strong> 8</span>
+          <span><strong>HP</strong> 28</span>
+          <span><strong>Damage Threshold</strong> 5</span>
+        </div>
+        <div class="stat-row">
+          <span><strong>Immunities</strong> Psychic, Nonmagical Persuasion</span>
+          <span><strong>Vulnerabilities</strong> Thunder, Bludgeoning, Huffing</span>
+        </div>
+        <div class="stat-row">
+          <span><strong>Special</strong> On STR saves, roll with Disadvantage vs. HUFF attacks.</span>
+        </div>
+      </div>
+
+      <div class="encounter-header">The Confrontation</div>
+      <div class="encounter-body">
+        <p>Pig 2 has been watching through a window. Pig 1 is now also inside, having sprinted across the field and arrived out of breath. The Wolf knocks.</p>
+        <p style="font-style:italic;">"Little pigs, I just need to borrow a cup of sugar. My blood sugar is very low."</p>
+        <p>Pig 2 rolls Insight against the Wolf's Deception. Result: 22 vs. 18. The pigs do not open the door.</p>
+      </div>
+
+      <div class="combat-log">
+        <span class="round-label">ROUND 1:</span> Wolf uses HUFF (recharged).<br>
+        &nbsp;&nbsp;→ Stick House must make DC 14 STR save with Disadvantage.<br>
+        &nbsp;&nbsp;→ Rolls: 11 and 9. Takes the 9. FAILURE.<br>
+        &nbsp;&nbsp;→ House collapses. Pigs 1 &amp; 2 must make DEX saves DC 10.<br>
+        &nbsp;&nbsp;→ Pig 1 rolls 17. Pig 2 rolls 13. Both escape.<br>
+        <br>
+        <span class="round-label">ENCOUNTER ENDS.</span> Wolf 2 – Pig Houses 0.
+      </div>
+
+      <div class="dm-note">
+        <span class="dm-note-label">DM's Note</span>
+        Players may suggest reinforcing the stick house before the Wolf arrives. They may propose nailing additional boards, using stone from a nearby river, or applying an Enlarge/Reduce spell. Tell them there isn't time. There is never time. The module does not account for clever solutions here.
+      </div>
+
+      <div class="lore-box">
+        <p>Pigs 1 and 2 sprint toward Pig 3's house. The Wolf stretches, yawns, and follows at a leisurely trot. He is operating at approximately 60% capacity and remains confident.</p>
+      </div>
+
+      <span class="page-num">5 / 10</span>
+    </div>
+
+    <!-- ==================== PAGE 6: ENCOUNTER 3 ==================== -->
+    <div class="page-card" id="page-6" role="region" aria-label="Page 6: Encounter 3 - Brick House">
+
+      <h2 class="section-title">
+        <img src="assets/d20.svg" alt="" class="d20-bullet" />
+        Encounter 3: The Brick House
+      </h2>
+
+      <div class="map-wrap">
+        <img src="assets/brick-fortress.svg" alt="Encounter map: the brick fortress" onerror="this.style.opacity='.3';" />
+      </div>
+
+      <div class="stat-block" style="margin-bottom:12px;">
+        <div class="stat-block-header">
+          <div class="stat-block-name">Brick House — "The Holdfast" <span style="font-size:.8rem;font-weight:normal;">(Object)</span></div>
+          <div class="stat-block-subtitle">Huge Structure, Lawful Sturdy</div>
+        </div>
+        <div class="stat-row">
+          <span><strong>AC</strong> 18</span>
+          <span><strong>HP</strong> 200</span>
+          <span><strong>Damage Threshold</strong> 10</span>
+        </div>
+        <div class="stat-row">
+          <span><strong>Immunities</strong> Psychic, Thunder, Being Impressed</span>
+        </div>
+        <div class="stat-row">
+          <span><strong>Special</strong> <em>Immune to HUFF.</em> STR saves vs. HUFF auto-succeed. The house was built for exactly this moment.</span>
+        </div>
+      </div>
+
+      <div class="encounter-header">The Final Confrontation</div>
+      <div class="encounter-body">
+        <p>Pig 3 opens the door just long enough for Pigs 1 and 2 to tumble inside, then closes and deadbolts it. There are four deadbolts. She installed them last month and said nothing about it.</p>
+      </div>
+
+      <div class="combat-log">
+        <span class="round-label">ROUND 1:</span> Wolf uses HUFF.<br>
+        &nbsp;&nbsp;→ Brick House STR save: Auto-succeed (Immune). House: 200 HP. House: unmoved.<br>
+        &nbsp;&nbsp;→ Wolf: stunned (self-imposed). Stares at the house for a full six seconds.<br>
+        <br>
+        <span class="round-label">ROUND 2:</span> Wolf uses PUFF (desperate).<br>
+        &nbsp;&nbsp;→ Brick House takes 8 bludgeoning damage. House: 192 HP. House: unbothered.<br>
+        &nbsp;&nbsp;→ Wolf: 2d6 bludgeoning damage (shoulder, from impact).<br>
+        <br>
+        <span class="round-label">ROUND 3:</span> Wolf uses Legendary Resistance on another HUFF.<br>
+        &nbsp;&nbsp;→ Still auto-fails. Immunity is not a saving throw.<br>
+        &nbsp;&nbsp;→ The Legendary Resistance is wasted. This is devastating.<br>
+        <br>
+        <span class="round-label">WOLF RETREATS.</span> Exhausted. Slightly embarrassed. The pigs are uninjured.
+      </div>
+
+      <div class="dm-note">
+        <span class="dm-note-label">DM's Note</span>
+        If your players are in the brick house: congratulations. They win D&amp;D. No further rolls are required. Pig 3 makes tea. The Wolf is last seen heading north toward a cave, muttering about respiratory conditions and building permits. You may award full encounter XP. You may also allow a player to say "I told you so" (see Appendix: House Rules).
+      </div>
+
+      <span class="page-num">6 / 10</span>
+    </div>
+
+    <!-- ==================== PAGE 7: NPC PROFILES ==================== -->
+    <div class="page-card" id="page-7" role="region" aria-label="Page 7: NPC Profiles">
+
+      <h2 class="section-title">
+        <img src="assets/d20.svg" alt="" class="d20-bullet" />
+        NPC Profiles: The Adventuring Party
+      </h2>
+
+      <div class="map-wrap" style="aspect-ratio:3/1;min-height:120px;">
+        <img src="assets/pig-party.svg" alt="The three pigs as a D&D adventuring party" onerror="this.style.opacity='.3';" />
+      </div>
+
+      <p style="font-style:italic;font-size:.88rem;color:#555;margin-bottom:14px;">The three pigs are technically NPC allies. In practice, they are the point. The DM should treat them as protagonists who have been assigned the role of tutorial encounter victims.</p>
+
+      <div class="npc-grid">
+        <div class="npc-card">
+          <div class="npc-name">Pig 1</div>
+          <div class="npc-class">Rogue, Level 1 · "The Sprinter"</div>
+          <div class="npc-hp">HP: 8</div>
+          <div class="stat-row" style="justify-content:center;font-size:.78rem;margin:4px 0;">
+            <span>STR 8 | DEX 17 | CON 10</span>
+          </div>
+          <p><strong>Skills:</strong> Fast Talking +4, Quick Exit +6, Optimistic Architecture -3</p>
+          <p>"Builds fast and leaves faster. Has never spent more than four days on a project. This shows."</p>
+        </div>
+
+        <div class="npc-card">
+          <div class="npc-name">Pig 2</div>
+          <div class="npc-class">Fighter, Level 1 · "The Pragmatist"</div>
+          <div class="npc-hp">HP: 11</div>
+          <div class="stat-row" style="justify-content:center;font-size:.78rem;margin:4px 0;">
+            <span>STR 13 | DEX 12 | CON 14</span>
+          </div>
+          <p><strong>Skills:</strong> Carpentry +4, Optimism +3, Structural Engineering +1</p>
+          <p>"Slightly more prepared than Pig 1. This is not the same as being prepared."</p>
+        </div>
+
+        <div class="npc-card">
+          <div class="npc-name">Pig 3</div>
+          <div class="npc-class">Wizard, Level 1 · School of Architecture</div>
+          <div class="npc-hp">HP: 6</div>
+          <div class="stat-row" style="justify-content:center;font-size:.78rem;margin:4px 0;">
+            <span>STR 8 | DEX 10 | CON 9</span>
+          </div>
+          <p><strong>Skills:</strong> Masonry +8, Long-Term Planning +6, Smug Grin +10</p>
+          <p>"Physically the weakest. Lives in the only structure still standing. These facts are related."</p>
+        </div>
+      </div>
+
+      <div class="dm-note">
+        <span class="dm-note-label">DM's Note — Playing the Pigs</span>
+        Pig 3 should occasionally reference having warned her siblings. She is correct. Allow her this. Pig 1 will try to make jokes during combat. Let them land. Pig 2 is quietly processing a lot. Give him a moment in the brick house, sitting on a good chair, holding a cup of something warm. He has earned it.
+      </div>
+
+      <div class="lore-box">
+        <p>"The three pigs share a complicated bond built on divergent risk tolerances and a single, formative childhood conversation about the nature of preparation." — <em>Swine Vale Psychological Review, Vol. 4</em></p>
+      </div>
+
+      <span class="page-num">7 / 10</span>
+    </div>
+
+    <!-- ==================== PAGE 8: LOOT & REWARDS ==================== -->
+    <div class="page-card" id="page-8" role="region" aria-label="Page 8: Loot and Rewards">
+
+      <h2 class="section-title">
+        <img src="assets/d20.svg" alt="" class="d20-bullet" />
+        Loot &amp; Rewards
+      </h2>
+
+      <p>Players who survive all three encounters without the brick house being destroyed receive the following. Players who somehow lose at the brick house have made a categorical error the module cannot account for.</p>
+
+      <table class="loot-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Experience Points</td>
+            <td>1,800 XP</td>
+            <td>Split three ways. Each pig gets 600. This is enough to level.</td>
+          </tr>
+          <tr>
+            <td>Brick House (The Holdfast)</td>
+            <td>1</td>
+            <td>Fully furnished. AC 18. Pig 3's name is on the deed.</td>
+          </tr>
+          <tr>
+            <td>Bragging Rights</td>
+            <td>Indefinite</td>
+            <td><em>Requires attunement.</em> Pig 3 is already attuned. Has been for months.</td>
+          </tr>
+          <tr>
+            <td>Wolf's Deviated Septum</td>
+            <td>1</td>
+            <td>Trophy item. Worthless. The Wolf claims this explains everything.</td>
+          </tr>
+          <tr>
+            <td>A Pot of Tea</td>
+            <td>1</td>
+            <td>Pig 3 had it ready. She knew.</td>
+          </tr>
+          <tr>
+            <td>Structural Engineering Pamphlet</td>
+            <td>2 copies</td>
+            <td>Pig 3 has had these printed. Pigs 1 &amp; 2 each receive one.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title">Experience Breakdown</h2>
+
+      <div class="stat-row" style="gap:8px 24px;flex-direction:column;">
+        <span>Surviving Encounter 1 (Straw House) ........... 100 XP</span>
+        <span>Surviving Encounter 2 (Stick House) ............. 200 XP</span>
+        <span>Winning Encounter 3 (Brick House) ............. 1,500 XP</span>
+        <span style="border-top:1px solid var(--parchment-dark);padding-top:6px;font-weight:bold;">Total .................................................. 1,800 XP</span>
+      </div>
+
+      <div class="dm-note">
+        <span class="dm-note-label">Optional: Wolf's Remorse</span>
+        At the DM's discretion, the Wolf may return in a later session having sought counseling. He now leads a community workshop called "Alternative Dispute Resolution: Beyond Huffing." The pigs decline to attend. They send a card.
+      </div>
+
+      <div class="flavor-text-block">
+        "The correct shelter has been standing. It was always going to be standing. The pigs have known this for three days, a fortnight, and an entire childhood, respectively."
+      </div>
+
+      <span class="page-num">8 / 10</span>
+    </div>
+
+    <!-- ==================== PAGE 9: HOUSE RULES ==================== -->
+    <div class="page-card" id="page-9" role="region" aria-label="Page 9: Appendix House Rules">
+
+      <h2 class="section-title">
+        <img src="assets/d20.svg" alt="" class="d20-bullet" />
+        Appendix A: House Rules
+      </h2>
+
+      <p style="font-style:italic;font-size:.88rem;color:#555;">The following optional rules are provided for DMs who want to add variety to an otherwise structurally determined scenario.</p>
+
+      <div class="house-rule">
+        <span class="rule-name">Huffing and Puffing as a Skill</span>
+        Any player character may attempt to blow down a structure using Constitution. DC 14. The Wolf auto-succeeds on this check. Player characters may not attempt this check against the brick house. The brick house is not interested.
+      </div>
+
+      <div class="house-rule">
+        <span class="rule-name">Architectural Critique</span>
+        Any player who says "I told you so" to Pig 1 or Pig 2 — verbally, at the table — gains 1 Inspiration. Any player who says it twice gains nothing. They have made their point.
+      </div>
+
+      <div class="house-rule">
+        <span class="rule-name">The Wolf's Point of View</span>
+        If the DM wishes to play the Wolf sympathetically, see optional sidebar <em>"Maybe He Was Cold."</em> The sidebar proposes that the Wolf was simply seeking warmth during an unseasonably harsh winter. This does not excuse the structural damage. It does make the Wolf slightly more relatable.
+      </div>
+
+      <div class="house-rule">
+        <span class="rule-name">Pig 3's Moment</span>
+        After the Wolf retreats, Pig 3 is allowed one (1) complete sentence of satisfaction. Players who interrupt her lose Inspiration. She has earned this sentence.
+      </div>
+
+      <div class="house-rule">
+        <span class="rule-name">Building Codes</span>
+        A rules-as-written reading of the scenario assumes no local building code exists. DMs may introduce a Building Inspector NPC who arrives after Encounter 1 to cite Pig 3's house for "excessive fortification." This is a great bit. Use it if your table is enjoying themselves.
+      </div>
+
+      <div class="house-rule">
+        <span class="rule-name">Variant: The Wolf Was Right</span>
+        In this variant, the Wolf was genuinely lost and did not intend to destroy any houses. The huffing was an allergic reaction to straw. This variant is less satisfying narratively but more accurate to certain witness accounts. Run it if your players are lawyers.
+      </div>
+
+      <div class="dm-note">
+        <span class="dm-note-label">A Note on Fairness</span>
+        This scenario is not fair. Architecture is not a character flaw. Pig 3 is not smarter than her siblings — she simply had different priorities and more time. The DM should, if the table allows it, give all three pigs a moment that shows who they are beyond their building materials.
+      </div>
+
+      <span class="page-num">9 / 10</span>
+    </div>
+
+    <!-- ==================== PAGE 10: CREDITS / LEGAL ==================== -->
+    <div class="page-card" id="page-10" role="region" aria-label="Page 10: Credits and Legal">
+
+      <h2 class="section-title">
+        <img src="assets/d20.svg" alt="" class="d20-bullet" />
+        Credits &amp; Legal
+      </h2>
+
+      <div class="lore-box" style="text-align:center;font-style:normal;">
+        <div style="font-size:1.6rem;margin-bottom:8px;">⚔️ 🐺 🏠</div>
+        <p><strong>DUNGEONS &amp; DOMESTICS: THE HUFFENING</strong></p>
+        <p style="font-style:italic;font-size:.85rem;">A Supplemental Scenario for Three Little Players</p>
+      </div>
+
+      <div class="stat-block">
+        <p><span class="action-name">Design &amp; Writing:</span> The Pigs (Pigs 1, 2, and 3). Pig 3 wrote most of it. Pig 1 added jokes in the margins. Pig 2 formatted the stat blocks correctly and asked that we acknowledge this.</p>
+
+        <p><span class="action-name">Playtesting:</span> Conducted over three sessions. Results were consistent.</p>
+
+        <p><span class="action-name">Monster Consultation:</span> The Wolf was not consulted for this publication. His attorney submitted a 14-page statement which we have summarized as "he disagrees."</p>
+
+        <p><span class="action-name">Legal Review:</span> None. We are pigs. We do not have lawyers. Pig 2 is pursuing a paralegal certification.</p>
+      </div>
+
+      <h2 class="section-title">Licensing Notice</h2>
+      <p><strong>DUNGEONS &amp; DOMESTICS</strong> is unofficial Fan Content of a well-known tabletop roleplaying game. D&amp;D is a trademark of Wizards of the Coast. This supplement is not affiliated with, sponsored by, or endorsed by Wizards of the Coast.</p>
+
+      <p>The Wolf's stat block is original content and should not be reproduced without credit. If you reproduce it, just say "the pigs made this." That's enough.</p>
+
+      <h2 class="section-title">About the Publisher</h2>
+      <p>Published in the Forest Vale by <strong>Holdfast Press</strong>, an imprint of Pig 3 Enterprises. Holdfast Press specializes in architectural reference texts, survivalist guides, and occasional manifestos about the importance of quality materials.</p>
+
+      <div class="dm-note">
+        <span class="dm-note-label">Final DM's Note</span>
+        Thank you for running this module. If your players had fun, it was because you made it fun. If they didn't, they probably kept trying to negotiate with the Wolf. That's on them. The house still stands. It always stood. The story ends well, and it ends in brick.
+      </div>
+
+      <div style="text-align:center;margin-top:20px;">
+        <hr class="cover-rule" style="margin-bottom:16px;" />
+        <p style="font-style:italic;font-size:.88rem;color:#555;margin-bottom:12px;">
+          "We huffed. We puffed. We stayed inside." — Pig 3
+        </p>
+        <a class="gallery-link" href="../index.html">← Return to Gallery</a>
+      </div>
+
+      <span class="page-num">10 / 10</span>
+    </div>
+
+  </div><!-- #book -->
+</div><!-- #scene -->
+
+<!-- ============================================================
+     NAVIGATION BAR
+============================================================ -->
+<nav id="nav-bar" aria-label="Page navigation">
+  <button id="btn-prev" aria-label="Previous page" disabled>← Prev</button>
+  <span id="page-counter" aria-live="polite">Page 1 / 10</span>
+  <button id="btn-next" aria-label="Next page">Next →</button>
+</nav>
+
+<!-- ============================================================
+     SCRIPT: PAGE FLIP NAVIGATION
+============================================================ -->
+<script>
+  const TOTAL_PAGES = 10;
+  let currentPage = 1;
+
+  const cards = [];
+  for (let i = 1; i <= TOTAL_PAGES; i++) {
+    cards.push(document.getElementById('page-' + i));
+  }
+
+  const btnPrev    = document.getElementById('btn-prev');
+  const btnNext    = document.getElementById('btn-next');
+  const pageCounter = document.getElementById('page-counter');
+
+  function goToPage(n) {
+    if (n < 1 || n > TOTAL_PAGES || n === currentPage) return;
+
+    const oldCard = cards[currentPage - 1];
+    const newCard = cards[n - 1];
+
+    // Animate out
+    oldCard.classList.remove('active');
+    oldCard.classList.add('flip-out');
+    setTimeout(() => {
+      oldCard.classList.remove('flip-out');
+    }, 700);
+
+    // Animate in
+    newCard.style.opacity = '0';
+    newCard.classList.add('active');
+    // Scroll the new page back to top
+    newCard.scrollTop = 0;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        newCard.style.opacity = '';
+      });
+    });
+
+    currentPage = n;
+    updateUI();
+  }
+
+  function updateUI() {
+    pageCounter.textContent = 'Page ' + currentPage + ' / ' + TOTAL_PAGES;
+    btnPrev.disabled = (currentPage === 1);
+    btnNext.disabled = (currentPage === TOTAL_PAGES);
+  }
+
+  btnPrev.addEventListener('click', () => goToPage(currentPage - 1));
+  btnNext.addEventListener('click', () => goToPage(currentPage + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goToPage(currentPage - 1);
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  goToPage(currentPage + 1);
+  });
+
+  // Init
+  updateUI();
+</script>
+
+</body>
+</html>

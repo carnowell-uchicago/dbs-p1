@@ -1,0 +1,253 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">
+  <defs>
+    <pattern id="hatch45" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="6" x2="6" y2="0" stroke="#7a6040" stroke-width="0.8"/>
+    </pattern>
+    <pattern id="xhatch" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="6" x2="6" y2="0" stroke="#5a4030" stroke-width="0.8"/>
+      <line x1="0" y1="0" x2="6" y2="6" stroke="#5a4030" stroke-width="0.8"/>
+    </pattern>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="#c4a870" stop-opacity="0.25"/>
+    </radialGradient>
+    <clipPath id="head-clip"><ellipse cx="200" cy="162" rx="78" ry="72"/></clipPath>
+    <clipPath id="neck-clip">
+      <path d="M148,220 Q175,234 200,237 Q225,234 252,220 L260,256 Q235,268 200,270 Q165,268 140,256 Z"/>
+    </clipPath>
+    <clipPath id="torso-clip"><ellipse cx="200" cy="322" rx="90" ry="100"/></clipPath>
+    <clipPath id="larm-clip">
+      <path d="M125,280 Q90,267 68,290 Q55,310 72,332 Q98,340 128,312 L130,280Z"/>
+    </clipPath>
+    <clipPath id="rarm-clip">
+      <path d="M275,270 Q308,250 335,264 Q355,280 342,308 Q318,320 285,302 L272,280Z"/>
+    </clipPath>
+    <clipPath id="lleg-clip">
+      <path d="M150,408 Q132,430 120,452 Q124,470 150,467 Q167,462 170,442 Q170,420 160,408Z"/>
+    </clipPath>
+    <clipPath id="rleg-clip">
+      <path d="M248,408 Q268,430 278,452 Q274,470 248,467 Q231,462 228,442 Q228,420 240,408Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Parchment background -->
+  <rect width="400" height="500" fill="#f4ead5"/>
+  <rect width="400" height="500" fill="url(#vignette)"/>
+
+  <!-- Outer thick border -->
+  <rect x="8" y="8" width="384" height="484" fill="none" stroke="#1a0a00" stroke-width="3"/>
+  <!-- Inner thin border -->
+  <rect x="14" y="14" width="372" height="472" fill="none" stroke="#1a0a00" stroke-width="1"/>
+
+  <!-- Corner ornaments (solid triangles) -->
+  <polygon points="8,8 32,8 8,32" fill="#8b0000"/>
+  <polygon points="392,8 368,8 392,32" fill="#8b0000"/>
+  <polygon points="8,492 32,492 8,468" fill="#8b0000"/>
+  <polygon points="392,492 368,492 392,468" fill="#8b0000"/>
+
+  <!-- Title banner -->
+  <rect x="22" y="18" width="356" height="30" fill="#8b0000"/>
+  <text x="200" y="39" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="16" fill="#f4ead5" font-weight="bold" letter-spacing="4">BIG BAD WOLF</text>
+
+  <!-- Subtitle type line -->
+  <text x="200" y="58" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#5a3a1a" font-style="italic">Large Beast (Huffington), Chaotic Evil</text>
+
+  <!-- ===== WOLF ILLUSTRATION ===== -->
+
+  <!-- Left Ear -->
+  <polygon points="140,132 112,52 178,118" fill="#e0c898" stroke="#1a0a00" stroke-width="2" stroke-linejoin="round"/>
+  <polygon points="143,124 120,65 170,112" fill="#c09070"/>
+  <polygon points="140,132 112,52 178,118" fill="url(#hatch45)" opacity="0.3"/>
+
+  <!-- Right Ear -->
+  <polygon points="260,132 288,52 222,118" fill="#e0c898" stroke="#1a0a00" stroke-width="2" stroke-linejoin="round"/>
+  <polygon points="257,124 280,65 230,112" fill="#c09070"/>
+
+  <!-- Head base -->
+  <ellipse cx="200" cy="162" rx="78" ry="72" fill="#e8d8b5" stroke="#1a0a00" stroke-width="2.5"/>
+  <!-- Head shadow right side -->
+  <rect x="215" y="92" width="80" height="144" fill="url(#hatch45)" opacity="0.35" clip-path="url(#head-clip)"/>
+
+  <!-- Muzzle / snout -->
+  <path d="M157,170 Q178,208 200,213 Q222,208 243,170" fill="#d8c09a" stroke="#1a0a00" stroke-width="1.5"/>
+
+  <!-- Open mouth (gaping) -->
+  <path d="M163,180 Q200,222 237,180" fill="#8b0000" stroke="#1a0a00" stroke-width="2"/>
+
+  <!-- Upper teeth -->
+  <g fill="#f4ead5" stroke="#1a0a00" stroke-width="1">
+    <polygon points="169,181 175,200 181,181"/>
+    <polygon points="183,181 188,201 193,181"/>
+    <polygon points="196,181 201,202 206,181"/>
+    <polygon points="209,181 214,201 219,181"/>
+    <polygon points="221,181 226,200 232,181"/>
+  </g>
+  <!-- Lower teeth -->
+  <g fill="#f0e8d0" stroke="#1a0a00" stroke-width="0.8">
+    <polygon points="176,198 180,184 184,198"/>
+    <polygon points="196,200 200,186 204,200"/>
+    <polygon points="216,198 220,184 224,198"/>
+  </g>
+  <!-- Tongue -->
+  <path d="M178,205 Q200,226 222,205 Q210,218 200,222 Q190,218 178,205Z" fill="#c0392b"/>
+
+  <!-- Nose -->
+  <ellipse cx="200" cy="170" rx="18" ry="12" fill="#1a0a00"/>
+  <ellipse cx="194" cy="167" rx="5" ry="4" fill="#3d3d3d"/>
+  <ellipse cx="206" cy="167" rx="5" ry="4" fill="#3d3d3d"/>
+
+  <!-- Eyes - fierce yellow -->
+  <ellipse cx="163" cy="138" rx="14" ry="11" fill="#1a0a00"/>
+  <ellipse cx="237" cy="138" rx="14" ry="11" fill="#1a0a00"/>
+  <ellipse cx="163" cy="138" rx="9" ry="8" fill="#d4a017"/>
+  <ellipse cx="237" cy="138" rx="9" ry="8" fill="#d4a017"/>
+  <!-- Slit pupils -->
+  <ellipse cx="163" cy="138" rx="3" ry="7" fill="#0a0a0a"/>
+  <ellipse cx="237" cy="138" rx="3" ry="7" fill="#0a0a0a"/>
+  <!-- Eye glints -->
+  <circle cx="159" cy="133" r="2.5" fill="rgba(255,255,255,0.5)"/>
+  <circle cx="233" cy="133" r="2.5" fill="rgba(255,255,255,0.5)"/>
+
+  <!-- Angry brow -->
+  <line x1="145" y1="122" x2="177" y2="130" stroke="#1a0a00" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="223" y1="130" x2="255" y2="122" stroke="#1a0a00" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="183" y1="118" x2="217" y2="118" stroke="#1a0a00" stroke-width="1.5"/>
+
+  <!-- Fur detail marks -->
+  <g stroke="#8a6a40" stroke-width="0.7" fill="none">
+    <path d="M130,152 Q124,141 134,136"/>
+    <path d="M128,165 Q121,154 132,150"/>
+    <path d="M270,152 Q276,141 266,136"/>
+    <path d="M272,165 Q279,154 268,150"/>
+    <path d="M188,96 Q193,86 200,92 Q207,86 212,96"/>
+    <path d="M181,103 Q186,91 192,97"/>
+    <path d="M219,103 Q214,91 208,97"/>
+  </g>
+
+  <!-- Neck -->
+  <path d="M148,220 Q175,234 200,237 Q225,234 252,220 L260,256 Q235,268 200,270 Q165,268 140,256 Z" fill="#e0c898" stroke="#1a0a00" stroke-width="1.5"/>
+  <rect x="215" y="218" width="55" height="58" fill="url(#hatch45)" opacity="0.3" clip-path="url(#neck-clip)"/>
+  <!-- Neck fur -->
+  <g stroke="#8a6a40" stroke-width="0.7" fill="none">
+    <path d="M170,228 Q176,220 182,228"/>
+    <path d="M185,232 Q192,223 198,232"/>
+    <path d="M204,232 Q211,223 217,232"/>
+    <path d="M220,228 Q226,220 232,228"/>
+  </g>
+
+  <!-- Main torso -->
+  <ellipse cx="200" cy="322" rx="90" ry="100" fill="#e8d8b5" stroke="#1a0a00" stroke-width="2.5"/>
+  <!-- Torso shadow right -->
+  <rect x="222" y="222" width="88" height="210" fill="url(#hatch45)" opacity="0.35" clip-path="url(#torso-clip)"/>
+  <!-- Belly lighter patch -->
+  <ellipse cx="197" cy="328" rx="40" ry="55" fill="#f0e8d0" stroke="#8a6a40" stroke-width="1"/>
+  <!-- Chest fur tufts -->
+  <g stroke="#8a6a40" stroke-width="0.8" fill="none">
+    <path d="M174,272 Q180,263 186,272"/>
+    <path d="M188,267 Q195,257 202,267"/>
+    <path d="M205,267 Q212,257 218,267"/>
+    <path d="M173,287 Q180,278 187,287"/>
+    <path d="M194,284 Q201,274 208,284"/>
+    <path d="M211,287 Q218,278 224,287"/>
+    <path d="M175,302 Q182,293 188,302"/>
+    <path d="M193,300 Q200,291 207,300"/>
+    <path d="M210,302 Q217,293 223,302"/>
+  </g>
+
+  <!-- LEFT ARM - extended, clawing -->
+  <path d="M125,280 Q90,267 68,290 Q55,310 72,332 Q98,340 128,312 L130,280Z" fill="#e0c898" stroke="#1a0a00" stroke-width="2"/>
+  <rect x="50" y="258" width="85" height="90" fill="url(#hatch45)" opacity="0.4" clip-path="url(#larm-clip)"/>
+  <!-- Left claws -->
+  <g stroke="#1a0a00" stroke-width="1.5" fill="#d8c890">
+    <path d="M70,328 Q52,346 44,335 Q53,320 70,328Z"/>
+    <path d="M74,336 Q58,356 50,346 Q58,330 74,336Z"/>
+    <path d="M80,341 Q67,362 58,353 Q66,337 80,341Z"/>
+    <path d="M88,343 Q78,364 68,355 Q76,340 88,343Z"/>
+  </g>
+
+  <!-- RIGHT ARM - raised, threatening -->
+  <path d="M275,270 Q308,250 335,264 Q355,280 342,308 Q318,320 285,302 L272,280Z" fill="#e0c898" stroke="#1a0a00" stroke-width="2"/>
+  <rect x="265" y="242" width="98" height="84" fill="url(#xhatch)" opacity="0.3" clip-path="url(#rarm-clip)"/>
+  <!-- Right claws -->
+  <g stroke="#1a0a00" stroke-width="1.5" fill="#d8c890">
+    <path d="M340,305 Q357,318 350,330 Q336,318 340,305Z"/>
+    <path d="M346,297 Q364,307 358,320 Q344,309 346,297Z"/>
+    <path d="M350,287 Q369,293 365,306 Q351,296 350,287Z"/>
+    <path d="M350,277 Q369,280 367,293 Q353,286 350,277Z"/>
+  </g>
+
+  <!-- LEFT LEG -->
+  <path d="M150,408 Q132,430 120,452 Q124,470 150,467 Q167,462 170,442 Q170,420 160,408Z" fill="#e0c898" stroke="#1a0a00" stroke-width="2"/>
+  <rect x="112" y="404" width="64" height="74" fill="url(#hatch45)" opacity="0.35" clip-path="url(#lleg-clip)"/>
+  <!-- Left foot claws -->
+  <g stroke="#1a0a00" stroke-width="1.5" fill="#d8c890">
+    <path d="M122,465 Q110,480 103,470"/>
+    <path d="M132,469 Q122,485 115,475"/>
+    <path d="M143,470 Q135,486 128,477"/>
+    <path d="M154,467 Q148,483 141,474"/>
+  </g>
+
+  <!-- RIGHT LEG -->
+  <path d="M248,408 Q268,430 278,452 Q274,470 248,467 Q231,462 228,442 Q228,420 240,408Z" fill="#e0c898" stroke="#1a0a00" stroke-width="2"/>
+  <rect x="228" y="404" width="56" height="74" fill="url(#xhatch)" opacity="0.3" clip-path="url(#rleg-clip)"/>
+  <!-- Right foot claws -->
+  <g stroke="#1a0a00" stroke-width="1.5" fill="#d8c890">
+    <path d="M276,465 Q288,480 295,470"/>
+    <path d="M266,469 Q276,485 283,475"/>
+    <path d="M254,470 Q263,486 270,477"/>
+    <path d="M243,467 Q250,483 257,474"/>
+  </g>
+
+  <!-- TAIL (behind right side) -->
+  <path d="M280,342 Q322,320 350,338 Q370,358 357,383 Q337,395 320,375 Q310,350 287,357 Q274,362 277,347Z" fill="#d8c090" stroke="#1a0a00" stroke-width="1.5"/>
+  <ellipse cx="354" cy="378" rx="20" ry="13" fill="#f0e8d0" stroke="#1a0a00" stroke-width="1"/>
+  <!-- Tail fur detail -->
+  <g stroke="#8a6a40" stroke-width="0.7" fill="none">
+    <path d="M298,345 Q306,335 308,348"/>
+    <path d="M310,340 Q318,330 320,343"/>
+    <path d="M322,338 Q330,330 330,342"/>
+    <path d="M332,340 Q340,334 338,346"/>
+  </g>
+
+  <!-- ===== BREATH / FORCE LINES from left side of mouth ===== -->
+  <g stroke="#8b0000" stroke-width="1.3" fill="none" opacity="0.85">
+    <!-- Main radial lines -->
+    <line x1="152" y1="192" x2="30" y2="146"/>
+    <line x1="148" y1="200" x2="20" y2="196"/>
+    <line x1="150" y1="208" x2="25" y2="252"/>
+    <line x1="156" y1="187" x2="50" y2="120"/>
+    <line x1="144" y1="194" x2="17" y2="170"/>
+    <line x1="146" y1="212" x2="28" y2="268"/>
+    <line x1="158" y1="183" x2="75" y2="110"/>
+    <!-- Wavy breath bands -->
+    <path d="M150,187 Q112,175 76,182 Q43,188 20,180" stroke-width="1.5"/>
+    <path d="M147,197 Q109,197 73,201 Q41,205 18,198"/>
+    <path d="M149,207 Q113,220 79,222 Q47,224 22,234"/>
+    <!-- Short speed lines near mouth -->
+    <line x1="155" y1="183" x2="108" y2="162"/>
+    <line x1="153" y1="191" x2="104" y2="178"/>
+    <line x1="151" y1="199" x2="101" y2="194"/>
+    <line x1="152" y1="208" x2="103" y2="214"/>
+    <line x1="154" y1="216" x2="110" y2="230"/>
+  </g>
+
+  <!-- Intensity marks around head (anger lines) -->
+  <g stroke="#1a0a00" stroke-width="0.8" fill="none" opacity="0.5">
+    <line x1="268" y1="88" x2="285" y2="70"/>
+    <line x1="262" y1="82" x2="278" y2="62"/>
+    <line x1="274" y1="96" x2="295" y2="82"/>
+    <line x1="128" y1="88" x2="111" y2="70"/>
+    <line x1="135" y1="82" x2="119" y2="62"/>
+    <line x1="122" y1="96" x2="101" y2="82"/>
+  </g>
+
+  <!-- Ground shadow -->
+  <ellipse cx="195" cy="470" rx="115" ry="11" fill="#b09070" opacity="0.35"/>
+
+  <!-- Stat block footer -->
+  <rect x="22" y="444" width="356" height="42" fill="#f0e5c8" stroke="#8b0000" stroke-width="1.5"/>
+  <line x1="22" y1="455" x2="378" y2="455" stroke="#8b0000" stroke-width="0.5"/>
+  <text x="200" y="452" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" fill="#8b0000" font-weight="bold" letter-spacing="2">ACTIONS</text>
+  <text x="200" y="464" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" fill="#333">Huff &amp; Puff. DC 16 CON save or structure destroyed. On fail, all creatures inside take 4d10 bludgeoning.</text>
+  <text x="200" y="476" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" fill="#333">Bite: +8 to hit, 5 ft., 2d10+4 piercing. · Claw: +8 to hit, 10 ft., 2d6+4 slashing. · STR 22 · DEX 14 · CON 18</text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- Drop shadow filter -->
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="2" dy="3" stdDeviation="2.5" flood-color="#3a2000" flood-opacity="0.4"/>
+    </filter>
+    <!-- Subtle gradient for the front face -->
+    <linearGradient id="face-grad" x1="30%" y1="20%" x2="70%" y2="80%">
+      <stop offset="0%" stop-color="#f8f4ec"/>
+      <stop offset="100%" stop-color="#e8dfc8"/>
+    </linearGradient>
+    <!-- Side face gradient (darker) -->
+    <linearGradient id="side-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ddd0b0"/>
+      <stop offset="100%" stop-color="#c4b090"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ===== D20 — icosahedron face-on view ===== -->
+  <!-- The d20 viewed from the front shows the 20-face (equilateral triangle)
+       with surrounding faces giving the overall silhouette a rough hexagonal/
+       triangular form. Classic point-up orientation. -->
+
+  <!-- Overall silhouette: large triangle with clipped corners -->
+  <!-- Main outer triangle: point up -->
+  <!-- Vertices: top=(50,8), bottom-left=(10,88), bottom-right=(90,88) -->
+
+  <!-- Drop shadow group -->
+  <g filter="url(#shadow)">
+
+    <!-- ===== OUTER BODY (all faces together form roughly this shape) ===== -->
+    <!-- The icosahedron projected shows 7 faces: center + 6 surrounding -->
+    <!-- We approximate as a large hexagon / irregular polygon -->
+
+    <!-- Bottom face row (three faces at bottom, wider) -->
+    <polygon points="10,88 35,88 50,62 25,62" fill="url(#side-grad)" stroke="#1a0a00" stroke-width="1.2"/>
+    <polygon points="35,88 65,88 65,62 50,62" fill="#d4c8a8" stroke="#1a0a00" stroke-width="1.2"/>
+    <polygon points="65,88 90,88 75,62 65,62" fill="url(#side-grad)" stroke="#1a0a00" stroke-width="1.2"/>
+
+    <!-- Middle row (two side faces flanking center) -->
+    <polygon points="10,88 25,62 12,38" fill="#c8bc9a" stroke="#1a0a00" stroke-width="1.2"/>
+    <polygon points="90,88 75,62 88,38" fill="#c8bc9a" stroke="#1a0a00" stroke-width="1.2"/>
+
+    <!-- Upper flanking triangles -->
+    <polygon points="12,38 25,62 38,38" fill="#ddd0b4" stroke="#1a0a00" stroke-width="1.2"/>
+    <polygon points="88,38 75,62 62,38" fill="#ddd0b4" stroke="#1a0a00" stroke-width="1.2"/>
+
+    <!-- Top two corner triangles -->
+    <polygon points="12,38 38,38 25,15" fill="#e8dcbc" stroke="#1a0a00" stroke-width="1.2"/>
+    <polygon points="88,38 62,38 75,15" fill="#e8dcbc" stroke="#1a0a00" stroke-width="1.2"/>
+
+    <!-- ===== FRONT FACE — THE "20" FACE ===== -->
+    <!-- Large central triangle, pointing up -->
+    <polygon points="50,8 12,68 88,68" fill="url(#face-grad)" stroke="#1a0a00" stroke-width="2"/>
+
+    <!-- Inner edge lines on the front face (subdivisions) -->
+    <!-- From each vertex of the main triangle to the center -->
+    <line x1="50" y1="8" x2="50" y2="68" stroke="#1a0a00" stroke-width="0.8" opacity="0.4"/>
+    <line x1="12" y1="68" x2="50" y2="38" stroke="#1a0a00" stroke-width="0.8" opacity="0.4"/>
+    <line x1="88" y1="68" x2="50" y2="38" stroke="#1a0a00" stroke-width="0.8" opacity="0.4"/>
+    <!-- Horizontal midline of the main face -->
+    <line x1="31" y1="38" x2="69" y2="38" stroke="#1a0a00" stroke-width="0.8" opacity="0.4"/>
+
+  </g>
+
+  <!-- "20" number, centered in the front triangle -->
+  <!-- Triangle centroid: x=50, y=(8+68+68)/3 = 48 -->
+  <text x="50" y="54" text-anchor="middle" dominant-baseline="middle"
+    font-family="Georgia,'Times New Roman',serif"
+    font-size="26" font-weight="bold" fill="#1a0a00" letter-spacing="-1">20</text>
+
+  <!-- Subtle highlight line at top of front face -->
+  <line x1="32" y1="38" x2="68" y2="38" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+
+  <!-- Small ornamental dot at bottom center -->
+  <circle cx="50" cy="80" r="1.5" fill="#8b0000" stroke="none"/>
+
+  <!-- Critical hit star marks at corners (decorative) -->
+  <text x="50" y="6" text-anchor="middle" font-family="serif" font-size="4" fill="#8b0000">✦</text>
+</svg>

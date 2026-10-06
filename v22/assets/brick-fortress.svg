@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <pattern id="grid2" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#c8b898" stroke-width="0.4"/>
+    </pattern>
+    <pattern id="brick-wall" x="0" y="0" width="16" height="10" patternUnits="userSpaceOnUse">
+      <rect width="16" height="10" fill="#c4a07a"/>
+      <rect x="0" y="0" width="14" height="8" fill="#b89060" stroke="#8a5030" stroke-width="0.5"/>
+      <rect x="8" y="5" width="7" height="4" fill="#b08050" stroke="#8a5030" stroke-width="0.5"/>
+      <rect x="0" y="5" width="6" height="4" fill="#b08050" stroke="#8a5030" stroke-width="0.5"/>
+    </pattern>
+    <marker id="arrow-blocked" markerWidth="8" markerHeight="6" refX="4" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#8b0000" opacity="0.5"/>
+    </marker>
+    <radialGradient id="vig4" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="#c4a870" stop-opacity="0.2"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Parchment background -->
+  <rect width="400" height="300" fill="#f0e6cc"/>
+  <rect width="400" height="300" fill="url(#vig4)"/>
+
+  <!-- Grid -->
+  <rect x="30" y="45" width="330" height="215" fill="url(#grid2)"/>
+
+  <!-- Outer map border -->
+  <rect x="6" y="6" width="388" height="288" fill="none" stroke="#1a0a00" stroke-width="3"/>
+  <rect x="11" y="11" width="378" height="278" fill="none" stroke="#1a0a00" stroke-width="1"/>
+
+  <!-- Corner ornaments -->
+  <polygon points="6,6 22,6 6,22" fill="#8b0000"/>
+  <polygon points="394,6 378,6 394,22" fill="#8b0000"/>
+  <polygon points="6,294 22,294 6,278" fill="#8b0000"/>
+  <polygon points="394,294 378,294 394,278" fill="#8b0000"/>
+
+  <!-- Title banner -->
+  <rect x="22" y="14" width="356" height="26" fill="#1a3a1a"/>
+  <text x="200" y="32" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="11.5" fill="#f4ead5" font-weight="bold" letter-spacing="2">ENCOUNTER MAP — THE BRICK FORTRESS</text>
+
+  <!-- Scale label -->
+  <text x="200" y="44" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="#5a3a1a">Scale: 1 square = 5 ft. · Party is secure.</text>
+
+  <!-- ===== THE BRICK FORTRESS ===== -->
+  <!-- Thick walls (brick pattern, wider than straw house) -->
+
+  <!-- OUTER WALL — filled with brick pattern, 8px thick walls -->
+  <rect x="155" y="65" width="180" height="165" fill="url(#brick-wall)" stroke="#1a0a00" stroke-width="3"/>
+  <!-- Inner wall edge (hollow center) -->
+  <rect x="163" y="73" width="164" height="149" fill="#f0e6cc" stroke="#8a5030" stroke-width="1.5"/>
+
+  <!-- ROOMS INSIDE (divided by interior walls) -->
+  <!-- Vertical divider (center) -->
+  <line x1="237" y1="73" x2="237" y2="222" stroke="#8a5030" stroke-width="4"/>
+  <line x1="239" y1="73" x2="239" y2="222" stroke="#8a5030" stroke-width="1"/>
+
+  <!-- Horizontal divider (upper portion) -->
+  <line x1="163" y1="138" x2="327" y2="138" stroke="#8a5030" stroke-width="3"/>
+  <line x1="163" y1="140" x2="327" y2="140" stroke="#8a5030" stroke-width="0.8"/>
+
+  <!-- Second horizontal (lower — creates cellar) -->
+  <line x1="163" y1="175" x2="327" y2="175" stroke="#8a5030" stroke-width="2.5"/>
+
+  <!-- Cellar crosshatch (deeper room) -->
+  <rect x="164" y="176" width="172" height="45" fill="#d4c8a8" stroke="none"/>
+
+  <!-- Room labels -->
+  <!-- Great Hall (upper left) -->
+  <text x="200" y="107" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="#2a1a00" font-weight="bold">GREAT HALL</text>
+  <text x="200" y="117" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#2a1a00">(30 × 30 ft.)</text>
+
+  <!-- Master Suite (upper right) -->
+  <text x="283" y="102" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#2a1a00" font-weight="bold">MASTER SUITE</text>
+  <text x="283" y="111" text-anchor="middle" font-family="Georgia,serif" font-size="5.5" fill="#2a1a00">(Pig 3)</text>
+  <text x="283" y="120" text-anchor="middle" font-family="Georgia,serif" font-size="5" fill="#2a1a00" font-style="italic">Do Not Disturb</text>
+
+  <!-- Pig 1 Guest Room (lower left) -->
+  <text x="200" y="153" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#2a1a00" font-weight="bold">PIG 1 GUEST RM.</text>
+  <text x="200" y="162" text-anchor="middle" font-family="Georgia,serif" font-size="5" fill="#8b0000" font-style="italic">(reluctant)</text>
+
+  <!-- Pig 2 Guest Room (lower right) -->
+  <text x="283" y="153" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#2a1a00" font-weight="bold">PIG 2 GUEST RM.</text>
+  <text x="283" y="162" text-anchor="middle" font-family="Georgia,serif" font-size="5" fill="#8b0000" font-style="italic">(also reluctant)</text>
+
+  <!-- Reinforced Cellar -->
+  <text x="245" y="192" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#2a1a00" font-weight="bold">REINFORCED CELLAR</text>
+  <text x="245" y="202" text-anchor="middle" font-family="Georgia,serif" font-size="5.5" fill="#2a1a00">Emergency stores · 3 ft. stone floor</text>
+  <text x="245" y="211" text-anchor="middle" font-family="Georgia,serif" font-size="5" fill="#1a3a1a" font-style="italic">+4 bonus to AC vs. Huff &amp; Puff</text>
+
+  <!-- Doors -->
+  <rect x="153" y="143" width="6" height="20" fill="#f0e6cc" stroke="#8a5030" stroke-width="1"/>
+  <rect x="200" y="63" width="20" height="6" fill="#f0e6cc" stroke="#8a5030" stroke-width="1"/>
+
+  <!-- ===== STRUCTURAL STRENGTH MARKERS at all walls ===== -->
+  <!-- North wall -->
+  <text x="245" y="61" text-anchor="middle" font-family="serif" font-size="11" fill="#1a6a1a">★</text>
+  <!-- South wall -->
+  <text x="245" y="240" text-anchor="middle" font-family="serif" font-size="11" fill="#1a6a1a">★</text>
+  <!-- East wall -->
+  <text x="344" y="150" text-anchor="middle" font-family="serif" font-size="11" fill="#1a6a1a">★</text>
+  <!-- West wall -->
+  <text x="145" y="150" text-anchor="middle" font-family="serif" font-size="11" fill="#1a6a1a">★</text>
+
+  <!-- Strength label -->
+  <text x="245" y="56" text-anchor="middle" font-family="Georgia,serif" font-size="5" fill="#1a6a1a">STRUCTURAL STRENGTH</text>
+
+  <!-- ===== PIG MARKERS inside ===== -->
+  <!-- P1 (in guest room, lower left) -->
+  <circle cx="200" cy="158" r="9" fill="#3a5a8a" stroke="#1a0a00" stroke-width="1.5"/>
+  <text x="200" y="162" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="white" font-weight="bold">P1</text>
+
+  <!-- P2 (in guest room, lower right) -->
+  <circle cx="283" cy="158" r="9" fill="#3a5a8a" stroke="#1a0a00" stroke-width="1.5"/>
+  <text x="283" y="162" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="white" font-weight="bold">P2</text>
+
+  <!-- P3 (in master suite, upper right — smug) -->
+  <circle cx="283" cy="105" r="9" fill="#3a5a8a" stroke="#1a0a00" stroke-width="1.5"/>
+  <text x="283" y="109" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="white" font-weight="bold">P3</text>
+  <!-- Smug crown on P3 -->
+  <text x="283" y="96" text-anchor="middle" font-family="serif" font-size="8" fill="#d4a017">♛</text>
+
+  <!-- ===== WOLF MARKER outside (left of house) ===== -->
+  <circle cx="95" cy="150" r="12" fill="#8b0000" stroke="#1a0a00" stroke-width="1.5"/>
+  <text x="95" y="154" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="white" font-weight="bold">W</text>
+
+  <!-- Wolf blocked arrows (3 attempts, all with red X) -->
+  <!-- Arrow 1 (toward west wall, top) -->
+  <line x1="108" y1="140" x2="145" y2="120" stroke="#8b0000" stroke-width="1.5" opacity="0.6" stroke-dasharray="4,2"/>
+  <!-- X mark 1 -->
+  <g stroke="#8b0000" stroke-width="2" opacity="0.8">
+    <line x1="128" y1="126" x2="136" y2="134"/>
+    <line x1="136" y1="126" x2="128" y2="134"/>
+  </g>
+
+  <!-- Arrow 2 (toward west wall, middle) -->
+  <line x1="108" y1="150" x2="145" y2="150" stroke="#8b0000" stroke-width="1.5" opacity="0.6" stroke-dasharray="4,2"/>
+  <!-- X mark 2 -->
+  <g stroke="#8b0000" stroke-width="2" opacity="0.8">
+    <line x1="126" y1="144" x2="134" y2="152"/>
+    <line x1="134" y1="144" x2="126" y2="152"/>
+  </g>
+
+  <!-- Arrow 3 (toward west wall, bottom) -->
+  <line x1="108" y1="160" x2="145" y2="178" stroke="#8b0000" stroke-width="1.5" opacity="0.6" stroke-dasharray="4,2"/>
+  <!-- X mark 3 -->
+  <g stroke="#8b0000" stroke-width="2" opacity="0.8">
+    <line x1="128" y1="166" x2="136" y2="174"/>
+    <line x1="136" y1="166" x2="128" y2="174"/>
+  </g>
+
+  <!-- "IMPENETRABLE" annotation -->
+  <text x="95" y="183" text-anchor="middle" font-family="Georgia,serif" font-size="5.5" fill="#8b0000" font-style="italic">(all attempts</text>
+  <text x="95" y="190" text-anchor="middle" font-family="Georgia,serif" font-size="5.5" fill="#8b0000" font-style="italic">blocked)</text>
+
+  <!-- ===== MAP KEY ===== -->
+  <rect x="30" y="220" width="110" height="55" fill="#f4ead5" stroke="#1a0a00" stroke-width="1.2"/>
+  <text x="85" y="232" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#1a0a00" font-weight="bold">MAP KEY</text>
+  <line x1="35" y1="234" x2="135" y2="234" stroke="#1a0a00" stroke-width="0.5"/>
+  <circle cx="43" cy="244" r="6" fill="#8b0000" stroke="#1a0a00" stroke-width="1"/>
+  <text x="43" y="247" text-anchor="middle" font-family="Georgia,serif" font-size="5.5" fill="white" font-weight="bold">W</text>
+  <text x="56" y="247" font-family="Georgia,serif" font-size="6.5" fill="#333">= Wolf (Blocked)</text>
+  <circle cx="43" cy="258" r="6" fill="#3a5a8a" stroke="#1a0a00" stroke-width="1"/>
+  <text x="43" y="261" text-anchor="middle" font-family="Georgia,serif" font-size="5.5" fill="white" font-weight="bold">P</text>
+  <text x="56" y="261" font-family="Georgia,serif" font-size="6.5" fill="#333">= Pig (Safe)</text>
+  <text x="38" y="272" font-family="serif" font-size="9" fill="#1a6a1a">★</text>
+  <text x="52" y="272" font-family="Georgia,serif" font-size="6.5" fill="#333">= Structural Strength</text>
+
+  <!-- ===== COMPASS ROSE ===== -->
+  <g transform="translate(355,240)">
+    <circle cx="0" cy="0" r="22" fill="#f4ead5" stroke="#1a0a00" stroke-width="1"/>
+    <polygon points="0,-20 -4,-8 4,-8" fill="#1a0a00"/>
+    <polygon points="0,20 -4,8 4,8" fill="#8a8a8a"/>
+    <polygon points="-20,0 -8,-4 -8,4" fill="#8a8a8a"/>
+    <polygon points="20,0 8,-4 8,4" fill="#8a8a8a"/>
+    <circle cx="0" cy="0" r="3" fill="#1a6a1a"/>
+    <text x="0" y="-23" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="#1a0a00" font-weight="bold">N</text>
+    <text x="0" y="30" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#333">S</text>
+    <text x="-26" y="3" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#333">W</text>
+    <text x="26" y="3" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#333">E</text>
+  </g>
+
+  <!-- Encounter conditions -->
+  <rect x="155" y="220" width="185" height="50" fill="#f4ead5" stroke="#1a0a00" stroke-width="1"/>
+  <text x="247" y="232" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" fill="#1a3a1a" font-weight="bold">ENCOUNTER CONDITIONS</text>
+  <line x1="160" y1="234" x2="335" y2="234" stroke="#1a3a1a" stroke-width="0.5"/>
+  <text x="247" y="243" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#333">Walls: AC 20, HP 200, Immunity: all damage</text>
+  <text x="247" y="252" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#333">Wolf's Huff &amp; Puff: auto-fail vs. fortified walls</text>
+  <text x="247" y="261" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#1a6a1a" font-style="italic">Prognosis: Pigs are fine. Wolf is not.</text>
+  <text x="247" y="268" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#8b0000" font-style="italic">Note: Pig 3 has not said "I told you so." Yet.</text>
+</svg>

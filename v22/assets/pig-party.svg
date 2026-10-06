@@ -1,0 +1,266 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300">
+  <defs>
+    <pattern id="hatch45" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="6" x2="6" y2="0" stroke="#7a6040" stroke-width="0.8"/>
+    </pattern>
+    <pattern id="xhatch" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="5" x2="5" y2="0" stroke="#5a4030" stroke-width="0.7"/>
+      <line x1="0" y1="0" x2="5" y2="5" stroke="#5a4030" stroke-width="0.7"/>
+    </pattern>
+    <pattern id="chainmail" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="3" fill="none" stroke="#8a8a8a" stroke-width="0.8"/>
+    </pattern>
+    <pattern id="brickpat" x="0" y="0" width="12" height="8" patternUnits="userSpaceOnUse">
+      <rect width="12" height="8" fill="#c4a87a" stroke="#8a6040" stroke-width="0.5"/>
+      <line x1="6" y1="0" x2="6" y2="4" stroke="#8a6040" stroke-width="0.5"/>
+    </pattern>
+    <radialGradient id="vig2" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="#c4a870" stop-opacity="0.2"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="300" fill="#f4ead5"/>
+  <rect width="500" height="300" fill="url(#vig2)"/>
+
+  <!-- Border double frame -->
+  <rect x="6" y="6" width="488" height="288" fill="none" stroke="#1a0a00" stroke-width="2.5"/>
+  <rect x="11" y="11" width="478" height="278" fill="none" stroke="#1a0a00" stroke-width="0.8"/>
+
+  <!-- Corner marks -->
+  <polygon points="6,6 22,6 6,22" fill="#8b0000"/>
+  <polygon points="494,6 478,6 494,22" fill="#8b0000"/>
+  <polygon points="6,294 22,294 6,278" fill="#8b0000"/>
+  <polygon points="494,294 478,294 494,278" fill="#8b0000"/>
+
+  <!-- Title -->
+  <rect x="22" y="14" width="456" height="22" fill="#8b0000"/>
+  <text x="250" y="29" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="12" fill="#f4ead5" font-weight="bold" letter-spacing="3">THE ADVENTURING PARTY</text>
+
+  <!-- Ground line -->
+  <line x1="22" y1="248" x2="478" y2="248" stroke="#1a0a00" stroke-width="1.5"/>
+  <!-- Ground crosshatch -->
+  <rect x="22" y="248" width="456" height="30" fill="url(#hatch45)" opacity="0.3"/>
+
+  <!-- ===== PIG 1 — LEFT — ROGUE (Straw) ===== -->
+  <!-- Pig 1 center: x=105 -->
+
+  <!-- Rogue cloak/cape -->
+  <path d="M75,200 Q85,245 115,248 Q135,245 135,200 Q120,195 105,192 Q90,195 75,200Z" fill="#5a3a1a" stroke="#1a0a00" stroke-width="1.2"/>
+  <!-- Cloak shadow -->
+  <path d="M105,192 Q120,195 135,200 Q132,240 115,248" fill="url(#hatch45)" opacity="0.4"/>
+
+  <!-- Pig 1 body -->
+  <ellipse cx="105" cy="210" rx="30" ry="38" fill="#e8b0a0" stroke="#1a0a00" stroke-width="1.5"/>
+  <!-- Leather armor straps -->
+  <g stroke="#3a1a00" stroke-width="1.2" fill="none">
+    <path d="M82,195 L105,185 L128,195"/>
+    <path d="M88,205 Q105,200 122,205"/>
+    <line x1="105" y1="185" x2="105" y2="215"/>
+    <!-- Buckle -->
+    <rect x="100" y="205" width="10" height="7" fill="#8a6030" stroke="#3a1a00" stroke-width="1"/>
+  </g>
+
+  <!-- Pig 1 head -->
+  <ellipse cx="105" cy="155" rx="32" ry="30" fill="#e8b0a0" stroke="#1a0a00" stroke-width="2"/>
+  <!-- Head shadow -->
+  <clipPath id="p1head"><ellipse cx="105" cy="155" rx="32" ry="30"/></clipPath>
+  <rect x="115" y="126" width="26" height="60" fill="url(#hatch45)" opacity="0.3" clip-path="url(#p1head)"/>
+  <!-- Pig 1 snout -->
+  <ellipse cx="105" cy="168" rx="14" ry="10" fill="#d08880" stroke="#1a0a00" stroke-width="1"/>
+  <circle cx="101" cy="168" r="3" fill="#a05050"/>
+  <circle cx="109" cy="168" r="3" fill="#a05050"/>
+  <!-- Eyes (nervous - looking sideways) -->
+  <ellipse cx="93" cy="148" rx="7" ry="6" fill="white" stroke="#1a0a00" stroke-width="1"/>
+  <circle cx="95" cy="149" r="3.5" fill="#1a0a00"/>
+  <circle cx="94" cy="148" r="1" fill="white"/>
+  <ellipse cx="117" cy="148" rx="7" ry="6" fill="white" stroke="#1a0a00" stroke-width="1"/>
+  <circle cx="119" cy="149" r="3.5" fill="#1a0a00"/>
+  <circle cx="118" cy="148" r="1" fill="white"/>
+  <!-- Pig 1 ears -->
+  <ellipse cx="82" cy="138" rx="9" ry="11" fill="#e0a090" stroke="#1a0a00" stroke-width="1.2" transform="rotate(-15,82,138)"/>
+  <ellipse cx="128" cy="138" rx="9" ry="11" fill="#e0a090" stroke="#1a0a00" stroke-width="1.2" transform="rotate(15,128,138)"/>
+  <!-- Sweat drop (nervous) -->
+  <path d="M130,135 Q134,128 136,135 Q136,140 133,140 Q130,140 130,135Z" fill="#7ab8e0" stroke="#1a0a00" stroke-width="0.5"/>
+
+  <!-- Pig 1 left arm (holding straw bundle) -->
+  <path d="M80,200 Q60,215 55,235" stroke="#1a0a00" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <ellipse cx="55" cy="238" rx="8" ry="6" fill="#e8b0a0" stroke="#1a0a00" stroke-width="1.2"/>
+  <!-- Straw bundle -->
+  <g stroke="#c8a030" stroke-width="2" opacity="0.9">
+    <line x1="40" y1="248" x2="52" y2="230"/>
+    <line x1="44" y1="248" x2="56" y2="228"/>
+    <line x1="48" y1="248" x2="60" y2="228"/>
+    <line x1="52" y1="248" x2="64" y2="230"/>
+    <line x1="56" y1="248" x2="66" y2="232"/>
+    <path d="M40,242 Q53,236 66,242" stroke="#8a6010" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Pig 1 right arm -->
+  <path d="M130,198 Q150,210 152,228" stroke="#1a0a00" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <ellipse cx="153" cy="231" rx="7" ry="5" fill="#e8b0a0" stroke="#1a0a00" stroke-width="1.2"/>
+
+  <!-- Pig 1 name label -->
+  <rect x="62" y="255" width="86" height="20" fill="#f4ead5" stroke="#1a0a00" stroke-width="1"/>
+  <text x="105" y="263" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" fill="#8b0000" font-weight="bold">PERCIVAL SWINESWORTH</text>
+  <text x="105" y="272" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#333">Rogue · Lv.3 · HP 18</text>
+
+  <!-- ===== PIG 2 — CENTER — FIGHTER (Sticks) ===== -->
+  <!-- Pig 2 center: x=250 -->
+
+  <!-- Fighter body with chainmail -->
+  <ellipse cx="250" cy="205" rx="33" ry="40" fill="#d0d0d0" stroke="#1a0a00" stroke-width="1.5"/>
+  <!-- Chainmail texture on body -->
+  <clipPath id="p2body"><ellipse cx="250" cy="205" rx="33" ry="40"/></clipPath>
+  <rect x="217" y="165" width="66" height="80" fill="url(#chainmail)" opacity="0.8" clip-path="url(#p2body)"/>
+  <rect x="217" y="165" width="66" height="80" fill="url(#hatch45)" opacity="0.2" clip-path="url(#p2body)"/>
+  <!-- Chest plate -->
+  <path d="M232,185 Q250,178 268,185 L268,215 Q250,220 232,215 Z" fill="#9a9a9a" stroke="#1a0a00" stroke-width="1"/>
+
+  <!-- Pig 2 head -->
+  <ellipse cx="250" cy="152" rx="33" ry="31" fill="#e8b0a0" stroke="#1a0a00" stroke-width="2"/>
+  <clipPath id="p2head"><ellipse cx="250" cy="152" rx="33" ry="31"/></clipPath>
+  <rect x="262" y="122" width="26" height="62" fill="url(#hatch45)" opacity="0.3" clip-path="url(#p2head)"/>
+  <!-- Helmet -->
+  <path d="M220,148 Q222,118 250,116 Q278,118 280,148" fill="#9a9a9a" stroke="#1a0a00" stroke-width="1.5"/>
+  <line x1="250" y1="116" x2="250" y2="130" stroke="#1a0a00" stroke-width="1"/>
+  <!-- Pig 2 snout -->
+  <ellipse cx="250" cy="165" rx="14" ry="10" fill="#d08880" stroke="#1a0a00" stroke-width="1"/>
+  <circle cx="246" cy="165" r="3" fill="#a05050"/>
+  <circle cx="254" cy="165" r="3" fill="#a05050"/>
+  <!-- Eyes (confident - looking forward) -->
+  <ellipse cx="238" cy="146" rx="7" ry="6.5" fill="white" stroke="#1a0a00" stroke-width="1"/>
+  <circle cx="238" cy="147" r="4" fill="#1a0a00"/>
+  <circle cx="237" cy="146" r="1.2" fill="white"/>
+  <ellipse cx="262" cy="146" rx="7" ry="6.5" fill="white" stroke="#1a0a00" stroke-width="1"/>
+  <circle cx="262" cy="147" r="4" fill="#1a0a00"/>
+  <circle cx="261" cy="146" r="1.2" fill="white"/>
+  <!-- Slight smirk -->
+  <path d="M240,172 Q250,178 260,172" stroke="#1a0a00" stroke-width="1.2" fill="none"/>
+  <!-- Ears (partially hidden by helmet) -->
+  <ellipse cx="225" cy="152" rx="8" ry="9" fill="#e0a090" stroke="#1a0a00" stroke-width="1"/>
+  <ellipse cx="275" cy="152" rx="8" ry="9" fill="#e0a090" stroke="#1a0a00" stroke-width="1"/>
+
+  <!-- Pig 2 arms -->
+  <!-- Left arm -->
+  <path d="M220,195 Q198,205 195,225" stroke="#9a9a9a" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M220,195 Q198,205 195,225" stroke="#1a0a00" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.2"/>
+  <ellipse cx="195" cy="228" rx="8" ry="6" fill="#e8b0a0" stroke="#1a0a00" stroke-width="1.2"/>
+  <!-- Bundle of sticks held in left hand -->
+  <g stroke="#5a3010" stroke-width="2.5" opacity="0.9">
+    <line x1="175" y1="248" x2="192" y2="220"/>
+    <line x1="181" y1="248" x2="198" y2="218"/>
+    <line x1="187" y1="248" x2="204" y2="220"/>
+    <line x1="193" y1="246" x2="208" y2="222"/>
+    <!-- Bundle tie -->
+    <path d="M178,238 Q192,232 206,238" stroke="#8a4010" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Right arm (pointing forward/gesturing) -->
+  <path d="M280,192 Q302,200 308,218" stroke="#9a9a9a" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M280,192 Q302,200 308,218" stroke="#1a0a00" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.2"/>
+  <ellipse cx="309" cy="221" rx="8" ry="6" fill="#e8b0a0" stroke="#1a0a00" stroke-width="1.2"/>
+  <!-- Pointing finger -->
+  <line x1="309" y1="221" x2="322" y2="210" stroke="#e8b0a0" stroke-width="5" stroke-linecap="round"/>
+  <line x1="309" y1="221" x2="322" y2="210" stroke="#1a0a00" stroke-width="5" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- Pig 2 name label -->
+  <rect x="205" y="255" width="90" height="20" fill="#f4ead5" stroke="#1a0a00" stroke-width="1"/>
+  <text x="250" y="263" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" fill="#8b0000" font-weight="bold">BARNABAS OINKWELL</text>
+  <text x="250" y="272" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#333">Fighter · Lv.5 · HP 44</text>
+
+  <!-- ===== PIG 3 — RIGHT — WIZARD (Bricks) ===== -->
+  <!-- Pig 3 center: x=390 -->
+
+  <!-- Wizard robes -->
+  <path d="M360,195 Q368,248 390,248 Q412,248 420,195 Q405,190 390,188 Q375,190 360,195Z" fill="#2a1a5a" stroke="#1a0a00" stroke-width="1.2"/>
+  <!-- Robe star decorations -->
+  <g fill="#d4a017" font-size="8" text-anchor="middle" font-family="serif">
+    <text x="370" y="220">★</text>
+    <text x="410" y="215">✦</text>
+    <text x="385" y="235">✦</text>
+  </g>
+
+  <!-- Pig 3 body (robes cover) -->
+  <ellipse cx="390" cy="208" rx="28" ry="35" fill="#2a1a5a" stroke="#1a0a00" stroke-width="1.2"/>
+
+  <!-- Pig 3 head -->
+  <ellipse cx="390" cy="150" rx="32" ry="30" fill="#e8b0a0" stroke="#1a0a00" stroke-width="2"/>
+  <clipPath id="p3head"><ellipse cx="390" cy="150" rx="32" ry="30"/></clipPath>
+  <rect x="400" y="121" width="26" height="60" fill="url(#hatch45)" opacity="0.3" clip-path="url(#p3head)"/>
+
+  <!-- Wizard hat -->
+  <polygon points="390,60 365,140 415,140" fill="#2a1a5a" stroke="#1a0a00" stroke-width="1.5"/>
+  <!-- Hat brim -->
+  <ellipse cx="390" cy="140" rx="30" ry="8" fill="#1a0a3a" stroke="#1a0a00" stroke-width="1.2"/>
+  <!-- Hat star -->
+  <text x="390" y="110" text-anchor="middle" font-family="serif" font-size="14" fill="#d4a017">★</text>
+
+  <!-- Pig 3 snout -->
+  <ellipse cx="390" cy="163" rx="14" ry="10" fill="#d08880" stroke="#1a0a00" stroke-width="1"/>
+  <circle cx="386" cy="163" r="3" fill="#a05050"/>
+  <circle cx="394" cy="163" r="3" fill="#a05050"/>
+  <!-- Eyes (smug, half-lidded) -->
+  <ellipse cx="378" cy="143" rx="7" ry="5" fill="white" stroke="#1a0a00" stroke-width="1"/>
+  <ellipse cx="378" cy="146" rx="7" ry="3" fill="white" stroke="#1a0a00" stroke-width="1"/>
+  <circle cx="378" cy="145" r="3.5" fill="#1a0a00"/>
+  <circle cx="377" cy="144" r="1" fill="white"/>
+  <ellipse cx="402" cy="143" rx="7" ry="5" fill="white" stroke="#1a0a00" stroke-width="1"/>
+  <ellipse cx="402" cy="146" rx="7" ry="3" fill="white" stroke="#1a0a00" stroke-width="1"/>
+  <circle cx="402" cy="145" r="3.5" fill="#1a0a00"/>
+  <circle cx="401" cy="144" r="1" fill="white"/>
+  <!-- Satisfied smug smile -->
+  <path d="M378,170 Q390,176 402,170" stroke="#1a0a00" stroke-width="1.5" fill="none"/>
+  <!-- Pig 3 ears -->
+  <ellipse cx="367" cy="142" rx="8" ry="10" fill="#e0a090" stroke="#1a0a00" stroke-width="1" transform="rotate(-10,367,142)"/>
+  <ellipse cx="413" cy="142" rx="8" ry="10" fill="#e0a090" stroke="#1a0a00" stroke-width="1" transform="rotate(10,413,142)"/>
+
+  <!-- Pig 3 arms -->
+  <!-- Left arm holding trowel-staff -->
+  <path d="M365,195 Q345,210 338,232" stroke="#2a1a5a" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M365,195 Q345,210 338,232" stroke="#1a0a00" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.25"/>
+  <ellipse cx="338" cy="235" rx="7" ry="5" fill="#e8b0a0" stroke="#1a0a00" stroke-width="1"/>
+  <!-- Trowel (held as staff) -->
+  <line x1="338" y1="235" x2="325" y2="260" stroke="#8a6030" stroke-width="3"/>
+  <!-- Trowel head -->
+  <path d="M315,257 Q322,248 330,257 Q322,268 315,257Z" fill="#b0b0b0" stroke="#1a0a00" stroke-width="1"/>
+  <!-- Magic glow on trowel -->
+  <circle cx="338" cy="235" r="8" fill="none" stroke="#d4a017" stroke-width="1.5" opacity="0.7" stroke-dasharray="3,2"/>
+
+  <!-- Right arm raised (gesturing at floating bricks) -->
+  <path d="M415,192 Q435,185 440,170" stroke="#2a1a5a" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M415,192 Q435,185 440,170" stroke="#1a0a00" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.25"/>
+  <ellipse cx="442" cy="168" rx="7" ry="5" fill="#e8b0a0" stroke="#1a0a00" stroke-width="1"/>
+
+  <!-- FLOATING BRICKS around Pig 3 -->
+  <g fill="#c4a87a" stroke="#1a0a00" stroke-width="1">
+    <rect x="440" y="148" width="20" height="12" rx="1" transform="rotate(-8,440,148)"/>
+    <rect x="448" y="128" width="18" height="11" rx="1" transform="rotate(12,448,128)"/>
+    <rect x="428" y="118" width="16" height="10" rx="1" transform="rotate(-5,428,118)"/>
+    <rect x="455" y="108" width="20" height="12" rx="1" transform="rotate(20,455,108)"/>
+    <rect x="462" y="130" width="18" height="11" rx="1" transform="rotate(-15,462,130)"/>
+    <rect x="430" y="100" width="14" height="9" rx="1" transform="rotate(5,430,100)"/>
+  </g>
+  <!-- Brick glow/magic -->
+  <g fill="none" stroke="#d4a017" stroke-width="0.8" opacity="0.6">
+    <rect x="441" y="149" width="18" height="10" rx="1" transform="rotate(-8,441,149)"/>
+    <rect x="449" y="129" width="16" height="9" rx="1" transform="rotate(12,449,129)"/>
+    <rect x="429" y="119" width="14" height="8" rx="1" transform="rotate(-5,429,119)"/>
+  </g>
+  <!-- Sparkle dots -->
+  <g fill="#d4a017">
+    <circle cx="455" cy="142" r="2"/>
+    <circle cx="438" cy="122" r="1.5"/>
+    <circle cx="465" cy="118" r="1.5"/>
+    <circle cx="448" cy="106" r="2"/>
+  </g>
+
+  <!-- Pig 3 name label -->
+  <rect x="345" y="255" width="90" height="20" fill="#f4ead5" stroke="#1a0a00" stroke-width="1"/>
+  <text x="390" y="263" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" fill="#8b0000" font-weight="bold">THADDEUS P. BRISTLE</text>
+  <text x="390" y="272" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#333">Wizard · Lv.9 · HP 52</text>
+
+  <!-- Bottom caption -->
+  <text x="250" y="284" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="#5a3a1a" font-style="italic">"A party of questionable cohesion, remarkable survival, and one extremely smug spellcaster."</text>
+</svg>

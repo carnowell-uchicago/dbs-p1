@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <pattern id="grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#c8b898" stroke-width="0.4"/>
+    </pattern>
+    <pattern id="straw-fill" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="8" x2="8" y2="0" stroke="#c8a030" stroke-width="0.8"/>
+      <line x1="-2" y1="4" x2="4" y2="-2" stroke="#c8a030" stroke-width="0.8"/>
+      <line x1="4" y1="10" x2="10" y2="4" stroke="#c8a030" stroke-width="0.8"/>
+    </pattern>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#8b0000"/>
+    </marker>
+    <radialGradient id="vig3" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="#c4a870" stop-opacity="0.2"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Parchment background -->
+  <rect width="400" height="300" fill="#f0e6cc"/>
+  <rect width="400" height="300" fill="url(#vig3)"/>
+
+  <!-- Grid -->
+  <rect x="30" y="45" width="330" height="215" fill="url(#grid)"/>
+
+  <!-- Outer map border (thick black frame) -->
+  <rect x="6" y="6" width="388" height="288" fill="none" stroke="#1a0a00" stroke-width="3"/>
+  <rect x="11" y="11" width="378" height="278" fill="none" stroke="#1a0a00" stroke-width="1"/>
+
+  <!-- Corner ornaments -->
+  <polygon points="6,6 22,6 6,22" fill="#8b0000"/>
+  <polygon points="394,6 378,6 394,22" fill="#8b0000"/>
+  <polygon points="6,294 22,294 6,278" fill="#8b0000"/>
+  <polygon points="394,294 378,294 394,278" fill="#8b0000"/>
+
+  <!-- Title banner at top -->
+  <rect x="22" y="14" width="356" height="26" fill="#8b0000"/>
+  <text x="200" y="32" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="12" fill="#f4ead5" font-weight="bold" letter-spacing="2">ENCOUNTER MAP — THE STRAW HOUSE</text>
+
+  <!-- Map area label -->
+  <text x="200" y="44" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="#5a3a1a">Scale: 1 square = 5 ft.</text>
+
+  <!-- ===== STRAW HOUSE ===== -->
+  <!-- Outer walls (thin — straw) -->
+  <rect x="210" y="80" width="120" height="120" fill="url(#straw-fill)" fill-opacity="0.4" stroke="#8a6010" stroke-width="1.5"/>
+  <!-- Outer wall double-line effect -->
+  <rect x="210" y="80" width="120" height="120" fill="none" stroke="#1a0a00" stroke-width="2"/>
+  <rect x="215" y="85" width="110" height="110" fill="none" stroke="#8a6010" stroke-width="0.8"/>
+
+  <!-- Interior room divisions -->
+  <!-- Main Room (left half) -->
+  <line x1="270" y1="80" x2="270" y2="200" stroke="#8a6010" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <!-- Straw Storage (small top-right) -->
+  <line x1="270" y1="130" x2="330" y2="130" stroke="#8a6010" stroke-width="1.2" stroke-dasharray="4,2"/>
+
+  <!-- Room labels -->
+  <text x="242" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="#3a2000" font-style="italic">Main</text>
+  <text x="242" y="128" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="#3a2000" font-style="italic">Room</text>
+  <text x="300" y="108" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#3a2000" font-style="italic">Straw</text>
+  <text x="300" y="117" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#3a2000" font-style="italic">Storage</text>
+  <text x="300" y="168" text-anchor="middle" font-family="Georgia,serif" font-size="5.5" fill="#3a2000" font-style="italic">Exit</text>
+  <text x="300" y="176" text-anchor="middle" font-family="Georgia,serif" font-size="5" fill="#3a2000" font-style="italic">(Pig 1's</text>
+  <text x="300" y="183" text-anchor="middle" font-family="Georgia,serif" font-size="5" fill="#3a2000" font-style="italic">preferred</text>
+  <text x="300" y="190" text-anchor="middle" font-family="Georgia,serif" font-size="5" fill="#3a2000" font-style="italic">route)</text>
+
+  <!-- Door in west wall -->
+  <rect x="208" y="128" width="6" height="24" fill="#f0e6cc" stroke="#8a6010" stroke-width="1"/>
+  <text x="205" y="143" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#8a6010">▷</text>
+
+  <!-- ===== STRUCTURAL WEAKNESS MARKERS ===== -->
+  <!-- At each wall: N, S, E, W -->
+  <!-- North wall -->
+  <text x="270" y="77" text-anchor="middle" font-family="serif" font-size="11" fill="#8b0000">★</text>
+  <!-- South wall -->
+  <text x="270" y="212" text-anchor="middle" font-family="serif" font-size="11" fill="#8b0000">★</text>
+  <!-- East wall -->
+  <text x="338" y="143" text-anchor="middle" font-family="serif" font-size="11" fill="#8b0000">★</text>
+  <!-- West wall -->
+  <text x="202" y="143" text-anchor="middle" font-family="serif" font-size="11" fill="#8b0000">★</text>
+
+  <!-- Weakness labels -->
+  <text x="270" y="71" text-anchor="middle" font-family="Georgia,serif" font-size="5" fill="#8b0000">STRUCTURAL</text>
+  <text x="270" y="66" text-anchor="middle" font-family="Georgia,serif" font-size="5" fill="#8b0000">WEAKNESS</text>
+
+  <!-- ===== PIG 1 MARKER inside house ===== -->
+  <circle cx="245" cy="140" r="10" fill="#3a5a8a" stroke="#1a0a00" stroke-width="1.5"/>
+  <text x="245" y="144" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="white" font-weight="bold">P1</text>
+
+  <!-- ===== WOLF MARKER outside house ===== -->
+  <circle cx="130" cy="140" r="12" fill="#8b0000" stroke="#1a0a00" stroke-width="1.5"/>
+  <text x="130" y="144" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="white" font-weight="bold">W</text>
+
+  <!-- Wolf movement arrow pointing toward house -->
+  <line x1="143" y1="140" x2="200" y2="140" stroke="#8b0000" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Wolf breath lines (visual threat) -->
+  <g stroke="#8b0000" stroke-width="0.8" fill="none" opacity="0.6">
+    <line x1="142" y1="135" x2="202" y2="120"/>
+    <line x1="142" y1="140" x2="202" y2="140"/>
+    <line x1="142" y1="145" x2="202" y2="158"/>
+  </g>
+
+  <!-- ===== MAP KEY ===== -->
+  <rect x="30" y="220" width="150" height="52" fill="#f4ead5" stroke="#1a0a00" stroke-width="1.2"/>
+  <text x="105" y="232" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#1a0a00" font-weight="bold">MAP KEY</text>
+  <line x1="35" y1="234" x2="175" y2="234" stroke="#1a0a00" stroke-width="0.5"/>
+  <!-- Key items -->
+  <circle cx="45" cy="244" r="6" fill="#8b0000" stroke="#1a0a00" stroke-width="1"/>
+  <text x="45" y="247" text-anchor="middle" font-family="Georgia,serif" font-size="5.5" fill="white" font-weight="bold">W</text>
+  <text x="58" y="247" font-family="Georgia,serif" font-size="7" fill="#333">= Wolf (Huffington, CR 8)</text>
+
+  <circle cx="45" cy="258" r="6" fill="#3a5a8a" stroke="#1a0a00" stroke-width="1"/>
+  <text x="45" y="261" text-anchor="middle" font-family="Georgia,serif" font-size="5.5" fill="white" font-weight="bold">P</text>
+  <text x="58" y="261" font-family="Georgia,serif" font-size="7" fill="#333">= Pig (Non-combat NPC)</text>
+
+  <text x="40" y="268" font-family="serif" font-size="9" fill="#8b0000">★</text>
+  <text x="52" y="268" font-family="Georgia,serif" font-size="7" fill="#333">= Structural Weakness</text>
+
+  <!-- ===== COMPASS ROSE ===== -->
+  <g transform="translate(355,240)">
+    <!-- Background -->
+    <circle cx="0" cy="0" r="22" fill="#f4ead5" stroke="#1a0a00" stroke-width="1"/>
+    <!-- Compass arms -->
+    <polygon points="0,-20 -4,-8 4,-8" fill="#1a0a00"/>
+    <polygon points="0,20 -4,8 4,8" fill="#8a8a8a"/>
+    <polygon points="-20,0 -8,-4 -8,4" fill="#8a8a8a"/>
+    <polygon points="20,0 8,-4 8,4" fill="#8a8a8a"/>
+    <!-- Center dot -->
+    <circle cx="0" cy="0" r="3" fill="#8b0000"/>
+    <!-- Cardinal labels -->
+    <text x="0" y="-23" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="#1a0a00" font-weight="bold">N</text>
+    <text x="0" y="30" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#333">S</text>
+    <text x="-26" y="3" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#333">W</text>
+    <text x="26" y="3" text-anchor="middle" font-family="Georgia,serif" font-size="6" fill="#333">E</text>
+  </g>
+
+  <!-- Round count / encounter info -->
+  <rect x="195" y="220" width="140" height="40" fill="#f4ead5" stroke="#1a0a00" stroke-width="1"/>
+  <text x="265" y="232" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" fill="#8b0000" font-weight="bold">ENCOUNTER CONDITIONS</text>
+  <line x1="200" y1="234" x2="330" y2="234" stroke="#8b0000" stroke-width="0.5"/>
+  <text x="265" y="243" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#333">Terrain: Open field (difficult)</text>
+  <text x="265" y="252" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#333">Lighting: Daylight, no obscurement</text>
+  <text x="265" y="261" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#8b0000" font-style="italic">Prognosis: Extremely poor for P1</text>
+</svg>
