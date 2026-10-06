@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f5f5f5"/>
+
+  <!-- ── HEADER ── -->
+  <rect x="0" y="0" width="400" height="32" fill="white"/>
+  <rect x="0" y="31" width="400" height="1" fill="#e0e0e0"/>
+  <!-- Logo: PigZillow -->
+  <text x="12" y="22" font-family="Arial, sans-serif" font-size="14" font-weight="900" fill="#006aff" letter-spacing="-0.3">🐷 PigZillow</text>
+  <!-- Search bar -->
+  <rect x="120" y="8" width="160" height="18" rx="4" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="128" y="20" font-family="Arial, sans-serif" font-size="9" fill="#999">Pig's Hollow, MD</text>
+  <!-- Search icon -->
+  <circle cx="272" cy="17" r="4" fill="none" stroke="#aaa" stroke-width="1.2"/>
+  <line x1="275" y1="20" x2="277" y2="22" stroke="#aaa" stroke-width="1.2"/>
+  <!-- Nav links -->
+  <text x="292" y="21" font-family="Arial, sans-serif" font-size="8" fill="#444">For Sale</text>
+  <text x="331" y="21" font-family="Arial, sans-serif" font-size="8" fill="#444">Sold</text>
+  <!-- Gallery link -->
+  <rect x="356" y="9" width="36" height="16" rx="3" fill="white" stroke="#006aff" stroke-width="1"/>
+  <text x="358" y="20" font-family="Arial, sans-serif" font-size="7.5" font-weight="600" fill="#006aff">← Gallery</text>
+
+  <!-- ── FILTER BAR ── -->
+  <rect x="0" y="32" width="400" height="22" fill="white"/>
+  <rect x="0" y="53" width="400" height="1" fill="#e8e8e8"/>
+  <!-- Filter pills -->
+  <rect x="8" y="36" width="48" height="14" rx="7" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="18" y="46" font-family="Arial, sans-serif" font-size="7.5" fill="#1a1a1a">For Sale ▾</text>
+  <rect x="62" y="36" width="36" height="14" rx="7" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="72" y="46" font-family="Arial, sans-serif" font-size="7.5" fill="#1a1a1a">Price ▾</text>
+  <rect x="104" y="36" width="54" height="14" rx="7" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="112" y="46" font-family="Arial, sans-serif" font-size="7.5" fill="#1a1a1a">Beds &amp; Baths ▾</text>
+  <!-- Result count -->
+  <text x="320" y="46" font-family="Arial, sans-serif" font-size="7.5" font-weight="600" fill="#1a1a1a">4 homes</text>
+  <rect x="350" y="36" width="42" height="14" rx="3" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="354" y="46" font-family="Arial, sans-serif" font-size="7" fill="#1a1a1a">Sort: Newest</text>
+
+  <!-- ── LISTINGS COLUMN (left, ~55% = 220px) ── -->
+  <!-- Card 1: Straw House — Foreclosed -->
+  <rect x="8" y="60" width="205" height="68" rx="5" fill="white" filter="url(#shadow)"/>
+  <!-- Photo area -->
+  <rect x="8" y="60" width="205" height="30" rx="5" fill="#f0e8d0"/>
+  <rect x="8" y="75" width="205" height="15" fill="#f0e8d0"/>
+  <!-- Straw house illustration (simple) -->
+  <polygon points="90,68 108,68 99,62" fill="#c8a84b"/>
+  <rect x="91" y="68" width="16" height="10" fill="#d4b25a"/>
+  <!-- Status badge: Foreclosed (red) -->
+  <rect x="13" y="63" width="42" height="10" rx="2" fill="#cc2200"/>
+  <text x="15" y="70" font-family="Arial, sans-serif" font-size="6" font-weight="700" fill="white" letter-spacing="0.3">FORECLOSED</text>
+  <!-- Card body -->
+  <text x="13" y="101" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#767676" text-decoration="line-through">$89,000</text>
+  <text x="62" y="101" font-family="Arial, sans-serif" font-size="7" font-weight="700" fill="#cc2200">FORECLOSED</text>
+  <text x="13" y="112" font-family="Arial, sans-serif" font-size="7.5" fill="#444">1 bd · 1 ba · 420 sqft</text>
+  <text x="13" y="122" font-family="Arial, sans-serif" font-size="7" fill="#767676">1 Meadow Ln, Pig's Hollow, MD</text>
+
+  <!-- Card 2: Stick House — Foreclosed -->
+  <rect x="8" y="134" width="205" height="68" rx="5" fill="white"/>
+  <!-- Photo area -->
+  <rect x="8" y="134" width="205" height="30" rx="5" fill="#d4c4a8"/>
+  <rect x="8" y="149" width="205" height="15" fill="#d4c4a8"/>
+  <!-- Stick house illustration -->
+  <polygon points="90,141 108,141 99,135" fill="#8b6914"/>
+  <rect x="91" y="141" width="16" height="10" fill="#a07820"/>
+  <!-- Status badge: Foreclosed (red) -->
+  <rect x="13" y="137" width="42" height="10" rx="2" fill="#cc2200"/>
+  <text x="15" y="144" font-family="Arial, sans-serif" font-size="6" font-weight="700" fill="white" letter-spacing="0.3">FORECLOSED</text>
+  <!-- Card body -->
+  <text x="13" y="175" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#767676" text-decoration="line-through">$142,000</text>
+  <text x="70" y="175" font-family="Arial, sans-serif" font-size="7" font-weight="700" fill="#cc2200">FORECLOSED</text>
+  <text x="13" y="186" font-family="Arial, sans-serif" font-size="7.5" fill="#444">2 bd · 1 ba · 680 sqft</text>
+  <text x="13" y="196" font-family="Arial, sans-serif" font-size="7" fill="#767676">2 Forest Edge Dr, Pig's Hollow, MD</text>
+
+  <!-- Card 3: Brick House — For Sale -->
+  <rect x="8" y="208" width="205" height="72" rx="5" fill="white"/>
+  <!-- Photo area -->
+  <rect x="8" y="208" width="205" height="32" rx="5" fill="#b8a090"/>
+  <rect x="8" y="225" width="205" height="15" fill="#b8a090"/>
+  <!-- Brick house illustration (more substantial) -->
+  <polygon points="86,215 112,215 99,208" fill="#8b4030"/>
+  <rect x="87" y="215" width="24" height="14" fill="#a04840"/>
+  <rect x="97" y="221" width="6" height="8" fill="#6b3020"/>
+  <!-- Status badge: For Sale (blue) -->
+  <rect x="13" y="211" width="36" height="10" rx="2" fill="#006aff"/>
+  <text x="15" y="218" font-family="Arial, sans-serif" font-size="6" font-weight="700" fill="white" letter-spacing="0.3">FOR SALE</text>
+  <!-- Wolf certified badge -->
+  <rect x="140" y="228" width="68" height="10" rx="5" fill="white" stroke="#006aff" stroke-width="0.8"/>
+  <text x="143" y="235" font-family="Arial, sans-serif" font-size="5.5" font-weight="600" fill="#006aff">🐷 Wolf-Resistant</text>
+  <!-- Card body -->
+  <text x="13" y="252" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#1a1a1a">$487,000</text>
+  <text x="13" y="263" font-family="Arial, sans-serif" font-size="7.5" fill="#444">3 bd · 2 ba · 1,840 sqft</text>
+  <text x="13" y="273" font-family="Arial, sans-serif" font-size="7" fill="#767676">3 BrickCore Way, Pig's Hollow, MD</text>
+
+  <!-- ── MAP COLUMN (right, ~45% = 180px) ── -->
+  <rect x="222" y="54" width="178" height="246" fill="#c8e6a0"/>
+  <!-- Map roads -->
+  <line x1="222" y1="150" x2="400" y2="150" stroke="#fff" stroke-width="3" opacity="0.6"/>
+  <line x1="310" y1="54" x2="310" y2="300" stroke="#fff" stroke-width="3" opacity="0.6"/>
+  <line x1="222" y1="200" x2="400" y2="185" stroke="#fff" stroke-width="2" opacity="0.5"/>
+  <!-- Green patches (trees/fields) -->
+  <ellipse cx="260" cy="90" rx="18" ry="12" fill="#4a9a30" opacity="0.4"/>
+  <ellipse cx="370" cy="230" rx="22" ry="14" fill="#4a9a30" opacity="0.4"/>
+  <ellipse cx="250" cy="250" rx="14" ry="10" fill="#4a9a30" opacity="0.4"/>
+  <!-- Water feature -->
+  <ellipse cx="355" cy="100" rx="20" ry="12" fill="#6aacdf" opacity="0.5"/>
+  <!-- Map overlay label -->
+  <rect x="228" y="59" width="90" height="16" rx="3" fill="white" opacity="0.9"/>
+  <text x="232" y="70" font-family="Arial, sans-serif" font-size="7.5" font-weight="600" fill="#1a1a1a">📍 Pig's Hollow, MD</text>
+
+  <!-- Map pins -->
+  <!-- Pin 1: Foreclosed (red) - straw house -->
+  <circle cx="264" cy="145" r="7" fill="#cc2200"/>
+  <text x="261" y="148" font-family="Arial, sans-serif" font-size="7.5" font-weight="700" fill="white">1</text>
+
+  <!-- Pin 2: Foreclosed (red) - stick house -->
+  <circle cx="290" cy="172" r="7" fill="#cc2200"/>
+  <text x="287" y="175" font-family="Arial, sans-serif" font-size="7.5" font-weight="700" fill="white">2</text>
+
+  <!-- Pin 3: For Sale (blue) - brick house -->
+  <circle cx="342" cy="155" r="9" fill="#006aff"/>
+  <text x="337" y="159" font-family="Arial, sans-serif" font-size="8.5" font-weight="700" fill="white">3</text>
+
+  <!-- Pin 4: Off market (gray) - wolf's lair -->
+  <circle cx="255" cy="218" r="7" fill="#6b7280"/>
+  <text x="252" y="221" font-family="Arial, sans-serif" font-size="7.5" font-weight="700" fill="white">W</text>
+
+  <!-- Price labels on map -->
+  <rect x="315" y="140" width="48" height="12" rx="3" fill="white" opacity="0.92"/>
+  <text x="318" y="149" font-family="Arial, sans-serif" font-size="7.5" font-weight="700" fill="#1a1a1a">$487,000</text>
+
+  <!-- Drop shadow filter -->
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+</svg>

@@ -78,6 +78,12 @@ Each card in `index.html` starts as `<a class="card placeholder" ...>`. When a v
 3. Fill in `.title` and `.note`
 For the final chosen version, also add class `final` to the card.
 
+### Gallery thumbnail check (IMPORTANT)
+After activating every new gallery card, always verify the thumbnail actually renders correctly in the browser at `http://localhost:8080`. Versions with complex fixed layouts (sticky headers, full-viewport JS, fixed positioning) often look broken or blank inside an iframe at thumbnail scale. If the thumbnail doesn't render well:
+- Create a static `vNN/thumb.svg` representative of the page's visual identity
+- Replace the iframe with `<img src="vNN/thumb.svg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">` in the card
+This check must happen before committing the gallery update.
+
 ### Current progress
 - `index.html` (gallery) — committed
 - `v01/` — **built, not yet committed** (awaiting final approval)
