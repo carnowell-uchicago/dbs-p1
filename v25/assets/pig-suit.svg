@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 200">
+  <defs>
+    <radialGradient id="visor-grad" cx="40%" cy="35%">
+      <stop offset="0%" stop-color="#f0d060" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#D4AF37" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#8a6500" stop-opacity="1"/>
+    </radialGradient>
+    <radialGradient id="suit-grad" cx="40%" cy="30%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#d8d8d8"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Life support pack (back, shown as side protrusion) -->
+  <rect x="108" y="75" width="20" height="30" rx="3" fill="#c8c8c8" stroke="#999" stroke-width="1.2"/>
+  <rect x="110" y="78" width="6" height="5" rx="1" fill="#888"/>
+  <rect x="110" y="86" width="6" height="5" rx="1" fill="#555"/>
+  <rect x="110" y="94" width="6" height="3" rx="1" fill="#00ff88" opacity="0.8"/>
+  <!-- Pack label -->
+  <text x="119" y="93" font-family="monospace" font-size="4" fill="#555" text-anchor="middle" transform="rotate(90,119,93)">LSS-3</text>
+
+  <!-- TORSO -->
+  <rect x="45" y="80" width="70" height="65" rx="12" fill="url(#suit-grad)" stroke="#bbb" stroke-width="1.5"/>
+
+  <!-- Suit detail lines on torso -->
+  <path d="M 55,95 L 55,135" stroke="#ccc" stroke-width="1" fill="none"/>
+  <path d="M 105,95 L 105,135" stroke="#ccc" stroke-width="1" fill="none"/>
+  <path d="M 55,115 L 105,115" stroke="#ccc" stroke-width="1" fill="none"/>
+
+  <!-- SSA chest patch (small blue circle with text) -->
+  <circle cx="80" cy="100" r="10" fill="#0b3d91" stroke="#D4AF37" stroke-width="1"/>
+  <text x="80" y="103" font-family="'Arial Narrow', Arial, sans-serif" font-size="5.5" font-weight="bold" fill="white" text-anchor="middle">SSA</text>
+
+  <!-- Shoulder patches (colored badges) -->
+  <rect x="45" y="85" width="16" height="10" rx="2" fill="#0b3d91" stroke="#D4AF37" stroke-width="1"/>
+  <text x="53" y="92" font-family="monospace" font-size="4" fill="#D4AF37" text-anchor="middle">SSA</text>
+  <rect x="99" y="85" width="16" height="10" rx="2" fill="#cc0000" stroke="#fff" stroke-width="0.8"/>
+  <rect x="101" y="87" width="4" height="6" fill="white"/>
+  <rect x="106" y="87" width="4" height="6" fill="white"/>
+  <rect x="111" y="87" width="2" height="6" fill="white"/>
+
+  <!-- Utility pockets -->
+  <rect x="50" y="120" width="18" height="14" rx="2" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+  <line x1="50" y1="127" x2="68" y2="127" stroke="#bbb" stroke-width="0.8"/>
+  <rect x="92" y="120" width="18" height="14" rx="2" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+  <line x1="92" y1="127" x2="110" y2="127" stroke="#bbb" stroke-width="0.8"/>
+
+  <!-- LEFT ARM -->
+  <rect x="25" y="80" width="22" height="55" rx="10" fill="url(#suit-grad)" stroke="#bbb" stroke-width="1.5"/>
+  <!-- Arm crease lines -->
+  <path d="M 30,105 Q 36,102 42,105" stroke="#ccc" stroke-width="1" fill="none"/>
+  <path d="M 30,118 Q 36,115 42,118" stroke="#ccc" stroke-width="1" fill="none"/>
+
+  <!-- RIGHT ARM -->
+  <rect x="113" y="80" width="22" height="55" rx="10" fill="url(#suit-grad)" stroke="#bbb" stroke-width="1.5"/>
+  <path d="M 118,105 Q 124,102 130,105" stroke="#ccc" stroke-width="1" fill="none"/>
+  <path d="M 118,118 Q 124,115 130,118" stroke="#ccc" stroke-width="1" fill="none"/>
+
+  <!-- LEFT GLOVE -->
+  <ellipse cx="36" cy="140" rx="13" ry="9" fill="#d0d0d0" stroke="#999" stroke-width="1.5"/>
+  <!-- Glove fingers suggestion -->
+  <path d="M 25,137 Q 25,145 28,148" stroke="#bbb" stroke-width="0.8" fill="none"/>
+  <path d="M 30,141 L 30,149" stroke="#bbb" stroke-width="0.8"/>
+  <path d="M 36,142 L 36,150" stroke="#bbb" stroke-width="0.8"/>
+  <path d="M 42,141 L 42,149" stroke="#bbb" stroke-width="0.8"/>
+  <path d="M 47,137 Q 47,145 44,148" stroke="#bbb" stroke-width="0.8" fill="none"/>
+
+  <!-- RIGHT GLOVE -->
+  <ellipse cx="124" cy="140" rx="13" ry="9" fill="#d0d0d0" stroke="#999" stroke-width="1.5"/>
+  <path d="M 113,137 Q 113,145 116,148" stroke="#bbb" stroke-width="0.8" fill="none"/>
+  <path d="M 118,141 L 118,149" stroke="#bbb" stroke-width="0.8"/>
+  <path d="M 124,142 L 124,150" stroke="#bbb" stroke-width="0.8"/>
+  <path d="M 130,141 L 130,149" stroke="#bbb" stroke-width="0.8"/>
+  <path d="M 135,137 Q 135,145 132,148" stroke="#bbb" stroke-width="0.8" fill="none"/>
+
+  <!-- LEGS -->
+  <rect x="50" y="143" width="24" height="48" rx="8" fill="url(#suit-grad)" stroke="#bbb" stroke-width="1.5"/>
+  <rect x="86" y="143" width="24" height="48" rx="8" fill="url(#suit-grad)" stroke="#bbb" stroke-width="1.5"/>
+  <!-- Knee pads -->
+  <ellipse cx="62" cy="163" rx="10" ry="7" fill="#d0d0d0" stroke="#bbb" stroke-width="1"/>
+  <ellipse cx="98" cy="163" rx="10" ry="7" fill="#d0d0d0" stroke="#bbb" stroke-width="1"/>
+
+  <!-- BOOTS -->
+  <ellipse cx="60" cy="191" rx="16" ry="7" fill="#c8c8c8" stroke="#999" stroke-width="1.5"/>
+  <ellipse cx="100" cy="191" rx="16" ry="7" fill="#c8c8c8" stroke="#999" stroke-width="1.5"/>
+  <!-- Boot toe bumpers -->
+  <ellipse cx="68" cy="192" rx="8" ry="5" fill="#b8b8b8" stroke="#999" stroke-width="1"/>
+  <ellipse cx="108" cy="192" rx="8" ry="5" fill="#b8b8b8" stroke="#999" stroke-width="1"/>
+
+  <!-- HELMET (ring/neck connector) -->
+  <rect x="50" y="65" width="60" height="18" rx="6" fill="#d0d0d0" stroke="#aaa" stroke-width="1.5"/>
+  <!-- Neck connector ridges -->
+  <line x1="52" y1="70" x2="108" y2="70" stroke="#bbb" stroke-width="0.8"/>
+  <line x1="52" y1="75" x2="108" y2="75" stroke="#bbb" stroke-width="0.8"/>
+
+  <!-- HELMET DOME -->
+  <ellipse cx="80" cy="48" rx="38" ry="34" fill="#e8e8e8" stroke="#bbb" stroke-width="2"/>
+  <!-- Helmet interior shadow -->
+  <ellipse cx="80" cy="52" rx="32" ry="27" fill="#d5d5e0"/>
+
+  <!-- VISOR (gold/amber) -->
+  <ellipse cx="80" cy="50" rx="25" ry="20" fill="url(#visor-grad)" stroke="#a07800" stroke-width="1.5"/>
+  <!-- Visor reflection highlight -->
+  <ellipse cx="70" cy="43" rx="8" ry="5" fill="white" opacity="0.3"/>
+  <ellipse cx="65" cy="41" rx="3" ry="2" fill="white" opacity="0.5"/>
+
+  <!-- Pig snout visible through visor -->
+  <ellipse cx="80" cy="56" rx="8" ry="6" fill="#f0a0a0" opacity="0.7"/>
+  <ellipse cx="77" cy="57" rx="2" ry="2.5" fill="#cc6060" opacity="0.8"/>
+  <ellipse cx="83" cy="57" rx="2" ry="2.5" fill="#cc6060" opacity="0.8"/>
+
+  <!-- Helmet light on top -->
+  <rect x="76" y="15" width="8" height="5" rx="2" fill="#D4AF37" stroke="#a07800" stroke-width="1"/>
+  <ellipse cx="80" cy="14" rx="5" ry="3" fill="#ffee88" opacity="0.8"/>
+
+  <!-- Side communication ports on helmet -->
+  <circle cx="44" cy="50" r="4" fill="#ccc" stroke="#aaa" stroke-width="1"/>
+  <circle cx="116" cy="50" r="4" fill="#ccc" stroke="#aaa" stroke-width="1"/>
+  <circle cx="44" cy="50" r="2" fill="#888"/>
+  <circle cx="116" cy="50" r="2" fill="#888"/>
+</svg>

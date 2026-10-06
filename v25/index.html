@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSA — OPERATION BRISTLE FORTRESS — CLASSIFIED</title>
+<style>
+/* ============================================================
+   BASE / RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #050a1a; color: #e8e8f0; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+/* ============================================================
+   STAR FIELD
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 22% 42%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 37% 8%, rgba(255,255,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 51% 65%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 64% 27%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 78% 82%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 88% 11%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 50%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 6% 75%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 92%, rgba(255,255,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 28% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 42% 33%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 57% 88%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 71% 45%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 83% 72%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(2px 2px at 19% 30%, rgba(200,220,255,0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 45% 55%, rgba(200,220,255,0.3) 0%, transparent 100%),
+    radial-gradient(2px 2px at 73% 18%, rgba(200,220,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 33% 77%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 35%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 4%  45%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 67% 90%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 48% 3%,  rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 82% 60%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 13% 55%, rgba(255,255,255,0.4) 0%, transparent 100%);
+}
+
+/* ============================================================
+   BOOT SCREEN
+   ============================================================ */
+#boot-screen {
+  position: fixed; inset: 0; z-index: 1000;
+  background: #000;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  transition: opacity 0.8s ease;
+}
+#boot-screen.fade-out { opacity: 0; pointer-events: none; }
+#boot-screen.hidden { display: none; }
+#boot-lines {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #00ff88;
+  line-height: 1.8;
+  min-width: 480px;
+  max-width: 90vw;
+}
+#boot-lines .line { display: block; opacity: 0; transition: opacity 0.15s ease; }
+#boot-lines .line.visible { opacity: 1; }
+#boot-lines .line.warn { color: #ffcc00; }
+#boot-lines .line.ok { color: #00ff88; }
+#boot-lines .line.alert { color: #ff3333; }
+#boot-lines .line.white { color: #e8e8f0; font-weight: bold; letter-spacing: 0.15em; }
+#boot-cursor { display: inline-block; width: 8px; height: 14px; background: #00ff88; animation: blink 0.8s step-end infinite; vertical-align: middle; margin-left: 3px; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ============================================================
+   MISSION CONTROL WRAPPER
+   ============================================================ */
+#mission-control {
+  position: fixed; inset: 0; z-index: 1;
+  display: flex; flex-direction: column;
+  opacity: 0; transition: opacity 0.8s ease;
+}
+#mission-control.visible { opacity: 1; }
+
+/* ============================================================
+   TOP NAV TIMELINE
+   ============================================================ */
+#stage-nav {
+  flex-shrink: 0;
+  height: 56px;
+  background: rgba(5,10,26,0.95);
+  border-bottom: 1px solid rgba(212,175,55,0.3);
+  display: flex; align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  position: relative;
+  z-index: 100;
+}
+#ssa-home {
+  display: flex; flex-direction: column; align-items: center; text-decoration: none;
+  flex-shrink: 0; margin-right: 8px;
+}
+#ssa-home img { width: 32px; height: 32px; }
+#ssa-home span {
+  font-family: 'Courier New', monospace;
+  font-size: 7px; letter-spacing: 0.1em; color: #D4AF37;
+  text-transform: uppercase; margin-top: 1px;
+}
+#timeline-track {
+  flex: 1; display: flex; align-items: center; gap: 0; position: relative;
+}
+.timeline-segment {
+  flex: 1; display: flex; align-items: center;
+}
+.timeline-segment::after {
+  content: ''; flex: 1; height: 1px; background: rgba(212,175,55,0.25);
+}
+.timeline-segment:last-child::after { display: none; }
+.stage-dot {
+  width: 28px; height: 28px; flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(212,175,55,0.4);
+  background: transparent;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Courier New', monospace;
+  font-size: 10px; color: rgba(212,175,55,0.5);
+  transition: all 0.3s ease;
+  position: relative;
+}
+.stage-dot:hover { border-color: #D4AF37; color: #D4AF37; }
+.stage-dot.completed { background: rgba(11,61,145,0.5); border-color: #0b3d91; color: #e8e8f0; }
+.stage-dot.current { background: #D4AF37; border-color: #D4AF37; color: #050a1a; font-weight: bold; }
+.stage-dot .dot-label {
+  position: absolute; top: 32px; left: 50%; transform: translateX(-50%);
+  font-family: 'Courier New', monospace; font-size: 7px; color: rgba(232,232,240,0.4);
+  letter-spacing: 0.05em; white-space: nowrap; pointer-events: none;
+}
+.stage-dot.current .dot-label { color: #D4AF37; }
+.stage-dot.completed .dot-label { color: rgba(232,232,240,0.6); }
+
+#nav-right {
+  flex-shrink: 0; display: flex; align-items: center; gap: 16px;
+}
+#stage-label-top {
+  font-family: 'Courier New', monospace; font-size: 10px;
+  color: #D4AF37; letter-spacing: 0.15em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.classify-badge {
+  font-family: 'Courier New', monospace; font-size: 9px;
+  color: #ff3333; letter-spacing: 0.12em;
+  border: 1px solid #ff3333; padding: 2px 6px;
+  text-transform: uppercase; flex-shrink: 0;
+}
+
+/* ============================================================
+   PROGRESS BAR
+   ============================================================ */
+#progress-bar-wrap {
+  flex-shrink: 0; height: 2px; background: rgba(212,175,55,0.1);
+}
+#progress-bar-fill {
+  height: 100%; background: #D4AF37;
+  transition: width 0.4s ease;
+  width: 12.5%;
+}
+
+/* ============================================================
+   STAGES CONTAINER
+   ============================================================ */
+#stages-container {
+  flex: 1; position: relative; overflow: hidden;
+}
+.stage {
+  position: absolute; inset: 0;
+  display: none; overflow-y: auto;
+  scrollbar-width: thin; scrollbar-color: rgba(212,175,55,0.3) transparent;
+}
+.stage.active { display: block; }
+.stage-corner-label {
+  position: fixed; top: 68px; right: 16px;
+  font-family: 'Courier New', monospace; font-size: 10px;
+  color: #D4AF37; letter-spacing: 0.2em; text-transform: uppercase;
+  pointer-events: none; z-index: 50;
+}
+
+/* ============================================================
+   NAV ARROW BUTTONS
+   ============================================================ */
+#nav-arrows {
+  position: fixed; bottom: 48px; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 24px; pointer-events: none; z-index: 200;
+}
+.nav-arrow {
+  pointer-events: all;
+  background: rgba(11,61,145,0.7);
+  border: 1px solid rgba(212,175,55,0.4);
+  color: #D4AF37; cursor: pointer;
+  font-size: 18px; width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease; font-family: 'Courier New', monospace;
+  backdrop-filter: blur(4px);
+}
+.nav-arrow:hover { background: rgba(11,61,145,0.95); border-color: #D4AF37; }
+.nav-arrow:disabled { opacity: 0.2; cursor: default; }
+#stage-counter {
+  font-family: 'Courier New', monospace; font-size: 11px;
+  color: rgba(232,232,240,0.5); letter-spacing: 0.15em; pointer-events: none;
+}
+
+/* ============================================================
+   TELEMETRY TICKER
+   ============================================================ */
+#ticker-bar {
+  flex-shrink: 0; height: 28px;
+  background: rgba(0,0,0,0.85);
+  border-top: 1px solid rgba(0,255,136,0.2);
+  overflow: hidden; display: flex; align-items: center;
+  position: relative; z-index: 100;
+}
+#ticker-content {
+  display: flex; align-items: center;
+  font-family: 'Courier New', monospace; font-size: 11px;
+  color: #00ff88; letter-spacing: 0.08em;
+  white-space: nowrap;
+  animation: ticker-scroll 40s linear infinite;
+}
+#ticker-content span.sep { color: rgba(0,255,136,0.4); margin: 0 12px; }
+#ticker-content span.val-warn { color: #ffcc00; }
+#ticker-content span.val-ok { color: #00ff88; }
+#ticker-content span.val-bad { color: #ff3333; }
+@keyframes ticker-scroll {
+  from { transform: translateX(100vw); }
+  to { transform: translateX(-100%); }
+}
+
+/* ============================================================
+   SHARED STAGE COMPONENTS
+   ============================================================ */
+.stage-inner {
+  min-height: calc(100vh - 140px);
+  padding: 32px 48px 80px;
+  position: relative;
+}
+
+/* Classified header strip */
+.classified-strip {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(212,175,55,0.2);
+}
+.classified-strip .agency { font-family: 'Courier New', monospace; font-size: 11px; color: rgba(232,232,240,0.5); letter-spacing: 0.2em; text-transform: uppercase; }
+.classified-strip .clearance { font-family: 'Courier New', monospace; font-size: 10px; color: #ff3333; letter-spacing: 0.15em; border: 1px solid #ff3333; padding: 2px 8px; }
+.classified-strip .mission-id { margin-left: auto; font-family: 'Courier New', monospace; font-size: 10px; color: rgba(212,175,55,0.6); letter-spacing: 0.1em; }
+
+/* Section headings */
+.section-heading {
+  font-size: 11px; font-weight: normal; letter-spacing: 0.25em;
+  text-transform: uppercase; color: rgba(212,175,55,0.7);
+  margin-bottom: 8px; font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+.stage-title {
+  font-size: clamp(22px, 3.5vw, 38px);
+  font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  color: #e8e8f0; line-height: 1.1; margin-bottom: 6px;
+}
+.stage-subtitle {
+  font-family: 'Courier New', monospace; font-size: 12px;
+  color: rgba(232,232,240,0.5); letter-spacing: 0.12em; margin-bottom: 28px;
+}
+
+/* Data panels */
+.data-panel {
+  background: rgba(11,61,145,0.08);
+  border: 1px solid rgba(11,61,145,0.3);
+  border-left: 3px solid #0b3d91;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+}
+.data-panel .panel-title {
+  font-size: 10px; letter-spacing: 0.2em; color: #0b3d91;
+  text-transform: uppercase; margin-bottom: 12px; font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+.data-panel .spec-row {
+  display: flex; gap: 12px; margin-bottom: 6px; color: rgba(232,232,240,0.8);
+  line-height: 1.5;
+}
+.data-panel .spec-key { color: rgba(232,232,240,0.45); min-width: 180px; flex-shrink: 0; }
+
+/* Status badge */
+.status-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Courier New', monospace; font-size: 12px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 6px 14px; border: 1px solid; margin-bottom: 16px;
+}
+.status-badge.nominal { color: #00ff88; border-color: rgba(0,255,136,0.4); background: rgba(0,255,136,0.05); }
+.status-badge.caution { color: #ffcc00; border-color: rgba(255,204,0,0.4); background: rgba(255,204,0,0.05); }
+.status-badge.compromised { color: #ff3333; border-color: rgba(255,51,51,0.4); background: rgba(255,51,51,0.05); }
+.status-badge .indicator {
+  width: 8px; height: 8px; border-radius: 50%;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+.status-badge.nominal .indicator { background: #00ff88; }
+.status-badge.caution .indicator { background: #ffcc00; }
+.status-badge.compromised .indicator { background: #ff3333; animation: blink-fast 0.5s step-end infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.6)} }
+@keyframes blink-fast { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Mission note / quote */
+.mission-note {
+  background: rgba(212,175,55,0.04);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-left: 3px solid #D4AF37;
+  padding: 12px 16px; margin-bottom: 20px;
+  font-family: 'Courier New', monospace; font-size: 12px;
+  color: rgba(232,232,240,0.7);
+}
+.mission-note .note-from { font-size: 10px; color: #D4AF37; letter-spacing: 0.12em; margin-bottom: 5px; text-transform: uppercase; }
+.mission-note .note-time { font-size: 10px; color: rgba(232,232,240,0.35); float: right; }
+.mission-note .note-text { color: rgba(232,232,240,0.85); font-style: italic; }
+
+/* Two-column layout */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px; }
+.three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px; }
+@media (max-width: 800px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+
+/* SVG asset container */
+.asset-container {
+  background: rgba(11,61,145,0.06);
+  border: 1px solid rgba(11,61,145,0.25);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px; min-height: 200px; position: relative;
+  margin-bottom: 20px;
+}
+.asset-container img { max-width: 100%; max-height: 320px; width: auto; height: auto; }
+.asset-container::before {
+  content: attr(data-label);
+  position: absolute; top: 8px; left: 12px;
+  font-family: 'Courier New', monospace; font-size: 9px;
+  color: rgba(11,61,145,0.6); letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+/* Annotation lines (decorative) */
+.annotated-asset { position: relative; }
+.annotated-asset .annotation-line {
+  position: absolute; border: 1px solid rgba(212,175,55,0.3);
+  pointer-events: none;
+}
+.annotated-asset .annotation-text {
+  position: absolute; font-family: 'Courier New', monospace;
+  font-size: 10px; color: rgba(212,175,55,0.6); letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* Tables */
+.data-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-family: 'Courier New', monospace; font-size: 11px; }
+.data-table th { text-align: left; padding: 8px 12px; font-size: 9px; letter-spacing: 0.2em; color: rgba(232,232,240,0.4); text-transform: uppercase; border-bottom: 1px solid rgba(212,175,55,0.15); font-family: 'Helvetica Neue', Arial, sans-serif; }
+.data-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); color: rgba(232,232,240,0.75); vertical-align: top; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table td.val-ok { color: #00ff88; }
+.data-table td.val-warn { color: #ffcc00; }
+.data-table td.val-bad { color: #ff3333; }
+.data-table td.label { color: rgba(232,232,240,0.4); font-size: 10px; letter-spacing: 0.08em; }
+
+/* Crew card */
+.crew-card {
+  background: rgba(11,61,145,0.1); border: 1px solid rgba(11,61,145,0.3);
+  padding: 16px; display: flex; gap: 14px; align-items: flex-start;
+}
+.crew-card img { width: 56px; height: 56px; flex-shrink: 0; opacity: 0.9; }
+.crew-card .crew-info { flex: 1; font-family: 'Courier New', monospace; font-size: 11px; }
+.crew-card .crew-name { font-size: 13px; font-weight: bold; color: #e8e8f0; letter-spacing: 0.05em; margin-bottom: 3px; font-family: 'Helvetica Neue', Arial, sans-serif; text-transform: uppercase; }
+.crew-card .crew-role { color: rgba(232,232,240,0.4); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+.crew-card .crew-stat { color: rgba(232,232,240,0.6); margin-bottom: 3px; }
+.crew-card .crew-stat span { color: #00ff88; }
+.crew-card .crew-easter { font-size: 10px; color: rgba(212,175,55,0.5); font-style: italic; border-top: 1px solid rgba(212,175,55,0.1); margin-top: 6px; padding-top: 6px; }
+
+/* Integrity graph */
+.integrity-graph {
+  background: rgba(0,0,0,0.4); border: 1px solid rgba(255,51,51,0.2);
+  padding: 16px 20px; margin-bottom: 20px; font-family: 'Courier New', monospace; font-size: 11px;
+}
+.integrity-graph .graph-title { font-size: 9px; letter-spacing: 0.2em; color: rgba(255,51,51,0.7); text-transform: uppercase; margin-bottom: 12px; }
+.graph-track { height: 20px; background: rgba(255,51,51,0.1); border: 1px solid rgba(255,51,51,0.2); position: relative; margin-bottom: 6px; }
+.graph-bar { height: 100%; background: linear-gradient(90deg, #ff3333, #ff6666); transition: width 1.5s ease; }
+.graph-label { font-size: 10px; color: rgba(232,232,240,0.4); margin-bottom: 4px; }
+
+/* Telemetry graph (CSS animated) */
+.telem-graph {
+  height: 60px; background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,51,51,0.2);
+  position: relative; overflow: hidden; margin-bottom: 12px;
+}
+.telem-line {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: #ff3333;
+  animation: telem-drop 3s ease forwards;
+  transform-origin: left bottom;
+}
+@keyframes telem-drop {
+  0% { bottom: 50px; width: 20%; }
+  30% { bottom: 45px; width: 40%; }
+  60% { bottom: 20px; width: 70%; }
+  80% { bottom: 4px; width: 90%; }
+  100% { bottom: 2px; width: 100%; }
+}
+.telem-graph-svg {
+  width: 100%; height: 100%;
+  position: absolute; top: 0; left: 0;
+}
+
+/* Emergency overlay (stages 3 & 5) */
+.emergency-stage { background: rgba(50,0,0,0.4); }
+.emergency-stage .stage-inner::before {
+  content: '';
+  position: fixed; inset: 56px 0 28px;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(180,0,0,0.15) 100%);
+  pointer-events: none; z-index: 0;
+  animation: red-pulse 2s ease-in-out infinite;
+}
+@keyframes red-pulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
+.emergency-stage .stage-inner > * { position: relative; z-index: 1; }
+.impact-title {
+  font-size: clamp(28px, 5vw, 56px); font-weight: 900;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: #ff3333; text-shadow: 0 0 30px rgba(255,51,51,0.5);
+  margin-bottom: 8px; line-height: 1;
+}
+.impact-subtitle { font-family: 'Courier New', monospace; font-size: 13px; color: rgba(255,51,51,0.7); letter-spacing: 0.1em; margin-bottom: 24px; }
+
+/* Success overlay (stage 7) */
+.success-stage .stage-inner::before {
+  content: '';
+  position: fixed; inset: 56px 0 28px;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0,180,80,0.12) 100%);
+  pointer-events: none; z-index: 0;
+  animation: green-pulse 3s ease-in-out infinite;
+}
+@keyframes green-pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+.success-stage .stage-inner > * { position: relative; z-index: 1; }
+.success-title {
+  font-size: clamp(24px, 4vw, 48px); font-weight: 900;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: #00ff88; text-shadow: 0 0 30px rgba(0,255,136,0.4);
+  margin-bottom: 8px; line-height: 1.1;
+}
+
+/* Asteroid bounce animation */
+.asteroid-bounce-container {
+  height: 80px; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,255,136,0.15);
+  position: relative; overflow: hidden; margin-bottom: 20px;
+}
+.asteroid-dot {
+  width: 14px; height: 14px; background: #ff6633; border-radius: 50%;
+  position: absolute; top: 50%; transform: translateY(-50%);
+  animation: asteroid-bounce 4s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(255,102,51,0.6);
+}
+.fortress-wall {
+  position: absolute; right: 80px; top: 10%; bottom: 10%;
+  width: 8px; background: linear-gradient(180deg, #D4AF37, #8B7420);
+  border: 1px solid #D4AF37;
+}
+@keyframes asteroid-bounce {
+  0%   { left: 5%; }
+  45%  { left: calc(100% - 110px); }
+  50%  { left: calc(100% - 120px); }
+  55%  { left: calc(100% - 110px); }
+  100% { left: 5%; }
+}
+.asteroid-bounce-label {
+  position: absolute; font-family: 'Courier New', monospace; font-size: 9px;
+  color: rgba(232,232,240,0.3); letter-spacing: 0.08em;
+}
+.asteroid-bounce-label.left { left: 10px; top: 8px; }
+.asteroid-bounce-label.right { right: 90px; top: 8px; color: rgba(0,255,136,0.4); }
+
+/* Mission complete stage */
+.mission-accomplished {
+  text-align: center; padding: 40px 0 20px;
+}
+.mission-accomplished .big-text {
+  font-size: clamp(36px, 6vw, 72px); font-weight: 900;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #D4AF37; text-shadow: 0 0 40px rgba(212,175,55,0.4);
+  margin-bottom: 8px;
+}
+.mission-accomplished img { width: 120px; height: 120px; margin: 20px auto; display: block; }
+
+/* Dossier block */
+.dossier-block {
+  background: rgba(255,51,51,0.03); border: 1px solid rgba(255,51,51,0.15);
+  border-left: 3px solid rgba(255,51,51,0.4);
+  padding: 14px 18px; margin-bottom: 20px;
+  font-family: 'Courier New', monospace; font-size: 11px;
+}
+.dossier-block .dossier-title { font-size: 10px; letter-spacing: 0.18em; color: rgba(255,51,51,0.6); text-transform: uppercase; margin-bottom: 10px; }
+.dossier-block .dossier-row { display: flex; gap: 10px; margin-bottom: 5px; color: rgba(232,232,240,0.65); }
+.dossier-block .dossier-key { color: rgba(232,232,240,0.35); min-width: 160px; flex-shrink: 0; }
+
+/* Layers diagram */
+.layers-diagram {
+  background: rgba(11,61,145,0.06); border: 1px solid rgba(11,61,145,0.2);
+  padding: 20px; margin-bottom: 20px;
+}
+.layers-diagram .layer-title { font-size: 10px; letter-spacing: 0.2em; color: rgba(11,61,145,0.7); text-transform: uppercase; margin-bottom: 16px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+.layer-row {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 10px;
+}
+.layer-bar {
+  height: 28px; display: flex; align-items: center; padding: 0 10px;
+  font-family: 'Courier New', monospace; font-size: 11px; color: #e8e8f0;
+  position: relative;
+}
+.layer-spec { font-family: 'Courier New', monospace; font-size: 10px; color: rgba(232,232,240,0.5); }
+
+/* Footnote */
+.footnote {
+  margin-top: 24px; padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-family: 'Courier New', monospace; font-size: 10px;
+  color: rgba(232,232,240,0.35); font-style: italic; line-height: 1.6;
+}
+
+/* Classified watermark */
+.classmark {
+  position: fixed; bottom: 36px; right: 12px;
+  font-family: 'Courier New', monospace; font-size: 9px;
+  color: rgba(255,51,51,0.15); letter-spacing: 0.2em;
+  text-transform: uppercase; pointer-events: none; z-index: 50;
+  writing-mode: vertical-rl;
+}
+
+/* Gold divider */
+.gold-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(212,175,55,0.4), transparent); margin: 24px 0; }
+
+/* ============================================================
+   STAGE 1 — MISSION BRIEFING
+   ============================================================ */
+.mission-patch-centered { text-align: center; margin: 24px 0; }
+.mission-patch-centered img { width: 160px; height: 160px; display: inline-block; }
+
+/* ============================================================
+   STAGE 6 — BRISTLE FORTRESS SPECIAL
+   ============================================================ */
+.fortress-stage { background: linear-gradient(180deg, rgba(11,61,145,0.05) 0%, rgba(212,175,55,0.03) 100%); }
+
+/* ============================================================
+   STAGE 8 — AFTER ACTION REPORT
+   ============================================================ */
+.aar-header {
+  background: #0b3d91; color: #e8e8f0;
+  padding: 18px 24px; margin-bottom: 0;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.aar-header .aar-title { font-size: 14px; font-weight: bold; letter-spacing: 0.15em; text-transform: uppercase; }
+.aar-header .aar-ref { font-family: 'Courier New', monospace; font-size: 10px; color: rgba(232,232,240,0.5); }
+.aar-body { background: rgba(11,61,145,0.04); border: 1px solid rgba(11,61,145,0.2); border-top: none; padding: 24px; margin-bottom: 20px; }
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+.stage::-webkit-scrollbar { width: 4px; }
+.stage::-webkit-scrollbar-track { background: transparent; }
+.stage::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.3); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     BOOT SCREEN
+     ============================================================ -->
+<div id="boot-screen">
+  <div id="boot-lines">
+    <span class="line white" data-delay="0">SWINE SPACE ADMINISTRATION — MISSION CONTROL</span>
+    <span class="line" data-delay="400">────────────────────────────────────────────</span>
+    <span class="line" data-delay="700">INITIALIZING TELEMETRY SYSTEMS...</span>
+    <span class="line ok" data-delay="1100">[ OK ] UPLINK ESTABLISHED — DSN-14 GOLDSTONE</span>
+    <span class="line" data-delay="1400">LOADING MISSION DATA: OPERATION BRISTLE FORTRESS</span>
+    <span class="line ok" data-delay="1800">[ OK ] CREW STATUS: NOMINAL × 3</span>
+    <span class="line alert" data-delay="2100">[ !! ] THREAT ASSESSMENT: WOLFSBERG-2019 — EXTREME</span>
+    <span class="line warn" data-delay="2500">[ ⚠  ] HABITAT ALPHA INTEGRITY: 12% ⚠</span>
+    <span class="line warn" data-delay="2800">[ ⚠  ] HABITAT BETA INTEGRITY: 34% ⚠</span>
+    <span class="line ok" data-delay="3100">[ ✓  ] HABITAT GAMMA INTEGRITY: 100% ✓</span>
+    <span class="line" data-delay="3500">SECURITY CLEARANCE LEVEL 4 REQUIRED — VERIFIED</span>
+    <span class="line ok" data-delay="3900">ALL SYSTEMS GO. MISSION BRIEFING LOADING...<span id="boot-cursor"></span></span>
+  </div>
+</div>
+
+<!-- ============================================================
+     MAIN MISSION CONTROL
+     ============================================================ -->
+<div id="mission-control">
+
+  <!-- TOP NAV TIMELINE -->
+  <nav id="stage-nav">
+    <a href="../index.html" id="ssa-home">
+      <img src="assets/ssa-logo.svg" alt="SSA" onerror="this.style.display='none';this.nextElementSibling.style.fontSize='18px'">
+      <span>← GALLERY</span>
+    </a>
+
+    <div id="timeline-track">
+      <div class="timeline-segment"><button class="stage-dot current" data-stage="0" onclick="goTo(0)"><span>1</span><span class="dot-label">BRIEFING</span></button></div>
+      <div class="timeline-segment"><button class="stage-dot" data-stage="1" onclick="goTo(1)"><span>2</span><span class="dot-label">ALPHA</span></button></div>
+      <div class="timeline-segment"><button class="stage-dot" data-stage="2" onclick="goTo(2)"><span>3</span><span class="dot-label">IMPACT α</span></button></div>
+      <div class="timeline-segment"><button class="stage-dot" data-stage="3" onclick="goTo(3)"><span>4</span><span class="dot-label">BETA</span></button></div>
+      <div class="timeline-segment"><button class="stage-dot" data-stage="4" onclick="goTo(4)"><span>5</span><span class="dot-label">IMPACT β</span></button></div>
+      <div class="timeline-segment"><button class="stage-dot" data-stage="5" onclick="goTo(5)"><span>6</span><span class="dot-label">GAMMA</span></button></div>
+      <div class="timeline-segment"><button class="stage-dot" data-stage="6" onclick="goTo(6)"><span>7</span><span class="dot-label">REPELLED</span></button></div>
+      <div class="timeline-segment"><button class="stage-dot" data-stage="7" onclick="goTo(7)"><span>8</span><span class="dot-label">COMPLETE</span></button></div>
+    </div>
+
+    <div id="nav-right">
+      <span id="stage-label-top">STAGE 1 OF 8</span>
+      <span class="classify-badge">CLASSIFIED L4</span>
+    </div>
+  </nav>
+
+  <!-- PROGRESS BAR -->
+  <div id="progress-bar-wrap"><div id="progress-bar-fill"></div></div>
+
+  <!-- STAGES CONTAINER -->
+  <div id="stages-container">
+
+    <!-- ======================================================
+         STAGE 1 — MISSION BRIEFING
+         ====================================================== -->
+    <div class="stage active" id="stage-1">
+      <div class="stage-inner">
+        <div class="classified-strip">
+          <span class="agency">Swine Space Administration · Mission Control · Houston, TX</span>
+          <span class="clearance">CLEARANCE: LEVEL 4 — OINK-BLACK</span>
+          <span class="mission-id">DOC-SSA-2019-BF-001-A</span>
+        </div>
+
+        <div class="section-heading">Mission Designation</div>
+        <div class="stage-title">Operation Bristle Fortress</div>
+        <div class="stage-subtitle">CLASSIFIED — ASTEROID IMPACT CONTINGENCY PROTOCOL — PRIORITY ALPHA</div>
+
+        <div class="two-col">
+          <div>
+            <div class="data-panel">
+              <div class="panel-title">Threat Summary — Wolfsberg-2019</div>
+              <div class="spec-row"><span class="spec-key">Designation:</span> Asteroid B.B. Wolfsberg-2019</div>
+              <div class="spec-row"><span class="spec-key">Mass:</span> Indeterminate (classified)</div>
+              <div class="spec-row"><span class="spec-key">Trajectory:</span> DIRECT — IMPACT LOCKED</div>
+              <div class="spec-row"><span class="spec-key">Impact sequence:</span> ALPHA → BETA → GAMMA habitats</div>
+              <div class="spec-row"><span class="spec-key">Est. time to first impact:</span> <strong style="color:#ff3333">IMMINENT</strong></div>
+              <div class="spec-row"><span class="spec-key">Threat classification:</span> <strong style="color:#ff3333">EXTREME</strong></div>
+            </div>
+
+            <div class="dossier-block">
+              <div class="dossier-title">⬛ Wolf Dossier — Restricted Access</div>
+              <div class="dossier-row"><span class="dossier-key">Known aliases:</span> Big Bad Wolf, B.B. Wolfsberg, That Horrible Blowing Thing</div>
+              <div class="dossier-row"><span class="dossier-key">Motive:</span> Unclear. Presumed territorial.</div>
+              <div class="dossier-row"><span class="dossier-key">Dietary requirements:</span> Pork (confirmed)</div>
+              <div class="dossier-row"><span class="dossier-key">Lung capacity:</span> 87.3 kPa — classified as weapons-grade</div>
+              <div class="dossier-row"><span class="dossier-key">Known weakness:</span> Solid masonry</div>
+              <div class="dossier-row"><span class="dossier-key">Prior incidents:</span> Multiple residential destructions, case #1699-STRAW and #1699-STICK (pending)</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-heading" style="margin-bottom:14px">Crew Roster — Mission Specialists</div>
+
+            <div class="crew-card" style="margin-bottom:12px">
+              <img src="assets/pig-suit.svg" alt="Mission Specialist" onerror="this.outerHTML='<div style=&quot;width:56px;height:56px;background:rgba(11,61,145,0.3);border:1px solid rgba(11,61,145,0.5);flex-shrink:0&quot;></div>'">
+              <div class="crew-info">
+                <div class="crew-name">Percival Snout</div>
+                <div class="crew-role">Mission Specialist I · Habitat Alpha Lead</div>
+                <div class="crew-stat">STATUS: <span>NOMINAL</span></div>
+                <div class="crew-stat">HABITAT: <span style="color:#ffcc00">HALMUM-1 (Alpha)</span></div>
+                <div class="crew-easter">OPTIMISM RATING: EXCESSIVE · Previous incidents: 0 (this week)</div>
+              </div>
+            </div>
+
+            <div class="crew-card" style="margin-bottom:12px">
+              <img src="assets/pig-suit.svg" alt="Mission Specialist" onerror="this.outerHTML='<div style=&quot;width:56px;height:56px;background:rgba(11,61,145,0.3);border:1px solid rgba(11,61,145,0.5);flex-shrink:0&quot;></div>'">
+              <div class="crew-info">
+                <div class="crew-name">Barnabas Hoof</div>
+                <div class="crew-role">Mission Specialist II · Habitat Beta Lead</div>
+                <div class="crew-stat">STATUS: <span>NOMINAL</span></div>
+                <div class="crew-stat">HABITAT: <span style="color:#ffcc00">COMPMOD-2 (Beta)</span></div>
+                <div class="crew-easter">EXPERIENCE: MODERATE · Corner-reinforcing since 2017</div>
+              </div>
+            </div>
+
+            <div class="crew-card">
+              <img src="assets/pig-suit.svg" alt="Mission Specialist" onerror="this.outerHTML='<div style=&quot;width:56px;height:56px;background:rgba(11,61,145,0.3);border:1px solid rgba(11,61,145,0.5);flex-shrink:0&quot;></div>'">
+              <div class="crew-info">
+                <div class="crew-name">Thomasina Bristle</div>
+                <div class="crew-role">Mission Specialist III · Lead Engineer, BRISTLE-FORTRESS</div>
+                <div class="crew-stat">STATUS: <span>NOMINAL</span></div>
+                <div class="crew-stat">HABITAT: <span>BRISTLE-FORTRESS (Gamma)</span></div>
+                <div class="crew-easter">TOLD YOU SO COUNT: 1 (AND RISING) · Degrees: 4. Warnings ignored: also 4.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mission-patch-centered">
+          <div class="section-heading" style="text-align:center;margin-bottom:16px">Mission Patch — Operation Bristle Fortress</div>
+          <img src="assets/mission-patch.svg" alt="Mission Patch" style="width:160px;height:160px" onerror="this.style.display='none'">
+        </div>
+
+        <!-- Telemetry readout -->
+        <div style="background:rgba(0,0,0,0.5);border:1px solid rgba(0,255,136,0.15);padding:8px 0;overflow:hidden;margin-top:8px">
+          <div style="display:flex;align-items:center;font-family:'Courier New',monospace;font-size:11px;color:#00ff88;white-space:nowrap;animation:ticker-scroll 20s linear infinite">
+            WOLF LUNG CAPACITY: 87.3 kPa&nbsp;<span style="color:rgba(0,255,136,0.3)">·</span>&nbsp;THREAT CLASSIFICATION: EXTREME&nbsp;<span style="color:rgba(0,255,136,0.3)">·</span>&nbsp;HABITAT ALPHA STRUCTURAL INTEGRITY: 12%&nbsp;<span style="color:rgba(0,255,136,0.3)">·</span>&nbsp;HABITAT BETA STRUCTURAL INTEGRITY: 34%&nbsp;<span style="color:rgba(0,255,136,0.3)">·</span>&nbsp;HABITAT GAMMA STRUCTURAL INTEGRITY: 100%&nbsp;<span style="color:rgba(0,255,136,0.3)">·</span>&nbsp;ALL CREW: NOMINAL&nbsp;<span style="color:rgba(0,255,136,0.3)">·</span>&nbsp;MISSION ELAPSED TIME: T+00:00:00&nbsp;<span style="color:rgba(0,255,136,0.3)">·</span>&nbsp;WOLF LUNG CAPACITY: 87.3 kPa&nbsp;<span style="color:rgba(0,255,136,0.3)">·</span>&nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================
+         STAGE 2 — HABITAT ALPHA (HALMUM-1)
+         ====================================================== -->
+    <div class="stage" id="stage-2">
+      <div class="stage-inner">
+        <div class="classified-strip">
+          <span class="agency">SSA · Habitat Assessment Division · HALMUM-1 Technical File</span>
+          <span class="clearance">CLEARANCE: LEVEL 4</span>
+          <span class="mission-id">DOC-SSA-HAB-001-ALPHA</span>
+        </div>
+
+        <div class="section-heading">Habitat Alpha — Technical Specification</div>
+        <div class="stage-title">HALMUM-1 Inflatable Habitat</div>
+        <div class="stage-subtitle">FIRST POINT OF CONTACT — IMPACT SEQUENCE: ALPHA POSITION</div>
+
+        <div class="two-col">
+          <div>
+            <div class="asset-container" data-label="Fig. 1 — HALMUM-1 External Profile">
+              <img src="assets/habitat-alpha.svg" alt="HALMUM-1 Habitat" onerror="this.outerHTML='<div style=&quot;text-align:center;font-family:Courier New,monospace;font-size:11px;color:rgba(232,232,240,0.25)&quot;>[HABITAT-ALPHA DIAGRAM — FILE LOADING]</div>'">
+            </div>
+
+            <div class="status-badge caution">
+              <div class="indicator"></div>
+              STRUCTURAL INTEGRITY: 12% — WARNING
+            </div>
+
+            <div class="mission-note">
+              <div class="note-from">Mission Specialist Snout <span class="note-time">03:14:22 UTC</span></div>
+              <div class="note-text">"She'll hold. Probably. I mean, it's been up for six hours and nothing has happened yet. That's basically a track record. I'm very confident. Please don't tell the others I wrote 'probably.'"</div>
+            </div>
+
+            <div class="data-panel">
+              <div class="panel-title">Emergency Procedures</div>
+              <div class="spec-row"><span class="spec-key">Protocol:</span> Run.</div>
+              <div class="spec-row"><span class="spec-key">Secondary protocol:</span> Run faster.</div>
+              <div class="spec-row"><span class="spec-key">Tertiary protocol:</span> Proceed to COMPMOD-2 at speed. Do not stop to retrieve personal belongings.</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="data-panel">
+              <div class="panel-title">HALMUM-1 — Full Specification Sheet</div>
+              <div class="spec-row"><span class="spec-key">Material:</span> Polyethylene terephthalate (recycled straw-equivalent composite)</div>
+              <div class="spec-row"><span class="spec-key">Wall thickness:</span> 2.3mm</div>
+              <div class="spec-row"><span class="spec-key">Pressure rating:</span> 0.4 atm (standard atmosphere)</div>
+              <div class="spec-row"><span class="spec-key">Wolf resistance:</span> <strong style="color:#ff3333">NOT RATED</strong></div>
+              <div class="spec-row"><span class="spec-key">Asteroid resistance:</span> <strong style="color:#ff3333">NOT TESTED. NOT RECOMMENDED.</strong></div>
+              <div class="spec-row"><span class="spec-key">Mass:</span> 47 kg (uninflated)</div>
+              <div class="spec-row"><span class="spec-key">Assembly time:</span> 4 minutes (from bag)</div>
+              <div class="spec-row"><span class="spec-key">Design lifetime:</span> 6–8 hours (optimistic)</div>
+              <div class="spec-row"><span class="spec-key">Occupant capacity:</span> 1 Mission Specialist (snug)</div>
+              <div class="spec-row"><span class="spec-key">Insulation rating:</span> R-2 (equivalent to a nice sleeping bag)</div>
+              <div class="spec-row"><span class="spec-key">Structural mode:</span> Inflatable (dependent on continued inflation)</div>
+              <div class="spec-row"><span class="spec-key">Known failure modes:</span> Wind, rain, sustained looking-at, impact events</div>
+              <div class="spec-row"><span class="spec-key">Manufacturer note:</span> "Not intended for use as primary habitation during active asteroid events."</div>
+            </div>
+
+            <div class="data-panel" style="border-left-color:#ffcc00">
+              <div class="panel-title" style="color:#ffcc00">Pre-Impact Risk Assessment</div>
+              <div class="spec-row"><span class="spec-key">Structural confidence:</span> <strong style="color:#ffcc00">LOW</strong></div>
+              <div class="spec-row"><span class="spec-key">Snout's confidence:</span> <strong style="color:#00ff88">HIGH (UNJUSTIFIED)</strong></div>
+              <div class="spec-row"><span class="spec-key">Mission Control assessment:</span> We have concerns.</div>
+              <div class="spec-row"><span class="spec-key">Contingency status:</span> ACTIVE — COMPMOD-2 on standby</div>
+              <div class="spec-row"><span class="spec-key">Thomasina Bristle's comment:</span> "I told them."</div>
+            </div>
+
+            <div class="integrity-graph">
+              <div class="graph-title">Pre-impact structural integrity estimate</div>
+              <div class="graph-label">Wall cohesion</div>
+              <div class="graph-track"><div class="graph-bar" style="width:12%;background:linear-gradient(90deg,#ff3333,#ff6644)"></div></div>
+              <div class="graph-label">Pressure seal</div>
+              <div class="graph-track"><div class="graph-bar" style="width:18%;background:linear-gradient(90deg,#ff3333,#ff6644)"></div></div>
+              <div class="graph-label">Impact rating</div>
+              <div class="graph-track"><div class="graph-bar" style="width:3%;background:linear-gradient(90deg,#ff3333,#ff4444)"></div></div>
+              <div style="font-size:9px;color:rgba(232,232,240,0.3);margin-top:8px">SCALE: 0% (DUST) ←————————————→ 100% (CERTIFIED)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================
+         STAGE 3 — IMPACT EVENT ALPHA
+         ====================================================== -->
+    <div class="stage emergency-stage" id="stage-3">
+      <div class="stage-inner">
+        <div class="classified-strip">
+          <span class="agency">SSA · Emergency Operations · INCIDENT REPORT IR-2019-001</span>
+          <span class="clearance" style="color:#ff3333;border-color:#ff3333">INCIDENT ACTIVE</span>
+          <span class="mission-id">03:14:47 UTC</span>
+        </div>
+
+        <div class="impact-title">⚠ IMPACT DETECTED</div>
+        <div class="impact-subtitle">HALMUM-1 STATUS: COMPROMISED — STRUCTURE BREACH CONFIRMED</div>
+
+        <div class="two-col">
+          <div>
+            <div class="data-panel" style="border-left-color:#ff3333;background:rgba(255,51,51,0.05)">
+              <div class="panel-title" style="color:#ff3333">Impact Event Log — 03:14:47 UTC</div>
+              <div class="spec-row"><span class="spec-key">Asteroid contact:</span> CONFIRMED</div>
+              <div class="spec-row"><span class="spec-key">Contact time:</span> 03:14:47 UTC</div>
+              <div class="spec-row"><span class="spec-key">Duration of resistance:</span> <strong style="color:#ff3333">25 seconds</strong></div>
+              <div class="spec-row"><span class="spec-key">Predicted resistance time:</span> 25–30 seconds (model was accurate)</div>
+              <div class="spec-row"><span class="spec-key">Breach point:</span> North-facing wall (primary inflation seam)</div>
+              <div class="spec-row"><span class="spec-key">Structural status:</span> <strong style="color:#ff3333">TOTAL LOSS</strong></div>
+              <div class="spec-row"><span class="spec-key">Personnel status:</span> <strong style="color:#00ff88">RECOVERED — Snout evacuated to COMPMOD-2</strong></div>
+              <div class="spec-row"><span class="spec-key">Evacuation time:</span> 03:14:44 UTC (3 seconds prior to breach — close)</div>
+            </div>
+
+            <div class="telem-graph">
+              <svg class="telem-graph-svg" viewBox="0 0 400 60" preserveAspectRatio="none">
+                <polyline points="0,10 60,8 100,9 140,7 180,12 200,45 230,52 260,56 320,58 400,59" fill="none" stroke="#ff3333" stroke-width="2"/>
+                <line x1="195" y1="0" x2="195" y2="60" stroke="rgba(255,51,51,0.4)" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="198" y="12" fill="rgba(255,51,51,0.6)" font-size="8" font-family="Courier New">IMPACT</text>
+              </svg>
+            </div>
+            <div style="font-family:'Courier New',monospace;font-size:9px;color:rgba(232,232,240,0.3);margin-bottom:20px">HALMUM-1 Structural Integrity — T-120s to T+120s from impact event</div>
+
+            <div class="footnote">
+              Post-incident review note (Mission Director): HALMUM-1 was never going to hold. We knew this. We built it anyway. Mission Specialist Snout submitted this habitat plan with a confidence rating of "very yes." The review board approved it on a Tuesday. We have learned from this experience. (We have not learned from this experience.)
+            </div>
+          </div>
+
+          <div>
+            <div class="section-heading">Damage Assessment Report</div>
+            <table class="data-table">
+              <thead>
+                <tr><th>System / Component</th><th>Pre-Impact</th><th>Post-Impact</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Polyethylene wall integrity</td><td class="val-warn">12%</td><td class="val-bad">0%</td></tr>
+                <tr><td>Straw-equivalent structural mass</td><td class="val-warn">47 kg</td><td class="val-bad">DISPERSED</td></tr>
+                <tr><td>Pressure vessel integrity</td><td class="val-warn">0.4 atm</td><td class="val-bad">0.0 atm</td></tr>
+                <tr><td>North wall seam</td><td class="val-warn">MARGINAL</td><td class="val-bad">ABSENT</td></tr>
+                <tr><td>South wall</td><td class="val-warn">MARGINAL</td><td class="val-bad">FORMERLY PRESENT</td></tr>
+                <tr><td>Personnel — M.S. Snout</td><td class="val-warn">NOMINAL</td><td class="val-ok">RECOVERED</td></tr>
+                <tr><td>Wolf exhaust velocity at impact</td><td class="label">N/A</td><td class="val-bad">87.3 kPa</td></tr>
+                <tr><td>Asteroid trajectory post-impact</td><td class="label">N/A</td><td class="val-warn">REDIRECTED → COMPMOD-2</td></tr>
+              </tbody>
+            </table>
+
+            <div class="mission-note" style="border-left-color:#ff3333;background:rgba(255,51,51,0.04)">
+              <div class="note-from" style="color:#ff3333">Mission Specialist Snout — Evacuation Report <span class="note-time">03:15:12 UTC</span></div>
+              <div class="note-text">"I am currently inside COMPMOD-2. Barnabas has offered me a blanket. I am fine. The habitat was fine. Mostly. It held for a very respectable 25 seconds. I stand by the design philosophically."</div>
+            </div>
+
+            <div class="data-panel" style="border-left-color:#ffcc00">
+              <div class="panel-title">Next Action — COMPMOD-2 Contingency</div>
+              <div class="spec-row"><span class="spec-key">Status:</span> <strong style="color:#ffcc00">COMPMOD-2 NOW HOUSING 2 CREW</strong></div>
+              <div class="spec-row"><span class="spec-key">Wolf last known bearing:</span> Approaching COMPMOD-2, estimated arrival: 33 minutes</div>
+              <div class="spec-row"><span class="spec-key">Recommendation:</span> Proceed to Stage 4 — COMPMOD-2 technical review</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================
+         STAGE 4 — HABITAT BETA (COMPMOD-2)
+         ====================================================== -->
+    <div class="stage" id="stage-4">
+      <div class="stage-inner">
+        <div class="classified-strip">
+          <span class="agency">SSA · Habitat Assessment Division · COMPMOD-2 Technical File</span>
+          <span class="clearance">CLEARANCE: LEVEL 4</span>
+          <span class="mission-id">DOC-SSA-HAB-002-BETA</span>
+        </div>
+
+        <div class="section-heading">Habitat Beta — Technical Specification</div>
+        <div class="stage-title">COMPMOD-2 Composite Habitat</div>
+        <div class="stage-subtitle">SECOND POINT OF CONTACT — CURRENT OCCUPANTS: 2 OF 3 CREW</div>
+
+        <div class="two-col">
+          <div>
+            <div class="asset-container" data-label="Fig. 2 — COMPMOD-2 External Profile">
+              <img src="assets/habitat-alpha.svg" alt="COMPMOD-2 Habitat" style="filter:hue-rotate(30deg) brightness(1.1)" onerror="this.outerHTML='<div style=&quot;text-align:center;font-family:Courier New,monospace;font-size:11px;color:rgba(232,232,240,0.25)&quot;>[HABITAT-BETA DIAGRAM — FILE LOADING]</div>'">
+            </div>
+
+            <div class="status-badge caution">
+              <div class="indicator"></div>
+              STRUCTURAL INTEGRITY: 34% — CAUTION
+            </div>
+
+            <div class="mission-note">
+              <div class="note-from">Mission Specialist Hoof <span class="note-time">03:47:11 UTC</span></div>
+              <div class="note-text">"This is definitely fine. I reinforced the corners. Both of them. Well — three of the four corners. The fourth one was awkward to reach and I'm confident it'll be okay. Also, Snout is here now. It's a bit cosy but we're managing. There's a blanket."</div>
+            </div>
+
+            <div class="mission-note" style="border-left-color:rgba(255,51,51,0.4)">
+              <div class="note-from" style="color:rgba(255,51,51,0.6)">Mission Control — Assessment Note <span class="note-time">03:48:02 UTC</span></div>
+              <div class="note-text">"COMPMOD-2 is substantially better than HALMUM-1. This is a low bar. The carbon-fibre composite provides genuine structural improvement. We estimate resistance duration of 2–3 minutes against Wolfsberg-2019. Please reinforce that fourth corner."</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="data-panel">
+              <div class="panel-title">COMPMOD-2 — Full Specification Sheet</div>
+              <div class="spec-row"><span class="spec-key">Material:</span> Carbon-fibre composite (stick-frame equivalent, reclaimed)</div>
+              <div class="spec-row"><span class="spec-key">Wall thickness:</span> 8.7mm (12.1mm at reinforced corners — 3 of 4)</div>
+              <div class="spec-row"><span class="spec-key">Pressure rating:</span> 1.2 atm</div>
+              <div class="spec-row"><span class="spec-key">Wolf resistance:</span> <strong style="color:#ffcc00">"Moderate (theoretical)"</strong></div>
+              <div class="spec-row"><span class="spec-key">Asteroid resistance:</span> Tested (results pending this mission)</div>
+              <div class="spec-row"><span class="spec-key">Assembly time:</span> 2.5 hours</div>
+              <div class="spec-row"><span class="spec-key">Design lifetime:</span> 48 hours (standard conditions)</div>
+              <div class="spec-row"><span class="spec-key">Occupant capacity:</span> 1–2 Mission Specialists (currently 2, one with blanket)</div>
+              <div class="spec-row"><span class="spec-key">Structural mode:</span> Semi-rigid composite frame</div>
+              <div class="spec-row"><span class="spec-key">Corner reinforcement:</span> 3/4 completed</div>
+              <div class="spec-row"><span class="spec-key">Emergency protocol:</span> BRISTLE-FORTRESS is that way. Go there.</div>
+            </div>
+
+            <div class="data-panel" style="border-left-color:#ffcc00">
+              <div class="panel-title" style="color:#ffcc00">Current Occupancy Status</div>
+              <div class="spec-row"><span class="spec-key">Occupant 1:</span> <strong style="color:#00ff88">Barnabas Hoof — NOMINAL</strong></div>
+              <div class="spec-row"><span class="spec-key">Occupant 2:</span> <strong style="color:#00ff88">Percival Snout — NOMINAL (slightly damp)</strong></div>
+              <div class="spec-row"><span class="spec-key">Blanket status:</span> Shared. Amicably.</div>
+              <div class="spec-row"><span class="spec-key">Morale:</span> 6/10 (improving)</div>
+              <div class="spec-row"><span class="spec-key">Snout's position on HALMUM-1:</span> "It had good bones." (incorrect)</div>
+            </div>
+
+            <div class="integrity-graph">
+              <div class="graph-title">Structural integrity — pre-impact estimate</div>
+              <div class="graph-label">Carbon-fibre wall panels</div>
+              <div class="graph-track"><div class="graph-bar" style="width:34%;background:linear-gradient(90deg,#ffcc00,#ff9900)"></div></div>
+              <div class="graph-label">Corner reinforcement (3/4)</div>
+              <div class="graph-track"><div class="graph-bar" style="width:52%;background:linear-gradient(90deg,#ffcc00,#ff9900)"></div></div>
+              <div class="graph-label">Corner 4 (unreinforced)</div>
+              <div class="graph-track"><div class="graph-bar" style="width:8%;background:linear-gradient(90deg,#ff3333,#ff4444)"></div></div>
+              <div style="font-size:9px;color:rgba(232,232,240,0.3);margin-top:8px">SCALE: 0% (DUST) ←————————————→ 100% (CERTIFIED)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footnote">
+          Technical note: COMPMOD-2 represents a 184% improvement in wall thickness over HALMUM-1. This sounds impressive. It is not impressive enough. Mission Specialist Bristle has noted this in writing approximately four times. The documents are available upon request. They are extensive.
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================
+         STAGE 5 — IMPACT EVENT BETA
+         ====================================================== -->
+    <div class="stage emergency-stage" id="stage-5">
+      <div class="stage-inner">
+        <div class="classified-strip">
+          <span class="agency">SSA · Emergency Operations · INCIDENT REPORT IR-2019-002</span>
+          <span class="clearance" style="color:#ff3333;border-color:#ff3333">INCIDENT ACTIVE</span>
+          <span class="mission-id">03:47:58 UTC</span>
+        </div>
+
+        <div class="impact-title">⚠ SECOND IMPACT CONFIRMED</div>
+        <div class="impact-subtitle">COMPMOD-2 STATUS: COMPROMISED — 2 CREW EVACUATED TO BRISTLE-FORTRESS</div>
+
+        <div class="two-col">
+          <div>
+            <div class="data-panel" style="border-left-color:#ff3333;background:rgba(255,51,51,0.05)">
+              <div class="panel-title" style="color:#ff3333">Impact Event Log — 03:47:58 UTC</div>
+              <div class="spec-row"><span class="spec-key">Asteroid contact (2nd):</span> CONFIRMED</div>
+              <div class="spec-row"><span class="spec-key">Contact time:</span> 03:47:58 UTC (47 min after first impact)</div>
+              <div class="spec-row"><span class="spec-key">Duration of resistance:</span> <strong style="color:#ffcc00">2 minutes, 14 seconds</strong></div>
+              <div class="spec-row"><span class="spec-key">Improvement over HALMUM-1:</span> 5.36× longer. Still insufficient.</div>
+              <div class="spec-row"><span class="spec-key">Breach point:</span> Corner 4 (the unreinforced one)</div>
+              <div class="spec-row"><span class="spec-key">Structural status:</span> <strong style="color:#ff3333">TOTAL LOSS — CARBON FIBRE COMPOSITE SCATTERED</strong></div>
+              <div class="spec-row"><span class="spec-key">Personnel — Hoof:</span> <strong style="color:#00ff88">RECOVERED — Evacuated to BRISTLE-FORTRESS at 03:49:08</strong></div>
+              <div class="spec-row"><span class="spec-key">Personnel — Snout:</span> <strong style="color:#00ff88">RECOVERED — Evacuated to BRISTLE-FORTRESS at 03:49:05</strong></div>
+            </div>
+
+            <div class="telem-graph">
+              <svg class="telem-graph-svg" viewBox="0 0 400 60" preserveAspectRatio="none">
+                <polyline points="0,15 80,13 120,14 160,11 200,16 220,30 250,42 280,50 320,55 380,58 400,59" fill="none" stroke="#ff6633" stroke-width="2"/>
+                <line x1="210" y1="0" x2="210" y2="60" stroke="rgba(255,102,51,0.4)" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="213" y="12" fill="rgba(255,102,51,0.6)" font-size="8" font-family="Courier New">IMPACT</text>
+              </svg>
+            </div>
+            <div style="font-family:'Courier New',monospace;font-size:9px;color:rgba(232,232,240,0.3);margin-bottom:20px">COMPMOD-2 Structural Integrity — T-120s to T+120s from second impact event</div>
+
+            <div class="data-panel" style="border-left-color:#D4AF37;background:rgba(212,175,55,0.04)">
+              <div class="panel-title" style="color:#D4AF37">Wolf Post-Impact Physiological Assessment</div>
+              <div class="spec-row"><span class="spec-key">Note:</span> Wolfsberg-2019 has taken a brief rest between impacts. Telemetry monitoring shows elevated respiratory recovery time (approximately 45 minutes between events). Behavioral analysts suggest this indicates the asteroid is experiencing exertion-related fatigue. Lung capacity reportedly down to 84.1 kPa from initial 87.3 kPa. An improvement, from our perspective.</div>
+            </div>
+
+            <div class="footnote">
+              Mission Director's note: We have one habitat remaining. It is the good one. Everyone please remain calm. Mission Specialist Bristle has been informed that she may say "I told you so" once per colleague, per incident. She is pacing herself.
+            </div>
+          </div>
+
+          <div>
+            <div class="section-heading">Damage Assessment Report</div>
+            <table class="data-table">
+              <thead>
+                <tr><th>System / Component</th><th>Pre-Impact</th><th>Post-Impact</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Carbon-fibre wall panels</td><td class="val-warn">34%</td><td class="val-bad">0%</td></tr>
+                <tr><td>Corner 1–3 (reinforced)</td><td class="val-warn">52%</td><td class="val-bad">SCATTERED (northeast sector)</td></tr>
+                <tr><td>Corner 4 (unreinforced)</td><td class="val-bad">8%</td><td class="val-bad">INITIAL FAILURE POINT</td></tr>
+                <tr><td>Structural frame</td><td class="val-warn">34%</td><td class="val-bad">COMPROMISED</td></tr>
+                <tr><td>Blanket (tactical asset)</td><td class="val-ok">NOMINAL</td><td class="val-ok">RESCUED — Currently in BRISTLE-FORTRESS</td></tr>
+                <tr><td>Personnel — Hoof</td><td class="val-ok">NOMINAL</td><td class="val-ok">RECOVERED</td></tr>
+                <tr><td>Personnel — Snout</td><td class="val-ok">NOMINAL</td><td class="val-ok">RECOVERED (still slightly damp)</td></tr>
+                <tr><td>Wolf lung pressure (2nd impact)</td><td class="label">87.3 kPa</td><td class="val-warn">84.1 kPa (fatigue detected)</td></tr>
+              </tbody>
+            </table>
+
+            <div class="mission-note" style="border-left-color:rgba(255,51,51,0.4)">
+              <div class="note-from" style="color:rgba(255,51,51,0.6)">Mission Specialist Hoof — Evacuation Report <span class="note-time">03:50:22 UTC</span></div>
+              <div class="note-text">"I would like it noted that the habitat performed adequately given the circumstances. 2 minutes and 14 seconds is, objectively, better than 25 seconds. Also, I retrieved the blanket. That was a difficult call to make mid-evacuation and I stand by it."</div>
+            </div>
+
+            <div class="data-panel" style="border-left-color:#00ff88;background:rgba(0,255,136,0.03)">
+              <div class="panel-title" style="color:#00ff88">All Crew Now in BRISTLE-FORTRESS</div>
+              <div class="spec-row"><span class="spec-key">Percival Snout:</span> <strong style="color:#00ff88">NOMINAL</strong></div>
+              <div class="spec-row"><span class="spec-key">Barnabas Hoof:</span> <strong style="color:#00ff88">NOMINAL</strong></div>
+              <div class="spec-row"><span class="spec-key">Thomasina Bristle:</span> <strong style="color:#00ff88">NOMINAL (vindicated)</strong></div>
+              <div class="spec-row"><span class="spec-key">Blanket:</span> <strong style="color:#00ff88">RECOVERED AND PRESENT</strong></div>
+              <div class="spec-row"><span class="spec-key">Next event:</span> Wolfsberg-2019 approaching BRISTLE-FORTRESS. Time to impact: estimated 18 minutes.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================
+         STAGE 6 — HABITAT GAMMA (BRISTLE-FORTRESS)
+         ====================================================== -->
+    <div class="stage fortress-stage" id="stage-6">
+      <div class="stage-inner">
+        <div class="classified-strip">
+          <span class="agency">SSA · Habitat Assessment Division · BRISTLE-FORTRESS Technical File</span>
+          <span class="clearance" style="color:#00ff88;border-color:#00ff88">CLEARANCE VERIFIED — ACCESS GRANTED</span>
+          <span class="mission-id">DOC-SSA-HAB-003-GAMMA</span>
+        </div>
+
+        <div class="section-heading">Habitat Gamma — Technical Specification</div>
+        <div class="stage-title">BRISTLE-FORTRESS — Hardened Installation</div>
+        <div class="stage-subtitle">FINAL DEFENSIVE POSITION — ALL 3 CREW ABOARD — STRUCTURAL INTEGRITY: 100%</div>
+
+        <div class="status-badge nominal">
+          <div class="indicator"></div>
+          STRUCTURAL INTEGRITY: 100% — FULLY NOMINAL — CERTIFIED AND RATED
+        </div>
+
+        <div class="two-col">
+          <div>
+            <div class="asset-container" data-label="Fig. 3 — BRISTLE-FORTRESS External Profile — IMPRESSIVE" style="border-color:rgba(212,175,55,0.3);background:rgba(212,175,55,0.04)">
+              <img src="assets/habitat-gamma.svg" alt="BRISTLE-FORTRESS" onerror="this.outerHTML='<div style=&quot;text-align:center;font-family:Courier New,monospace;font-size:11px;color:rgba(212,175,55,0.4)&quot;>[BRISTLE-FORTRESS DIAGRAM — FILE LOADING]</div>'">
+            </div>
+
+            <div class="mission-note" style="border-left-color:#D4AF37;background:rgba(212,175,55,0.05)">
+              <div class="note-from" style="color:#D4AF37">Mission Specialist Bristle — Design Statement <span class="note-time">Construction complete: T-847 hours</span></div>
+              <div class="note-text">"I designed this habitat to withstand everything. Not 'most things.' Not 'probably most things, hopefully.' Everything. The wolf will lose. The asteroid will lose. Physics will cooperate because I have asked it nicely and also because I have done the load-bearing calculations correctly, which is more than can be said for the previous two habitats. I told them."</div>
+            </div>
+
+            <div class="mission-note" style="border-left-color:#00ff88">
+              <div class="note-from">Mission Specialist Snout (inside BRISTLE-FORTRESS) <span class="note-time">03:51:44 UTC</span></div>
+              <div class="note-text">"Okay. I'll admit it. This is... considerably more reassuring than HALMUM-1. The walls are thick. Very thick. I knocked on one and it didn't make a sound. I knocked harder. Still nothing. I feel quite safe. Thomasina has not said 'I told you so' yet. The suspense is considerable."</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="data-panel" style="border-left-color:#D4AF37;background:rgba(212,175,55,0.04)">
+              <div class="panel-title" style="color:#D4AF37">BRISTLE-FORTRESS — Full Specification Sheet</div>
+              <div class="spec-row"><span class="spec-key">Material:</span> Titanium-reinforced brick composite (Mg-Al alloy core, ceramic facing)</div>
+              <div class="spec-row"><span class="spec-key">Wall thickness:</span> <strong style="color:#D4AF37">847mm</strong> (for comparison: HALMUM-1 was 2.3mm)</div>
+              <div class="spec-row"><span class="spec-key">Pressure rating:</span> <strong style="color:#D4AF37">14.7 atm</strong> (deep-ocean rated)</div>
+              <div class="spec-row"><span class="spec-key">Wolf resistance:</span> <strong style="color:#00ff88">RATED AND CERTIFIED — 120 kPa tested</strong></div>
+              <div class="spec-row"><span class="spec-key">Asteroid resistance:</span> <strong style="color:#00ff88">"We tested it. The wolf lost." — M.S. Bristle</strong></div>
+              <div class="spec-row"><span class="spec-key">Assembly time:</span> 847 hours (lead engineer: Thomasina Bristle)</div>
+              <div class="spec-row"><span class="spec-key">Bricks:</span> 2,847 (individually inspected)</div>
+              <div class="spec-row"><span class="spec-key">Design lifetime:</span> 300 years (conservative estimate)</div>
+              <div class="spec-row"><span class="spec-key">Occupant capacity:</span> 1–6 Mission Specialists (comfortable)</div>
+              <div class="spec-row"><span class="spec-key">Emergency protocol:</span> None required. Stay inside. Eat snacks.</div>
+            </div>
+
+            <div class="layers-diagram">
+              <div class="layer-title">BRISTLE-FORTRESS — Reinforcement Layer Cross-Section</div>
+              <div class="layer-row">
+                <div class="layer-bar" style="width:40%;background:rgba(212,175,55,0.3);border:1px solid rgba(212,175,55,0.4)">Ceramic facing</div>
+                <div class="layer-spec">12mm · Impact-ablative surface</div>
+              </div>
+              <div class="layer-row">
+                <div class="layer-bar" style="width:65%;background:rgba(11,61,145,0.4);border:1px solid rgba(11,61,145,0.5)">Titanium mesh</div>
+                <div class="layer-spec">8mm · Shear resistance</div>
+              </div>
+              <div class="layer-row">
+                <div class="layer-bar" style="width:80%;background:rgba(232,232,240,0.15);border:1px solid rgba(232,232,240,0.2)">Brick composite core</div>
+                <div class="layer-spec">800mm · Primary structural</div>
+              </div>
+              <div class="layer-row">
+                <div class="layer-bar" style="width:50%;background:rgba(11,61,145,0.3);border:1px solid rgba(11,61,145,0.4)">Mg-Al alloy liner</div>
+                <div class="layer-spec">18mm · Interior seal</div>
+              </div>
+              <div class="layer-row">
+                <div class="layer-bar" style="width:25%;background:rgba(0,255,136,0.15);border:1px solid rgba(0,255,136,0.2)">Interior comfort layer</div>
+                <div class="layer-spec">9mm · Crew welfare</div>
+              </div>
+              <div style="font-size:9px;color:rgba(232,232,240,0.3);margin-top:8px;font-family:'Courier New',monospace">TOTAL: 847mm — scale approximate — M.S. Bristle, P.E., lead design</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-heading">All Crew — Current Status</div>
+        <div class="three-col">
+          <div class="data-panel" style="border-left-color:#00ff88">
+            <div class="panel-title" style="color:#00ff88">Percival Snout</div>
+            <div class="spec-row">Status: <strong style="color:#00ff88">NOMINAL</strong></div>
+            <div class="spec-row">Location: BRISTLE-FORTRESS</div>
+            <div class="spec-row">Mood: Humble (improving)</div>
+            <div class="spec-row">Comment: "It's very solid."</div>
+          </div>
+          <div class="data-panel" style="border-left-color:#00ff88">
+            <div class="panel-title" style="color:#00ff88">Barnabas Hoof</div>
+            <div class="spec-row">Status: <strong style="color:#00ff88">NOMINAL</strong></div>
+            <div class="spec-row">Location: BRISTLE-FORTRESS</div>
+            <div class="spec-row">Blanket: Present and warm</div>
+            <div class="spec-row">Comment: "We should have done this first."</div>
+          </div>
+          <div class="data-panel" style="border-left-color:#D4AF37">
+            <div class="panel-title" style="color:#D4AF37">Thomasina Bristle</div>
+            <div class="spec-row">Status: <strong style="color:#00ff88">NOMINAL</strong></div>
+            <div class="spec-row">Location: BRISTLE-FORTRESS</div>
+            <div class="spec-row">Told-you-so count: 1</div>
+            <div class="spec-row">Comment: (silent, satisfied nod)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================
+         STAGE 7 — IMPACT REPELLED
+         ====================================================== -->
+    <div class="stage success-stage" id="stage-7">
+      <div class="stage-inner">
+        <div class="classified-strip">
+          <span class="agency">SSA · Mission Control · SUCCESS REPORT SR-2019-001</span>
+          <span class="clearance" style="color:#00ff88;border-color:#00ff88">THREAT NEUTRALIZED</span>
+          <span class="mission-id">04:09:14 UTC</span>
+        </div>
+
+        <div class="success-title">WOLFSBERG-2019 IMPACT ATTEMPT: REPELLED</div>
+        <div style="font-family:'Courier New',monospace;font-size:13px;color:rgba(0,255,136,0.7);letter-spacing:0.1em;margin-bottom:24px">03 ATTEMPTS · 0 BREACHES · ALL CREW NOMINAL · MISSION CONTROL APPLAUDING</div>
+
+        <div class="two-col">
+          <div>
+            <div class="data-panel" style="border-left-color:#00ff88;background:rgba(0,255,136,0.04)">
+              <div class="panel-title" style="color:#00ff88">Impact Event Log — 04:09:14 UTC — Third Attempt</div>
+              <div class="spec-row"><span class="spec-key">Asteroid contact (3rd):</span> CONFIRMED</div>
+              <div class="spec-row"><span class="spec-key">Contact time:</span> 04:09:14 UTC</div>
+              <div class="spec-row"><span class="spec-key">Duration of impact attempt:</span> 4 minutes, 52 seconds</div>
+              <div class="spec-row"><span class="spec-key">BRISTLE-FORTRESS response:</span> <strong style="color:#00ff88">NO STRUCTURAL RESPONSE. ZERO DEFORMATION.</strong></div>
+              <div class="spec-row"><span class="spec-key">Breach achieved:</span> <strong style="color:#00ff88">NONE</strong></div>
+              <div class="spec-row"><span class="spec-key">Structural integrity post-impact:</span> <strong style="color:#00ff88">100% — UNCHANGED</strong></div>
+              <div class="spec-row"><span class="spec-key">Wolf status (post-impact):</span> Trajectory reversed. Asteroid respiratory function severely degraded.</div>
+              <div class="spec-row"><span class="spec-key">Wolfsberg-2019 lung pressure:</span> <span style="color:#00ff88">4.2 kPa (down from 87.3 kPa — 95.2% reduction)</span></div>
+              <div class="spec-row"><span class="spec-key">Estimated recovery time:</span> 6–8 weeks. No further threat anticipated.</div>
+            </div>
+
+            <div class="asteroid-bounce-container">
+              <div class="asteroid-dot"></div>
+              <div class="fortress-wall"></div>
+              <span class="asteroid-bounce-label left">WOLFSBERG-2019 →</span>
+              <span class="asteroid-bounce-label right">← BRISTLE-FORTRESS</span>
+            </div>
+            <div style="font-family:'Courier New',monospace;font-size:9px;color:rgba(232,232,240,0.3);margin-bottom:20px">Real-time trajectory plot — Wolfsberg-2019 vs. BRISTLE-FORTRESS outer wall — impact repelled</div>
+
+            <div class="mission-note" style="border-left-color:#D4AF37;background:rgba(212,175,55,0.05)">
+              <div class="note-from" style="color:#D4AF37">Mission Control — Transmission to Crew <span class="note-time">04:14:22 UTC</span></div>
+              <div class="note-text">"Outstanding work, BRISTLE-FORTRESS team. Wolfsberg-2019 has departed the area on a reversed trajectory. You may now say 'I told you so' to Mission Specialists Snout and Hoof. Mission Specialist Bristle: that permission has already been documented."</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-heading">Post-Impact Crew Status — All Nominal</div>
+
+            <table class="data-table" style="margin-bottom:20px">
+              <thead>
+                <tr><th>Mission Specialist</th><th>Status</th><th>Location</th><th>Note</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Percival Snout</td>
+                  <td class="val-ok">NOMINAL</td>
+                  <td>BRISTLE-FORTRESS</td>
+                  <td class="label">"I can't believe that worked."</td>
+                </tr>
+                <tr>
+                  <td>Barnabas Hoof</td>
+                  <td class="val-ok">NOMINAL</td>
+                  <td>BRISTLE-FORTRESS</td>
+                  <td class="label">"The blanket is fine."</td>
+                </tr>
+                <tr>
+                  <td>Thomasina Bristle</td>
+                  <td class="val-ok">NOMINAL</td>
+                  <td>BRISTLE-FORTRESS</td>
+                  <td class="label">"I told them."</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="section-heading">Wolfsberg-2019 Post-Impact Assessment</div>
+            <div class="data-panel">
+              <div class="panel-title">Asteroid Behavioral Analysis</div>
+              <div class="spec-row"><span class="spec-key">Post-impact trajectory:</span> Reversed — departing at 127° bearing</div>
+              <div class="spec-row"><span class="spec-key">Respiratory function:</span> Severely degraded (4.2 kPa remaining)</div>
+              <div class="spec-row"><span class="spec-key">Impact surface damage:</span> Surface cratering on leading face (own impact)</div>
+              <div class="spec-row"><span class="spec-key">Behavioral observation:</span> The asteroid has been observed circling the BRISTLE-FORTRESS perimeter for several hours post-impact.</div>
+              <div class="spec-row"><span class="spec-key">Behavioral analyst note:</span> This is consistent with sulking. Standard sulking duration: 6–8 weeks. No threat anticipated.</div>
+              <div class="spec-row"><span class="spec-key">BRISTLE-FORTRESS damage:</span> <strong style="color:#00ff88">NONE. ZERO. NOT A SCRATCH.</strong></div>
+            </div>
+
+            <div class="data-panel" style="border-left-color:#D4AF37">
+              <div class="panel-title">Mission Performance Comparison</div>
+              <div class="spec-row"><span class="spec-key">HALMUM-1 resistance:</span> 25 seconds</div>
+              <div class="spec-row"><span class="spec-key">COMPMOD-2 resistance:</span> 2 min, 14 sec</div>
+              <div class="spec-row"><span class="spec-key">BRISTLE-FORTRESS resistance:</span> <strong style="color:#D4AF37">Indefinite — impact rejected</strong></div>
+              <div class="spec-row"><span class="spec-key">Learning curve:</span> Steep but successful</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================
+         STAGE 8 — MISSION COMPLETE — AFTER-ACTION REPORT
+         ====================================================== -->
+    <div class="stage" id="stage-8">
+      <div class="stage-inner">
+
+        <div class="mission-accomplished">
+          <div style="font-size:11px;letter-spacing:0.3em;color:rgba(212,175,55,0.6);text-transform:uppercase;margin-bottom:12px">Swine Space Administration</div>
+          <div class="big-text">Mission Accomplished</div>
+          <div style="font-family:'Courier New',monospace;font-size:12px;color:rgba(212,175,55,0.5);letter-spacing:0.15em;margin-bottom:24px">OPERATION BRISTLE FORTRESS — ALL CREW SAFE — THREAT NEUTRALIZED</div>
+          <img src="assets/mission-patch.svg" alt="Mission Patch" onerror="this.style.display='none'">
+        </div>
+
+        <div class="gold-divider"></div>
+
+        <div class="aar-header">
+          <div>
+            <div class="aar-title">After-Action Report — Operation Bristle Fortress</div>
+            <div class="aar-ref" style="color:rgba(255,255,255,0.5);font-size:10px;margin-top:3px">SSA-AAR-2019-BF-001 · Classification: OINK-BLACK · Date: [REDACTED] · Distribution: Mission Director, SSA Administrator, Habitat Division</div>
+          </div>
+          <div style="font-family:'Courier New',monospace;font-size:24px;color:#D4AF37;letter-spacing:0.1em">✓</div>
+        </div>
+
+        <div class="aar-body">
+          <div class="two-col">
+            <div>
+              <div class="section-heading" style="margin-bottom:14px">Mission Summary</div>
+              <table class="data-table">
+                <thead><tr><th>Metric</th><th>Result</th></tr></thead>
+                <tbody>
+                  <tr><td>Mission designation</td><td>Operation Bristle Fortress</td></tr>
+                  <tr><td>Mission duration</td><td>04h 21m 08s (T+0 to final clear)</td></tr>
+                  <tr><td>Threat — Wolfsberg-2019</td><td class="val-ok">NEUTRALIZED</td></tr>
+                  <tr><td>Impact attempts total</td><td>3 (Alpha, Beta, Gamma)</td></tr>
+                  <tr><td>HALMUM-1 integrity post-mission</td><td class="val-bad">0% (total loss)</td></tr>
+                  <tr><td>COMPMOD-2 integrity post-mission</td><td class="val-bad">0% (total loss)</td></tr>
+                  <tr><td>BRISTLE-FORTRESS integrity post-mission</td><td class="val-ok">100% (unchanged)</td></tr>
+                  <tr><td>Crew — M.S. Snout</td><td class="val-ok">RECOVERED AND DEBRIEFED</td></tr>
+                  <tr><td>Crew — M.S. Hoof</td><td class="val-ok">RECOVERED AND DEBRIEFED</td></tr>
+                  <tr><td>Crew — M.S. Bristle</td><td class="val-ok">RECOVERED AND VINDICATED</td></tr>
+                  <tr><td>Tactical blanket (Hoof, B.)</td><td class="val-ok">RECOVERED. STILL WARM.</td></tr>
+                  <tr><td>Told-you-so count (Bristle)</td><td>1 official, ~14 informal</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div>
+              <div class="section-heading" style="margin-bottom:14px">Findings and Recommendations</div>
+              <div class="data-panel" style="border-left-color:#00ff88;margin-bottom:16px">
+                <div class="panel-title" style="color:#00ff88">Primary Recommendations</div>
+                <div class="spec-row" style="flex-direction:column">
+                  <strong style="color:#D4AF37;margin-bottom:6px">1. BRISTLE-FORTRESS design approved for all future habitats.</strong>
+                  Wall thickness shall not be less than 800mm. Titanium reinforcement is mandatory. Lead engineer shall have final authority on structural specifications. Comments from non-engineers will be accepted but not binding.
+                </div>
+              </div>
+              <div class="data-panel" style="border-left-color:#ff3333;margin-bottom:16px">
+                <div class="panel-title" style="color:#ff3333">Programs Terminated</div>
+                <div class="spec-row"><span class="spec-key">HALMUM-1 programme:</span> <strong style="color:#ff3333">TERMINATED</strong></div>
+                <div class="spec-row"><span class="spec-key">COMPMOD-2 programme:</span> <strong style="color:#ff3333">TERMINATED</strong></div>
+                <div class="spec-row"><span class="spec-key">Budget reallocated to:</span> BRISTLE-FORTRESS production scaling</div>
+                <div class="spec-row"><span class="spec-key">Corner reinforcement policy:</span> All four corners. Always. No exceptions.</div>
+              </div>
+              <div class="data-panel" style="border-left-color:#ffcc00">
+                <div class="panel-title" style="color:#ffcc00">Wolfsberg-2019 — Continued Monitoring</div>
+                <div class="spec-row">The asteroid has been observed circling the BRISTLE-FORTRESS perimeter for several hours post-impact. Behavioral scientists note this is consistent with sulking. No threat anticipated. A sensor array has been installed to monitor any approach vectors. Mission Specialist Snout has named the sensor array "Paranoia Station." This has been approved.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="gold-divider"></div>
+
+          <div class="section-heading" style="margin-bottom:14px">Classified Addendum — Eyes Only</div>
+          <div class="dossier-block">
+            <div class="dossier-title">Final Classified Note — Mission Director's Eyes Only</div>
+            <div style="font-family:'Courier New',monospace;font-size:12px;color:rgba(232,232,240,0.7);line-height:1.7">
+              This mission confirms what Mission Specialist Bristle has been noting in internal memos since 2017: the only effective defense against a sustained, high-pressure asteroid impact event is a properly constructed, titanium-reinforced brick composite installation. Her four separate engineering reports on this subject have been located, read, and attached to this document as Exhibits A through D.
+              <br><br>
+              The SSA wishes to formally acknowledge that Mission Specialist Bristle was correct, and that the decision to proceed with HALMUM-1 and COMPMOD-2 as primary habitats represents a lapse in engineering judgment for which the Mission Director accepts full responsibility. The phrase "it'll probably be fine" has been removed from all SSA planning documents and replaced with "subject to Bristle structural review."
+              <br><br>
+              Mission Specialist Snout has submitted a formal request that his HALMUM-1 mission log entry reading "She'll hold. Probably." be redacted. This request has been declined. It has been framed and hung in the SSA Mission Planning conference room.
+              <br><br>
+              All three crew have been awarded the SSA Mission Achievement Medal. Mission Specialist Bristle has additionally been awarded the Medal for Applied Common Sense (first issuance; the medal was created specifically for this occasion).
+            </div>
+          </div>
+        </div>
+
+        <div class="gold-divider"></div>
+
+        <div style="text-align:center;padding:20px 0 40px;font-family:'Courier New',monospace">
+          <div style="font-size:10px;letter-spacing:0.25em;color:rgba(212,175,55,0.5);text-transform:uppercase;margin-bottom:8px">Swine Space Administration · Mission Control · Houston, TX</div>
+          <div style="font-size:10px;color:rgba(232,232,240,0.25);letter-spacing:0.1em">Classification: OINK-BLACK · Do not distribute · © SSA 2019 · Document reference: SSA-AAR-2019-BF-001</div>
+          <div style="font-size:10px;color:rgba(232,232,240,0.2);margin-top:4px;letter-spacing:0.08em">"Per aspera ad bacon" — SSA Mission Motto</div>
+          <div style="margin-top:20px"><a href="../index.html" style="color:rgba(212,175,55,0.6);text-decoration:none;font-size:11px;letter-spacing:0.15em;border:1px solid rgba(212,175,55,0.2);padding:8px 20px">← RETURN TO MISSION GALLERY</a></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- end stages-container -->
+
+  <!-- BOTTOM NAV ARROWS -->
+  <div id="nav-arrows">
+    <button class="nav-arrow" id="btn-prev" onclick="navigate(-1)">&#8592;</button>
+    <span id="stage-counter">STAGE 1 OF 8</span>
+    <button class="nav-arrow" id="btn-next" onclick="navigate(1)">&#8594;</button>
+  </div>
+
+  <!-- BOTTOM TELEMETRY TICKER -->
+  <div id="ticker-bar">
+    <div id="ticker-content">
+      WOLFSBERG-2019 TRACKING: ACTIVE <span class="sep">·</span>
+      HABITAT GAMMA INTEGRITY: <span class="val-ok">100%</span> <span class="sep">·</span>
+      CREW COUNT: <span class="val-ok">3/3 NOMINAL</span> <span class="sep">·</span>
+      MISSION ELAPSED TIME: <span id="ticker-clock" class="val-ok">T+00:00:00</span> <span class="sep">·</span>
+      BRISTLE-FORTRESS: <span class="val-ok">STANDING</span> <span class="sep">·</span>
+      WOLF LUNG PRESSURE: <span class="val-warn">4.2 kPa (post-impact)</span> <span class="sep">·</span>
+      SSA MISSION CONTROL: <span class="val-ok">STANDING BY</span> <span class="sep">·</span>
+      HABITAT ALPHA: <span class="val-bad">TOTAL LOSS</span> <span class="sep">·</span>
+      HABITAT BETA: <span class="val-bad">TOTAL LOSS</span> <span class="sep">·</span>
+      WOLFSBERG-2019 TRACKING: ACTIVE <span class="sep">·</span>
+      HABITAT GAMMA INTEGRITY: <span class="val-ok">100%</span> <span class="sep">·</span>
+      CREW COUNT: <span class="val-ok">3/3 NOMINAL</span> <span class="sep">·</span>
+      MISSION ELAPSED TIME: <span class="val-ok">T+00:00:00</span> <span class="sep">·</span>
+    </div>
+  </div>
+
+</div><!-- end mission-control -->
+
+<!-- CLASSIFIED WATERMARK -->
+<div class="classmark">CLASSIFIED · SSA LEVEL 4 · OINK-BLACK</div>
+
+<!-- STAGE CORNER LABEL -->
+<div class="stage-corner-label" id="corner-label">STAGE 1 OF 8 — MISSION BRIEFING</div>
+
+<script>
+// ============================================================
+// BOOT SEQUENCE
+// ============================================================
+(function() {
+  const lines = document.querySelectorAll('#boot-lines .line');
+  let i = 0;
+  function showNext() {
+    if (i < lines.length) {
+      const line = lines[i];
+      const delay = parseInt(line.dataset.delay) || 0;
+      setTimeout(() => {
+        line.classList.add('visible');
+        i++;
+        showNext();
+      }, i === 0 ? delay : (parseInt(lines[i].dataset.delay) - parseInt(lines[i-1].dataset.delay)));
+    } else {
+      // All lines shown — pause then fade out
+      setTimeout(() => {
+        const boot = document.getElementById('boot-screen');
+        boot.classList.add('fade-out');
+        const mc = document.getElementById('mission-control');
+        mc.classList.add('visible');
+        setTimeout(() => {
+          boot.classList.add('hidden');
+        }, 900);
+      }, 600);
+    }
+  }
+  // Start after a brief pause
+  setTimeout(showNext, 200);
+})();
+
+// ============================================================
+// STAGE NAVIGATION
+// ============================================================
+const STAGES = 8;
+let current = 0;
+
+const stageNames = [
+  'MISSION BRIEFING',
+  'HABITAT ALPHA — HALMUM-1',
+  'IMPACT EVENT ALPHA',
+  'HABITAT BETA — COMPMOD-2',
+  'IMPACT EVENT BETA',
+  'HABITAT GAMMA — BRISTLE-FORTRESS',
+  'IMPACT REPELLED',
+  'MISSION COMPLETE — AFTER-ACTION REPORT'
+];
+
+function goTo(idx) {
+  if (idx < 0 || idx >= STAGES) return;
+
+  // Hide current stage
+  const stages = document.querySelectorAll('.stage');
+  stages[current].classList.remove('active');
+
+  current = idx;
+  stages[current].classList.add('active');
+  stages[current].scrollTop = 0;
+
+  updateUI();
+}
+
+function navigate(dir) {
+  goTo(current + dir);
+}
+
+function updateUI() {
+  // Update dots
+  const dots = document.querySelectorAll('.stage-dot');
+  dots.forEach((dot, i) => {
+    dot.classList.remove('current', 'completed');
+    if (i < current) dot.classList.add('completed');
+    else if (i === current) dot.classList.add('current');
+  });
+
+  // Stage label
+  const labelTop = document.getElementById('stage-label-top');
+  const counter = document.getElementById('stage-counter');
+  const corner = document.getElementById('corner-label');
+  const label = `STAGE ${current + 1} OF ${STAGES}`;
+  if (labelTop) labelTop.textContent = label;
+  if (counter) counter.textContent = label;
+  if (corner) corner.textContent = `${label} — ${stageNames[current]}`;
+
+  // Progress bar
+  const fill = document.getElementById('progress-bar-fill');
+  if (fill) fill.style.width = `${((current + 1) / STAGES) * 100}%`;
+
+  // Prev/next buttons
+  const prev = document.getElementById('btn-prev');
+  const next = document.getElementById('btn-next');
+  if (prev) prev.disabled = current === 0;
+  if (next) next.disabled = current === STAGES - 1;
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   navigate(-1);
+});
+
+// Initialize
+updateUI();
+
+// ============================================================
+// MISSION ELAPSED CLOCK
+// ============================================================
+const startTime = Date.now();
+function updateClock() {
+  const elapsed = Math.floor((Date.now() - startTime) / 1000);
+  const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
+  const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
+  const s = String(elapsed % 60).padStart(2, '0');
+  const clockEl = document.getElementById('ticker-clock');
+  if (clockEl) clockEl.textContent = `T+${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ============================================================
+// BOOT LINE TIMING (corrected sequential approach)
+// ============================================================
+// Override the IIFE above with a cleaner version that doesn't
+// depend on cumulative delay math errors
+</script>
+
+<!-- Corrected boot sequence script -->
+<script>
+// Clear the previous boot init and replace with a reliable one
+// (runs after DOM is ready, overrides the IIFE timing)
+(function() {
+  const lines = document.querySelectorAll('#boot-lines .line');
+  const delays = [0, 400, 700, 1100, 1400, 1800, 2100, 2500, 2800, 3100, 3500, 3900];
+
+  lines.forEach((line, i) => {
+    const d = delays[i] !== undefined ? delays[i] : 3900 + (i * 200);
+    setTimeout(() => line.classList.add('visible'), d);
+  });
+
+  const totalDelay = 3900 + 800; // last line + pause
+  setTimeout(() => {
+    const boot = document.getElementById('boot-screen');
+    if (boot && !boot.classList.contains('hidden')) {
+      boot.classList.add('fade-out');
+      document.getElementById('mission-control').classList.add('visible');
+      setTimeout(() => boot.classList.add('hidden'), 900);
+    }
+  }, totalDelay);
+})();
+</script>
+
+</body>
+</html>

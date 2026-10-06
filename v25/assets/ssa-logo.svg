@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <clipPath id="circle-clip">
+      <circle cx="100" cy="100" r="92"/>
+    </clipPath>
+  </defs>
+
+  <!-- Base navy circle -->
+  <circle cx="100" cy="100" r="96" fill="#0b3d91"/>
+  <circle cx="100" cy="100" r="92" fill="#0a2d6e"/>
+
+  <!-- Stars scattered in background -->
+  <g fill="white" clip-path="url(#circle-clip)">
+    <circle cx="30" cy="35" r="1"/>
+    <circle cx="55" cy="20" r="1.2"/>
+    <circle cx="80" cy="28" r="0.8"/>
+    <circle cx="140" cy="22" r="1"/>
+    <circle cx="165" cy="38" r="1.2"/>
+    <circle cx="175" cy="60" r="0.8"/>
+    <circle cx="170" cy="145" r="1"/>
+    <circle cx="155" cy="168" r="1.2"/>
+    <circle cx="40" cy="160" r="0.8"/>
+    <circle cx="25" cy="135" r="1"/>
+    <circle cx="18" cy="90" r="1.2"/>
+    <circle cx="35" cy="70" r="0.7"/>
+    <circle cx="22" cy="50" r="0.9"/>
+    <circle cx="178" cy="100" r="0.8"/>
+    <circle cx="15" cy="115" r="0.7"/>
+    <circle cx="50" cy="180" r="1"/>
+    <circle cx="120" cy="18" r="0.9"/>
+    <circle cx="100" cy="15" r="0.8"/>
+    <circle cx="60" cy="175" r="0.7"/>
+    <circle cx="150" cy="180" r="1"/>
+  </g>
+
+  <!-- Gold outer ring border -->
+  <circle cx="100" cy="100" r="96" fill="none" stroke="#D4AF37" stroke-width="4"/>
+  <circle cx="100" cy="100" r="82" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+
+  <!-- Circular text: "SWINE SPACE ADMINISTRATION" arcing the top -->
+  <path id="top-arc" d="M 16,100 A 84,84 0 0,1 184,100" fill="none"/>
+  <text font-family="'Arial Narrow', Arial, sans-serif" font-size="11" font-weight="bold" fill="#D4AF37" letter-spacing="2">
+    <textPath href="#top-arc" startOffset="4%">SWINE SPACE ADMINISTRATION</textPath>
+  </text>
+
+  <!-- Circular text: "EST. 2024 · AD ASTRA PER PORCUM" arcing the bottom -->
+  <path id="bottom-arc" d="M 16,100 A 84,84 0 0,0 184,100" fill="none"/>
+  <text font-family="'Arial Narrow', Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#D4AF37" letter-spacing="1.5">
+    <textPath href="#bottom-arc" startOffset="6%">EST. 2024  ·  AD ASTRA PER PORCUM</textPath>
+  </text>
+
+  <!-- Center pig face silhouette in white -->
+  <!-- Head -->
+  <ellipse cx="100" cy="95" rx="28" ry="26" fill="white"/>
+  <!-- Ears -->
+  <ellipse cx="76" cy="76" rx="10" ry="12" fill="white" transform="rotate(-15,76,76)"/>
+  <ellipse cx="124" cy="76" rx="10" ry="12" fill="white" transform="rotate(15,124,76)"/>
+  <!-- Inner ears (pink) -->
+  <ellipse cx="76" cy="77" rx="6" ry="8" fill="#0b3d91" transform="rotate(-15,76,77)"/>
+  <ellipse cx="124" cy="77" rx="6" ry="8" fill="#0b3d91" transform="rotate(15,124,77)"/>
+
+  <!-- Snout -->
+  <ellipse cx="100" cy="108" rx="14" ry="10" fill="#d0d0d0"/>
+  <!-- Nostrils -->
+  <ellipse cx="95" cy="109" rx="3.5" ry="4" fill="#888"/>
+  <ellipse cx="105" cy="109" rx="3.5" ry="4" fill="#888"/>
+
+  <!-- Eyes -->
+  <circle cx="88" cy="89" r="4" fill="#0a2d6e"/>
+  <circle cx="112" cy="89" r="4" fill="#0a2d6e"/>
+  <circle cx="89.5" cy="87.5" r="1.2" fill="white"/>
+  <circle cx="113.5" cy="87.5" r="1.2" fill="white"/>
+
+  <!-- Diagonal orbit arc in gold (like NASA's orbit line) -->
+  <path d="M 58,130 Q 100,60 142,70" fill="none" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+  <!-- Orbit dots at ends -->
+  <circle cx="58" cy="130" r="4" fill="#D4AF37"/>
+  <circle cx="142" cy="70" r="4" fill="#D4AF37"/>
+
+  <!-- Small rocket/star accent -->
+  <polygon points="100,58 103,66 100,64 97,66" fill="#D4AF37"/>
+</svg>

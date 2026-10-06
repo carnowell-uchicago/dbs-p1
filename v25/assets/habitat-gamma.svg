@@ -1,0 +1,241 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280">
+  <defs>
+    <radialGradient id="gamma-sky" cx="50%" cy="0%">
+      <stop offset="0%" stop-color="#0a1525"/>
+      <stop offset="100%" stop-color="#050a15"/>
+    </radialGradient>
+    <pattern id="brick-pat" width="16" height="10" patternUnits="userSpaceOnUse">
+      <rect width="16" height="10" fill="#6a6050"/>
+      <rect width="15" height="9" fill="#7a7060" rx="0.5"/>
+      <line x1="8" y1="5" x2="16" y2="5" stroke="#5a5040" stroke-width="0.5"/>
+      <line x1="0" y1="5" x2="8" y2="5" stroke="#5a5040" stroke-width="0.5"/>
+      <line x1="0" y1="0" x2="16" y2="0" stroke="#5a5040" stroke-width="0.5"/>
+    </pattern>
+    <linearGradient id="wall-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9a9080"/>
+      <stop offset="50%" stop-color="#7a7060"/>
+      <stop offset="100%" stop-color="#5a5040"/>
+    </linearGradient>
+    <filter id="glow-green">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background: dark space/planetary surface -->
+  <rect width="400" height="280" fill="url(#gamma-sky)"/>
+
+  <!-- Stars -->
+  <g fill="white">
+    <circle cx="15" cy="10" r="0.7"/>
+    <circle cx="40" cy="5" r="1"/>
+    <circle cx="80" cy="15" r="0.8"/>
+    <circle cx="120" cy="8" r="0.6"/>
+    <circle cx="200" cy="12" r="0.9"/>
+    <circle cx="280" cy="6" r="0.7"/>
+    <circle cx="330" cy="18" r="1"/>
+    <circle cx="370" cy="10" r="0.8"/>
+    <circle cx="390" cy="30" r="0.6"/>
+    <circle cx="355" cy="40" r="0.7"/>
+    <circle cx="20" cy="55" r="0.9"/>
+    <circle cx="60" cy="48" r="0.6"/>
+    <circle cx="150" cy="35" r="0.8"/>
+    <circle cx="250" cy="20" r="0.7"/>
+    <circle cx="310" cy="45" r="0.6"/>
+    <circle cx="175" cy="28" r="0.5"/>
+  </g>
+
+  <!-- Planetary surface (rocky, barren) -->
+  <path d="M 0,205 Q 50,195 100,202 Q 150,210 200,198 Q 250,186 300,198 Q 350,210 400,200 L 400,280 L 0,280 Z" fill="#1a1208"/>
+  <!-- Surface rocks -->
+  <ellipse cx="40" cy="215" rx="18" ry="5" fill="#120d06"/>
+  <ellipse cx="360" cy="212" rx="12" ry="4" fill="#120d06"/>
+
+  <!-- Deep foundation base -->
+  <rect x="90" y="195" width="220" height="15" rx="2" fill="#3a3020" stroke="#5a5040" stroke-width="1"/>
+
+  <!-- MAIN FORTRESS STRUCTURE -->
+  <!-- Central main body - thick walls -->
+  <rect x="110" y="95" width="180" height="105" fill="url(#wall-grad)" stroke="#5a5040" stroke-width="2"/>
+  <!-- Brick texture overlay -->
+  <rect x="110" y="95" width="180" height="105" fill="url(#brick-pat)" opacity="0.6"/>
+
+  <!-- Inner structure lines (titanium reinforcement visible) -->
+  <rect x="118" y="103" width="164" height="89" fill="none" stroke="#4a4030" stroke-width="1.5"/>
+
+  <!-- Thick angular roof/top section -->
+  <polygon points="100,95 300,95 290,75 110,75" fill="#8a8070" stroke="#5a5040" stroke-width="2"/>
+  <polygon points="100,95 300,95 290,75 110,75" fill="url(#brick-pat)" opacity="0.5"/>
+
+  <!-- Battlements / parapet top -->
+  <g fill="#7a7060" stroke="#5a5040" stroke-width="1.5">
+    <rect x="110" y="60" width="18" height="18" rx="1"/>
+    <rect x="138" y="60" width="18" height="18" rx="1"/>
+    <rect x="166" y="60" width="18" height="18" rx="1"/>
+    <rect x="194" y="60" width="18" height="18" rx="1"/>
+    <rect x="222" y="60" width="18" height="18" rx="1"/>
+    <rect x="250" y="60" width="18" height="18" rx="1"/>
+    <rect x="278" y="60" width="18" height="18" rx="1"/>
+  </g>
+  <!-- Battlements brick texture -->
+  <g fill="url(#brick-pat)" opacity="0.5">
+    <rect x="110" y="60" width="18" height="18" rx="1"/>
+    <rect x="138" y="60" width="18" height="18" rx="1"/>
+    <rect x="166" y="60" width="18" height="18" rx="1"/>
+    <rect x="194" y="60" width="18" height="18" rx="1"/>
+    <rect x="222" y="60" width="18" height="18" rx="1"/>
+    <rect x="250" y="60" width="18" height="18" rx="1"/>
+    <rect x="278" y="60" width="18" height="18" rx="1"/>
+  </g>
+
+  <!-- BLAST SHIELDS on windows (thick armored shutters) -->
+  <!-- Left blast shield -->
+  <rect x="125" y="110" width="50" height="38" rx="2" fill="#4a4838" stroke="#333" stroke-width="2.5"/>
+  <line x1="125" y1="120" x2="175" y2="120" stroke="#3a3830" stroke-width="1.5"/>
+  <line x1="125" y1="130" x2="175" y2="130" stroke="#3a3830" stroke-width="1.5"/>
+  <line x1="125" y1="140" x2="175" y2="140" stroke="#3a3830" stroke-width="1.5"/>
+  <rect x="146" y="115" width="7" height="4" rx="1" fill="#222" stroke="#444" stroke-width="0.5"/>
+  <text x="150" y="153" font-family="'Courier New', Courier, monospace" font-size="5.5" fill="#888" text-anchor="middle">BLAST SHIELD</text>
+
+  <!-- Right blast shield -->
+  <rect x="225" y="110" width="50" height="38" rx="2" fill="#4a4838" stroke="#333" stroke-width="2.5"/>
+  <line x1="225" y1="120" x2="275" y2="120" stroke="#3a3830" stroke-width="1.5"/>
+  <line x1="225" y1="130" x2="275" y2="130" stroke="#3a3830" stroke-width="1.5"/>
+  <line x1="225" y1="140" x2="275" y2="140" stroke="#3a3830" stroke-width="1.5"/>
+  <rect x="246" y="115" width="7" height="4" rx="1" fill="#222" stroke="#444" stroke-width="0.5"/>
+  <text x="250" y="153" font-family="'Courier New', Courier, monospace" font-size="5.5" fill="#888" text-anchor="middle">BLAST SHIELD</text>
+
+  <!-- CENTER WINDOW - small but very thick frame, 3 smug pigs visible -->
+  <rect x="171" y="115" width="58" height="38" rx="1" fill="#1a2835" stroke="#444" stroke-width="4"/>
+  <!-- Inner window pane (very thick border = small actual view) -->
+  <rect x="179" y="123" width="42" height="22" rx="1" fill="#1e3040" stroke="#334" stroke-width="2"/>
+  <!-- Three pig silhouettes inside window -->
+  <!-- Pig 1 (left) -->
+  <circle cx="187" cy="132" r="4.5" fill="#f0a080"/>
+  <ellipse cx="187" cy="136" rx="4" ry="3" fill="#e09070"/>
+  <ellipse cx="185.5" cy="137" rx="1.2" ry="1.4" fill="#c06050"/>
+  <ellipse cx="188.5" cy="137" rx="1.2" ry="1.4" fill="#c06050"/>
+  <!-- Pig 2 (center) - arms crossed, smug -->
+  <circle cx="200" cy="131" r="5" fill="#f0a080"/>
+  <ellipse cx="200" cy="136" rx="4.5" ry="3.5" fill="#e09070"/>
+  <ellipse cx="198" cy="137.5" rx="1.3" ry="1.5" fill="#c06050"/>
+  <ellipse cx="202" cy="137.5" rx="1.3" ry="1.5" fill="#c06050"/>
+  <!-- Arms crossed on pig 2 -->
+  <path d="M 196,139 Q 200,141 204,139" stroke="#d08060" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Smug expression pig 2 -->
+  <path d="M 197,134 Q 200,136 203,134" stroke="#8a4020" stroke-width="1" fill="none"/>
+  <!-- Pig 3 (right) -->
+  <circle cx="213" cy="132" r="4.5" fill="#f0a080"/>
+  <ellipse cx="213" cy="136" rx="4" ry="3" fill="#e09070"/>
+  <ellipse cx="211.5" cy="137" rx="1.2" ry="1.4" fill="#c06050"/>
+  <ellipse cx="214.5" cy="137" rx="1.2" ry="1.4" fill="#c06050"/>
+
+  <!-- TRIPLE AIRLOCK (main entrance) -->
+  <!-- Outer door -->
+  <rect x="178" y="165" width="44" height="35" rx="3" fill="#3a3820" stroke="#5a5040" stroke-width="2.5"/>
+  <!-- Middle door -->
+  <rect x="183" y="170" width="34" height="27" rx="2" fill="#2a2818" stroke="#4a4838" stroke-width="2"/>
+  <!-- Inner door -->
+  <rect x="188" y="175" width="24" height="20" rx="1.5" fill="#1a1808" stroke="#3a3828" stroke-width="2"/>
+  <!-- Airlock handle/wheel -->
+  <circle cx="200" cy="185" r="6" fill="none" stroke="#888" stroke-width="1.5"/>
+  <line x1="200" y1="179" x2="200" y2="191" stroke="#888" stroke-width="1.5"/>
+  <line x1="194" y1="185" x2="206" y2="185" stroke="#888" stroke-width="1.5"/>
+  <circle cx="200" cy="185" r="2" fill="#888"/>
+  <text x="200" y="165" font-family="'Courier New', Courier, monospace" font-size="5" fill="#888" text-anchor="middle">TRIPLE AIRLOCK</text>
+
+  <!-- ANTENNA ARRAY on top -->
+  <g stroke="#D4AF37" stroke-width="1.5" fill="none">
+    <line x1="170" y1="60" x2="165" y2="30"/>
+    <line x1="185" y1="60" x2="185" y2="25"/>
+    <line x1="200" y1="60" x2="200" y2="20"/>
+    <line x1="215" y1="60" x2="215" y2="25"/>
+    <line x1="230" y1="60" x2="235" y2="30"/>
+  </g>
+  <!-- Antenna tips -->
+  <g fill="#D4AF37">
+    <circle cx="165" cy="29" r="2"/>
+    <circle cx="185" cy="24" r="2.5"/>
+    <circle cx="200" cy="19" r="3"/>
+    <circle cx="215" cy="24" r="2.5"/>
+    <circle cx="235" cy="29" r="2"/>
+  </g>
+  <!-- Antenna signal rings -->
+  <circle cx="200" cy="19" r="6" fill="none" stroke="#00ff88" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="200" cy="19" r="10" fill="none" stroke="#00ff88" stroke-width="0.5" opacity="0.4"/>
+  <circle cx="200" cy="19" r="14" fill="none" stroke="#00ff88" stroke-width="0.4" opacity="0.2"/>
+
+  <!-- SSA LOGO on structure -->
+  <circle cx="200" cy="170" r="0" fill="none"/><!-- placeholder -->
+
+  <!-- ASTEROID DEFLECTION INDICATOR -->
+  <!-- Small asteroid approaching -->
+  <polygon points="52,120 62,112 70,120 65,130 55,130" fill="#cc4400" opacity="0.9"/>
+  <circle cx="59" cy="121" r="3" fill="#aa3300"/>
+  <!-- Impact direction arrow -->
+  <line x1="75" y1="122" x2="108" y2="122" stroke="#ff3333" stroke-width="2" stroke-dasharray="5,3"/>
+  <polygon points="108,118 115,122 108,126" fill="#ff3333"/>
+  <!-- Bounce arc -->
+  <path d="M 112,122 Q 116,95 105,80" fill="none" stroke="#00ff88" stroke-width="2.5" stroke-linecap="round" marker-end="url(#deflect-arrow)" filter="url(#glow-green)"/>
+  <defs>
+    <marker id="deflect-arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#00ff88"/>
+    </marker>
+  </defs>
+  <!-- Deflected label -->
+  <text x="65" y="82" font-family="'Courier New', Courier, monospace" font-size="6.5" fill="#00ff88">WOLFSBERG-2019</text>
+  <text x="65" y="91" font-family="'Courier New', Courier, monospace" font-size="6.5" fill="#00ff88">(DEFLECTED)</text>
+
+  <!-- CALLOUT LINES AND LABELS -->
+  <!-- Titanium-reinforced brick -->
+  <line x1="293" y1="140" x2="360" y2="110" stroke="#e8e8f0" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <circle cx="360" cy="110" r="1.5" fill="#e8e8f0"/>
+  <text x="362" y="106" font-family="'Courier New', Courier, monospace" font-size="6.5" fill="#e8e8f0">TITANIUM-REINFORCED</text>
+  <text x="362" y="114" font-family="'Courier New', Courier, monospace" font-size="6.5" fill="#e8e8f0">BRICK COMPOSITE (847mm)</text>
+
+  <!-- Blast shields -->
+  <line x1="293" y1="122" x2="360" y2="138" stroke="#ffaa00" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <circle cx="360" cy="138" r="1.5" fill="#ffaa00"/>
+  <text x="362" y="141" font-family="'Courier New', Courier, monospace" font-size="6.5" fill="#ffaa00">WOLF-RATED BLAST SHIELDS</text>
+
+  <!-- Triple airlock -->
+  <line x1="293" y1="182" x2="358" y2="168" stroke="#e8e8f0" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <circle cx="358" cy="168" r="1.5" fill="#e8e8f0"/>
+  <text x="360" y="171" font-family="'Courier New', Courier, monospace" font-size="6.5" fill="#e8e8f0">TRIPLE-SEALED AIRLOCK</text>
+
+  <!-- SSA Structural integrity -->
+  <line x1="200" y1="95" x2="200" y2="58" stroke="#00ff88" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <!-- Smugness levels -->
+
+  <!-- STATUS READOUT BAR at bottom -->
+  <rect x="0" y="245" width="400" height="35" fill="#0a0f1f" opacity="0.95"/>
+  <line x1="0" y1="248" x2="400" y2="248" stroke="#00ff88" stroke-width="1.5"/>
+  <text x="12" y="261" font-family="'Courier New', Courier, monospace" font-size="7.5" fill="#aaa">STRUCTURAL INTEGRITY:</text>
+  <text x="143" y="261" font-family="'Courier New', Courier, monospace" font-size="7.5" font-weight="bold" fill="#00ff88">100%</text>
+  <text x="175" y="261" font-family="'Courier New', Courier, monospace" font-size="8" fill="#00ff88"> ✓</text>
+  <text x="195" y="261" font-family="'Courier New', Courier, monospace" font-size="7" fill="#555">|</text>
+  <text x="202" y="261" font-family="'Courier New', Courier, monospace" font-size="7.5" fill="#aaa">WOLF RESISTANCE:</text>
+  <text x="305" y="261" font-family="'Courier New', Courier, monospace" font-size="7.5" fill="#00ff88">CERTIFIED</text>
+  <text x="12" y="273" font-family="'Courier New', Courier, monospace" font-size="7.5" fill="#aaa">CAPACITY:</text>
+  <text x="80" y="273" font-family="'Courier New', Courier, monospace" font-size="7.5" fill="#e8e8f0">3 CREW</text>
+  <text x="125" y="273" font-family="'Courier New', Courier, monospace" font-size="7" fill="#555">|</text>
+  <text x="133" y="273" font-family="'Courier New', Courier, monospace" font-size="7.5" fill="#aaa">DESIGNATION:</text>
+  <text x="213" y="273" font-family="'Courier New', Courier, monospace" font-size="7.5" fill="#e8e8f0">BRISTLE-FORTRESS (TITANIUM CLASS)</text>
+
+  <!-- Small smugness levels note -->
+  <text x="200" y="50" font-family="'Courier New', Courier, monospace" font-size="5.5" fill="#D4AF37" text-anchor="middle">SMUGNESS LEVELS: NOMINAL</text>
+
+  <!-- Grid overlay for technical feel -->
+  <g stroke="#0b3d91" stroke-width="0.3" opacity="0.1">
+    <line x1="0" y1="40" x2="400" y2="40"/>
+    <line x1="0" y1="80" x2="400" y2="80"/>
+    <line x1="0" y1="120" x2="400" y2="120"/>
+    <line x1="0" y1="160" x2="400" y2="160"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="0" y1="240" x2="400" y2="240"/>
+  </g>
+
+  <!-- SSA certification badge on structure -->
+  <circle cx="200" cy="85" r="8" fill="#0b3d91" stroke="#D4AF37" stroke-width="1.5"/>
+  <text x="200" y="88" font-family="'Arial Narrow', Arial, sans-serif" font-size="5" font-weight="bold" fill="white" text-anchor="middle">SSA</text>
+</svg>
