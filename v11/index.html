@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Three Little Pigs · A Storybook</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:   #2C1600;
+      --parch: #F4ECD8;
+      --gold:  #C8A84B;
+      --green: #1E3A24;
+      --red:   #8B0A14;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      background: #1A0900;
+      background-image:
+        repeating-linear-gradient(88deg, transparent, transparent 55px,
+          rgba(0,0,0,0.07) 55px, rgba(0,0,0,0.07) 56px),
+        repeating-linear-gradient(180deg, transparent, transparent 110px,
+          rgba(255,255,255,0.025) 110px, rgba(255,255,255,0.025) 112px),
+        linear-gradient(165deg, #3A1800 0%, #1E0B00 55%, #2A1100 100%);
+    }
+
+    /* Gallery link */
+    .gallery-link {
+      position: fixed;
+      top: 14px; left: 14px;
+      color: var(--parch);
+      text-decoration: none;
+      font-family: Georgia, serif;
+      font-size: 12px;
+      font-style: italic;
+      letter-spacing: 0.06em;
+      z-index: 10000;
+      padding: 7px 14px;
+      border: 1px solid rgba(200,168,75,.35);
+      background: rgba(0,0,0,.5);
+      transition: border-color .2s, color .2s;
+    }
+    .gallery-link:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Outer wrapper */
+    .scene-wrapper {
+      width: min(900px, 94vw);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* The scene: aspect-ratio matches SVG viewBox 900:560 */
+    .scene {
+      width: 100%;
+      position: relative;
+      aspect-ratio: 900 / 560;
+    }
+
+    /* All SVG layers fill the scene absolutely */
+    .book-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Foreground SVG: right page + spine, renders on top, no pointer events */
+    .book-fg { z-index: 3; pointer-events: none; }
+
+    /* Panels container
+       Left page SVG coords: x=55–435, y=10–550
+       As % of 900×560: left=6.11%, top=1.79%, width=42.22%, height=96.43% */
+    .panels-container {
+      position: absolute;
+      left: 6.11%;
+      top: 1.79%;
+      width: 42.22%;
+      height: 96.43%;
+      z-index: 2;
+      perspective: 1500px;
+      perspective-origin: 100% 50%;
+    }
+
+    /* Panel: the 3D card that flips */
+    .panel {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      transform-origin: right center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform;
+    }
+
+    /* Front and back faces share the panel's 3D space */
+    .front,
+    .back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* Front: warm parchment page */
+    .front {
+      background: linear-gradient(155deg, #F8F1E0 0%, #EEE0BF 55%, #E6D5A8 100%);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(7px, 1.4%, 13px);
+      padding: clamp(22px, 5.5%, 42px) clamp(20px, 5%, 36px);
+      overflow: hidden;
+    }
+
+    /* Decorative inset gold border on front face */
+    .front::before {
+      content: '';
+      position: absolute;
+      inset: 11px;
+      border: 1px solid rgba(200,168,75,.5);
+      pointer-events: none;
+    }
+
+    /* Back: illustration face – shown during flip */
+    .back {
+      transform: rotateY(180deg);
+      background: #EDE0C4;
+    }
+    /* Gold border rendered on top of the illustration SVG */
+    .back::after {
+      content: '';
+      position: absolute;
+      inset: 11px;
+      border: 1px solid rgba(200,168,75,.5);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .back-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Flip animations */
+    @keyframes flipIn  { from { transform: rotateY(180deg); } to { transform: rotateY(0deg); } }
+    @keyframes flipOut { from { transform: rotateY(0deg);   } to { transform: rotateY(180deg); } }
+
+    .panel.flipping-in  { animation: flipIn  .7s cubic-bezier(.25,.46,.45,.94) forwards; pointer-events: none; }
+    .panel.flipping-out { animation: flipOut .55s cubic-bezier(.55,.055,.675,.19) forwards; pointer-events: none; }
+
+    /* ── Typography ── */
+    .ch-label {
+      font-size: clamp(9px, 1.05vw, 11px);
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: #8B6914;
+    }
+
+    .ornament {
+      text-align: center;
+      color: var(--gold);
+      font-size: clamp(13px, 1.5vw, 18px);
+      letter-spacing: .25em;
+      line-height: 1;
+    }
+
+    .pg-title {
+      font-size: clamp(20px, 3.8vw, 40px);
+      line-height: 1.15;
+      font-weight: normal;
+      font-style: italic;
+      color: var(--ink);
+    }
+
+    .pg-body {
+      font-family: Georgia, 'Palatino Linotype', serif;
+      font-size: clamp(11px, 1.42vw, 14px);
+      line-height: 1.82;
+      color: #3C1E06;
+    }
+
+    .pg-body.dc::first-letter {
+      float: left;
+      font-size: 3.4em;
+      line-height: .75;
+      margin-right: 5px;
+      color: #8B6914;
+      font-style: normal;
+    }
+
+    .wolf {
+      font-size: clamp(10px, 1.3vw, 13px);
+      font-style: italic;
+      color: var(--red);
+      line-height: 1.65;
+      border-left: 2px solid var(--red);
+      padding-left: 10px;
+    }
+
+    .verdict {
+      font-size: clamp(14px, 2.4vw, 26px);
+      font-style: italic;
+      margin-top: auto;
+    }
+    .fell  { color: var(--red); }
+    .stood { color: #2C5234; }
+
+    .cover-ttl {
+      font-size: clamp(26px, 4.8vw, 52px);
+      font-style: italic;
+      line-height: 1.1;
+      text-align: center;
+    }
+    .cover-sub {
+      font-size: clamp(9px, 1.2vw, 12px);
+      letter-spacing: .16em;
+      text-align: center;
+      color: #8B6914;
+      text-transform: uppercase;
+    }
+    .end-word {
+      font-size: clamp(9px, 1.1vw, 12px);
+      letter-spacing: .18em;
+      text-align: center;
+      color: #8B6914;
+      text-transform: uppercase;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      width: 96%;
+      max-width: 864px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      background: var(--green);
+      border: 1px solid rgba(200,168,75,.3);
+      border-top: none;
+    }
+    nav button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: clamp(11px, 1.2vw, 13px);
+      color: var(--parch);
+      padding: 12px 22px;
+      letter-spacing: .06em;
+      transition: color .2s;
+    }
+    nav button:last-child { text-align: right; }
+    nav button:hover:not(:disabled) { color: var(--gold); }
+    nav button:disabled { color: rgba(255,255,255,.22); cursor: default; }
+    .progress {
+      font-family: Georgia, serif;
+      font-size: clamp(10px, 1.1vw, 12px);
+      color: rgba(200,168,75,.65);
+      letter-spacing: .14em;
+      white-space: nowrap;
+      padding: 0 8px;
+    }
+  </style>
+</head>
+<body>
+
+<a class="gallery-link" href="../">← Gallery</a>
+
+<div class="scene-wrapper">
+<div class="scene">
+
+  <!-- ─── Background SVG (z=1): table + left cover + left page parchment ─── -->
+  <svg class="book-layer" style="z-index:1" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="bg-table" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#3C1800"/>
+        <stop offset="50%"  stop-color="#2A1000"/>
+        <stop offset="100%" stop-color="#1A0800"/>
+      </linearGradient>
+      <linearGradient id="bg-lpage" x1=".1" y1="0" x2=".9" y2="1">
+        <stop offset="0%"   stop-color="#F8F1E0"/>
+        <stop offset="100%" stop-color="#E6D5A8"/>
+      </linearGradient>
+      <linearGradient id="bg-cover" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#2E5436"/>
+        <stop offset="100%" stop-color="#182E1C"/>
+      </linearGradient>
+      <linearGradient id="bg-ledge" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"  stop-color="rgba(0,0,0,.2)"/>
+        <stop offset="22%" stop-color="rgba(0,0,0,0)"/>
+      </linearGradient>
+      <filter id="bg-shadow">
+        <feDropShadow dx="2" dy="8" stdDeviation="12"
+          flood-color="#000" flood-opacity=".65"/>
+      </filter>
+    </defs>
+
+    <!-- Walnut table -->
+    <rect width="900" height="560" fill="url(#bg-table)"/>
+    <!-- Wood grain lines -->
+    <line x1="0" y1="108" x2="900" y2="118" stroke="rgba(0,0,0,.08)" stroke-width="1.5"/>
+    <line x1="0" y1="255" x2="900" y2="263" stroke="rgba(0,0,0,.06)" stroke-width="1"/>
+    <line x1="0" y1="396" x2="900" y2="388" stroke="rgba(0,0,0,.07)" stroke-width="1.5"/>
+    <line x1="0" y1="58"  x2="900" y2="66"  stroke="rgba(255,255,255,.025)" stroke-width="1"/>
+    <line x1="0" y1="318" x2="900" y2="328" stroke="rgba(255,255,255,.02)"  stroke-width="1"/>
+    <line x1="0" y1="488" x2="900" y2="480" stroke="rgba(255,255,255,.025)" stroke-width="1"/>
+
+    <!-- Book (left half) with drop shadow -->
+    <g filter="url(#bg-shadow)">
+      <!-- Left cover sliver -->
+      <rect x="20" y="8" width="37" height="544" fill="url(#bg-cover)" rx="4 0 0 4"/>
+      <!-- Gold trim line on cover -->
+      <line x1="50" y1="18" x2="50" y2="542" stroke="#C8A84B" stroke-width="1" opacity=".5"/>
+      <!-- Left page parchment (panels will overlay this) -->
+      <rect x="55" y="10" width="380" height="540" fill="url(#bg-lpage)"/>
+    </g>
+
+    <!-- Spine-side shadow on left page (depth cue) -->
+    <rect x="55" y="10" width="52" height="540" fill="url(#bg-ledge)"/>
+  </svg>
+
+  <!-- ─── Flip Panels (z=2): left page area ─── -->
+  <div class="panels-container">
+
+    <!-- p0: Cover / Title -->
+    <div class="panel" id="p0">
+      <div class="front" style="align-items:center;justify-content:center;text-align:center;gap:clamp(5px,1.1%,11px)">
+        <div class="ornament" style="font-size:clamp(18px,2.2vw,26px)">❦</div>
+        <div class="ch-label">A Storybook in Three Chapters</div>
+        <div class="cover-ttl">The Three<br>Little<br>Pigs</div>
+        <div class="ornament" style="font-size:clamp(10px,1.3vw,15px)">✦ &nbsp; ✦ &nbsp; ✦</div>
+        <div class="cover-sub">Being a tale of shelter, threat,<br>and what endures</div>
+        <div class="ornament" style="margin-top:clamp(4px,1%,10px);font-size:clamp(18px,2.2vw,26px)">❦</div>
+      </div>
+      <div class="back"><svg class="back-svg"><use href="#page-illus" width="100%" height="100%"/></svg></div>
+    </div>
+
+    <!-- p1: Prologue -->
+    <div class="panel" id="p1">
+      <div class="front">
+        <div class="ch-label">Prologue</div>
+        <div class="ornament" style="text-align:left;font-size:clamp(16px,2vw,22px)">❧</div>
+        <div class="pg-body dc">Once upon a time, a mother pig sent her three sons out into the wide world to seek their fortunes and build homes of their very own.</div>
+        <div class="pg-body">The eldest was hasty. The middle, careless. The youngest — patient beyond her years.</div>
+        <div class="pg-body">And somewhere in the deep, dark wood, a wolf was already sharpening his breath.</div>
+        <div class="ornament" style="margin-top:auto">· &nbsp; · &nbsp; ·</div>
+      </div>
+      <div class="back"><svg class="back-svg"><use href="#page-illus" width="100%" height="100%"/></svg></div>
+    </div>
+
+    <!-- p2: Straw -->
+    <div class="panel" id="p2">
+      <div class="front">
+        <div class="ch-label">Chapter the First</div>
+        <div class="pg-title">The House<br>of Straw</div>
+        <div class="pg-body">The eldest pig built with golden straw — quick to gather, easy to raise. By sundown his house was done. He laughed, and played, and rested, proud of his speed.</div>
+        <div class="pg-body">That evening, came the knock.</div>
+        <div class="wolf">"Little pig, little pig — let me come in!"<br>"Not by the hair of my chinny chin chin!"<br>"Then I'll huff, and I'll puff, and I'll blow your house down!"</div>
+        <div class="verdict fell">And down it came.</div>
+      </div>
+      <div class="back"><svg class="back-svg"><use href="#page-illus" width="100%" height="100%"/></svg></div>
+    </div>
+
+    <!-- p3: Sticks -->
+    <div class="panel" id="p3">
+      <div class="front">
+        <div class="ch-label">Chapter the Second</div>
+        <div class="pg-title">The House<br>of Sticks</div>
+        <div class="pg-body">The second pig gathered sticks from the forest edge and lashed them together with rope and care. Sturdier than straw, he thought. Wiser than his brother's mistake.</div>
+        <div class="pg-body">But the wolf came again, patient and hungry.</div>
+        <div class="wolf">"Little pig, little pig — let me come in!"<br>"Not by the hair of my chinny chin chin!"<br>"Then I'll huff, and I'll puff, and I'll blow your house down!"</div>
+        <div class="verdict fell">And down it came.</div>
+      </div>
+      <div class="back"><svg class="back-svg"><use href="#page-illus" width="100%" height="100%"/></svg></div>
+    </div>
+
+    <!-- p4: Bricks -->
+    <div class="panel" id="p4">
+      <div class="front">
+        <div class="ch-label">Chapter the Third</div>
+        <div class="pg-title">The House<br>of Bricks</div>
+        <div class="pg-body">The youngest pig laid her bricks one by one, mortar-thick and true. Her brothers mocked her slow hands. She finished anyway — and both brothers came running when their houses fell.</div>
+        <div class="pg-body">Then the wolf came for the very last time.</div>
+        <div class="wolf">"Little pig, little pig — let me come in!"<br>"Not by the hair of my chinny chin chin!"<br>"Then I'll huff, and I'll puff, and I'll blow your house down!"</div>
+        <div class="verdict stood">The house stood firm.</div>
+      </div>
+      <div class="back"><svg class="back-svg"><use href="#page-illus" width="100%" height="100%"/></svg></div>
+    </div>
+
+    <!-- p5: Epilogue -->
+    <div class="panel" id="p5">
+      <div class="front" style="align-items:center;justify-content:center;text-align:center;gap:clamp(8px,1.8%,16px)">
+        <div class="ch-label">Epilogue</div>
+        <div class="ornament" style="font-size:clamp(16px,2vw,22px)">❧</div>
+        <div class="pg-body" style="text-align:left">The wolf huffed until he had nothing left. He walked away, cold and alone, back into the wood from which he'd come.</div>
+        <div class="pg-body" style="text-align:left">Inside the warm brick house, three little pigs sat together by a crackling fire, eating their supper and listening to the wind outside — which was only the wind.</div>
+        <div class="ornament" style="margin-top:6px">✦</div>
+        <div class="end-word">The End</div>
+        <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+      </div>
+      <div class="back"><svg class="back-svg"><use href="#page-illus" width="100%" height="100%"/></svg></div>
+    </div>
+
+  </div><!-- /panels-container -->
+
+  <!-- ─── Foreground SVG (z=3): spine + right page illustration ─── -->
+  <!-- Covers x≥435 (spine + right page + right cover), hides folded panels -->
+  <svg class="book-layer book-fg" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="fg-spine" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#182C1C"/>
+        <stop offset="35%"  stop-color="#2E5436"/>
+        <stop offset="65%"  stop-color="#2E5436"/>
+        <stop offset="100%" stop-color="#182C1C"/>
+      </linearGradient>
+      <linearGradient id="fg-rpage" x1="1" y1=".1" x2="0" y2=".9">
+        <stop offset="0%"   stop-color="#F1E7D0"/>
+        <stop offset="100%" stop-color="#E8D8B0"/>
+      </linearGradient>
+      <linearGradient id="fg-cover" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#2E5436"/>
+        <stop offset="100%" stop-color="#182C1C"/>
+      </linearGradient>
+      <linearGradient id="fg-sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#A8CAE8"/>
+        <stop offset="100%" stop-color="#C8E0A0"/>
+      </linearGradient>
+      <!-- Shadow from spine onto right page -->
+      <linearGradient id="fg-spshad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"  stop-color="rgba(0,0,0,.22)"/>
+        <stop offset="14%" stop-color="rgba(0,0,0,0)"/>
+      </linearGradient>
+      <filter id="fg-hshadow">
+        <feDropShadow dx="0" dy="3" stdDeviation="4"
+          flood-color="#000" flood-opacity=".3"/>
+      </filter>
+
+      <!-- Illustration used both on the right page and as the page-back face -->
+      <symbol id="page-illus" viewBox="490 36 326 506" preserveAspectRatio="xMidYMid slice">
+        <!-- Parchment base -->
+        <rect x="490" y="36" width="326" height="506" fill="#EDE0C4"/>
+        <!-- Sky -->
+        <rect x="490" y="36" width="326" height="192" fill="url(#fg-sky)" rx="2"/>
+        <!-- Sun -->
+        <circle cx="770" cy="78" r="19" fill="#F5C840" opacity=".88"/>
+        <g stroke="#F5C840" stroke-width="1.5" opacity=".5">
+          <line x1="770" y1="51" x2="770" y2="43"/>
+          <line x1="770" y1="105" x2="770" y2="113"/>
+          <line x1="743" y1="78" x2="735" y2="78"/>
+          <line x1="797" y1="78" x2="805" y2="78"/>
+          <line x1="751" y1="59" x2="745" y2="53"/>
+          <line x1="789" y1="97" x2="795" y2="103"/>
+          <line x1="751" y1="97" x2="745" y2="103"/>
+          <line x1="789" y1="59" x2="795" y2="53"/>
+        </g>
+        <!-- Cloud 1 -->
+        <g opacity=".84">
+          <ellipse cx="526" cy="66" rx="32" ry="13" fill="white"/>
+          <ellipse cx="550" cy="59" rx="22" ry="16" fill="white"/>
+          <ellipse cx="508" cy="63" rx="16" ry="10" fill="white"/>
+        </g>
+        <!-- Cloud 2 -->
+        <g opacity=".72">
+          <ellipse cx="665" cy="86" rx="25" ry="10" fill="white"/>
+          <ellipse cx="682" cy="80" rx="17" ry="13" fill="white"/>
+        </g>
+        <!-- Background hills -->
+        <path d="M490 229 Q558 184 640 210 Q722 192 816 224 L816 229 Z" fill="#5A8C3A"/>
+        <!-- Ground -->
+        <rect x="490" y="226" width="326" height="72"  fill="#74AC47"/>
+        <rect x="490" y="298" width="326" height="244" fill="#4C7E2A"/>
+        <!-- Ground flora -->
+        <g opacity=".55">
+          <ellipse cx="498" cy="298" rx="3" ry="5" fill="#90C060"/>
+          <ellipse cx="512" cy="296" rx="2" ry="4" fill="#90C060"/>
+          <ellipse cx="578" cy="297" rx="3" ry="5" fill="#90C060"/>
+          <ellipse cx="718" cy="297" rx="3" ry="4" fill="#90C060"/>
+          <ellipse cx="808" cy="296" rx="2" ry="5" fill="#90C060"/>
+        </g>
+        <g opacity=".45">
+          <circle cx="506" cy="294" r="2"   fill="#FFD700"/>
+          <circle cx="592" cy="293" r="2"   fill="#FFD700"/>
+          <circle cx="692" cy="293" r="2.5" fill="#FFD700"/>
+          <circle cx="792" cy="293" r="2"   fill="#FFD700"/>
+        </g>
+        <!-- Left trees -->
+        <g fill="#2A5020">
+          <polygon points="490,232 503,200 516,232"/>
+          <polygon points="492,219 505,183 518,219"/>
+        </g>
+        <rect x="499" y="230" width="7" height="24" fill="#5C3A14"/>
+        <g fill="#2A5020">
+          <polygon points="506,232 517,204 528,232"/>
+          <polygon points="508,221 519,190 530,221"/>
+        </g>
+        <rect x="515" y="230" width="5" height="19" fill="#5C3A14"/>
+        <!-- Right trees -->
+        <g fill="#2A5020">
+          <polygon points="792,230 804,200 816,230"/>
+          <polygon points="794,218 806,183 818,218"/>
+        </g>
+        <rect x="801" y="228" width="6" height="24" fill="#5C3A14"/>
+        <!-- Wolf silhouette -->
+        <g transform="translate(796,222)" opacity=".48">
+          <ellipse cx="9" cy="10" rx="7" ry="5"  fill="#1A1008"/>
+          <ellipse cx="9" cy="17" rx="5" ry="6"  fill="#1A1008"/>
+          <polygon points="4,7  2,1   8,5"        fill="#1A1008"/>
+          <polygon points="14,7 16,1 10,5"        fill="#1A1008"/>
+        </g>
+        <!-- Dotted path -->
+        <path d="M550,298 Q612,290 660,298 Q710,290 762,298"
+          stroke="#C8A84B" stroke-width="1.5" fill="none" opacity=".3" stroke-dasharray="4,5"/>
+        <!-- House 1: Straw -->
+        <g transform="translate(518,238)" filter="url(#fg-hshadow)">
+          <rect x="0" y="28" width="60" height="52" fill="#D4A030" stroke="#A07018" stroke-width="1"/>
+          <line x1="0" y1="39" x2="60" y2="39" stroke="#A07018" stroke-width=".5" opacity=".5"/>
+          <line x1="0" y1="50" x2="60" y2="50" stroke="#A07018" stroke-width=".5" opacity=".5"/>
+          <line x1="0" y1="61" x2="60" y2="61" stroke="#A07018" stroke-width=".5" opacity=".5"/>
+          <line x1="0" y1="72" x2="60" y2="72" stroke="#A07018" stroke-width=".5" opacity=".5"/>
+          <polygon points="-6,28 30,-8 66,28" fill="#C09018"/>
+          <line x1="6"  y1="28" x2="30" y2="2"  stroke="#A07018" stroke-width=".8"/>
+          <line x1="15" y1="28" x2="30" y2="9"  stroke="#A07018" stroke-width=".8"/>
+          <line x1="25" y1="28" x2="30" y2="16" stroke="#A07018" stroke-width=".8"/>
+          <line x1="40" y1="28" x2="30" y2="13" stroke="#A07018" stroke-width=".8"/>
+          <line x1="52" y1="28" x2="30" y2="3"  stroke="#A07018" stroke-width=".8"/>
+          <path d="M21,80 L21,48 Q30,40 39,48 L39,80 Z" fill="#6B3C10"/>
+          <rect x="2" y="35" width="13" height="10" fill="#A8C8E8" stroke="#A07018" stroke-width=".5"/>
+          <text x="30" y="94" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" font-style="italic" fill="#7A5010">Straw</text>
+        </g>
+        <!-- House 2: Sticks -->
+        <g transform="translate(614,226)" filter="url(#fg-hshadow)">
+          <rect x="0" y="22" width="68" height="58" fill="#9B7040" stroke="#6B4226" stroke-width="1"/>
+          <line x1="0" y1="33" x2="68" y2="33" stroke="#6B4226" stroke-width="1.3"/>
+          <line x1="0" y1="44" x2="68" y2="44" stroke="#6B4226" stroke-width="1.3"/>
+          <line x1="0" y1="55" x2="68" y2="55" stroke="#6B4226" stroke-width="1.3"/>
+          <line x1="0" y1="66" x2="68" y2="66" stroke="#6B4226" stroke-width="1.3"/>
+          <line x1="0" y1="22" x2="68" y2="80" stroke="#6B4226" stroke-width=".4" opacity=".3"/>
+          <line x1="68" y1="22" x2="0"  y2="80" stroke="#6B4226" stroke-width=".4" opacity=".3"/>
+          <polygon points="-6,22 34,-12 74,22" fill="#7A5828"/>
+          <line x1="6"  y1="22" x2="34" y2="-4" stroke="#6B4226" stroke-width=".9"/>
+          <line x1="20" y1="22" x2="34" y2="5"  stroke="#6B4226" stroke-width=".9"/>
+          <line x1="50" y1="22" x2="34" y2="5"  stroke="#6B4226" stroke-width=".9"/>
+          <line x1="64" y1="22" x2="34" y2="-4" stroke="#6B4226" stroke-width=".9"/>
+          <rect x="24" y="46" width="20" height="34" fill="#4A2808" rx="3 3 0 0"/>
+          <rect x="4"  y="29" width="14" height="10" fill="#A8C8E8" stroke="#6B4226" stroke-width=".5"/>
+          <rect x="50" y="29" width="14" height="10" fill="#A8C8E8" stroke="#6B4226" stroke-width=".5"/>
+          <text x="34" y="97" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" font-style="italic" fill="#7A5010">Sticks</text>
+        </g>
+        <!-- House 3: Bricks -->
+        <g transform="translate(714,213)" filter="url(#fg-hshadow)">
+          <rect x="42" y="-18" width="13" height="30" fill="#9B3828"/>
+          <rect x="40" y="-22" width="17" height="5"  fill="#852E20"/>
+          <circle cx="49" cy="-28" r="4"   fill="#CCC" opacity=".3"/>
+          <circle cx="52" cy="-36" r="3.5" fill="#CCC" opacity=".2"/>
+          <circle cx="48" cy="-44" r="3"   fill="#CCC" opacity=".14"/>
+          <rect x="0" y="18" width="78" height="67" fill="#B04040" stroke="#882828" stroke-width="1"/>
+          <g stroke="#882828" stroke-width=".5" opacity=".5">
+            <line x1="0" y1="28" x2="78" y2="28"/><line x1="0" y1="38" x2="78" y2="38"/>
+            <line x1="0" y1="48" x2="78" y2="48"/><line x1="0" y1="58" x2="78" y2="58"/>
+            <line x1="0" y1="68" x2="78" y2="68"/><line x1="0" y1="78" x2="78" y2="78"/>
+            <line x1="13" y1="18" x2="13" y2="28"/><line x1="26" y1="18" x2="26" y2="28"/>
+            <line x1="39" y1="18" x2="39" y2="28"/><line x1="52" y1="18" x2="52" y2="28"/>
+            <line x1="65" y1="18" x2="65" y2="28"/>
+            <line x1="7"  y1="28" x2="7"  y2="38"/><line x1="20" y1="28" x2="20" y2="38"/>
+            <line x1="33" y1="28" x2="33" y2="38"/><line x1="46" y1="28" x2="46" y2="38"/>
+            <line x1="59" y1="28" x2="59" y2="38"/><line x1="72" y1="28" x2="72" y2="38"/>
+            <line x1="13" y1="38" x2="13" y2="48"/><line x1="26" y1="38" x2="26" y2="48"/>
+            <line x1="39" y1="38" x2="39" y2="48"/><line x1="52" y1="38" x2="52" y2="48"/>
+            <line x1="65" y1="38" x2="65" y2="48"/>
+            <line x1="7"  y1="48" x2="7"  y2="58"/><line x1="20" y1="48" x2="20" y2="58"/>
+            <line x1="33" y1="48" x2="33" y2="58"/><line x1="46" y1="48" x2="46" y2="58"/>
+            <line x1="59" y1="48" x2="59" y2="58"/><line x1="72" y1="48" x2="72" y2="58"/>
+            <line x1="13" y1="58" x2="13" y2="68"/><line x1="26" y1="58" x2="26" y2="68"/>
+            <line x1="39" y1="58" x2="39" y2="68"/><line x1="52" y1="58" x2="52" y2="68"/>
+            <line x1="65" y1="58" x2="65" y2="68"/>
+          </g>
+          <polygon points="-6,18 39,-18 84,18" fill="#852E20"/>
+          <line x1="7"  y1="18" x2="39" y2="-10" stroke="#6B1E10" stroke-width=".6"/>
+          <line x1="19" y1="18" x2="39" y2="-2"  stroke="#6B1E10" stroke-width=".6"/>
+          <line x1="31" y1="18" x2="39" y2="5"   stroke="#6B1E10" stroke-width=".6"/>
+          <line x1="49" y1="18" x2="39" y2="5"   stroke="#6B1E10" stroke-width=".6"/>
+          <line x1="61" y1="18" x2="39" y2="-2"  stroke="#6B1E10" stroke-width=".6"/>
+          <line x1="73" y1="18" x2="39" y2="-10" stroke="#6B1E10" stroke-width=".6"/>
+          <rect x="29" y="50" width="20" height="35" fill="#2C1000" rx="4 4 0 0"/>
+          <circle cx="46" cy="68" r="1.5" fill="#C8A84B"/>
+          <rect x="4"  y="26" width="18" height="14" fill="#A8C8E8" stroke="#882828" stroke-width=".5"/>
+          <line x1="13" y1="26" x2="13" y2="40" stroke="#882828" stroke-width=".5"/>
+          <line x1="4"  y1="33" x2="22" y2="33" stroke="#882828" stroke-width=".5"/>
+          <rect x="56" y="26" width="18" height="14" fill="#A8C8E8" stroke="#882828" stroke-width=".5"/>
+          <line x1="65" y1="26" x2="65" y2="40" stroke="#882828" stroke-width=".5"/>
+          <line x1="56" y1="33" x2="74" y2="33" stroke="#882828" stroke-width=".5"/>
+          <text x="39" y="100" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" font-style="italic" fill="#7A5010">Bricks</text>
+        </g>
+        <!-- Caption banner -->
+        <rect x="490" y="340" width="326" height="56" fill="rgba(244,236,215,.85)" rx="3"/>
+        <rect x="494" y="344" width="318" height="48" fill="none" stroke="#C8A84B" stroke-width=".5" opacity=".55" rx="2"/>
+        <text x="653" y="363" text-anchor="middle" font-family="Georgia,serif" font-size="11" font-style="italic" fill="#5C3A1E">A tale of three shelters, one wolf,</text>
+        <text x="653" y="380" text-anchor="middle" font-family="Georgia,serif" font-size="11" font-style="italic" fill="#5C3A1E">and the virtue of patience.</text>
+        <!-- Bottom ornament -->
+        <text x="653" y="432" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="#C8A84B" opacity=".45">✦ ✦ ✦</text>
+        <!-- Footer -->
+        <text x="653" y="519" text-anchor="middle" font-family="Georgia,serif" font-size="9" letter-spacing="2" fill="#8B6914" opacity=".65">~ The Three Little Pigs ~</text>
+        <text x="653" y="530" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#8B6914" opacity=".45">2026</text>
+      </symbol>
+    </defs>
+
+    <!-- Spine -->
+    <rect x="435" y="5" width="30" height="550" fill="url(#fg-spine)"/>
+    <!-- Spine decorative bands -->
+    <rect x="435" y="62"  width="30" height="5" fill="rgba(200,168,75,.2)" rx="1"/>
+    <rect x="435" y="76"  width="30" height="2" fill="rgba(200,168,75,.15)"/>
+    <rect x="435" y="480" width="30" height="5" fill="rgba(200,168,75,.2)" rx="1"/>
+    <rect x="435" y="494" width="30" height="2" fill="rgba(200,168,75,.15)"/>
+    <!-- Vertical spine title -->
+    <text x="450" y="288" text-anchor="middle"
+      font-family="Georgia,serif" font-size="7.5"
+      fill="rgba(200,168,75,.38)" letter-spacing="3"
+      transform="rotate(-90,450,288)">THE THREE LITTLE PIGS</text>
+
+    <!-- Right page parchment -->
+    <rect x="465" y="10" width="380" height="540" fill="url(#fg-rpage)"/>
+    <!-- Spine shadow on right page -->
+    <rect x="465" y="10" width="68" height="540" fill="url(#fg-spshad)"/>
+    <!-- Inner border -->
+    <rect x="478" y="22" width="354" height="516"
+      fill="none" stroke="#C8A84B" stroke-width=".75" opacity=".55"/>
+    <!-- Right cover sliver -->
+    <rect x="845" y="8" width="37" height="544" fill="url(#fg-cover)" rx="0 4 4 0"/>
+    <line x1="845" y1="18" x2="845" y2="542"
+      stroke="#C8A84B" stroke-width="1" opacity=".5"/>
+
+    <!-- ══════════ ILLUSTRATION (rendered via symbol) ══════════ -->
+    <use href="#page-illus" x="465" y="10" width="380" height="540"/>
+  </svg>
+
+</div><!-- /scene -->
+
+<!-- Navigation -->
+<nav>
+  <button id="backBtn" onclick="go(-1)" disabled>← Previous</button>
+  <span class="progress" id="progress">1 of 6</span>
+  <button id="fwdBtn" onclick="go(1)">Next →</button>
+</nav>
+</div><!-- /scene-wrapper -->
+
+<script>
+  const panels  = Array.from(document.querySelectorAll('.panel'));
+  const backBtn = document.getElementById('backBtn');
+  const fwdBtn  = document.getElementById('fwdBtn');
+  const prog    = document.getElementById('progress');
+
+  const container = document.querySelector('.panels-container');
+  let cur = 0, busy = false, zCounter = 0;
+
+  function place(panel, flat) {
+    panel.style.transform     = flat ? 'rotateY(0deg)' : 'rotateY(180deg)';
+    panel.style.zIndex        = ++zCounter;
+    panel.style.opacity       = '1';
+    panel.style.pointerEvents = flat ? 'auto' : 'none';
+  }
+
+  place(panels[0], true);
+  sync();
+
+  function sync() {
+    backBtn.disabled = cur === 0;
+    fwdBtn.disabled  = cur === panels.length - 1;
+    prog.textContent = (cur + 1) + ' of ' + panels.length;
+  }
+
+  function go(dir) {
+    if (busy) return;
+    const next = cur + dir;
+    if (next < 0 || next >= panels.length) return;
+    busy = true;
+
+    /* Lift the panels container above the foreground SVG for the duration
+       of the flip so the turning page sweeps in front of the right-page art */
+    container.style.zIndex = '4';
+
+    function done() {
+      container.style.zIndex = '';   // revert to CSS-defined z-index: 2
+      busy = false;
+      sync();
+    }
+
+    if (dir > 0) {
+      /* Forward: incoming starts at 180° (back face on right side),
+         then flips to 0° (front face, on left) */
+      const inc = panels[next];
+      place(inc, false);   // 180° — back face to the right
+      inc.offsetHeight;    // force reflow before animation
+
+      inc.classList.add('flipping-in');
+      inc.addEventListener('animationend', () => {
+        inc.classList.remove('flipping-in');
+        inc.style.transform     = 'rotateY(0deg)';
+        inc.style.pointerEvents = 'auto';
+        cur = next;
+        done();
+      }, { once: true });
+
+    } else {
+      /* Backward: current lifts from 0° to 180° (back face reveals),
+         exposing the previous page underneath */
+      const out = panels[cur];
+      out.classList.add('flipping-out');
+      out.addEventListener('animationend', () => {
+        out.classList.remove('flipping-out');
+        out.style.zIndex        = '0';
+        out.style.opacity       = '0';
+        out.style.pointerEvents = 'none';
+        out.style.transform     = '';
+        zCounter = Math.max(...panels.map(p => parseInt(p.style.zIndex) || 0));
+        cur = next;
+        done();
+      }, { once: true });
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1); }
+    if (e.key === 'ArrowLeft')                   { e.preventDefault(); go(-1); }
+  });
+</script>
+</body>
+</html>
