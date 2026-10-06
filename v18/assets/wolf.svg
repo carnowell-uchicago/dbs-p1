@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <!-- Wolf silhouette - menacing, side profile -->
+  <!-- Body silhouette in dark charcoal -->
+  <ellipse cx="160" cy="200" rx="80" ry="50" fill="#1a1a1a"/>
+  <!-- Neck -->
+  <rect x="120" y="145" width="45" height="55" rx="10" fill="#1a1a1a"/>
+  <!-- Head -->
+  <ellipse cx="150" cy="130" rx="55" ry="45" fill="#1a1a1a"/>
+  <!-- Snout extended for blowing -->
+  <ellipse cx="205" cy="148" rx="35" ry="22" fill="#1a1a1a"/>
+  <!-- Nose -->
+  <ellipse cx="235" cy="143" rx="10" ry="7" fill="#333"/>
+  <!-- Nostril detail -->
+  <circle cx="232" cy="142" r="3" fill="#1a1a1a"/>
+  <circle cx="238" cy="142" r="3" fill="#1a1a1a"/>
+  <!-- Eye - menacing red glow -->
+  <circle cx="165" cy="120" r="12" fill="#cc0000"/>
+  <circle cx="165" cy="120" r="7" fill="#880000"/>
+  <circle cx="165" cy="120" r="3" fill="#ff2020"/>
+  <!-- Ear 1 pointed -->
+  <polygon points="120,95 105,45 145,85" fill="#1a1a1a"/>
+  <!-- Ear 2 -->
+  <polygon points="160,88 148,38 175,80" fill="#1a1a1a"/>
+  <!-- Tail curled -->
+  <path d="M80 220 Q30 180 50 140 Q70 120 90 150" fill="none" stroke="#1a1a1a" stroke-width="18" stroke-linecap="round"/>
+  <!-- Front legs -->
+  <rect x="130" y="230" width="22" height="55" rx="11" fill="#1a1a1a"/>
+  <rect x="165" y="230" width="22" height="55" rx="11" fill="#1a1a1a"/>
+  <!-- Back legs -->
+  <rect x="82" y="228" width="20" height="50" rx="10" fill="#1a1a1a"/>
+  <rect x="115" y="228" width="20" height="50" rx="10" fill="#1a1a1a"/>
+  <!-- Paws -->
+  <ellipse cx="141" cy="282" rx="16" ry="8" fill="#1a1a1a"/>
+  <ellipse cx="176" cy="282" rx="16" ry="8" fill="#1a1a1a"/>
+  <ellipse cx="92" cy="275" rx="14" ry="7" fill="#1a1a1a"/>
+  <ellipse cx="125" cy="275" rx="14" ry="7" fill="#1a1a1a"/>
+  <!-- Breath/huff lines from snout -->
+  <line x1="245" y1="138" x2="275" y2="130" stroke="#ff6600" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+  <line x1="248" y1="148" x2="282" y2="148" stroke="#ff6600" stroke-width="5" stroke-linecap="round" opacity="0.9"/>
+  <line x1="245" y1="158" x2="272" y2="166" stroke="#ff6600" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+  <line x1="242" y1="132" x2="265" y2="118" stroke="#ff4400" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="242" y1="164" x2="260" y2="178" stroke="#ff4400" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</svg>

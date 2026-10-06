@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PigEgg.com — #1 Home Defense Hardware</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #E2231A;
+      --orange-dark: #b81a13;
+      --navy: #1a2035;
+      --navy-light: #253050;
+      --gold: #f0a500;
+      --gold-dark: #c8860a;
+      --green: #2c8c3c;
+      --green-light: #e6f5e9;
+      --red: #cc1111;
+      --red-light: #fff0f0;
+      --gray-100: #f8f8f8;
+      --gray-200: #efefef;
+      --gray-300: #ddd;
+      --gray-500: #888;
+      --gray-700: #555;
+      --gray-900: #222;
+      --white: #fff;
+      --blue: #1a56cc;
+      --blue-hover: #1344aa;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: var(--gray-900);
+      background: var(--gray-200);
+      line-height: 1.4;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; color: var(--orange); }
+
+    /* ===== SITE HEADER ===== */
+    .site-header {
+      background: var(--navy);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .header-main {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .logo-egg {
+      font-size: 26px;
+      line-height: 1;
+    }
+    .logo-text {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--orange);
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+    .logo-tagline {
+      font-size: 9px;
+      color: #aab;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .header-search {
+      flex: 1;
+      display: flex;
+      max-width: 600px;
+    }
+    .header-search input {
+      flex: 1;
+      padding: 9px 14px;
+      border: none;
+      font-size: 14px;
+      outline: none;
+      border-radius: 2px 0 0 2px;
+      background: #fff;
+    }
+    .header-search button {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: 9px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 0 2px 2px 0;
+      letter-spacing: 0.3px;
+    }
+    .header-search button:hover { background: var(--orange-dark); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .header-action-btn {
+      color: #ccd;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 11px;
+      gap: 3px;
+      transition: color 0.15s;
+    }
+    .header-action-btn:hover { color: var(--orange); text-decoration: none; }
+    .header-action-btn .icon { font-size: 20px; }
+    .gallery-link {
+      background: var(--orange);
+      color: #fff !important;
+      padding: 7px 14px;
+      border-radius: 3px;
+      font-size: 13px;
+      font-weight: 700;
+      flex-direction: row;
+      gap: 5px;
+    }
+    .gallery-link:hover { background: var(--orange-dark); text-decoration: none; }
+
+    /* ===== CATEGORY NAV BAR ===== */
+    .cat-nav {
+      background: var(--navy-light);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .cat-nav-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      gap: 2px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cat-nav-inner::-webkit-scrollbar { display: none; }
+    .cat-pill {
+      color: #ccd;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 9px 14px;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.15s;
+      letter-spacing: 0.2px;
+    }
+    .cat-pill:hover {
+      color: var(--orange);
+      border-bottom-color: var(--orange);
+      text-decoration: none;
+      background: rgba(255,255,255,0.05);
+    }
+    .cat-pill.hot { color: #ffaa55; }
+
+    /* ===== WOLF ALERT BANNER (top urgent) ===== */
+    .wolf-alert-top {
+      background: linear-gradient(90deg, #8b0000 0%, #cc1111 40%, #e63030 60%, #8b0000 100%);
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .wolf-alert-top a {
+      color: #ffdd88;
+      text-decoration: underline;
+      font-weight: 900;
+    }
+    .wolf-alert-top .blink {
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ===== MAIN CONTENT WRAPPER ===== */
+    .page-content {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* ===== HERO CAROUSEL ===== */
+    .hero-section {
+      margin: 14px 0;
+      position: relative;
+    }
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      height: 320px;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.55s ease;
+      display: flex;
+      align-items: center;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Slide 1 */
+    .slide-1 {
+      background: var(--navy);
+      overflow: hidden;
+    }
+    .slide-1-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .slide-1-bg .shape {
+      position: absolute;
+      transform: rotate(-25deg);
+    }
+    .slide-1-bg .shape-1 { width: 250px; height: 500px; background: rgba(226,35,26,0.18); top: -80px; left: -50px; }
+    .slide-1-bg .shape-2 { width: 180px; height: 400px; background: rgba(240,165,0,0.12); top: -60px; left: 180px; }
+    .slide-1-bg .shape-3 { width: 300px; height: 500px; background: rgba(26,86,204,0.15); top: -50px; right: 100px; }
+    .slide-1-bg .shape-4 { width: 200px; height: 350px; background: rgba(226,35,26,0.1); top: -30px; right: -30px; }
+    .slide-1-content {
+      position: relative;
+      z-index: 1;
+      padding: 40px 60px;
+      max-width: 650px;
+    }
+    .slide-1-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+    .slide-1-title {
+      font-size: 36px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+    }
+    .slide-1-sub {
+      font-size: 15px;
+      color: #aabbcc;
+      margin-bottom: 24px;
+    }
+    .slide-badges {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .badge-small {
+      background: var(--orange);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 2px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .badge-small.gold { background: var(--gold); color: #2a1a00; }
+    .badge-small.blue { background: var(--blue); }
+
+    /* Slide 2 */
+    .slide-2 {
+      background: #0d0d0d;
+      overflow: hidden;
+    }
+    .slide-2-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(180,0,0,0.4) 0%, transparent 70%);
+    }
+    .slide-2-wolf {
+      position: absolute;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 260px;
+      opacity: 0.85;
+    }
+    .slide-2-content {
+      position: relative;
+      z-index: 1;
+      padding: 40px 60px;
+    }
+    .slide-2-alert {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 5px 12px;
+      border-radius: 2px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .slide-2-title {
+      font-size: 34px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .slide-2-title .highlight { color: var(--orange); }
+    .slide-2-sub {
+      font-size: 14px;
+      color: #cc9999;
+      margin-bottom: 22px;
+      max-width: 400px;
+    }
+
+    /* Slide 3 */
+    .slide-3 {
+      background: #2a1810;
+      overflow: hidden;
+    }
+    .slide-3-bg {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.15) 0px,
+        rgba(0,0,0,0.15) 12px,
+        transparent 12px,
+        transparent 24px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(0,0,0,0.1) 0px,
+        rgba(0,0,0,0.1) 30px,
+        rgba(255,255,255,0.03) 30px,
+        rgba(255,255,255,0.03) 60px
+      );
+      background-color: #8b3820;
+    }
+    .slide-3-gold-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    }
+    .slide-3-bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    }
+    .slide-3-content {
+      position: relative;
+      z-index: 1;
+      padding: 40px 60px;
+    }
+    .slide-3-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--gold);
+      color: #2a1a00;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 5px 12px;
+      border-radius: 2px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .slide-3-title {
+      font-size: 32px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .slide-3-title em { color: var(--gold); font-style: normal; }
+    .slide-3-specs {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .spec-chip {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(240,165,0,0.4);
+      color: #ffe099;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+    .slide-3-price {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .slide-3-price span { font-size: 14px; color: #ccaa88; margin-left: 8px; font-weight: 400; }
+
+    /* CTA buttons */
+    .btn-cta {
+      display: inline-block;
+      padding: 12px 28px;
+      font-size: 14px;
+      font-weight: 800;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      transition: all 0.15s;
+    }
+    .btn-orange {
+      background: var(--orange);
+      color: #fff;
+    }
+    .btn-orange:hover { background: var(--orange-dark); color: #fff; text-decoration: none; }
+    .btn-red {
+      background: var(--red);
+      color: #fff;
+    }
+    .btn-red:hover { background: #aa0000; color: #fff; text-decoration: none; }
+    .btn-gold {
+      background: var(--gold);
+      color: #2a1a00;
+    }
+    .btn-gold:hover { background: var(--gold-dark); color: #fff; text-decoration: none; }
+
+    /* Carousel controls */
+    .carousel-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      border: 2px solid rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .carousel-dot.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      transform: scale(1.2);
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      border-radius: 2px;
+      transition: background 0.15s;
+    }
+    .carousel-arrow:hover { background: rgba(226,35,26,0.7); }
+    .carousel-prev { left: 12px; }
+    .carousel-next { right: 12px; }
+
+    /* Carousel right side panels */
+    .hero-sidebar {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sidebar-promo {
+      flex: 1;
+      background: var(--navy-light);
+      border-left: 2px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .sidebar-promo:hover { background: rgba(255,255,255,0.07); }
+    .sidebar-promo .promo-label {
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .sidebar-promo .promo-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+    .sidebar-promo .promo-price {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--gold);
+      margin-top: 5px;
+    }
+    .sidebar-promo .promo-orig {
+      font-size: 10px;
+      color: var(--gray-500);
+      text-decoration: line-through;
+    }
+
+    /* ===== SECTION HEADERS ===== */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      border-bottom: 2px solid var(--gray-300);
+      padding-bottom: 10px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--gray-900);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 22px;
+      background: var(--orange);
+      border-radius: 2px;
+    }
+    .section-see-all {
+      font-size: 12px;
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    /* ===== SECTION WRAPPER ===== */
+    .section-wrap {
+      background: var(--white);
+      border: 1px solid var(--gray-300);
+      border-radius: 3px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    /* ===== SHELL SHOCKER BANNER ===== */
+    .shell-shocker-banner {
+      background: linear-gradient(135deg, #1a0505 0%, #3d0000 40%, #1a0505 100%);
+      border-radius: 3px 3px 0 0;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 0;
+      border: 1px solid #5a0000;
+      border-bottom: none;
+    }
+    .shell-shocker-logo {
+      font-size: 32px;
+    }
+    .shell-shocker-text-wrap {}
+    .shell-shocker-name {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--orange);
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+    .shell-shocker-sub {
+      font-size: 11px;
+      color: #cc9988;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .shocker-timer {
+      margin-left: auto;
+      text-align: right;
+    }
+    .timer-label { font-size: 10px; color: #cc9988; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .timer-clock {
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 2px;
+    }
+
+    /* ===== PRODUCT CARDS ===== */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--gray-300);
+      border-top: 2px solid var(--orange);
+      border-radius: 0 0 3px 3px;
+    }
+    .product-card {
+      background: var(--white);
+      padding: 20px 18px;
+      border-right: 1px solid var(--gray-300);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .product-card:last-child { border-right: none; }
+
+    .product-badges {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      min-height: 24px;
+    }
+    .badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-wolf { background: #8b0000; color: #fff; }
+    .badge-sale { background: var(--orange); color: #fff; }
+    .badge-foreclosed { background: #333; color: #ff4444; border: 1px solid #ff4444; }
+    .badge-hot { background: #e85f00; color: #fff; }
+    .badge-new { background: var(--blue); color: #fff; }
+    .badge-safe { background: var(--green); color: #fff; }
+    .badge-certified { background: var(--gold); color: #2a1a00; }
+
+    .product-img-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 160px;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-radius: 2px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .product-img-wrap img {
+      max-width: 140px;
+      max-height: 140px;
+      object-fit: contain;
+    }
+    .foreclosed-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .foreclosed-stamp {
+      border: 4px solid #ff4444;
+      color: #ff4444;
+      font-size: 22px;
+      font-weight: 900;
+      padding: 8px 14px;
+      transform: rotate(-15deg);
+      letter-spacing: 2px;
+      opacity: 0.95;
+    }
+
+    .product-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+    .product-name a { color: var(--blue); }
+    .product-name a:hover { color: var(--orange); }
+
+    .product-stars {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 8px;
+    }
+    .stars {
+      display: flex;
+      gap: 1px;
+    }
+    .star { font-size: 14px; color: var(--gray-300); }
+    .star.filled { color: var(--gold); }
+    .review-count { font-size: 11px; color: var(--gray-500); }
+
+    .product-specs {
+      list-style: none;
+      margin-bottom: 12px;
+      flex: 1;
+    }
+    .product-specs li {
+      font-size: 11px;
+      color: var(--gray-700);
+      padding: 2px 0;
+      padding-left: 10px;
+      position: relative;
+      line-height: 1.4;
+    }
+    .product-specs li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--orange);
+      font-weight: 900;
+    }
+
+    .product-price-area {
+      margin-bottom: 12px;
+    }
+    .price-was {
+      font-size: 12px;
+      color: var(--gray-500);
+      text-decoration: line-through;
+      margin-bottom: 2px;
+    }
+    .price-now {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1;
+    }
+    .price-now.foreclosed-price {
+      color: var(--gray-500);
+      font-size: 14px;
+      font-style: italic;
+    }
+    .price-active { color: var(--orange); }
+    .price-note {
+      font-size: 10px;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+
+    .btn-cart {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: all 0.15s;
+    }
+    .btn-cart-active { background: var(--orange); color: #fff; }
+    .btn-cart-active:hover { background: var(--orange-dark); }
+    .btn-cart-disabled {
+      background: var(--gray-300);
+      color: var(--gray-500);
+      cursor: not-allowed;
+    }
+    .btn-cart-disabled:hover { background: var(--gray-300); }
+
+    /* ===== PROMO ALERT BANNER ===== */
+    .promo-alert-banner {
+      background: linear-gradient(90deg, #6b0000, #cc1111, #e63c3c, #cc1111, #6b0000);
+      color: #fff;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      border-radius: 3px;
+      margin-bottom: 16px;
+      border: 1px solid #ff4444;
+      text-align: center;
+      flex-wrap: wrap;
+    }
+    .promo-alert-banner .alert-icon { font-size: 24px; }
+    .promo-alert-banner .alert-text {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+    .promo-alert-banner .alert-cta {
+      background: #fff;
+      color: var(--red);
+      padding: 8px 18px;
+      border-radius: 2px;
+      font-weight: 900;
+      font-size: 13px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .promo-alert-banner .alert-cta:hover { background: #ffe0e0; text-decoration: none; }
+
+    /* ===== REVIEWS ===== */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .review-card {
+      border: 1px solid var(--gray-300);
+      border-radius: 3px;
+      padding: 16px;
+      background: var(--gray-100);
+      position: relative;
+    }
+    .review-card.positive { border-top: 3px solid var(--green); }
+    .review-card.negative { border-top: 3px solid var(--red); }
+    .review-card.mixed { border-top: 3px solid var(--gold); }
+
+    .review-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+    .reviewer-info {}
+    .reviewer-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--gray-900);
+    }
+    .reviewer-meta {
+      font-size: 10px;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+    .verified-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--green);
+      background: var(--green-light);
+      padding: 2px 7px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .review-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+    }
+    .review-body {
+      font-size: 12px;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+    .review-product-tag {
+      font-size: 10px;
+      color: var(--blue);
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    /* ===== FREQUENTLY BOUGHT TOGETHER ===== */
+    .fbt-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .fbt-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 150px;
+      flex-shrink: 0;
+    }
+    .fbt-img {
+      width: 80px;
+      height: 80px;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      font-size: 32px;
+    }
+    .fbt-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray-900);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .fbt-price {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--orange);
+    }
+    .fbt-plus {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--gray-500);
+      flex-shrink: 0;
+    }
+    .fbt-total-box {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      border-radius: 3px;
+      padding: 16px 20px;
+      text-align: center;
+      margin-left: auto;
+    }
+    .fbt-total-label { font-size: 11px; color: var(--gray-700); font-weight: 600; margin-bottom: 4px; }
+    .fbt-total-price { font-size: 22px; font-weight: 900; color: var(--orange); margin-bottom: 10px; }
+    .fbt-total-note { font-size: 10px; color: var(--gray-500); margin-bottom: 12px; }
+
+    /* ===== STORY PROGRESS ===== */
+    .story-progress {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--navy);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      z-index: 500;
+      letter-spacing: 0.3px;
+      transition: all 0.3s;
+    }
+    .story-progress .progress-label {
+      color: var(--orange);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .story-progress .progress-chapter {
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    /* ===== TRUST BAR ===== */
+    .trust-bar {
+      background: var(--navy);
+      padding: 12px 0;
+      margin-bottom: 16px;
+      border-radius: 3px;
+    }
+    .trust-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #ccd;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .trust-item .icon { font-size: 18px; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--navy);
+      color: #aabbcc;
+      padding: 32px 16px 16px;
+      margin-top: 24px;
+    }
+    .footer-main {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    .footer-cols {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .footer-col a {
+      display: block;
+      color: #8899aa;
+      font-size: 12px;
+      padding: 3px 0;
+      text-decoration: none;
+    }
+    .footer-col a:hover { color: var(--orange); text-decoration: none; }
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 16px;
+    }
+    .footer-bottom {
+      text-align: center;
+      font-size: 11px;
+      color: #667788;
+      line-height: 1.7;
+    }
+    .footer-bottom .orange { color: var(--orange); font-weight: 700; }
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    /* ===== SLIM BANNER STRIP ===== */
+    .slim-banner {
+      background: linear-gradient(90deg, #e85f00, var(--orange), #e85f00);
+      padding: 8px 16px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+    .slim-banner a { color: #ffe09a; text-decoration: underline; }
+
+    /* ===== OVERVIEW SECTION ===== */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .overview-card {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      border-radius: 3px;
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .overview-icon { font-size: 36px; flex-shrink: 0; }
+    .overview-content {}
+    .overview-title { font-size: 14px; font-weight: 800; margin-bottom: 4px; }
+    .overview-text { font-size: 12px; color: var(--gray-700); line-height: 1.5; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .product-card { border-right: none; border-bottom: 1px solid var(--gray-300); }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .footer-cols { grid-template-columns: repeat(2, 1fr); }
+      .hero-sidebar { display: none; }
+      .slide-1-content, .slide-2-content, .slide-3-content { padding: 24px 30px; }
+      .slide-1-title, .slide-2-title, .slide-3-title { font-size: 24px; }
+      .overview-grid { grid-template-columns: 1fr; }
+      .fbt-row { justify-content: center; }
+      .fbt-total-box { margin-left: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top slim banner -->
+<div class="slim-banner">
+  🏠 PIGegg.COM — 3-DAY FLASH EVENT: Wolf-Proof Homes Starting at $487,000 —
+  <a href="#deals">Shop Deals →</a> &nbsp;|&nbsp;
+  Free Oinking Delivery on orders over $100,000
+</div>
+
+<!-- Site Header -->
+<header class="site-header">
+  <div class="header-main">
+    <a class="logo" href="#">
+      <span class="logo-egg">🥚</span>
+      <div>
+        <span class="logo-text">PigEgg</span>
+        <span class="logo-tagline">#1 Home Defense Hardware</span>
+      </div>
+    </a>
+
+    <div class="header-search">
+      <input type="text" placeholder="Search home defense products, wolf ratings, shelter bundles...">
+      <button>Search</button>
+    </div>
+
+    <nav class="header-actions">
+      <a class="header-action-btn" href="#">
+        <span class="icon">👤</span>
+        <span>Account</span>
+      </a>
+      <a class="header-action-btn" href="#">
+        <span class="icon">🛒</span>
+        <span>Cart (0)</span>
+      </a>
+      <a class="header-action-btn gallery-link" href="../">
+        ← Gallery
+      </a>
+    </nav>
+  </div>
+
+  <!-- Category Nav Bar -->
+  <nav class="cat-nav">
+    <div class="cat-nav-inner">
+      <a class="cat-pill" href="#">🌾 Straw Construction</a>
+      <a class="cat-pill" href="#">🪵 Timber Frame</a>
+      <a class="cat-pill" href="#">🧱 Masonry &amp; Brick</a>
+      <a class="cat-pill hot" href="#">🐺 Wolf Defense ▲</a>
+      <a class="cat-pill" href="#">⛺ Emergency Shelters</a>
+      <a class="cat-pill" href="#">📦 Home Bundles</a>
+      <a class="cat-pill" href="#">🏚 Clearance (Wolf Events)</a>
+      <a class="cat-pill" href="#">⭐ Top Rated</a>
+      <a class="cat-pill" href="#">🔧 Installation Services</a>
+    </div>
+  </nav>
+</header>
+
+<!-- Wolf Alert Top Banner -->
+<div class="wolf-alert-top">
+  <span class="blink">⚠</span>
+  <strong>ACTIVE WOLF ALERT — B.B. Wolf Enterprises spotted in residential zones 1 and 2</strong>
+  <span>—</span>
+  <a href="#deals">Upgrade to BrickCore™ now →</a>
+</div>
+
+<!-- Main Page Content -->
+<div class="page-content">
+
+  <!-- HERO CAROUSEL -->
+  <section class="hero-section">
+    <div class="carousel" id="carousel">
+
+      <!-- Slide 1 -->
+      <div class="slide slide-1 active" id="slide-1">
+        <div class="slide-1-bg">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+          <div class="shape shape-4"></div>
+        </div>
+        <div class="slide-1-content">
+          <div class="slide-1-eyebrow">PigEgg Residential Season Launch</div>
+          <h1 class="slide-1-title">NEW SEASON.<br>NEW HOMES.<br>THREE PIGS.<br>ONE MARKET.</h1>
+          <p class="slide-1-sub">Shop the latest residential defense solutions — from starter straw to fortress brick.</p>
+          <div class="slide-badges">
+            <span class="badge-small">New Listings</span>
+            <span class="badge-small gold">Wolf Season</span>
+            <span class="badge-small blue">3 Pigs Competing</span>
+          </div>
+          <a class="btn-cta btn-orange" href="#deals">Shop Now →</a>
+        </div>
+        <!-- Sidebar visible over slide 1 -->
+        <div class="hero-sidebar">
+          <div class="sidebar-promo">
+            <div class="promo-label">Listing #1</div>
+            <div class="promo-title">StrawHaus<br>Starter Kit</div>
+            <div class="promo-orig">Was $149,000</div>
+            <div class="promo-price">FORECLOSED</div>
+          </div>
+          <div class="sidebar-promo">
+            <div class="promo-label">Listing #2</div>
+            <div class="promo-title">StickStack<br>Pro Bundle</div>
+            <div class="promo-orig">Was $199,000</div>
+            <div class="promo-price">FORECLOSED</div>
+          </div>
+          <div class="sidebar-promo">
+            <div class="promo-label">🏆 Best Seller</div>
+            <div class="promo-title">BrickCore™<br>Ultimate</div>
+            <div class="promo-price">$487,000</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide slide-2" id="slide-2">
+        <div class="slide-2-bg"></div>
+        <img class="slide-2-wolf" src="assets/wolf.svg" alt="B.B. Wolf threat illustration">
+        <div class="slide-2-content">
+          <div class="slide-2-alert">⚠ CRITICAL WOLF ALERT</div>
+          <h2 class="slide-2-title">B.B. WOLF ENTERPRISES<br>HAS <span class="highlight">ENTERED</span><br>YOUR NEIGHBORHOOD.</h2>
+          <p class="slide-2-sub">Wolf resistance ratings now mandatory. Two local properties already destroyed. Upgrade your home before it's too late.</p>
+          <a class="btn-cta btn-red" href="#deals">Check Wolf Resistance Ratings →</a>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide slide-3" id="slide-3">
+        <div class="slide-3-bg"></div>
+        <div class="slide-3-gold-bar"></div>
+        <div class="slide-3-bottom-bar"></div>
+        <div class="slide-3-content">
+          <div class="slide-3-badge">🏆 #1 Wolf-Proof Home 2026</div>
+          <h2 class="slide-3-title">BrickCore™ PRO —<br><em>WOLF PROOF.</em><br>TESTED. CERTIFIED.</h2>
+          <div class="slide-3-specs">
+            <span class="spec-chip">✓ Wolf Resistant</span>
+            <span class="spec-chip">✓ Chimney Sealed</span>
+            <span class="spec-chip">✓ 3-Pig Capacity</span>
+            <span class="spec-chip">✓ Free Shipping</span>
+          </div>
+          <div class="slide-3-price">$487,000 <span>· 3 Pigs Currently Inside · In Stock</span></div>
+          <a class="btn-cta btn-gold" href="#brickcore">View Deal →</a>
+        </div>
+      </div>
+
+      <!-- Carousel Controls -->
+      <div class="carousel-arrow carousel-prev" onclick="prevSlide()">&#8249;</div>
+      <div class="carousel-arrow carousel-next" onclick="nextSlide()">&#8250;</div>
+      <div class="carousel-dots">
+        <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+        <div class="carousel-dot" onclick="goToSlide(1)"></div>
+        <div class="carousel-dot" onclick="goToSlide(2)"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <div class="trust-bar">
+    <div class="trust-bar-inner">
+      <div class="trust-item"><span class="icon">🛡</span> Wolf-Proof Certified</div>
+      <div class="trust-item"><span class="icon">🚚</span> Free Oinking Delivery</div>
+      <div class="trust-item"><span class="icon">⭐</span> 1M+ Pig Customers</div>
+      <div class="trust-item"><span class="icon">🔒</span> Secure Chimney Checkout</div>
+      <div class="trust-item"><span class="icon">↩</span> 30-Day No-Wolf Returns</div>
+    </div>
+  </div>
+
+  <!-- ===== SHELL SHOCKER DEALS ===== -->
+  <section id="deals">
+    <div class="shell-shocker-banner">
+      <span class="shell-shocker-logo">💣</span>
+      <div class="shell-shocker-text-wrap">
+        <div class="shell-shocker-name">WOLF SHOCKER</div>
+        <div class="shell-shocker-sub">EMERGENCY PRICING DURING ACTIVE WOLF EVENT · LIMITED TO 3 PROPERTIES</div>
+      </div>
+      <div class="shocker-timer">
+        <div class="timer-label">Wolf Arrives In</div>
+        <div class="timer-clock" id="timer">03:00:00</div>
+      </div>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Product 1: StrawHaus -->
+      <div class="product-card">
+        <div class="product-badges">
+          <span class="badge badge-wolf">WOLF EVENT</span>
+          <span class="badge badge-foreclosed">FORECLOSED</span>
+        </div>
+        <div class="product-img-wrap">
+          <img src="assets/product-1.svg" alt="StrawHaus Starter Kit">
+          <div class="foreclosed-overlay">
+            <div class="foreclosed-stamp">DESTROYED</div>
+          </div>
+        </div>
+        <div class="product-name">
+          <a href="#">StrawHaus Starter Kit — Organic Compressed Straw Construction System</a>
+        </div>
+        <div class="product-stars">
+          <div class="stars">
+            <span class="star filled">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <span class="review-count">1 review (1 star)</span>
+        </div>
+        <ul class="product-specs">
+          <li>Material: Premium-grade organic straw bales</li>
+          <li>Assembly time: 1 afternoon (est.)</li>
+          <li>Wolf resistance rating: 0.2/10</li>
+          <li>Huffing threshold: 3–5 breaths</li>
+          <li>Status: <strong style="color:#cc0000">DEMOLISHED — Wolf Event #1</strong></li>
+        </ul>
+        <div class="product-price-area">
+          <div class="price-was">Was: $149,000.00</div>
+          <div class="price-now foreclosed-price">$0.00 (FORECLOSED)</div>
+          <div class="price-note">Ships in 1 afternoon · No longer a viable structure</div>
+        </div>
+        <button class="btn-cart btn-cart-disabled" disabled>Out of Existence</button>
+      </div>
+
+      <!-- Product 2: StickStack -->
+      <div class="product-card">
+        <div class="product-badges">
+          <span class="badge badge-wolf">WOLF EVENT</span>
+          <span class="badge badge-foreclosed">FORECLOSED</span>
+        </div>
+        <div class="product-img-wrap">
+          <img src="assets/product-2.svg" alt="StickStack Pro Bundle">
+          <div class="foreclosed-overlay">
+            <div class="foreclosed-stamp">DESTROYED</div>
+          </div>
+        </div>
+        <div class="product-name">
+          <a href="#">StickStack Pro Bundle — Engineered Timber Frame with Mud Chinking</a>
+        </div>
+        <div class="product-stars">
+          <div class="stars">
+            <span class="star filled">★</span>
+            <span class="star filled">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <span class="review-count">1 review (2 stars)</span>
+        </div>
+        <ul class="product-specs">
+          <li>Material: Reclaimed timber sticks + mud mortar</li>
+          <li>Assembly time: 2 days (est.)</li>
+          <li>Wolf resistance rating: 1.4/10</li>
+          <li>Huffing threshold: 10–15 breaths</li>
+          <li>Status: <strong style="color:#cc0000">DEMOLISHED — Wolf Event #2</strong></li>
+        </ul>
+        <div class="product-price-area">
+          <div class="price-was">Was: $199,000.00</div>
+          <div class="price-now foreclosed-price">$0.00 (FORECLOSED)</div>
+          <div class="price-note">Ships in 2 days · No longer a viable structure</div>
+        </div>
+        <button class="btn-cart btn-cart-disabled" disabled>Out of Existence</button>
+      </div>
+
+      <!-- Product 3: BrickCore -->
+      <div class="product-card" id="brickcore">
+        <div class="product-badges">
+          <span class="badge badge-safe">WOLF RESISTANT ✓</span>
+          <span class="badge badge-certified">CERTIFIED</span>
+          <span class="badge badge-hot">HOT</span>
+        </div>
+        <div class="product-img-wrap">
+          <img src="assets/product-3.svg" alt="BrickCore Ultimate">
+        </div>
+        <div class="product-name">
+          <a href="#">BrickCore™ Ultimate — Wolf-Proof Fired Brick Fortress with Sealed Chimney System</a>
+        </div>
+        <div class="product-stars">
+          <div class="stars">
+            <span class="star filled">★</span>
+            <span class="star filled">★</span>
+            <span class="star filled">★</span>
+            <span class="star filled">★</span>
+            <span class="star filled">★</span>
+          </div>
+          <span class="review-count">1 review (5 stars)</span>
+        </div>
+        <ul class="product-specs">
+          <li>Material: Industrial-grade fired clay brick + cement mortar</li>
+          <li>Wolf resistance rating: 10/10 — Independently Certified</li>
+          <li>Huffing threshold: ∞ (structurally unlimited)</li>
+          <li>Chimney: Self-sealing Wolf Ingress Prevention System</li>
+          <li>Current occupants: 3 pigs (at capacity, thriving)</li>
+          <li>Status: <strong style="color:var(--green)">IN STOCK · WOLF ATTACKS REPELLED: 3</strong></li>
+        </ul>
+        <div class="product-price-area">
+          <div class="price-was">&nbsp;</div>
+          <div class="price-now price-active">$487,000.00</div>
+          <div class="price-note">Free Shipping · 3 Pigs Currently Inside · Immediate Move-In</div>
+        </div>
+        <button class="btn-cart btn-cart-active">Add to Cart — Wolf Proof</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Wolf Attack Alert Banner -->
+  <div class="promo-alert-banner" style="margin-top:16px;">
+    <span class="alert-icon">🐺</span>
+    <span class="alert-text">
+      ACTIVE WOLF ALERT IN YOUR AREA — Straw and Stick homes have already fallen — Upgrade before Wolf Event #3
+    </span>
+    <a class="alert-cta" href="#brickcore">Shop Wolf-Resistant Homes →</a>
+  </div>
+
+  <!-- ===== STORY SO FAR — OVERVIEW ===== -->
+  <section class="section-wrap">
+    <div class="section-header">
+      <div class="section-title">The Story So Far: Market Update</div>
+      <a class="section-see-all" href="#">Full Incident Report →</a>
+    </div>
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="overview-icon">🌾</div>
+        <div class="overview-content">
+          <div class="overview-title">Chapter 1: StrawHaus — Total Loss</div>
+          <div class="overview-text">PigOne_H built first. Completed in one afternoon. Wolf arrived same evening. Three huffs later, structural integrity was zero. Property condemned. PigOne_H relocated.</div>
+        </div>
+      </div>
+      <div class="overview-card">
+        <div class="overview-icon">🪵</div>
+        <div class="overview-content">
+          <div class="overview-title">Chapter 2: StickStack — Also Gone</div>
+          <div class="overview-text">PigTwo_R added mud chinking for "extra strength." Held for 15 breaths. Wolf escalated. Structural failure confirmed. PigTwo_R also relocated to BrickCore™.</div>
+        </div>
+      </div>
+      <div class="overview-card">
+        <div class="overview-icon">🧱</div>
+        <div class="overview-content">
+          <div class="overview-title">Chapter 3: BrickCore™ — Standing Strong</div>
+          <div class="overview-text">PigThree_B's fortress repelled three separate wolf attacks. Chimney sealed. Wolf attempted ingress via roof — blocked. All three pigs now safely housed. BrickCore™ stock remains at 1 unit.</div>
+        </div>
+      </div>
+      <div class="overview-card">
+        <div class="overview-icon">🐺</div>
+        <div class="overview-content">
+          <div class="overview-title">Threat Assessment: B.B. Wolf Enterprises</div>
+          <div class="overview-text">Wolf lung capacity rated at Class 5 — sufficient to destroy any sub-brick structure. Currently circling BrickCore™. Last seen attempting chimney entry. Status: Repelled, frustrated, hungry.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CUSTOMER REVIEWS ===== -->
+  <section class="section-wrap">
+    <div class="section-header">
+      <div class="section-title">Why Customers Are Talking</div>
+      <a class="section-see-all" href="#">All Reviews →</a>
+    </div>
+    <div class="reviews-grid">
+
+      <div class="review-card negative">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-name">PigOne_H</div>
+            <div class="product-stars" style="margin:4px 0 0;">
+              <div class="stars">
+                <span class="star filled">★</span>
+                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+              </div>
+            </div>
+            <div class="reviewer-meta">Reviewed: StrawHaus Starter Kit · Oct 3, 2026</div>
+          </div>
+          <span class="verified-badge">✓ Verified Purchase</span>
+        </div>
+        <div class="review-title">"Fast build, zero protection."</div>
+        <div class="review-body">
+          Went up in one afternoon which I thought was a great sign. Wolf showed up that same evening.
+          He huffed. He puffed. I watched my living room become a field. Would not buy again.
+          Currently staying at my brother's brick place. It's crowded.
+        </div>
+        <div class="review-product-tag">Product: StrawHaus Starter Kit — WOLF EVENT STATUS: DESTROYED</div>
+      </div>
+
+      <div class="review-card mixed">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-name">PigTwo_R</div>
+            <div class="product-stars" style="margin:4px 0 0;">
+              <div class="stars">
+                <span class="star filled">★</span>
+                <span class="star filled">★</span>
+                <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+              </div>
+            </div>
+            <div class="reviewer-meta">Reviewed: StickStack Pro Bundle · Oct 4, 2026</div>
+          </div>
+          <span class="verified-badge">✓ Verified Purchase</span>
+        </div>
+        <div class="review-title">"Brochure was optimistic."</div>
+        <div class="review-body">
+          Three times stronger than straw, per the brochure. I believed the brochure.
+          The brochure did not account for a wolf with documented lung capacity of 2,400 PSI.
+          It lasted longer than my brother's straw place. Not long enough.
+          Also now at my other brother's brick house. We are all at the brick house.
+        </div>
+        <div class="review-product-tag">Product: StickStack Pro Bundle — WOLF EVENT STATUS: DESTROYED</div>
+      </div>
+
+      <div class="review-card positive">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-name">PigThree_B</div>
+            <div class="product-stars" style="margin:4px 0 0;">
+              <div class="stars">
+                <span class="star filled">★</span>
+                <span class="star filled">★</span>
+                <span class="star filled">★</span>
+                <span class="star filled">★</span>
+                <span class="star filled">★</span>
+              </div>
+            </div>
+            <div class="reviewer-meta">Reviewed: BrickCore™ Ultimate · Oct 5, 2026</div>
+          </div>
+          <span class="verified-badge">✓ Verified Purchase</span>
+        </div>
+        <div class="review-title">"Wolf attacked 3 times. House didn't move."</div>
+        <div class="review-body">
+          Wolf attacked from the front — nothing. Attacked from the side — nothing.
+          Tried the chimney — sealed. I've now got two additional family members living here.
+          We sealed the chimney from the inside. Wolf is outside somewhere.
+          We are warm. Chimney: sealed. 10/10. Would buy again if I ever needed to, which I won't, because this house is forever.
+        </div>
+        <div class="review-product-tag">Product: BrickCore™ Ultimate — STATUS: IN STOCK · THRIVING · 3 PIGS INSIDE</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Mid-page wolf alert banner 2 -->
+  <div class="promo-alert-banner">
+    <span class="alert-icon">🔥</span>
+    <span class="alert-text">
+      CHIMNEY BREACH ATTEMPT DETECTED — Wolf attempting roof entry on BrickCore™ — System holding. All pigs safe. Chimney locked.
+    </span>
+    <a class="alert-cta" href="#fbt">Seal Your Chimney Too →</a>
+  </div>
+
+  <!-- ===== FREQUENTLY BOUGHT TOGETHER ===== -->
+  <section class="section-wrap" id="fbt">
+    <div class="section-header">
+      <div class="section-title">Frequently Bought Together</div>
+    </div>
+    <div class="fbt-row">
+      <div class="fbt-item">
+        <div class="fbt-img">🧱</div>
+        <div class="fbt-name">BrickCore™ Ultimate Fortress</div>
+        <div class="fbt-price">$487,000</div>
+      </div>
+      <div class="fbt-plus">+</div>
+      <div class="fbt-item">
+        <div class="fbt-img">🔒</div>
+        <div class="fbt-name">Chimney Cap Pro Wolf Ingress Prevention</div>
+        <div class="fbt-price">$12,500</div>
+      </div>
+      <div class="fbt-plus">+</div>
+      <div class="fbt-item">
+        <div class="fbt-img">🐷🐷🐷</div>
+        <div class="fbt-name">Three Pig Family Bundle (Occupancy Pack)</div>
+        <div class="fbt-price">$0 (included)</div>
+      </div>
+      <div class="fbt-total-box">
+        <div class="fbt-total-label">Total for all 3 items:</div>
+        <div class="fbt-total-price">$499,500</div>
+        <div class="fbt-total-note">Saves $0 · But saves your life</div>
+        <button class="btn-cart btn-cart-active">Add All to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final wolf alert (resolution) -->
+  <div class="promo-alert-banner" style="background:linear-gradient(90deg,#1a3d1a,#2c8c3c,#1a3d1a); border-color:#4aaa5a;">
+    <span class="alert-icon">🐷🐷🐷</span>
+    <span class="alert-text">
+      WOLF ALERT RESOLVED — All three pigs safe inside BrickCore™ — Wolf retreated at 11:47 PM — Chimney remains sealed
+    </span>
+    <a class="alert-cta" style="color:var(--green);" href="#brickcore">Shop BrickCore™ →</a>
+  </div>
+
+</div><!-- end .page-content -->
+
+<!-- Footer -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="footer-col-title">Customer Service</div>
+        <a href="#">Wolf Attack Claims</a>
+        <a href="#">Property Damage Returns</a>
+        <a href="#">Emergency Shelter Hotline</a>
+        <a href="#">Rebuild Assistance</a>
+        <a href="#">Contact PigEgg Support</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">My Account</div>
+        <a href="#">Order History</a>
+        <a href="#">Saved Homes</a>
+        <a href="#">Wolf Resistance Ratings</a>
+        <a href="#">Wishlists</a>
+        <a href="#">PigEgg Rewards Points</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Resources</div>
+        <a href="#">Wolf Resistance FAQ</a>
+        <a href="#">Home Defense Guide</a>
+        <a href="#">Chimney Sealing Tutorial</a>
+        <a href="#">Huffing PSI Database</a>
+        <a href="#">Pig Safety Blog</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#">About PigEgg.com</a>
+        <a href="#">Press: Brick-Related Stories</a>
+        <a href="#">Careers (Remote / Fortified)</a>
+        <a href="#">Wolf Partnership Program</a>
+        <a href="#">Investor Relations</a>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <div class="footer-social">🐷 🐷 🐷</div>
+      <p style="margin-top:10px;">
+        <span class="orange">© PigEgg.com 2026</span> · All products subject to wolf activity ·
+        Wolf-resistance ratings independently verified by the Institute of Pig Building Sciences ·
+        <strong>Three Little Pigs Endorsed™</strong> · PigEgg is not responsible for straw or stick construction decisions ·
+        BrickCore™ warranty void if chimney unsealed during wolf event
+      </p>
+      <p style="margin-top:6px;">PigEgg.com — #1 Home Defense Hardware · Serving Pigs Since Before the Wolf Arrived</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Story Progress Indicator -->
+<div class="story-progress" id="storyProgress">
+  <span class="progress-label">Story Progress</span>
+  <span class="progress-chapter" id="progressChapter">Chapter 1 of 3</span>
+</div>
+
+<script>
+  // ===== CAROUSEL =====
+  let currentSlide = 0;
+  const totalSlides = 3;
+  let autoTimer = null;
+
+  function goToSlide(n) {
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = (n + totalSlides) % totalSlides;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+  }
+
+  function nextSlide() {
+    goToSlide(currentSlide + 1);
+    resetAutoTimer();
+  }
+
+  function prevSlide() {
+    goToSlide(currentSlide - 1);
+    resetAutoTimer();
+  }
+
+  function resetAutoTimer() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
+  }
+
+  // Start auto-cycle
+  resetAutoTimer();
+
+  // ===== COUNTDOWN TIMER =====
+  (function() {
+    let totalSecs = 3 * 3600; // 3 hours
+    const timerEl = document.getElementById('timer');
+    setInterval(() => {
+      if (totalSecs <= 0) { timerEl.textContent = '00:00:00'; return; }
+      totalSecs--;
+      const h = Math.floor(totalSecs / 3600);
+      const m = Math.floor((totalSecs % 3600) / 60);
+      const s = totalSecs % 60;
+      timerEl.textContent =
+        String(h).padStart(2,'0') + ':' +
+        String(m).padStart(2,'0') + ':' +
+        String(s).padStart(2,'0');
+    }, 1000);
+  })();
+
+  // ===== STORY PROGRESS =====
+  (function() {
+    const chapterEl = document.getElementById('progressChapter');
+    const sections = [
+      { el: document.getElementById('slide-1'), label: 'Chapter 1 of 3: Three Pigs, Three Homes' },
+      { el: document.getElementById('deals'), label: 'Chapter 2 of 3: Wolf Event' },
+      { el: document.querySelector('#fbt'), label: 'Chapter 3 of 3: Safe in BrickCore™' },
+    ];
+
+    function updateProgress() {
+      const scrollY = window.scrollY + window.innerHeight * 0.5;
+      let current = sections[0].label;
+      for (const s of sections) {
+        if (!s.el) continue;
+        const rect = s.el.getBoundingClientRect();
+        const absTop = rect.top + window.scrollY;
+        if (scrollY >= absTop) current = s.label;
+      }
+      chapterEl.textContent = current;
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  })();
+</script>
+
+</body>
+</html>
