@@ -44,15 +44,39 @@
   /* Slide */
   .slide {
     display: none;
-    background: #ffffff;
+    background: linear-gradient(160deg, #f8f9ff 0%, #eef1f8 100%);
     border-radius: 4px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08);
     min-height: 540px;
     position: relative;
     overflow: hidden;
     flex-direction: column;
+    --accent: #1a4fa0;
   }
   .slide.active { display: flex; }
+
+  /* Accent shape: bottom-right decorative circle (PPT "Ion/Facet" style) */
+  .slide::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: var(--accent, #1a4fa0);
+    opacity: 0.07;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Accent color keyed to header color */
+  .slide:has(.header-amber) { --accent: #e8a020; }
+  .slide:has(.header-green)  { --accent: #2e7d32; }
+  .slide:has(.header-blue)   { --accent: #1a4fa0; }
+  .slide:has(.header-red)    { --accent: #b91c1c; }
+  .slide:has(.header-dark)   { --accent: #1a1a2e; }
+  .slide:has(.header-white)  { --accent: #6b7280; }
 
   /* Confidential watermark */
   .slide::before {
@@ -120,6 +144,13 @@
     flex: 1;
     position: relative;
     z-index: 1;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 20px,
+      rgba(0,0,0,0.012) 20px,
+      rgba(0,0,0,0.012) 21px
+    );
   }
 
   /* Logo box */
@@ -777,7 +808,7 @@
       <div class="presented-to">Presented to: The Northern Plains Venture Capital Forum — October 1951</div>
       <div class="disclaimer">Past performance is not indicative of future structural integrity.</div>
     </div>
-    <div class="slide-counter">1 / 8</div>
+    <div class="slide-counter">1 / 9</div>
   </div>
 
   <!-- SLIDE 2: The Problem -->
@@ -817,7 +848,7 @@
         </div>
       </div>
     </div>
-    <div class="slide-counter">2 / 8</div>
+    <div class="slide-counter">2 / 9</div>
   </div>
 
   <!-- SLIDE 3: StrawHaus -->
@@ -877,11 +908,89 @@
         </div>
       </div>
     </div>
-    <div class="slide-counter">3 / 8</div>
+    <div class="slide-counter">3 / 9</div>
   </div>
 
-  <!-- SLIDE 4: Wolf / Market Disruption -->
+  <!-- SLIDE 4: StickStack® -->
   <div class="slide" data-slide="4">
+    <div class="slide-header header-green">
+      <div class="label">Section 02B — Portfolio Company</div>
+      <h2>STICKSTACK® — OUR SOLUTION</h2>
+    </div>
+    <div class="slide-body">
+      <div class="product-header-logo">
+        <span class="logo-box logo-green" style="font-size:16px;">StickStack®</span>
+        <span class="product-tagline">"3× stronger than straw. Sustainably sourced."</span>
+      </div>
+      <div class="product-grid">
+        <div>
+          <ul class="product-bullets">
+            <li>✓ Enterprise-grade timber adhesion system</li>
+            <li>✓ 3× stronger than straw (internally benchmarked)</li>
+            <li>✓ Sustainable timber sourcing (FSC-adjacent)</li>
+            <li>✓ Build time: 2 days</li>
+            <li>✓ Series A ready (pre-wolf)</li>
+          </ul>
+          <div class="kpi-row" style="margin-top:14px;">
+            <div class="kpi-box">
+              <span class="kpi-value">2 DAYS</span>
+              <span class="kpi-label">Build Time</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-value">$12.80</span>
+              <span class="kpi-label">Total Cost</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-value" style="font-size:13px;">28 MPH*</span>
+              <span class="kpi-label">Wind Rating</span>
+            </div>
+          </div>
+          <div class="founder-bio">
+            <strong>Pig Two, CEO.</strong> Former StrawHaus™ advisor. Second-time founder. Stick enthusiast. Currently at BrickCore™.
+          </div>
+        </div>
+        <div>
+          <div class="chart-section">
+            <div class="chart-title">Q1 Projections</div>
+            <div class="bar-chart">
+              <div class="bar-col">
+                <div class="bar-value">3,800</div>
+                <div class="bar" style="height:88px;background:#2e7d32;"></div>
+                <div class="bar-label">Expected<br>Users</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar-value">$42</div>
+                <div class="bar" style="height:20px;background:#4caf50;"></div>
+                <div class="bar-label">Structural<br>Testing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Post-mortem metrics -->
+      <div style="margin-top:16px;background:#f0fdf4;border:1px solid #bbf7d0;border-left:4px solid #2e7d32;border-radius:4px;padding:12px 16px;">
+        <div style="font-size:10px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#2e7d32;margin-bottom:8px;">Post-Mortem Metrics</div>
+        <div class="kpi-row" style="margin:0;">
+          <div class="kpi-box" style="background:#fff;border-color:#bbf7d0;">
+            <span class="kpi-value" style="color:#b91c1c;font-size:16px;">0%</span>
+            <span class="kpi-label">Wolf Resistance</span>
+          </div>
+          <div class="kpi-box" style="background:#fff;border-color:#bbf7d0;">
+            <span class="kpi-value" style="color:#b91c1c;font-size:16px;">0%</span>
+            <span class="kpi-label">Structural Integrity<br>at T+15 Min</span>
+          </div>
+          <div class="kpi-box" style="background:#fff;border-color:#bbf7d0;flex:2;">
+            <span class="kpi-value" style="color:#555;font-size:11px;white-space:nowrap;">Relocated to BrickCore™</span>
+            <span class="kpi-label">Founder Status</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">4 / 9</div>
+  </div>
+
+  <!-- SLIDE 5: Wolf / Market Disruption -->
+  <div class="slide" data-slide="5">
     <div class="slide-header header-red">
       <div class="label">⚠ THREAT ADVISORY</div>
       <h2>⚠ COMPETITIVE THREAT IDENTIFIED</h2>
@@ -918,11 +1027,11 @@
         <div class="attribution">— Pig Two, reflecting</div>
       </div>
     </div>
-    <div class="slide-counter">4 / 8</div>
+    <div class="slide-counter">5 / 9</div>
   </div>
 
-  <!-- SLIDE 5: Lessons Learned -->
-  <div class="slide" data-slide="5">
+  <!-- SLIDE 6: Lessons Learned -->
+  <div class="slide" data-slide="6">
     <div class="slide-header header-white">
       <div class="label">Section 04 — Retrospective</div>
       <h2>LESSONS LEARNED</h2>
@@ -951,11 +1060,11 @@
         </div>
       </div>
     </div>
-    <div class="slide-counter">5 / 8</div>
+    <div class="slide-counter">6 / 9</div>
   </div>
 
-  <!-- SLIDE 6: BrickCore -->
-  <div class="slide" data-slide="6">
+  <!-- SLIDE 7: BrickCore -->
+  <div class="slide" data-slide="7">
     <div class="slide-header header-blue">
       <div class="label">Section 05 — Portfolio Company</div>
       <h2>BRICKCORE™ — THE PRODUCT THAT WORKS</h2>
@@ -1021,11 +1130,11 @@
         </div>
       </div>
     </div>
-    <div class="slide-counter">6 / 8</div>
+    <div class="slide-counter">7 / 9</div>
   </div>
 
-  <!-- SLIDE 7: Traction -->
-  <div class="slide" data-slide="7">
+  <!-- SLIDE 8: Traction -->
+  <div class="slide" data-slide="8">
     <div class="slide-header header-blue">
       <div class="label">Section 06 — Traction</div>
       <h2>TRACTION &amp; RESULTS</h2>
@@ -1069,11 +1178,11 @@
         <span class="attr">— Pig Three, BrickCore™</span>
       </div>
     </div>
-    <div class="slide-counter">7 / 8</div>
+    <div class="slide-counter">8 / 9</div>
   </div>
 
-  <!-- SLIDE 8: The Ask -->
-  <div class="slide" data-slide="8">
+  <!-- SLIDE 9: The Ask -->
+  <div class="slide" data-slide="9">
     <div class="slide-header header-blue">
       <div class="label">Section 07 — The Ask</div>
       <h2>WHAT WE'RE BUILDING NEXT</h2>
@@ -1101,13 +1210,13 @@
       </div>
       <div class="slide8-footer">BrickCore™ is a registered trademark. StrawHaus™ and StickStack® are registered trademarks of their respective founders (now BrickCore™ employees). B.B. Wolf Enterprises is not affiliated with BrickCore™ or any of its subsidiaries.</div>
     </div>
-    <div class="slide-counter">8 / 8</div>
+    <div class="slide-counter">9 / 9</div>
   </div>
 
   <!-- Navigation -->
   <div class="nav-area">
     <button class="nav-btn" id="prev-btn" disabled>← Back</button>
-    <span class="slide-num" id="slide-num">Slide 1 / 8</span>
+    <span class="slide-num" id="slide-num">Slide 1 / 9</span>
     <button class="nav-btn" id="next-btn">Next →</button>
   </div>
 
