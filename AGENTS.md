@@ -90,7 +90,7 @@ After activating every new gallery card, always verify the thumbnail actually re
 - Replace the iframe with `<img src="vNN/thumb.svg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">` in the card
 This check must happen before committing the gallery update.
 
-### Current progress — 18 of 25 built, all committed
+### Current progress — 25 of 25 built, v19–v25 pending commit
 Need **v19–v25** (7 more). The exploration arc says v17–v22 should converge (mix what works), v23–v25 refinements only with v25 feeling definitive.
 
 | Version | Title / Direction | Notes |
@@ -113,6 +113,8 @@ Need **v19–v25** (7 more). The exploration arc says v17–v22 should converge 
 | v16 | PigInspire (siteinspire clone) | Design gallery, tag filter, lightbox |
 | v17 | PigZillow | Sequential 8-scene real estate narrative, sticky map with pin state transitions |
 | v18 | PigEgg.com (Newegg) | Flash-sale homepage, wolf countdown, product reviews |
+
+### All 25 versions complete. v25 (NASA Mission Brief) is the chosen final version.
 
 ### Brainstormed directions not yet built (pick from these for v19–v25)
 - **IKEA instructions** — flat-pack assembly manual for each shelter (isometric diagrams, warning triangles, Swedish product names)
