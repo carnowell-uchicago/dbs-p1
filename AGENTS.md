@@ -71,6 +71,8 @@ Layout structure, narrative format, era/setting, tone, design school, reading mo
 ### Commit discipline (IMPORTANT)
 After every user-approved change — whether a new version, an edit to an existing version, or a gallery update — commit immediately before moving on. Stage only the specific files changed (never `git add -A`). Never leave work uncommitted between prompts. Push after committing when auth allows; if push fails, note it and let the user push manually (`! git push`).
 
+**Subagents must NOT commit.** Subagents build and write files only. The parent Claude Code session commits after the user reviews and approves the result. A subagent that commits on its own violates this workflow.
+
 ### Gallery card activation
 Each card in `index.html` starts as `<a class="card placeholder" ...>`. When a version is built and approved:
 1. Remove `placeholder` from the class

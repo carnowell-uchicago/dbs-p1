@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" font-family="'Helvetica Neue',Arial,sans-serif">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#1a1a2e"/>
+
+  <!-- Top header bar -->
+  <rect width="400" height="40" fill="#E2231A"/>
+  <!-- Logo -->
+  <text x="14" y="25" font-size="15" font-weight="900" fill="white">PigEgg.com</text>
+  <!-- Tagline -->
+  <text x="14" y="36" font-size="7" fill="rgba(255,255,255,0.75)">The Best Prices on Porcine Real Estate</text>
+  <!-- Search bar -->
+  <rect x="130" y="8" width="180" height="24" rx="3" fill="white"/>
+  <text x="140" y="24" font-size="10" fill="#999">Search shelters...</text>
+  <!-- Cart icon area -->
+  <rect x="318" y="8" width="70" height="24" rx="3" fill="#ff8c00"/>
+  <text x="330" y="24" font-size="9" fill="white" font-weight="700">🛒 Cart (3)</text>
+
+  <!-- Hero banner -->
+  <rect x="0" y="40" width="400" height="100" fill="#0f3460"/>
+  <!-- Starburst decoration -->
+  <polygon points="310,50 320,60 332,50 322,62 334,72 322,65 320,78 318,65 306,72 316,62" fill="#ff8c00" opacity="0.9"/>
+  <!-- Hero headline -->
+  <text x="20" y="65" font-size="13" font-weight="900" fill="white">🔥 WOLF SHOCKER SALE</text>
+  <text x="20" y="82" font-size="9" fill="rgba(255,255,255,0.85)">Limited-time discounts before disaster strikes!</text>
+  <!-- Countdown -->
+  <rect x="20" y="90" width="130" height="28" rx="4" fill="#E2231A"/>
+  <text x="30" y="104" font-size="8" fill="white" font-weight="700">⏱ Ends in: 02:47:33</text>
+  <text x="30" y="114" font-size="7" fill="rgba(255,255,255,0.7)">While supplies last</text>
+  <!-- Hero image area -->
+  <rect x="260" y="42" width="130" height="96" rx="4" fill="#1a3a6e"/>
+  <text x="275" y="72" font-size="28">🐺</text>
+  <text x="275" y="92" font-size="9" fill="#ff8c00" font-weight="700">B.B. WOLF</text>
+  <text x="275" y="104" font-size="7" fill="#ccc">Certified Destructor</text>
+  <text x="275" y="116" font-size="7" fill="rgba(255,255,255,0.6)">5 reviews ★★★☆☆</text>
+
+  <!-- Product cards row -->
+  <rect x="0" y="142" width="400" height="12" fill="#ff8c00"/>
+  <text x="10" y="152" font-size="8" font-weight="700" fill="white">⚡  TODAY'S FEATURED SHELTERS  ⚡</text>
+
+  <!-- Product card 1 — Straw (FORECLOSED) -->
+  <rect x="8" y="156" width="116" height="96" rx="4" fill="white"/>
+  <rect x="8" y="156" width="116" height="46" rx="4" fill="#f0f0f0"/>
+  <text x="46" y="185" font-size="22">🌾</text>
+  <rect x="14" y="160" width="50" height="12" rx="2" fill="#cc2200"/>
+  <text x="17" y="169" font-size="7" font-weight="700" fill="white">FORECLOSED</text>
+  <text x="14" y="215" font-size="9" font-weight="700" fill="#1a1a1a">StrawHaus Pro™</text>
+  <text x="14" y="226" font-size="8" fill="#999" text-decoration="line-through">$89,000</text>
+  <text x="14" y="238" font-size="11" font-weight="800" fill="#E2231A">$0</text>
+  <text x="14" y="248" font-size="7" fill="#767676">Verified Purchase ★☆☆☆☆</text>
+
+  <!-- Product card 2 — Sticks (FORECLOSED) -->
+  <rect x="142" y="156" width="116" height="96" rx="4" fill="white"/>
+  <rect x="142" y="156" width="116" height="46" rx="4" fill="#f0f0f0"/>
+  <text x="180" y="185" font-size="22">🪵</text>
+  <rect x="148" y="160" width="50" height="12" rx="2" fill="#cc2200"/>
+  <text x="151" y="169" font-size="7" font-weight="700" fill="white">FORECLOSED</text>
+  <text x="148" y="215" font-size="9" font-weight="700" fill="#1a1a1a">StickStack™</text>
+  <text x="148" y="226" font-size="8" fill="#999" text-decoration="line-through">$142,000</text>
+  <text x="148" y="238" font-size="11" font-weight="800" fill="#E2231A">$0</text>
+  <text x="148" y="248" font-size="7" fill="#767676">Verified Purchase ★★☆☆☆</text>
+
+  <!-- Product card 3 — Brick (ACTIVE) -->
+  <rect x="276" y="156" width="116" height="96" rx="4" fill="white" stroke="#ff8c00" stroke-width="2"/>
+  <rect x="276" y="156" width="116" height="46" rx="4" fill="#fff3e0"/>
+  <text x="314" y="185" font-size="22">🧱</text>
+  <rect x="282" y="160" width="52" height="12" rx="2" fill="#15803d"/>
+  <text x="285" y="169" font-size="7" font-weight="700" fill="white">IN STOCK</text>
+  <text x="282" y="215" font-size="9" font-weight="700" fill="#1a1a1a">BrickCore™ Fortress</text>
+  <text x="282" y="228" font-size="11" font-weight="800" fill="#E2231A">$487,000</text>
+  <text x="282" y="240" font-size="7" fill="#ff8c00" font-weight="700">⚡ Wolf-Resistant!</text>
+  <text x="282" y="251" font-size="7" fill="#767676">Verified Purchase ★★★★★</text>
+
+  <!-- Story progress bar -->
+  <rect x="0" y="254" width="400" height="46" fill="#0f0f1a"/>
+  <rect x="0" y="254" width="400" height="1" fill="#E2231A"/>
+  <text x="14" y="268" font-size="8" fill="#ccc">Story Progress</text>
+  <rect x="14" y="273" width="340" height="6" rx="3" fill="#333"/>
+  <rect x="14" y="273" width="200" height="6" rx="3" fill="#ff8c00"/>
+  <text x="14" y="292" font-size="7" fill="#888">Ch. 2 of 3 — The Wolf Attacks StickStack™</text>
+  <text x="330" y="292" font-size="8" fill="#ff8c00" font-weight="700">50%</text>
+</svg>

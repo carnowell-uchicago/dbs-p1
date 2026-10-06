@@ -27,7 +27,6 @@
       padding: 0 20px;
       gap: 16px;
     }
-
     .logo {
       font-size: 24px;
       font-weight: 900;
@@ -37,13 +36,11 @@
       text-decoration: none;
       flex-shrink: 0;
     }
-
     .search-bar-wrap {
       flex: 1;
       max-width: 560px;
       position: relative;
     }
-
     .search-bar {
       width: 100%;
       height: 40px;
@@ -53,19 +50,15 @@
       font-size: 15px;
       color: #1a1a1a;
       outline: none;
-      transition: border-color 0.15s;
+      background: white;
     }
-    .search-bar:focus { border-color: #006aff; box-shadow: 0 0 0 2px rgba(0,106,255,0.15); }
-
     .search-icon {
       position: absolute;
       right: 12px; top: 50%;
       transform: translateY(-50%);
       color: #767676;
-      font-size: 16px;
       pointer-events: none;
     }
-
     .site-nav {
       display: flex;
       align-items: center;
@@ -73,7 +66,6 @@
       margin-left: auto;
       flex-shrink: 0;
     }
-
     .site-nav a {
       text-decoration: none;
       color: #1a1a1a;
@@ -93,8 +85,8 @@
     }
     .site-nav a.gallery-link:hover { background: #e8f0ff; }
 
-    /* ── FILTER BAR ── */
-    .filter-bar {
+    /* ── CHAPTER BAR ── */
+    .chapter-bar {
       position: fixed;
       top: 64px; left: 0; right: 0;
       z-index: 99;
@@ -103,113 +95,150 @@
       padding: 10px 20px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
-
-    .filter-pill {
+    .chapter-pill {
       display: flex;
       align-items: center;
       gap: 5px;
-      height: 36px;
-      padding: 0 14px;
-      border: 1px solid #ccc;
+      height: 34px;
+      padding: 0 13px;
+      border: 1.5px solid #ccc;
       border-radius: 20px;
       background: white;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       color: #1a1a1a;
       cursor: pointer;
       white-space: nowrap;
-      transition: border-color 0.15s, background 0.15s;
-      user-select: none;
+      transition: all 0.15s;
     }
-    .filter-pill:hover { border-color: #1a1a1a; }
-    .filter-pill svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+    .chapter-pill:hover { border-color: #006aff; color: #006aff; }
+    .chapter-pill.active { border-color: #006aff; background: #e8f0ff; color: #006aff; font-weight: 700; }
+    .chapter-pill.done { border-color: #bbb; background: #f5f5f5; color: #767676; }
+    .pill-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #ccc;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .chapter-pill.active .pill-dot { background: #006aff; }
+    .chapter-pill.done .pill-dot { background: #cc2200; }
+    .chapter-pill[data-chapter="4"].done .pill-dot { background: #15803d; }
 
-    .filter-divider { width: 1px; height: 24px; background: #e0e0e0; margin: 0 4px; }
+    .chapter-divider { width: 1px; height: 22px; background: #e0e0e0; flex-shrink: 0; }
 
-    .result-count {
+    .scene-dots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    .scene-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #ddd;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .scene-dot.active { background: #006aff; width: 18px; border-radius: 4px; }
+    .scene-dot.done { background: #aaa; }
+
+    .scene-counter {
       margin-left: auto;
-      font-size: 14px;
-      color: #1a1a1a;
+      font-size: 13px;
       font-weight: 500;
+      color: #767676;
       white-space: nowrap;
+      flex-shrink: 0;
     }
-
-    .sort-select {
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      padding: 6px 10px;
-      font-size: 14px;
-      color: #1a1a1a;
-      background: white;
-      cursor: pointer;
-      outline: none;
-    }
+    .scene-counter strong { color: #1a1a1a; }
 
     /* ── MAIN LAYOUT ── */
     .main-layout {
       display: flex;
-      padding-top: 120px; /* header + filter bar */
+      padding-top: 120px;
       height: 100vh;
       overflow: hidden;
     }
 
-    /* ── LEFT COLUMN ── */
-    .listings-col {
+    /* ── SCENES COLUMN ── */
+    .scenes-col {
       width: 55%;
       height: calc(100vh - 120px);
       overflow-y: auto;
-      padding: 16px 16px 40px 20px;
       flex-shrink: 0;
+      padding-bottom: 72px;
     }
-    .listings-col::-webkit-scrollbar { width: 6px; }
-    .listings-col::-webkit-scrollbar-track { background: transparent; }
-    .listings-col::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+    .scenes-col::-webkit-scrollbar { width: 6px; }
+    .scenes-col::-webkit-scrollbar-track { background: transparent; }
+    .scenes-col::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
 
-    /* ── LISTING CARD ── */
-    .card {
+    /* ── SCENE ── */
+    .scene { display: none; padding: 16px 16px 16px 20px; }
+    .scene.active { display: block; }
+
+    .scene-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .scene-chapter-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #767676;
+    }
+    .scene-chapter-tag.straw  { color: #b45309; }
+    .scene-chapter-tag.sticks { color: #6d28d9; }
+    .scene-chapter-tag.brick  { color: #15803d; }
+    .scene-chapter-tag.finale { color: #006aff; }
+    .scene-nav-hint {
+      font-size: 12px;
+      color: #bbb;
+    }
+
+    /* ── LISTING DETAIL CARD ── */
+    .listing-detail {
       background: white;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.10), 0 0 1px rgba(0,0,0,0.08);
-      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10), 0 0 1px rgba(0,0,0,0.07);
       overflow: hidden;
-      cursor: pointer;
-      transition: box-shadow 0.2s, transform 0.15s;
+      margin-bottom: 14px;
     }
-    .card:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,0.14), 0 0 1px rgba(0,0,0,0.08);
-      transform: translateY(-2px);
-    }
-
-    .card-photo {
+    .listing-photo-wrap {
       position: relative;
       width: 100%;
       aspect-ratio: 16/9;
-      overflow: hidden;
       background: #f0f0f0;
+      overflow: hidden;
     }
-    .card-photo img {
-      width: 100%;
-      height: 100%;
+    .listing-photo-wrap img {
+      width: 100%; height: 100%;
       object-fit: cover;
       display: block;
+      transition: filter 0.5s ease;
     }
 
     .status-badge {
       position: absolute;
       top: 12px; left: 12px;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 4px;
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       color: white;
     }
-    .status-badge.foreclosed { background: #cc2200; }
-    .status-badge.for-sale   { background: #006aff; }
-    .status-badge.off-market { background: #6b7280; }
+    .status-badge.for-sale    { background: #006aff; }
+    .status-badge.foreclosed  { background: #cc2200; }
+    .status-badge.safe        { background: #15803d; }
+    .status-badge.off-market  { background: #6b7280; }
 
     .wolf-cert-badge {
       position: absolute;
@@ -222,106 +251,291 @@
       font-size: 12px;
       font-weight: 600;
     }
+    .wolf-cert-badge.green { border-color: #15803d; color: #15803d; }
 
-    .card-body {
-      padding: 14px 16px 12px;
+    .listing-body {
+      padding: 16px 20px 12px;
     }
-
-    .card-price {
-      font-size: 20px;
+    .listing-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+    .listing-price {
+      font-size: 24px;
       font-weight: 700;
       color: #1a1a1a;
-      margin-bottom: 4px;
-      line-height: 1.2;
     }
-    .card-price.strikethrough {
+    .listing-price.strike {
       text-decoration: line-through;
       color: #767676;
-      font-size: 18px;
+      font-size: 22px;
     }
-    .card-price-label {
-      font-size: 13px;
-      color: #cc2200;
+    .listing-price.green { color: #15803d; }
+    .listing-price-label {
+      font-size: 14px;
       font-weight: 700;
-      margin-left: 6px;
+      color: #cc2200;
     }
-
-    .card-stats {
+    .listing-stats {
       font-size: 14px;
       color: #1a1a1a;
-      margin-bottom: 4px;
       display: flex;
       align-items: center;
-      gap: 0;
+      margin-bottom: 4px;
     }
-    .card-stats .stat-sep {
-      color: #767676;
-      margin: 0 6px;
+    .stat-sep { color: #ccc; margin: 0 8px; }
+    .stat-label { font-size: 12px; color: #767676; margin-left: 2px; }
+    .listing-address {
       font-size: 16px;
-      line-height: 1;
+      color: #1a1a1a;
+      font-weight: 500;
+      margin-bottom: 1px;
     }
-    .card-stats .stat-label {
-      font-size: 12px;
-      color: #767676;
-      margin-left: 2px;
-    }
-
-    .card-address {
+    .listing-city {
       font-size: 14px;
       color: #767676;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
-
-    .card-zest {
+    .listing-zest {
       font-size: 13px;
       color: #767676;
-      margin-bottom: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 0;
     }
-    .card-zest span { color: #006aff; font-weight: 600; }
+    .listing-zest .blue { color: #006aff; font-weight: 600; }
+    .listing-zest .red  { color: #cc2200; font-weight: 600; }
 
-    .card-agent {
-      border-top: 1px solid #f0f0f0;
-      padding-top: 8px;
-      font-size: 12px;
-      color: #767676;
+    .agent-strip {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 10px;
+      padding: 10px 0 2px;
     }
     .agent-avatar {
-      width: 28px; height: 28px;
+      width: 34px; height: 34px;
       border-radius: 50%;
-      background: #006aff;
-      color: white;
-      font-size: 12px;
-      font-weight: 700;
       display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: white;
       flex-shrink: 0;
     }
-    .agent-name { font-weight: 600; color: #444; }
+    .agent-name { font-weight: 600; font-size: 14px; color: #1a1a1a; }
+    .agent-firm { font-size: 12px; color: #767676; }
+    .agent-days { margin-left: auto; font-size: 12px; color: #aaa; white-space: nowrap; }
+
+    /* ── NARRATIVE BOX ── */
+    .narrative-box {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      border-radius: 0 6px 6px 0;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+    .narrative-box.wolf {
+      background: #fff1f2;
+      border-left-color: #cc2200;
+    }
+    .narrative-box.safe {
+      background: #f0fdf4;
+      border-left-color: #16a34a;
+    }
+    .narrative-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #b45309;
+      margin-bottom: 6px;
+    }
+    .narrative-box.wolf .narrative-label { color: #cc2200; }
+    .narrative-box.safe .narrative-label { color: #15803d; }
+    .narrative-text {
+      font-size: 14px;
+      color: #1a1a1a;
+      line-height: 1.65;
+    }
+
+    /* ── CARD SECTION (MLS, Activity) ── */
+    .card-section {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+    .card-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #767676;
+      margin-bottom: 10px;
+    }
+    .card-section-label.red   { color: #cc2200; }
+    .card-section-label.green { color: #15803d; }
+    .mls-text {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.7;
+    }
+
+    /* ── ACTIVITY TABLE ── */
+    .activity-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .activity-table th {
+      text-align: left;
+      padding: 6px 10px;
+      border-bottom: 2px solid #e8e8e8;
+      color: #767676;
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .activity-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid #f2f2f2;
+      color: #1a1a1a;
+    }
+    .activity-table tr:last-child td { border-bottom: none; }
+    .act-price { font-weight: 600; }
+    .act-down  { color: #cc2200; font-weight: 600; }
+    .act-up    { color: #15803d; font-weight: 600; }
+    .act-wolf  { color: #cc2200; font-weight: 700; }
+    .act-safe  { color: #15803d; font-weight: 700; }
+    .row-wolf td { background: #fff5f5; }
+    .row-safe td { background: #f0fdf4; }
+
+    /* ── INTRO / MARKET OVERVIEW ── */
+    .market-overview {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .market-header {
+      background: #006aff;
+      color: white;
+      padding: 26px 26px 20px;
+    }
+    .market-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+    .market-title {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+    .market-subtitle { font-size: 14px; opacity: 0.82; }
+    .market-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid rgba(255,255,255,0.2);
+      margin-top: 20px;
+    }
+    .market-stat { padding: 14px 0; text-align: center; }
+    .market-stat + .market-stat { border-left: 1px solid rgba(255,255,255,0.2); }
+    .market-stat-val { font-size: 22px; font-weight: 700; }
+    .market-stat-key { font-size: 11px; opacity: 0.78; margin-top: 2px; }
+    .market-body { padding: 20px 26px; }
+    .market-body p {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .market-body p:last-child { margin-bottom: 0; }
+
+    /* ── CTA BUTTONS ── */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      background: #006aff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .cta-btn:hover { background: #0057d9; }
+    .cta-btn.green { background: #15803d; }
+    .cta-btn.green:hover { background: #166534; }
+
+    /* ── BOTTOM STORY NAV ── */
+    .story-nav {
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 55%;
+      height: 62px;
+      background: white;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 90;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
+    }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 38px;
+      padding: 0 18px;
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      background: white;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .nav-btn:hover:not(:disabled) { border-color: #006aff; color: #006aff; }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+    .nav-btn.primary { background: #006aff; color: white; border-color: #006aff; }
+    .nav-btn.primary:hover:not(:disabled) { background: #0057d9; }
+    .nav-scene-info { text-align: center; }
+    .nav-scene-num { font-size: 14px; font-weight: 700; color: #1a1a1a; }
+    .nav-scene-sub { font-size: 11px; color: #aaa; margin-top: 1px; }
 
     /* ── MAP COLUMN ── */
     .map-col {
       flex: 1;
-      position: sticky;
-      top: 120px;
+      position: relative;
       height: calc(100vh - 120px);
       overflow: hidden;
-      background: #e8f5e0;
+      background: #dde8d5;
     }
-    .map-col img {
+    .map-col > img.map-bg {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: top;
       display: block;
     }
-    .map-overlay {
+    .map-overlay-label {
       position: absolute;
       top: 12px; left: 12px;
       background: white;
       border-radius: 6px;
-      padding: 8px 12px;
+      padding: 7px 12px;
       font-size: 13px;
       font-weight: 600;
       color: #1a1a1a;
@@ -329,244 +543,79 @@
       pointer-events: none;
     }
 
-    /* ── MODAL ── */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: rgba(0,0,0,0.6);
-      overflow-y: auto;
-    }
-    .modal-overlay.open { display: block; }
-
-    .modal {
-      background: white;
-      max-width: 880px;
-      margin: 40px auto 60px;
-      border-radius: 12px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-
-    .modal-close {
+    /* ── MAP PINS ── */
+    .map-pins { position: absolute; inset: 0; pointer-events: none; }
+    .map-pin {
       position: absolute;
-      top: 14px; right: 14px;
-      z-index: 10;
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.92);
-      border: none;
-      cursor: pointer;
-      font-size: 20px;
-      color: #1a1a1a;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      transition: background 0.15s;
-    }
-    .modal-close:hover { background: #f0f0f0; }
-
-    .modal-photo {
-      width: 100%;
-      aspect-ratio: 16/9;
-      overflow: hidden;
-      background: #f0f0f0;
-    }
-    .modal-photo img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
-
-    .modal-body {
-      padding: 24px 32px 32px;
-    }
-
-    .modal-top {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .modal-price-block {}
-    .modal-price {
-      font-size: 32px;
-      font-weight: 700;
-      color: #1a1a1a;
-      line-height: 1.1;
-    }
-    .modal-price.strikethrough {
-      text-decoration: line-through;
-      color: #767676;
-      font-size: 26px;
-    }
-    .modal-price-label {
-      font-size: 16px;
-      font-weight: 700;
-      color: #cc2200;
-      margin-left: 8px;
-    }
-    .modal-status {
-      display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      margin-top: 6px;
+      gap: 3px;
+      transform: translate(-50%, -100%);
+      transition: opacity 0.4s ease;
     }
-    .modal-address {
-      font-size: 18px;
-      color: #1a1a1a;
-      font-weight: 500;
-      margin: 10px 0 4px;
+    .pin-dot {
+      width: 18px; height: 18px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      border: 2.5px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      transition: background 0.4s ease;
     }
-    .modal-city { font-size: 14px; color: #767676; margin-bottom: 14px; }
-
-    .modal-stats {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      font-size: 16px;
-      color: #1a1a1a;
-      font-weight: 600;
-      margin-bottom: 20px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #e8e8e8;
-    }
-    .modal-stats .stat-sep {
-      color: #ddd;
-      margin: 0 10px;
-      font-size: 20px;
-    }
-    .modal-stats .label { font-size: 13px; color: #767676; font-weight: 400; margin-left: 3px; }
-
-    /* Tabs */
-    .tabs {
-      border-bottom: 1px solid #e8e8e8;
-      display: flex;
-      gap: 0;
-      margin-bottom: 20px;
-    }
-    .tab-btn {
-      padding: 12px 20px;
-      border: none;
-      background: none;
-      font-size: 15px;
-      font-weight: 500;
-      color: #767676;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      margin-bottom: -1px;
-      transition: color 0.15s;
-    }
-    .tab-btn.active {
-      color: #006aff;
-      border-bottom-color: #006aff;
-    }
-    .tab-btn:hover:not(.active) { color: #1a1a1a; }
-
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
-    .tab-panel p {
-      font-size: 15px;
-      color: #444;
-      line-height: 1.7;
-    }
-
-    .facts-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-    }
-    .fact-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 12px;
-      border-bottom: 1px solid #f0f0f0;
-      font-size: 14px;
-    }
-    .fact-row:nth-child(odd) { background: #fafafa; }
-    .fact-key { color: #767676; }
-    .fact-val { font-weight: 600; color: #1a1a1a; }
-
-    .price-history-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-    .price-history-table th {
-      text-align: left;
-      padding: 8px 12px;
-      border-bottom: 2px solid #e8e8e8;
-      color: #767676;
-      font-weight: 600;
-      font-size: 13px;
-    }
-    .price-history-table td {
-      padding: 10px 12px;
-      border-bottom: 1px solid #f0f0f0;
-      color: #1a1a1a;
-    }
-    .price-history-table tr:nth-child(even) td { background: #fafafa; }
-    .ph-event { color: #444; }
-    .ph-price { font-weight: 600; }
-    .ph-change.down { color: #cc2200; }
-    .ph-change.up   { color: #006aff; }
-
-    .modal-agent {
-      margin-top: 24px;
-      padding-top: 20px;
-      border-top: 1px solid #e8e8e8;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .modal-agent-avatar {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: #006aff;
-      color: white;
-      font-size: 18px;
-      font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .modal-agent-info {}
-    .modal-agent-name { font-size: 15px; font-weight: 600; color: #1a1a1a; }
-    .modal-agent-firm { font-size: 13px; color: #767676; margin-top: 2px; }
-
-    .contact-btn {
-      margin-left: auto;
-      background: #006aff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 12px 22px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s;
-      flex-shrink: 0;
-    }
-    .contact-btn:hover { background: #0057d9; }
-
-    /* ── FOOTER ── */
-    .site-footer {
+    .pin-label {
       background: white;
-      border-top: 1px solid #e8e8e8;
-      text-align: center;
-      padding: 20px;
-      font-size: 13px;
-      color: #767676;
-      margin-top: 0;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1a1a1a;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.18);
+      white-space: nowrap;
+      border: 1.5px solid transparent;
+      transition: all 0.4s ease;
     }
 
-    /* Responsive — keep it decent at narrower widths */
+    /* Pin state styles */
+    .map-pin.inactive .pin-dot   { background: #aaa; }
+    .map-pin.inactive .pin-label { color: #999; }
+
+    .map-pin.active .pin-dot     { background: #006aff; }
+    .map-pin.active .pin-label   { color: #006aff; border-color: #006aff; }
+
+    .map-pin.foreclosed .pin-dot  { background: #cc2200; }
+    .map-pin.foreclosed .pin-label { color: #cc2200; border-color: #cc2200; text-decoration: line-through; }
+
+    .map-pin.safe .pin-dot   { background: #15803d; }
+    .map-pin.safe .pin-label { color: #15803d; border-color: #15803d; }
+
+    .map-pin.wolf-pin .pin-dot   { background: #3f3f46; }
+    .map-pin.wolf-pin .pin-label { color: #3f3f46; }
+
+    .map-pin.wolf-fled { opacity: 0.35; }
+    .map-pin.wolf-fled .pin-dot   { background: #cc2200; }
+
+    /* Map story caption */
+    .map-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: white;
+      border-top: 1px solid #e0e0e0;
+      padding: 11px 14px;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.4;
+    }
+    .map-caption strong { color: #1a1a1a; }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .main-layout { flex-direction: column; height: auto; overflow: visible; }
-      .listings-col { width: 100%; height: auto; overflow: visible; }
-      .map-col { position: static; height: 320px; width: 100%; }
+      .scenes-col { width: 100%; height: auto; overflow: visible; padding-bottom: 72px; }
+      .map-col { position: static; height: 260px; width: 100%; }
+      .story-nav { width: 100%; }
       .site-nav a:not(.gallery-link) { display: none; }
+      .chapter-pill span:not(.pill-dot) { display: none; }
+      .chapter-pill { padding: 0 10px; }
     }
   </style>
 </head>
@@ -576,7 +625,7 @@
 <header class="site-header">
   <a href="#" class="logo">🐷 PigZillow</a>
   <div class="search-bar-wrap">
-    <input class="search-bar" type="text" value="Pig's Hollow, MD" readonly>
+    <input class="search-bar" type="text" value="Pig's Hollow, MD 20401" readonly>
     <span class="search-icon">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
@@ -585,479 +634,681 @@
   </div>
   <nav class="site-nav">
     <a href="#">For Sale</a>
-    <a href="#">For Rent</a>
     <a href="#">Sold</a>
-    <a href="#">New Construction</a>
+    <a href="#">Market</a>
     <a href="../" class="gallery-link">← Gallery</a>
   </nav>
 </header>
 
-<!-- ══ FILTER BAR ══ -->
-<div class="filter-bar">
-  <button class="filter-pill">
-    For Sale
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+<!-- ══ CHAPTER BAR ══ -->
+<div class="chapter-bar">
+  <button class="chapter-pill active" data-chapter="0" onclick="goToScene(0)">
+    <span class="pill-dot"></span><span>Overview</span>
   </button>
-  <button class="filter-pill">
-    Price
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  <button class="chapter-pill" data-chapter="1" onclick="goToScene(1)">
+    <span class="pill-dot"></span><span>Ch 1: Straw</span>
   </button>
-  <button class="filter-pill">
-    Beds &amp; Baths
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  <button class="chapter-pill" data-chapter="2" onclick="goToScene(3)">
+    <span class="pill-dot"></span><span>Ch 2: Sticks</span>
   </button>
-  <button class="filter-pill">
-    Home Type
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  <button class="chapter-pill" data-chapter="3" onclick="goToScene(5)">
+    <span class="pill-dot"></span><span>Ch 3: Brick</span>
   </button>
-  <button class="filter-pill">
-    More Filters
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  <button class="chapter-pill" data-chapter="4" onclick="goToScene(7)">
+    <span class="pill-dot"></span><span>Finale</span>
   </button>
-  <div class="filter-divider"></div>
-  <span class="result-count">4 homes</span>
-  <select class="sort-select">
-    <option>Sort: Newest</option>
-    <option>Price (Low to High)</option>
-    <option>Price (High to Low)</option>
-  </select>
+  <div class="chapter-divider"></div>
+  <div class="scene-dots" id="scene-dots"></div>
+  <div class="chapter-divider"></div>
+  <span class="scene-counter" id="scene-counter"><strong>1</strong> / 8</span>
 </div>
 
 <!-- ══ MAIN LAYOUT ══ -->
 <div class="main-layout">
 
-  <!-- ── LISTINGS COLUMN ── -->
-  <div class="listings-col">
+  <!-- ── SCENES COLUMN ── -->
+  <div class="scenes-col" id="scenes-col">
 
-    <!-- CARD 1: Straw House -->
-    <article class="card" onclick="openModal(0)" tabindex="0" role="button" aria-label="View 1 Meadow Ln listing">
-      <div class="card-photo">
-        <img src="assets/listing-1.svg" alt="1 Meadow Ln — Straw House">
-        <span class="status-badge foreclosed">Foreclosed</span>
+    <!-- ════ SCENE 0: MARKET OVERVIEW ════ -->
+    <div class="scene active" data-scene="0">
+      <div class="scene-label">
+        <span class="scene-chapter-tag">Pig's Hollow, MD · Market Report</span>
+        <span class="scene-nav-hint">Press → or Next to begin</span>
       </div>
-      <div class="card-body">
-        <div style="display:flex;align-items:baseline;gap:0;">
-          <span class="card-price strikethrough">$89,000</span>
-          <span class="card-price-label">FORECLOSED</span>
-        </div>
-        <div class="card-stats">
-          <strong>1</strong><span class="stat-label">bd</span>
-          <span class="stat-sep">·</span>
-          <strong>1</strong><span class="stat-label">ba</span>
-          <span class="stat-sep">·</span>
-          <strong>420</strong><span class="stat-label">&nbsp;sqft</span>
-        </div>
-        <div class="card-address">1 Meadow Ln, Pig's Hollow, MD 20401</div>
-        <div class="card-zest">Zestimate®: <span>N/A (structural loss)</span></div>
-        <div class="card-agent">
-          <div class="agent-avatar">H</div>
-          <div>
-            <span class="agent-name">Hamley P.</span>
-            <span> · Pig One Realty</span>
+
+      <div class="market-overview">
+        <div class="market-header">
+          <div class="market-tag">🏘 PigZillow Market Activity · Pig's Hollow, MD 20401</div>
+          <div class="market-title">Three New Listings Incoming.<br>One Motivated Threat.</div>
+          <div class="market-subtitle">A PigZillow Original Story · Based on Actual Pork-Market Data</div>
+          <div class="market-stats-row">
+            <div class="market-stat">
+              <div class="market-stat-val">3</div>
+              <div class="market-stat-key">Active Siblings</div>
+            </div>
+            <div class="market-stat">
+              <div class="market-stat-val">$240K</div>
+              <div class="market-stat-key">Avg List Price</div>
+            </div>
+            <div class="market-stat">
+              <div class="market-stat-val">HIGH</div>
+              <div class="market-stat-key">Wolf Risk Index</div>
+            </div>
           </div>
-          <span style="margin-left:auto;font-size:12px;color:#999;">Listed 14 days ago</span>
+        </div>
+        <div class="market-body">
+          <p>The Pig's Hollow real estate market is moving — and so is the wolf.</p>
+          <p>Three sibling pigs have each decided this is the right time to build. Their budgets differ wildly. Their material choices reflect their personalities. Their structural outcomes will reflect their budgets.</p>
+          <p>Follow each listing in sequence: how it was built, how it was tested, and whether it stood. The map to your right tracks Pig's Hollow in real time — watch the pins change as the story unfolds.</p>
+          <button class="cta-btn" onclick="goToScene(1)">See the First Listing →</button>
         </div>
       </div>
-    </article>
 
-    <!-- CARD 2: Stick House -->
-    <article class="card" onclick="openModal(1)" tabindex="0" role="button" aria-label="View 2 Forest Edge Dr listing">
-      <div class="card-photo">
-        <img src="assets/listing-2.svg" alt="2 Forest Edge Dr — Stick House">
-        <span class="status-badge foreclosed">Foreclosed</span>
+      <div class="card-section" style="border-left:4px solid #cc2200;border-radius:0 6px 6px 0;padding:14px 16px;">
+        <div class="card-section-label red">⚠ Neighborhood Alert — Active Wolf Activity</div>
+        <div class="mls-text">PigZillow has detected a large predator operating in zip code 20401. B.B. Wolf (self-represented, no brokerage) has been making unsolicited approaches to newly constructed residential properties. Buyers are strongly advised to review the Wolf Resistance Rating before making an offer.</div>
       </div>
-      <div class="card-body">
-        <div style="display:flex;align-items:baseline;gap:0;">
-          <span class="card-price strikethrough">$142,000</span>
-          <span class="card-price-label">FORECLOSED</span>
+    </div>
+
+    <!-- ════ SCENE 1: STRAW HOUSE — LISTED ════ -->
+    <div class="scene" data-scene="1">
+      <div class="scene-label">
+        <span class="scene-chapter-tag straw">Chapter 1 of 3 — Straw Era · New Listing</span>
+      </div>
+
+      <div class="listing-detail">
+        <div class="listing-photo-wrap">
+          <img src="assets/listing-1.svg" alt="1 Meadow Ln — Straw House">
+          <span class="status-badge for-sale">For Sale</span>
         </div>
-        <div class="card-stats">
-          <strong>2</strong><span class="stat-label">bd</span>
-          <span class="stat-sep">·</span>
-          <strong>1</strong><span class="stat-label">ba</span>
-          <span class="stat-sep">·</span>
-          <strong>680</strong><span class="stat-label">&nbsp;sqft</span>
-        </div>
-        <div class="card-address">2 Forest Edge Dr, Pig's Hollow, MD 20401</div>
-        <div class="card-zest">Zestimate®: <span style="color:#cc2200;">N/A (wolf event)</span></div>
-        <div class="card-agent">
-          <div class="agent-avatar" style="background:#8b5a2a;">P</div>
-          <div>
-            <span class="agent-name">Pigsworth R.</span>
-            <span> · StickStack® Real Estate</span>
+        <div class="listing-body">
+          <div class="listing-price-row">
+            <span class="listing-price">$89,000</span>
           </div>
-          <span style="margin-left:auto;font-size:12px;color:#999;">Listed 7 days ago</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- CARD 3: Brick House — HERO -->
-    <article class="card" onclick="openModal(2)" tabindex="0" role="button" aria-label="View 3 BrickCore Way listing">
-      <div class="card-photo">
-        <img src="assets/listing-3.svg" alt="3 BrickCore Way — Brick House">
-        <span class="status-badge for-sale">For Sale</span>
-        <span class="wolf-cert-badge">🐷 Wolf-Resistant Certified</span>
-      </div>
-      <div class="card-body">
-        <div class="card-price">$487,000</div>
-        <div class="card-stats">
-          <strong>3</strong><span class="stat-label">bd</span>
-          <span class="stat-sep">·</span>
-          <strong>2</strong><span class="stat-label">ba</span>
-          <span class="stat-sep">·</span>
-          <strong>1,840</strong><span class="stat-label">&nbsp;sqft</span>
-        </div>
-        <div class="card-address">3 BrickCore Way, Pig's Hollow, MD 20401</div>
-        <div class="card-zest">Zestimate®: <span>$501,200</span></div>
-        <div class="card-agent">
-          <div class="agent-avatar" style="background:#c84030;">O</div>
-          <div>
-            <span class="agent-name">Oinkley B.</span>
-            <span> · BrickCore™ Properties</span>
+          <div class="listing-stats">
+            <strong>1</strong><span class="stat-label">bd</span>
+            <span class="stat-sep">·</span>
+            <strong>1</strong><span class="stat-label">ba</span>
+            <span class="stat-sep">·</span>
+            <strong>420</strong><span class="stat-label">&nbsp;sqft</span>
           </div>
-          <span style="margin-left:auto;font-size:12px;color:#999;">Listed 3 days ago</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- CARD 4: Wolf's Lair -->
-    <article class="card" onclick="openModal(3)" tabindex="0" role="button" aria-label="View Wolf's Lair listing">
-      <div class="card-photo">
-        <img src="assets/listing-4.svg" alt="Under the Bridge — Wolf's Lair">
-        <span class="status-badge off-market">Off Market</span>
-      </div>
-      <div class="card-body">
-        <div class="card-price" style="font-size:18px;color:#6b7280;">MAKE OFFER</div>
-        <div class="card-stats" style="color:#767676;">
-          <strong>0</strong><span class="stat-label">bd</span>
-          <span class="stat-sep">·</span>
-          <strong>0</strong><span class="stat-label">ba</span>
-          <span class="stat-sep">·</span>
-          <strong>Unknown</strong><span class="stat-label">&nbsp;sqft</span>
-        </div>
-        <div class="card-address">Under the Bridge, Meadow Adjacent, MD 20401</div>
-        <div class="card-zest">Zestimate®: <span style="color:#767676;">$0 (motivated seller)</span></div>
-        <div class="card-agent">
-          <div class="agent-avatar" style="background:#4a4a4a;">W</div>
-          <div>
-            <span class="agent-name">B.B. Wolf</span>
-            <span> · B.B. Wolf Enterprises (self-represented)</span>
+          <div class="listing-address">1 Meadow Ln</div>
+          <div class="listing-city">Pig's Hollow, MD 20401</div>
+          <div class="listing-zest">Zestimate®: <span class="blue">$91,200</span> &nbsp;·&nbsp; Wolf Resistance: ⭐ (1/10)</div>
+          <div class="agent-strip">
+            <div class="agent-avatar" style="background:#006aff;">H</div>
+            <div>
+              <div class="agent-name">Hamley P.</div>
+              <div class="agent-firm">Pig One Realty · MLS# PIG-0001-S</div>
+            </div>
+            <span class="agent-days">Listed today</span>
           </div>
         </div>
       </div>
-    </article>
 
-  </div><!-- /listings-col -->
+      <div class="narrative-box">
+        <div class="narrative-label">What's Happening</div>
+        <div class="narrative-text">Hamley — the eldest pig and most budget-conscious of the three — has just listed his newly constructed straw home at an aggressive entry-level price. He built fast. He built cheap. He's already thinking about the savings he'll put toward a boat.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">MLS Listing Description</div>
+        <div class="mls-text">This charming 1-bed, 1-bath single-family residence offers a rare opportunity to own in the coveted Meadow District at an attainable price point. Originally constructed with premium locally-sourced golden straw by a highly motivated owner-builder, the home features an open-concept floor plan, abundant natural light through its many ventilated wall gaps, and a surprisingly airy atmosphere throughout. Bring your vision — this is the deal of the season.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">Property Activity</div>
+        <table class="activity-table">
+          <thead><tr><th>Date</th><th>Event</th><th>Price</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>Jan 2026</td><td>Listed</td><td class="act-price">$89,000</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ════ SCENE 2: STRAW HOUSE — FORECLOSED ════ -->
+    <div class="scene" data-scene="2">
+      <div class="scene-label">
+        <span class="scene-chapter-tag straw">Chapter 1 of 3 — Straw Era · Wolf Event</span>
+      </div>
+
+      <div class="listing-detail">
+        <div class="listing-photo-wrap">
+          <img src="assets/listing-1.svg" alt="1 Meadow Ln — Foreclosed" style="filter:grayscale(55%) brightness(0.85);">
+          <span class="status-badge foreclosed">Foreclosed</span>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price-row">
+            <span class="listing-price strike">$89,000</span>
+            <span class="listing-price-label">FORECLOSED</span>
+          </div>
+          <div class="listing-stats" style="color:#767676;">
+            <strong>1</strong><span class="stat-label">bd</span>
+            <span class="stat-sep">·</span>
+            <strong>1</strong><span class="stat-label">ba</span>
+            <span class="stat-sep">·</span>
+            <strong>420</strong><span class="stat-label">&nbsp;sqft</span>
+          </div>
+          <div class="listing-address">1 Meadow Ln</div>
+          <div class="listing-city">Pig's Hollow, MD 20401</div>
+          <div class="listing-zest">Zestimate®: <span class="red">N/A (structural loss)</span> &nbsp;·&nbsp; Wolf Resistance: ⭐ (1/10)</div>
+          <div class="agent-strip">
+            <div class="agent-avatar" style="background:#cc2200;">H</div>
+            <div>
+              <div class="agent-name">Hamley P. (now displaced)</div>
+              <div class="agent-firm">Bank-owned REO · MLS# PIG-0001-S</div>
+            </div>
+            <span class="agent-days">14 days on market</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="narrative-box wolf">
+        <div class="narrative-label">⚠ Wolf Event — Structural Loss</div>
+        <div class="narrative-text">"I'll huff, and I'll puff, and I'll blow your house down." He wasn't lying. It took eleven seconds. Hamley has fled to his brother's stick house. The bank has filed for foreclosure. The boat is off the table.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">MLS Description (Bank-Owned, As-Is)</div>
+        <div class="mls-text">Being sold as-is following a structural event in Q4, which the bank notes was "localized and atmospheric in nature." The 0.12-acre lot remains intact. No contingencies, no repairs, no credits. Cash preferred. Buyer to verify extent of remaining straw.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">Property Activity</div>
+        <table class="activity-table">
+          <thead><tr><th>Date</th><th>Event</th><th>Price</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>Jan 2026</td><td>Listed</td><td class="act-price">$89,000</td><td>—</td></tr>
+            <tr><td>Feb 2026</td><td>Price Reduced</td><td class="act-price">$72,000</td><td class="act-down">−$17,000</td></tr>
+            <tr class="row-wolf"><td>Apr 2026</td><td class="act-wolf">⚠ Wolf Event</td><td>—</td><td class="act-down">−100%</td></tr>
+            <tr><td>Apr 2026</td><td>Foreclosed</td><td class="act-price">$0</td><td class="act-down">−$72,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ════ SCENE 3: STICK HOUSE — LISTED ════ -->
+    <div class="scene" data-scene="3">
+      <div class="scene-label">
+        <span class="scene-chapter-tag sticks">Chapter 2 of 3 — Sticks Era · New Listing</span>
+      </div>
+
+      <div class="listing-detail">
+        <div class="listing-photo-wrap">
+          <img src="assets/listing-2.svg" alt="2 Forest Edge Dr — Stick House">
+          <span class="status-badge for-sale">For Sale</span>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price-row">
+            <span class="listing-price">$142,000</span>
+          </div>
+          <div class="listing-stats">
+            <strong>2</strong><span class="stat-label">bd</span>
+            <span class="stat-sep">·</span>
+            <strong>1</strong><span class="stat-label">ba</span>
+            <span class="stat-sep">·</span>
+            <strong>680</strong><span class="stat-label">&nbsp;sqft</span>
+          </div>
+          <div class="listing-address">2 Forest Edge Dr</div>
+          <div class="listing-city">Pig's Hollow, MD 20401</div>
+          <div class="listing-zest">Zestimate®: <span class="blue">$148,500</span> &nbsp;·&nbsp; Wolf Resistance: ⭐⭐ (2/10)</div>
+          <div class="agent-strip">
+            <div class="agent-avatar" style="background:#6d28d9;">P</div>
+            <div>
+              <div class="agent-name">Pigsworth R.</div>
+              <div class="agent-firm">StickStack® Real Estate · MLS# PIG-0002-T</div>
+            </div>
+            <span class="agent-days">Listed today · 2 bd</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="narrative-box">
+        <div class="narrative-label">What's Happening</div>
+        <div class="narrative-text">Pigsworth — the middle sibling, pragmatic but not quite pragmatic enough — spent triple what Hamley did and built with actual timber. The house has real doors. He's now hosting Hamley on the couch, who is complaining about the drafts. The wolf has already toured the neighborhood.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">MLS Listing Description</div>
+        <div class="mls-text">Welcome to 2 Forest Edge Drive, a thoughtfully constructed 2-bed, 1-bath craftsman-inspired residence on a generous wooded lot at the edge of the highly desirable Forest Edge neighborhood. The owner-builder invested triple the material cost of comparable straw-construction homes, hand-selecting hardwood branches for a look that blends organically with the surrounding landscape. Excellent tree cover and established root systems throughout.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">Property Activity</div>
+        <table class="activity-table">
+          <thead><tr><th>Date</th><th>Event</th><th>Price</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>Mar 2026</td><td>Listed</td><td class="act-price">$142,000</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ════ SCENE 4: STICK HOUSE — FORECLOSED ════ -->
+    <div class="scene" data-scene="4">
+      <div class="scene-label">
+        <span class="scene-chapter-tag sticks">Chapter 2 of 3 — Sticks Era · Wolf Event</span>
+      </div>
+
+      <div class="listing-detail">
+        <div class="listing-photo-wrap">
+          <img src="assets/listing-2.svg" alt="2 Forest Edge Dr — Foreclosed" style="filter:grayscale(55%) brightness(0.85);">
+          <span class="status-badge foreclosed">Foreclosed</span>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price-row">
+            <span class="listing-price strike">$142,000</span>
+            <span class="listing-price-label">FORECLOSED</span>
+          </div>
+          <div class="listing-stats" style="color:#767676;">
+            <strong>2</strong><span class="stat-label">bd</span>
+            <span class="stat-sep">·</span>
+            <strong>1</strong><span class="stat-label">ba</span>
+            <span class="stat-sep">·</span>
+            <strong>680</strong><span class="stat-label">&nbsp;sqft</span>
+          </div>
+          <div class="listing-address">2 Forest Edge Dr</div>
+          <div class="listing-city">Pig's Hollow, MD 20401</div>
+          <div class="listing-zest">Zestimate®: <span class="red">N/A (wolf event)</span> &nbsp;·&nbsp; Wolf Resistance: ⭐⭐ (2/10)</div>
+          <div class="agent-strip">
+            <div class="agent-avatar" style="background:#cc2200;">P</div>
+            <div>
+              <div class="agent-name">Pigsworth R. (now displaced)</div>
+              <div class="agent-firm">Bank-owned REO · MLS# PIG-0002-T</div>
+            </div>
+            <span class="agent-days">7 days on market</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="narrative-box wolf">
+        <div class="narrative-label">⚠ Wolf Event — Structural Loss (Second Property)</div>
+        <div class="narrative-text">He huffed. He puffed. The stick house lasted longer — 43 seconds. Both Pigsworth and Hamley have fled to their sister Oinkley's brick house. The wolf is 2 for 2. There is only one listing left.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">MLS Description (Bank-Owned, As-Is)</div>
+        <div class="mls-text">A dramatic weather event in late spring resulted in full structural loss. However, the 0.24-acre lot remains a blank canvas with excellent tree cover and established root systems. Motivated bank sale — no contingencies, no waiting. Roof is technically the sky at this time.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">Property Activity</div>
+        <table class="activity-table">
+          <thead><tr><th>Date</th><th>Event</th><th>Price</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>Mar 2026</td><td>Listed</td><td class="act-price">$142,000</td><td>—</td></tr>
+            <tr><td>Apr 2026</td><td>Price Reduced</td><td class="act-price">$120,000</td><td class="act-down">−$22,000</td></tr>
+            <tr class="row-wolf"><td>May 2026</td><td class="act-wolf">⚠ Wolf Event</td><td>—</td><td class="act-down">−100%</td></tr>
+            <tr><td>Jun 2026</td><td>Foreclosed</td><td class="act-price">$0</td><td class="act-down">−$120,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ════ SCENE 5: BRICK HOUSE — LISTED ════ -->
+    <div class="scene" data-scene="5">
+      <div class="scene-label">
+        <span class="scene-chapter-tag brick">Chapter 3 of 3 — Brick Era · New Listing</span>
+      </div>
+
+      <div class="listing-detail">
+        <div class="listing-photo-wrap">
+          <img src="assets/listing-3.svg" alt="3 BrickCore Way — Brick House">
+          <span class="status-badge for-sale">For Sale</span>
+          <span class="wolf-cert-badge">🐷 Wolf-Resistant Certified</span>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price-row">
+            <span class="listing-price">$487,000</span>
+          </div>
+          <div class="listing-stats">
+            <strong>3</strong><span class="stat-label">bd</span>
+            <span class="stat-sep">·</span>
+            <strong>2</strong><span class="stat-label">ba</span>
+            <span class="stat-sep">·</span>
+            <strong>1,840</strong><span class="stat-label">&nbsp;sqft</span>
+          </div>
+          <div class="listing-address">3 BrickCore Way</div>
+          <div class="listing-city">Pig's Hollow, MD 20401</div>
+          <div class="listing-zest">Zestimate®: <span class="blue">$501,200</span> &nbsp;·&nbsp; Wolf Resistance: ⭐⭐⭐⭐⭐ (10/10)</div>
+          <div class="agent-strip">
+            <div class="agent-avatar" style="background:#c84030;">O</div>
+            <div>
+              <div class="agent-name">Oinkley B.</div>
+              <div class="agent-firm">BrickCore™ Properties · MLS# PIG-0003-B</div>
+            </div>
+            <span class="agent-days">Listed 3 days ago · 3 bd</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="narrative-box safe">
+        <div class="narrative-label">What's Happening</div>
+        <div class="narrative-text">Oinkley — the youngest pig, and apparently the only one who read the structural engineering report on local wolf pressure events — built a proper brick home. 3 bedrooms. 2 bathrooms. Sealed chimney. She's currently hosting both brothers. The wolf has noticed the listing. He's already on his way.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">MLS Listing Description</div>
+        <div class="mls-text">Rarely does a home this exceptional come to market. 3 BrickCore Way is a meticulously engineered 3-bed, 2-bath masonry residence built by an owner with a clear-eyed commitment to structural longevity. Features double-wythe brick construction, reinforced mortar throughout, and a sealed-flue chimney. The home currently accommodates three residents and has demonstrated zero structural compromise across repeated stress tests — schedule your showing today.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">Property Activity</div>
+        <table class="activity-table">
+          <thead><tr><th>Date</th><th>Event</th><th>Price</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>Oct 2025</td><td>Listed</td><td class="act-price">$440,000</td><td>—</td></tr>
+            <tr><td>Nov 2025</td><td>Price Increase</td><td class="act-price">$465,000</td><td class="act-up">+$25,000</td></tr>
+            <tr><td>Jan 2026</td><td>Price Increase</td><td class="act-price">$487,000</td><td class="act-up">+$22,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ════ SCENE 6: WOLF ATTACKS BRICK — REPELLED ════ -->
+    <div class="scene" data-scene="6">
+      <div class="scene-label">
+        <span class="scene-chapter-tag brick">Chapter 3 of 3 — Brick Era · Wolf Event (Failed)</span>
+      </div>
+
+      <div class="listing-detail">
+        <div class="listing-photo-wrap">
+          <img src="assets/listing-3.svg" alt="3 BrickCore Way — Wolf Repelled">
+          <span class="status-badge for-sale">For Sale</span>
+          <span class="wolf-cert-badge green">🐷 Stress-Tested &amp; Certified</span>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price-row">
+            <span class="listing-price">$487,000</span>
+          </div>
+          <div class="listing-stats">
+            <strong>3</strong><span class="stat-label">bd</span>
+            <span class="stat-sep">·</span>
+            <strong>2</strong><span class="stat-label">ba</span>
+            <span class="stat-sep">·</span>
+            <strong>1,840</strong><span class="stat-label">&nbsp;sqft</span>
+          </div>
+          <div class="listing-address">3 BrickCore Way</div>
+          <div class="listing-city">Pig's Hollow, MD 20401</div>
+          <div class="listing-zest">Zestimate®: <span class="blue">$501,200</span> &nbsp;·&nbsp; Wolf Resistance: ⭐⭐⭐⭐⭐ Verified</div>
+          <div class="agent-strip">
+            <div class="agent-avatar" style="background:#15803d;">O</div>
+            <div>
+              <div class="agent-name">Oinkley B.</div>
+              <div class="agent-firm">BrickCore™ Properties · Wolf Event Survived</div>
+            </div>
+            <span class="agent-days" style="color:#15803d;font-weight:600;">Active (demand spike)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="narrative-box safe">
+        <div class="narrative-label">Wolf Event: Repelled — Zero Structural Impact</div>
+        <div class="narrative-text">He huffed. He puffed. He tried the chimney — a well-placed fire in the sealed flue ended that plan quickly. The wolf has retreated to his bridge. The brick house stands. Not one brick moved. Oinkley is not apologizing for the price.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label green">Third-Party Stress Test Report</div>
+        <div class="mls-text">The home has demonstrated zero structural compromise across a prolonged third-party pressure event (wolf, Category 3) and a chimney infiltration attempt. Wolf Resistance Rating updated from Estimated to Verified: 10/10. Zestimate revised upward following stress-test media coverage. All three residents reported safe and unharmed.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">Property Activity</div>
+        <table class="activity-table">
+          <thead><tr><th>Date</th><th>Event</th><th>Price</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>Jan 2026</td><td>Price Increase</td><td class="act-price">$487,000</td><td class="act-up">+$47,000</td></tr>
+            <tr class="row-safe"><td>Jul 2026</td><td class="act-safe">✓ Wolf Event — Repelled</td><td class="act-price">$487,000</td><td>—</td></tr>
+            <tr><td>Oct 2026</td><td>Active (wolf demand spike)</td><td class="act-price">$487,000</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ════ SCENE 7: FINALE — ALL PIGS SAFE ════ -->
+    <div class="scene" data-scene="7">
+      <div class="scene-label">
+        <span class="scene-chapter-tag finale">Finale — All Three Pigs: Safe</span>
+      </div>
+
+      <div class="listing-detail" style="border:2px solid #15803d;">
+        <div class="listing-photo-wrap">
+          <img src="assets/listing-3.svg" alt="3 BrickCore Way — All Pigs Safe">
+          <span class="status-badge safe">All Safe</span>
+          <span class="wolf-cert-badge green">🐷🐷🐷 3 Residents · Wolf-Proof</span>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price-row">
+            <span class="listing-price green">$487,000</span>
+          </div>
+          <div class="listing-stats">
+            <strong>3</strong><span class="stat-label">bd</span>
+            <span class="stat-sep">·</span>
+            <strong>2</strong><span class="stat-label">ba</span>
+            <span class="stat-sep">·</span>
+            <strong>1,840</strong><span class="stat-label">&nbsp;sqft · occupied</span>
+          </div>
+          <div class="listing-address">3 BrickCore Way — Occupancy: 3 of 3</div>
+          <div class="listing-city">Pig's Hollow, MD 20401</div>
+          <div class="listing-zest">Zestimate®: <span class="blue">$512,400</span> (post-stress-test premium) &nbsp;·&nbsp; 🐺 Wolf: off-market</div>
+          <div class="agent-strip">
+            <div class="agent-avatar" style="background:#15803d;">O</div>
+            <div>
+              <div class="agent-name">Oinkley B. (+ Hamley &amp; Pigsworth)</div>
+              <div class="agent-firm">BrickCore™ Properties · Story Complete</div>
+            </div>
+            <span class="agent-days" style="color:#15803d;font-weight:700;">They lived happily.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="narrative-box safe">
+        <div class="narrative-label">Final Status Report</div>
+        <div class="narrative-text">All three pigs are safe inside 3 BrickCore Way. It's a little crowded — Hamley keeps eating Oinkley's leftovers and Pigsworth won't stop complaining about the couch — but they are alive, warm, and structurally sound. The wolf, having failed at two foreclosures and one chimney infiltration, has returned to his bridge. His listing remains off-market.</div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-label">Final Market Summary — Pig's Hollow, MD 20401</div>
+        <table class="activity-table">
+          <thead><tr><th>Property</th><th>Final Status</th><th>Outcome</th></tr></thead>
+          <tbody>
+            <tr class="row-wolf">
+              <td>1 Meadow Ln</td>
+              <td class="act-wolf">Foreclosed</td>
+              <td style="color:#767676;font-size:12px;">Wolf Event — Total Loss</td>
+            </tr>
+            <tr class="row-wolf">
+              <td>2 Forest Edge Dr</td>
+              <td class="act-wolf">Foreclosed</td>
+              <td style="color:#767676;font-size:12px;">Wolf Event — Total Loss</td>
+            </tr>
+            <tr class="row-safe">
+              <td>3 BrickCore Way</td>
+              <td class="act-safe">Active · Occupied</td>
+              <td style="color:#15803d;font-size:12px;">Wolf Repelled · All Safe</td>
+            </tr>
+            <tr>
+              <td>Under the Bridge</td>
+              <td style="color:#767676;">Off Market</td>
+              <td style="color:#767676;font-size:12px;">Motivated seller, no offers</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-section" style="border-left:4px solid #15803d;border-radius:0 6px 6px 0;padding:14px 16px;">
+        <div class="card-section-label green">Story Complete · PigZillow Market Notes</div>
+        <div class="mls-text">The Pig's Hollow market has stabilized following an unprecedented dual-foreclosure event and a third-property stress test. Oinkley B.'s BrickCore Way residence is now the neighborhood's most-searched listing. Wolf activity is not expected to resume. Mortgage rates remain elevated. Equal Housing Opportunity 🐷</div>
+      </div>
+
+      <div style="text-align:center;padding:20px 0 8px;">
+        <button class="cta-btn green" onclick="goToScene(0)">← Start Over</button>
+      </div>
+    </div>
+
+  </div><!-- /scenes-col -->
 
   <!-- ── MAP COLUMN ── -->
   <div class="map-col">
-    <img src="assets/map.svg" alt="Map of Pig's Hollow, MD">
-    <div class="map-overlay">📍 Pig's Hollow, MD 20401</div>
+    <img class="map-bg" src="assets/map.svg" alt="Map of Pig's Hollow, MD">
+    <div class="map-overlay-label">📍 Pig's Hollow, MD 20401</div>
+
+    <!-- Positioned pins over the map -->
+    <div class="map-pins">
+      <!-- Pin 1: 1 Meadow Ln (straw) — open meadow, lower-left -->
+      <div class="map-pin inactive" id="pin-meadow" style="left:27%;top:67%;">
+        <div class="pin-dot"></div>
+        <div class="pin-label">1 Meadow Ln</div>
+      </div>
+      <!-- Pin 2: 2 Forest Edge Dr (sticks) — forest edge, upper-center -->
+      <div class="map-pin inactive" id="pin-forest" style="left:46%;top:38%;">
+        <div class="pin-dot"></div>
+        <div class="pin-label">2 Forest Edge Dr</div>
+      </div>
+      <!-- Pin 3: 3 BrickCore Way (brick) — center-right -->
+      <div class="map-pin inactive" id="pin-brick" style="left:68%;top:52%;">
+        <div class="pin-dot"></div>
+        <div class="pin-label">3 BrickCore Way</div>
+      </div>
+      <!-- Wolf's Lair — far-left, bottom -->
+      <div class="map-pin wolf-pin" id="pin-wolf" style="left:11%;top:83%;">
+        <div class="pin-dot"></div>
+        <div class="pin-label">🐺 Under the Bridge</div>
+      </div>
+    </div>
+
+    <div class="map-caption" id="map-caption">
+      Three properties coming to market. One wolf already watching.
+    </div>
   </div>
 
 </div><!-- /main-layout -->
 
-<!-- ══ FOOTER ══ -->
-<footer class="site-footer">
-  © PigZillow, Inc. · Pig's Hollow, MD · All listings subject to wolf activity · Equal Housing Opportunity 🐷
-</footer>
-
-<!-- ══ MODAL ══ -->
-<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal" id="modal">
-    <button class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
-
-    <div class="modal-photo">
-      <img id="modal-img" src="" alt="">
-    </div>
-
-    <div class="modal-body">
-      <div class="modal-top">
-        <div class="modal-price-block">
-          <div id="modal-price-row"></div>
-          <div id="modal-status-row" class="modal-status"></div>
-        </div>
-        <div id="modal-zest" style="font-size:14px;color:#767676;text-align:right;padding-top:4px;"></div>
-      </div>
-      <div id="modal-address" class="modal-address"></div>
-      <div id="modal-city" class="modal-city"></div>
-      <div class="modal-stats" id="modal-stats"></div>
-
-      <!-- TABS -->
-      <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab(0, this)">Overview</button>
-        <button class="tab-btn" onclick="switchTab(1, this)">Facts &amp; Features</button>
-        <button class="tab-btn" onclick="switchTab(2, this)">Price History</button>
-      </div>
-
-      <div class="tab-panel active" id="tab-overview">
-        <p id="tab-desc"></p>
-      </div>
-      <div class="tab-panel" id="tab-facts">
-        <div class="facts-grid" id="tab-facts-grid"></div>
-      </div>
-      <div class="tab-panel" id="tab-price-history">
-        <table class="price-history-table">
-          <thead><tr>
-            <th>Date</th><th>Event</th><th>Price</th><th>Change</th>
-          </tr></thead>
-          <tbody id="tab-ph-body"></tbody>
-        </table>
-      </div>
-
-      <!-- AGENT -->
-      <div class="modal-agent">
-        <div id="modal-agent-avatar" class="modal-agent-avatar"></div>
-        <div class="modal-agent-info">
-          <div id="modal-agent-name" class="modal-agent-name"></div>
-          <div id="modal-agent-firm" class="modal-agent-firm"></div>
-        </div>
-        <button class="contact-btn">Contact Agent</button>
-      </div>
-    </div><!-- /modal-body -->
-  </div><!-- /modal -->
-</div><!-- /modal-overlay -->
+<!-- ══ STORY NAV ══ -->
+<div class="story-nav">
+  <button class="nav-btn" id="nav-prev" onclick="prevScene()" disabled aria-label="Previous scene">← Back</button>
+  <div class="nav-scene-info">
+    <div class="nav-scene-num" id="nav-label">Scene 1 of 8</div>
+    <div class="nav-scene-sub" id="nav-sub">Overview</div>
+  </div>
+  <button class="nav-btn primary" id="nav-next" onclick="nextScene()" aria-label="Next scene">Next →</button>
+</div>
 
 <script>
-/* ── Listing Data ── */
-const listings = [
-  {
-    id: 0,
-    img: 'assets/listing-1.svg',
-    imgAlt: '1 Meadow Ln — Straw House',
-    price: '$89,000',
-    priceStrike: true,
-    priceLabel: 'FORECLOSED',
-    status: 'foreclosed',
-    statusLabel: 'Foreclosed',
-    beds: 1, baths: 1, sqft: '420',
-    address: '1 Meadow Ln',
-    city: "Pig's Hollow, MD 20401",
-    zest: 'N/A (structural loss)',
-    zestColor: '#cc2200',
-    agentInit: 'H', agentColor: '#006aff',
-    agentName: 'Hamley P.', agentFirm: 'Pig One Realty',
-    desc: 'This charming 1-bed, 1-bath single-family residence offers a rare opportunity to own in the coveted Meadow District at an attainable price point. Originally constructed with premium locally-sourced golden straw by a highly motivated owner-builder, the home featured an open-concept floor plan, abundant natural light through its many ventilated wall gaps, and a surprisingly airy atmosphere throughout. The property is being sold as-is following a structural event in Q4, which the bank notes was "localized and atmospheric in nature." Bring your vision and your contractor — this is the deal of the season.',
-    facts: [
-      ['Year Built', '1 season ago'], ['Lot Size', '0.12 acres'],
-      ['Construction', 'Straw/thatch'], ['Roof', 'Thatched (collapsed)'],
-      ['Heating', 'Natural (draft)'], ['Cooling', 'Fully ventilated'],
-      ['Wolf Resistance', '⭐ (1/10)'], ['Status', 'Bank-owned REO'],
-      ['Days on Market', '14'], ['MLS#', 'PIG-0001-S'],
-    ],
-    priceHistory: [
-      { date: 'Jan 2026', event: 'Listed', price: '$89,000', change: '', dir: '' },
-      { date: 'Feb 2026', event: 'Price Reduced', price: '$72,000', change: '−$17,000', dir: 'down' },
-      { date: 'Mar 2026', event: 'Under Contract', price: '$68,500', change: '−$3,500', dir: 'down' },
-      { date: 'Apr 2026', event: 'Foreclosed', price: '$0', change: '−$68,500', dir: 'down' },
-    ]
-  },
-  {
-    id: 1,
-    img: 'assets/listing-2.svg',
-    imgAlt: '2 Forest Edge Dr — Stick House',
-    price: '$142,000',
-    priceStrike: true,
-    priceLabel: 'FORECLOSED',
-    status: 'foreclosed',
-    statusLabel: 'Foreclosed',
-    beds: 2, baths: 1, sqft: '680',
-    address: '2 Forest Edge Dr',
-    city: "Pig's Hollow, MD 20401",
-    zest: 'N/A (wolf event)',
-    zestColor: '#cc2200',
-    agentInit: 'P', agentColor: '#8b5a2a',
-    agentName: 'Pigsworth R.', agentFirm: 'StickStack® Real Estate',
-    desc: 'Welcome to 2 Forest Edge Drive, a thoughtfully constructed 2-bed, 1.5-bath craftsman-inspired residence situated on a generous wooded lot at the edge of the highly desirable Forest Edge neighborhood. The owner-builder invested triple the material cost of comparable straw-construction homes in the area, hand-selecting hardwood branches for a look that blends organically with the surrounding landscape. A dramatic weather event in late spring resulted in a full structural loss; however, the 0.22-acre lot remains a blank canvas with excellent tree cover and established root systems ready for a buyer with vision. This is a motivated bank sale — no contingencies, no waiting.',
-    facts: [
-      ['Year Built', '2 seasons ago'], ['Lot Size', '0.24 acres'],
-      ['Construction', 'Reclaimed timber'], ['Roof', 'Ex-roof (current: sky)'],
-      ['Heating', 'Firewood (source nearby)'], ['Cooling', 'Involuntary'],
-      ['Wolf Resistance', '⭐⭐ (2/10)'], ['Status', 'Bank-owned REO'],
-      ['Days on Market', '7'], ['MLS#', 'PIG-0002-T'],
-    ],
-    priceHistory: [
-      { date: 'Mar 2026', event: 'Listed', price: '$142,000', change: '', dir: '' },
-      { date: 'Apr 2026', event: 'Price Reduced', price: '$120,000', change: '−$22,000', dir: 'down' },
-      { date: 'May 2026', event: 'Wolf Event', price: '$95,000', change: '−$25,000', dir: 'down' },
-      { date: 'Jun 2026', event: 'Foreclosed', price: '$0', change: '−$95,000', dir: 'down' },
-    ]
-  },
-  {
-    id: 2,
-    img: 'assets/listing-3.svg',
-    imgAlt: '3 BrickCore Way — Brick House',
-    price: '$487,000',
-    priceStrike: false,
-    priceLabel: '',
-    status: 'for-sale',
-    statusLabel: 'For Sale',
-    beds: 3, baths: 2, sqft: '1,840',
-    address: '3 BrickCore Way',
-    city: "Pig's Hollow, MD 20401",
-    zest: '$501,200',
-    zestColor: '#006aff',
-    agentInit: 'O', agentColor: '#c84030',
-    agentName: 'Oinkley B.', agentFirm: 'BrickCore™ Properties',
-    desc: 'Rarely does a home this exceptional come to market. 3 BrickCore Way is a meticulously engineered 3-bed, 2-bath masonry residence that has proven itself under conditions most properties never face. Built by an owner with a clear-eyed commitment to structural longevity, the home features double-wythe brick construction, reinforced mortar throughout, and a sealed-flue chimney that served as the property\'s decisive defensive advantage during a prolonged third-party pressure event last spring. The home currently accommodates three residents and has demonstrated zero structural compromise across repeated stress tests — schedule your showing today before this one is gone.',
-    facts: [
-      ['Year Built', '1 decade ago'], ['Lot Size', '0.48 acres'],
-      ['Construction', 'Fired brick, mortar'], ['Roof', 'Slate (fully intact)'],
-      ['Heating', 'Wood fireplace'], ['Cooling', 'Central'],
-      ['Wolf Resistance', '⭐⭐⭐⭐⭐ (10/10)'], ['Status', 'Active'],
-      ['Days on Market', '3'], ['MLS#', 'PIG-0003-B'],
-    ],
-    priceHistory: [
-      { date: 'Oct 2025', event: 'Listed', price: '$440,000', change: '', dir: '' },
-      { date: 'Nov 2025', event: 'Price Increase', price: '$465,000', change: '+$25,000', dir: 'up' },
-      { date: 'Jan 2026', event: 'Price Increase', price: '$487,000', change: '+$22,000', dir: 'up' },
-      { date: 'Oct 2026', event: 'Active (wolf demand spike)', price: '$487,000', change: '—', dir: '' },
-    ]
-  },
-  {
-    id: 3,
-    img: 'assets/listing-4.svg',
-    imgAlt: "Under the Bridge — Wolf's Lair",
-    price: 'MAKE OFFER',
-    priceStrike: false,
-    priceLabel: '',
-    status: 'off-market',
-    statusLabel: 'Off Market',
-    beds: 0, baths: 0, sqft: 'Unknown',
-    address: 'Under the Bridge',
-    city: 'Meadow Adjacent, MD 20401',
-    zest: '$0 (motivated seller)',
-    zestColor: '#767676',
-    agentInit: 'W', agentColor: '#4a4a4a',
-    agentName: 'B.B. Wolf', agentFirm: 'B.B. Wolf Enterprises (self-represented)',
-    desc: "This unique off-market offering presents a rare opportunity to acquire an established planning and operations base with commanding sightlines across the Meadow District, Forest Edge corridor, and BrickCore Way approach. The subterranean-adjacent dwelling features natural stone construction, a north-facing strategic vantage point, and a surprisingly dry interior for a riparian-adjacent property. The current occupant vacated recently following an unsuccessful campaign in the surrounding neighborhood and is highly motivated to close quickly and quietly. Property conveyed in strictly as-found condition; no repairs, credits, or disclosures beyond what county law requires.",
-    facts: [
-      ['Year Built', 'Unknown'], ['Lot Size', 'Disputed'],
-      ['Construction', 'Stone (bridge, not owned)'], ['Roof', 'Bridge (shared)'],
-      ['Heating', 'None'], ['Cooling', 'Naturally terrifying'],
-      ['Wolf Resistance', 'N/A (owner is wolf)'], ['Status', 'Off Market'],
-      ['Days on Market', '—'], ['MLS#', 'WOLF-0001'],
-    ],
-    priceHistory: [
-      { date: 'Various', event: 'Occupied (no listing)', price: '$0', change: '', dir: '' },
-      { date: 'Jul 2026', event: 'Chimney incident', price: '$0', change: '—', dir: '' },
-      { date: 'Aug 2026', event: 'Market withdrawn', price: 'N/A', change: '—', dir: '' },
-    ]
-  }
+const TOTAL = 8;
+let cur = 0;
+
+// Per-scene map config
+const MAP_STATES = [
+  // 0: Intro
+  { meadow:'inactive', forest:'inactive', brick:'inactive', wolf:'wolf-pin',
+    caption:'Three properties coming to market. One wolf already watching.' },
+  // 1: Straw listed
+  { meadow:'active', forest:'inactive', brick:'inactive', wolf:'wolf-pin',
+    caption:'1 Meadow Ln just listed at $89,000. The wolf has it bookmarked.' },
+  // 2: Straw foreclosed
+  { meadow:'foreclosed', forest:'inactive', brick:'inactive', wolf:'wolf-pin',
+    caption:'1 Meadow Ln foreclosed after wolf event. Hamley has fled.' },
+  // 3: Sticks listed
+  { meadow:'foreclosed', forest:'active', brick:'inactive', wolf:'wolf-pin',
+    caption:'2 Forest Edge Dr listed at $142,000. The wolf has two tabs open.' },
+  // 4: Sticks foreclosed
+  { meadow:'foreclosed', forest:'foreclosed', brick:'inactive', wolf:'wolf-pin',
+    caption:'Two down. 3 BrickCore Way is the last listing standing.' },
+  // 5: Brick listed
+  { meadow:'foreclosed', forest:'foreclosed', brick:'active', wolf:'wolf-pin',
+    caption:'3 BrickCore Way listed at $487,000. Wolf-Resistant Certified.' },
+  // 6: Wolf repelled
+  { meadow:'foreclosed', forest:'foreclosed', brick:'active', wolf:'wolf-fled',
+    caption:'Wolf repelled. Zero structural damage. BrickCore Way holds.' },
+  // 7: Finale
+  { meadow:'foreclosed', forest:'foreclosed', brick:'safe', wolf:'wolf-fled',
+    caption:'All three pigs safe at 3 BrickCore Way. The wolf is off-market.' },
 ];
 
-/* ── Current listing index ── */
-let currentIdx = null;
+// Map scene → chapter pill index (0=Overview,1=Straw,2=Sticks,3=Brick,4=Finale)
+const SCENE_CHAPTER = [0, 1, 1, 2, 2, 3, 3, 4];
 
-function openModal(idx) {
-  currentIdx = idx;
-  const l = listings[idx];
-  const overlay = document.getElementById('modal-overlay');
+const SCENE_NAMES = [
+  'Overview', 'Straw — Listed', 'Straw — Foreclosed',
+  'Sticks — Listed', 'Sticks — Foreclosed',
+  'Brick — Listed', 'Brick — Wolf Repelled', 'Finale'
+];
 
-  // Photo
-  const img = document.getElementById('modal-img');
-  img.src = l.img; img.alt = l.imgAlt;
-
-  // Price row
-  const priceRow = document.getElementById('modal-price-row');
-  if (l.priceStrike) {
-    priceRow.innerHTML = `<span style="font-size:26px;font-weight:700;color:#767676;text-decoration:line-through;">${l.price}</span><span style="font-size:18px;font-weight:700;color:#cc2200;margin-left:10px;">${l.priceLabel}</span>`;
-  } else if (l.price === 'MAKE OFFER') {
-    priceRow.innerHTML = `<span style="font-size:26px;font-weight:700;color:#6b7280;">${l.price}</span>`;
-  } else {
-    priceRow.innerHTML = `<span class="modal-price">${l.price}</span>`;
-  }
-
-  // Status badge
-  const statusRow = document.getElementById('modal-status-row');
-  const cls = l.status === 'foreclosed' ? '#cc2200' : l.status === 'for-sale' ? '#006aff' : '#6b7280';
-  statusRow.innerHTML = `<span style="background:${cls};color:white;padding:4px 12px;border-radius:4px;font-size:13px;font-weight:700;">${l.statusLabel.toUpperCase()}</span>`;
-
-  // Zestimate
-  document.getElementById('modal-zest').innerHTML = `Zestimate®<br><strong style="color:${l.zestColor};font-size:16px;">${l.zest}</strong>`;
-
-  // Address
-  document.getElementById('modal-address').textContent = l.address;
-  document.getElementById('modal-city').textContent = l.city;
-
-  // Stats
-  const sqftLabel = l.sqft === 'Unknown' ? 'Unknown sqft' : `${l.sqft} sqft`;
-  document.getElementById('modal-stats').innerHTML = `
-    <strong>${l.beds}</strong><span class="label"> bd</span>
-    <span class="stat-sep">|</span>
-    <strong>${l.baths}</strong><span class="label"> ba</span>
-    <span class="stat-sep">|</span>
-    <strong>${l.sqft}</strong><span class="label"> sqft</span>
-  `;
-
-  // Overview tab
-  document.getElementById('tab-desc').textContent = l.desc;
-
-  // Facts tab
-  const factsHtml = l.facts.map(([k,v]) =>
-    `<div class="fact-row"><span class="fact-key">${k}</span><span class="fact-val">${v}</span></div>`
-  ).join('');
-  document.getElementById('tab-facts-grid').innerHTML = factsHtml;
-
-  // Price history
-  const phHtml = l.priceHistory.map(r =>
-    `<tr>
-      <td>${r.date}</td>
-      <td class="ph-event">${r.event}</td>
-      <td class="ph-price">${r.price}</td>
-      <td class="ph-change ${r.dir}">${r.change || '—'}</td>
-    </tr>`
-  ).join('');
-  document.getElementById('tab-ph-body').innerHTML = phHtml;
-
-  // Agent
-  const av = document.getElementById('modal-agent-avatar');
-  av.textContent = l.agentInit;
-  av.style.background = l.agentColor;
-  document.getElementById('modal-agent-name').textContent = l.agentName;
-  document.getElementById('modal-agent-firm').textContent = l.agentFirm;
-
-  // Reset to overview tab
-  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i===0));
-  document.querySelectorAll('.tab-panel').forEach((p,i) => p.classList.toggle('active', i===0));
-
-  // Open
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  document.getElementById('modal').focus();
+function goToScene(n) {
+  n = Math.max(0, Math.min(n, TOTAL - 1));
+  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.scene')[n].classList.add('active');
+  document.getElementById('scenes-col').scrollTop = 0;
+  cur = n;
+  updateAll();
 }
 
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-  currentIdx = null;
-}
+function nextScene() { goToScene(cur + 1); }
+function prevScene() { goToScene(cur - 1); }
 
-function switchTab(idx, btn) {
-  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
-  document.querySelectorAll('.tab-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
-}
+function updateAll() {
+  // Nav buttons
+  document.getElementById('nav-prev').disabled = (cur === 0);
+  document.getElementById('nav-next').disabled = (cur === TOTAL - 1);
+  document.getElementById('nav-label').textContent = 'Scene ' + (cur + 1) + ' of ' + TOTAL;
+  document.getElementById('nav-sub').textContent = SCENE_NAMES[cur];
 
-// Close on backdrop click
-document.getElementById('modal-overlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
+  // Scene counter
+  document.getElementById('scene-counter').innerHTML = '<strong>' + (cur + 1) + '</strong> / ' + TOTAL;
 
-// Keyboard: Escape to close
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeModal();
-  // Optional: arrow keys to navigate listings
-  if (!document.getElementById('modal-overlay').classList.contains('open')) return;
-  if (e.key === 'ArrowRight' && currentIdx !== null && currentIdx < listings.length - 1) openModal(currentIdx + 1);
-  if (e.key === 'ArrowLeft'  && currentIdx !== null && currentIdx > 0) openModal(currentIdx - 1);
-});
-
-// Card keyboard enter/space support
-document.querySelectorAll('.card').forEach((card, i) => {
-  card.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(i); }
+  // Scene dots
+  document.querySelectorAll('.scene-dot').forEach((d, i) => {
+    d.classList.remove('active', 'done');
+    if (i === cur) d.classList.add('active');
+    else if (i < cur) d.classList.add('done');
   });
+
+  // Chapter pills
+  const chap = SCENE_CHAPTER[cur];
+  document.querySelectorAll('.chapter-pill').forEach((pill, i) => {
+    pill.classList.remove('active', 'done');
+    if (i === chap) pill.classList.add('active');
+    else if (i < chap) pill.classList.add('done');
+  });
+
+  // Map
+  const s = MAP_STATES[cur];
+  setPin('pin-meadow', s.meadow);
+  setPin('pin-forest', s.forest);
+  setPin('pin-brick',  s.brick);
+  setPin('pin-wolf',   s.wolf);
+  document.getElementById('map-caption').textContent = s.caption;
+}
+
+function setPin(id, state) {
+  const el = document.getElementById(id);
+  // Remove all state classes, keep base class
+  el.className = 'map-pin ' + state;
+}
+
+// Build scene dots
+(function buildDots() {
+  const c = document.getElementById('scene-dots');
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'scene-dot' + (i === 0 ? ' active' : '');
+    d.title = 'Scene ' + (i + 1) + ': ' + SCENE_NAMES[i];
+    d.addEventListener('click', () => goToScene(i));
+    c.appendChild(d);
+  }
+})();
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextScene(); }
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); prevScene(); }
 });
+
+// Init
+updateAll();
 </script>
 </body>
 </html>
