@@ -65,6 +65,13 @@ Layout structure, narrative format, era/setting, tone, design school, reading mo
 - The assignment PDF (`Design, Build, Ship - Assignment 1 - Accelerated Prototyping.pdf`) is in the project folder but must NOT be committed to git
 - Workflow: build a version → user approves → commit specific files by name → push → repeat
 
+### Build workflow for new versions
+When building a new version, split work between two subagents launched in parallel:
+- **Backend agent**: `vNN/index.html` — all HTML, CSS, and JS
+- **Assets agent**: `vNN/assets/*.svg` — all SVG illustrations and icons
+
+Before launching, decide on exact asset file paths and include them in both prompts so the backend can reference them and the assets agent writes to those exact names. The parent session merges the results after both complete.
+
 ### Commit discipline (IMPORTANT)
 After every user-approved change — whether a new version, an edit to an existing version, or a gallery update — commit immediately before moving on. Stage only the specific files changed (never `git add -A`). Never leave work uncommitted between prompts. Push after committing when auth allows; if push fails, note it and let the user push manually (`! git push`).
 
