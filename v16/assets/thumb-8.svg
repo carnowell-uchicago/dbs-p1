@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 270" font-family="'Helvetica Neue', Arial, sans-serif">
+  <!-- Browser chrome -->
+  <rect x="0" y="0" width="360" height="28" fill="#e8e8e8"/>
+  <circle cx="14" cy="14" r="5" fill="#ff5f57"/>
+  <circle cx="26" cy="14" r="5" fill="#ffbd2e"/>
+  <circle cx="38" cy="14" r="5" fill="#28c840"/>
+  <rect x="60" y="7" width="240" height="14" rx="3" fill="#fff" stroke="#ccc" stroke-width="1"/>
+  <text x="180" y="17.5" text-anchor="middle" font-size="8" fill="#666">brickcore.build/case-study</text>
+
+  <!-- Warm, triumphant background -->
+  <rect x="0" y="28" width="360" height="242" fill="#fffcf5"/>
+  <!-- Subtle warmth gradient at bottom -->
+  <rect x="0" y="180" width="360" height="90" fill="#fff5e8" opacity="0.6"/>
+
+  <!-- Nav -->
+  <rect x="0" y="28" width="360" height="32" fill="#fff"/>
+  <line x1="0" y1="60" x2="360" y2="60" stroke="#f0e8e0" stroke-width="1"/>
+  <text x="20" y="48" font-size="10" font-weight="bold" fill="#111" letter-spacing="0.5">BRICKCORE™</text>
+  <text x="192" y="48" font-size="7" fill="#28a060" font-weight="bold">CASE STUDY</text>
+  <text x="260" y="48" font-size="8" fill="#999">Resilience</text>
+  <text x="315" y="48" font-size="8" fill="#999">Share</text>
+
+  <!-- Three pigs together, small cheerful style -->
+  <!-- Brick house background warmed by fireplace -->
+  <rect x="60" y="100" width="240" height="100" fill="#c8622a" opacity="0.15" rx="4"/>
+  <!-- Fireplace glow -->
+  <ellipse cx="180" cy="195" rx="35" ry="12" fill="#ff8c00" opacity="0.15"/>
+
+  <!-- Three small pig figures -->
+  <!-- Pig 1 (left) -->
+  <circle cx="120" cy="158" r="20" fill="#f4a0a0"/>
+  <ellipse cx="120" cy="168" rx="9" ry="6" fill="#e88080"/>
+  <circle cx="116" cy="168" r="2" fill="#c86060"/>
+  <circle cx="124" cy="168" r="2" fill="#c86060"/>
+  <circle cx="113" cy="153" r="5" fill="#f4a0a0" stroke="#e88080" stroke-width="1"/>
+  <circle cx="127" cy="153" r="5" fill="#f4a0a0" stroke="#e88080" stroke-width="1"/>
+  <circle cx="115" cy="156" r="2" fill="#333"/>
+  <circle cx="125" cy="156" r="2" fill="#333"/>
+
+  <!-- Pig 2 (center) -->
+  <circle cx="180" cy="152" r="22" fill="#f4a0a0"/>
+  <ellipse cx="180" cy="163" rx="10" ry="7" fill="#e88080"/>
+  <circle cx="176" cy="163" r="2.2" fill="#c86060"/>
+  <circle cx="184" cy="163" r="2.2" fill="#c86060"/>
+  <circle cx="172" cy="147" r="5.5" fill="#f4a0a0" stroke="#e88080" stroke-width="1"/>
+  <circle cx="188" cy="147" r="5.5" fill="#f4a0a0" stroke="#e88080" stroke-width="1"/>
+  <circle cx="174" cy="150" r="2.2" fill="#333"/>
+  <circle cx="186" cy="150" r="2.2" fill="#333"/>
+
+  <!-- Pig 3 (right) -->
+  <circle cx="240" cy="158" r="20" fill="#f4a0a0"/>
+  <ellipse cx="240" cy="168" rx="9" ry="6" fill="#e88080"/>
+  <circle cx="236" cy="168" r="2" fill="#c86060"/>
+  <circle cx="244" cy="168" r="2" fill="#c86060"/>
+  <circle cx="233" cy="153" r="5" fill="#f4a0a0" stroke="#e88080" stroke-width="1"/>
+  <circle cx="247" cy="153" r="5" fill="#f4a0a0" stroke="#e88080" stroke-width="1"/>
+  <circle cx="235" cy="156" r="2" fill="#333"/>
+  <circle cx="245" cy="156" r="2" fill="#333"/>
+
+  <!-- Stars / sparkles above -->
+  <text x="120" y="128" text-anchor="middle" font-size="10" fill="#f4a020">★</text>
+  <text x="180" y="120" text-anchor="middle" font-size="12" fill="#f4a020">★</text>
+  <text x="240" y="128" text-anchor="middle" font-size="10" fill="#f4a020">★</text>
+
+  <!-- Case study header -->
+  <text x="180" y="210" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">Case Study: Resilience</text>
+  <text x="180" y="225" text-anchor="middle" font-size="7.5" fill="#888">3 pigs. 1 house. 0 wolves. Mission complete.</text>
+
+  <!-- Metric pills -->
+  <rect x="80" y="234" width="58" height="14" rx="7" fill="#e8f5e8" stroke="#28a060" stroke-width="0.8"/>
+  <text x="109" y="244" text-anchor="middle" font-size="6.5" fill="#28a060" font-weight="bold">100% SAFE</text>
+  <rect x="148" y="234" width="64" height="14" rx="7" fill="#e8f5e8" stroke="#28a060" stroke-width="0.8"/>
+  <text x="180" y="244" text-anchor="middle" font-size="6.5" fill="#28a060" font-weight="bold">WOLF-PROOF</text>
+  <rect x="222" y="234" width="58" height="14" rx="7" fill="#e8f5e8" stroke="#28a060" stroke-width="0.8"/>
+  <text x="251" y="244" text-anchor="middle" font-size="6.5" fill="#28a060" font-weight="bold">ROI: ∞</text>
+
+  <text x="180" y="262" text-anchor="middle" font-size="7" fill="#bbb">The warmth was partly the fireplace, mostly vindication.</text>
+</svg>

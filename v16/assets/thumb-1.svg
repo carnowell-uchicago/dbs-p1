@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 270" font-family="'Helvetica Neue', Arial, sans-serif">
+  <!-- Browser chrome -->
+  <rect x="0" y="0" width="360" height="28" fill="#e8e8e8"/>
+  <circle cx="14" cy="14" r="5" fill="#ff5f57"/>
+  <circle cx="26" cy="14" r="5" fill="#ffbd2e"/>
+  <circle cx="38" cy="14" r="5" fill="#28c840"/>
+  <rect x="60" y="7" width="240" height="14" rx="3" fill="#fff" stroke="#ccc" stroke-width="1"/>
+  <text x="180" y="17.5" text-anchor="middle" font-size="8" fill="#666">threepigs.co</text>
+
+  <!-- Content area: warm cream background -->
+  <rect x="0" y="28" width="360" height="242" fill="#fdf6ec"/>
+
+  <!-- Nav bar -->
+  <rect x="0" y="28" width="360" height="32" fill="#fff"/>
+  <text x="30" y="48" font-size="9" font-weight="bold" fill="#222">ThreePigs</text>
+  <text x="200" y="48" font-size="8" fill="#555">Story</text>
+  <text x="240" y="48" font-size="8" fill="#555">About</text>
+  <text x="280" y="48" font-size="8" fill="#555">Contact</text>
+  <text x="316" y="48" font-size="8" fill="#555">Blog</text>
+
+  <!-- Divider -->
+  <line x1="0" y1="60" x2="360" y2="60" stroke="#eee" stroke-width="1"/>
+
+  <!-- Hero section -->
+  <!-- Large pink circle (pig silhouette) -->
+  <circle cx="180" cy="140" r="58" fill="#f4a0a0" opacity="0.3"/>
+  <circle cx="180" cy="135" r="44" fill="#f08080" opacity="0.7"/>
+  <!-- Simple pig face -->
+  <circle cx="180" cy="135" r="36" fill="#f4a0a0"/>
+  <ellipse cx="180" cy="148" rx="14" ry="10" fill="#e88080"/>
+  <circle cx="176" cy="148" r="3" fill="#c86060"/>
+  <circle cx="184" cy="148" r="3" fill="#c86060"/>
+  <circle cx="168" cy="128" r="6" fill="#f4a0a0" stroke="#e88080" stroke-width="1.5"/>
+  <circle cx="192" cy="128" r="6" fill="#f4a0a0" stroke="#e88080" stroke-width="1.5"/>
+  <circle cx="171" cy="133" r="2.5" fill="#333"/>
+  <circle cx="189" cy="133" r="2.5" fill="#333"/>
+
+  <!-- Bold headline -->
+  <text x="180" y="205" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a" letter-spacing="1">THREE PIGS. ONE WORLD.</text>
+  <text x="180" y="220" text-anchor="middle" font-size="8" fill="#888">The definitive platform for shelter, safety, and survival.</text>
+
+  <!-- CTA button -->
+  <rect x="145" y="228" width="70" height="20" rx="4" fill="#e06060"/>
+  <text x="180" y="241" text-anchor="middle" font-size="8" fill="#fff" font-weight="bold">Get Started</text>
+</svg>

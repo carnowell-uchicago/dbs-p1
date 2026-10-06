@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 270" font-family="'Helvetica Neue', Arial, sans-serif">
+  <!-- Browser chrome -->
+  <rect x="0" y="0" width="360" height="28" fill="#e8e8e8"/>
+  <circle cx="14" cy="14" r="5" fill="#ff5f57"/>
+  <circle cx="26" cy="14" r="5" fill="#ffbd2e"/>
+  <circle cx="38" cy="14" r="5" fill="#28c840"/>
+  <rect x="60" y="7" width="240" height="14" rx="3" fill="#fff" stroke="#ccc" stroke-width="1"/>
+  <text x="180" y="17.5" text-anchor="middle" font-size="8" fill="#666">brickcore.build</text>
+
+  <!-- Clean white background -->
+  <rect x="0" y="28" width="360" height="242" fill="#fafafa"/>
+
+  <!-- Nav -->
+  <rect x="0" y="28" width="360" height="32" fill="#fff"/>
+  <line x1="0" y1="60" x2="360" y2="60" stroke="#e8e8e8" stroke-width="1"/>
+  <text x="20" y="48" font-size="10" font-weight="bold" fill="#111" letter-spacing="0.5">BRICKCORE™</text>
+  <text x="210" y="48" font-size="8" fill="#999">Platform</text>
+  <text x="255" y="48" font-size="8" fill="#999">Pricing</text>
+  <text x="300" y="48" font-size="8" fill="#999">Docs</text>
+  <text x="335" y="48" font-size="8" fill="#cc4444">Build</text>
+
+  <!-- Brick house: very solid, clean -->
+  <!-- Ground shadow -->
+  <ellipse cx="180" cy="204" rx="90" ry="8" fill="#ccc" opacity="0.3"/>
+  <!-- Walls -->
+  <rect x="100" y="148" width="160" height="56" fill="#c8622a"/>
+  <!-- Brick pattern -->
+  <line x1="100" y1="158" x2="260" y2="158" stroke="#a04820" stroke-width="1"/>
+  <line x1="100" y1="168" x2="260" y2="168" stroke="#a04820" stroke-width="1"/>
+  <line x1="100" y1="178" x2="260" y2="178" stroke="#a04820" stroke-width="1"/>
+  <line x1="100" y1="188" x2="260" y2="188" stroke="#a04820" stroke-width="1"/>
+  <line x1="100" y1="198" x2="260" y2="198" stroke="#a04820" stroke-width="1"/>
+  <!-- Brick verticals row 1 -->
+  <line x1="130" y1="148" x2="130" y2="158" stroke="#a04820" stroke-width="1"/>
+  <line x1="160" y1="148" x2="160" y2="158" stroke="#a04820" stroke-width="1"/>
+  <line x1="200" y1="148" x2="200" y2="158" stroke="#a04820" stroke-width="1"/>
+  <line x1="230" y1="148" x2="230" y2="158" stroke="#a04820" stroke-width="1"/>
+  <!-- Brick verticals row 2 (offset) -->
+  <line x1="115" y1="158" x2="115" y2="168" stroke="#a04820" stroke-width="1"/>
+  <line x1="148" y1="158" x2="148" y2="168" stroke="#a04820" stroke-width="1"/>
+  <line x1="181" y1="158" x2="181" y2="168" stroke="#a04820" stroke-width="1"/>
+  <line x1="214" y1="158" x2="214" y2="168" stroke="#a04820" stroke-width="1"/>
+  <line x1="247" y1="158" x2="247" y2="168" stroke="#a04820" stroke-width="1"/>
+  <!-- Repeat pattern... -->
+  <line x1="130" y1="168" x2="130" y2="178" stroke="#a04820" stroke-width="1"/>
+  <line x1="163" y1="168" x2="163" y2="178" stroke="#a04820" stroke-width="1"/>
+  <line x1="196" y1="168" x2="196" y2="178" stroke="#a04820" stroke-width="1"/>
+  <line x1="229" y1="168" x2="229" y2="178" stroke="#a04820" stroke-width="1"/>
+
+  <!-- Door -->
+  <rect x="162" y="168" width="36" height="36" rx="2" fill="#5a3010"/>
+  <circle cx="194" cy="186" r="2" fill="#c8a050"/>
+  <!-- Window left -->
+  <rect x="114" y="158" width="28" height="22" rx="1" fill="#c8e8f0" stroke="#a04820" stroke-width="1"/>
+  <line x1="128" y1="158" x2="128" y2="180" stroke="#a04820" stroke-width="0.8"/>
+  <!-- Window right -->
+  <rect x="218" y="158" width="28" height="22" rx="1" fill="#c8e8f0" stroke="#a04820" stroke-width="1"/>
+  <line x1="232" y1="158" x2="232" y2="180" stroke="#a04820" stroke-width="0.8"/>
+  <!-- Roof -->
+  <polygon points="88,150 180,98 272,150" fill="#5a3010" stroke="#3a1800" stroke-width="2"/>
+  <!-- Chimney -->
+  <rect x="205" y="98" width="18" height="36" fill="#c8622a"/>
+
+  <!-- Text area -->
+  <text x="180" y="226" text-anchor="middle" font-size="12" font-weight="bold" fill="#111">Infrastructure that holds.</text>
+  <text x="180" y="242" text-anchor="middle" font-size="7.5" fill="#999">Load-bearing since once upon a time.</text>
+  <rect x="128" y="250" width="104" height="16" rx="3" fill="#c8622a"/>
+  <text x="180" y="261" text-anchor="middle" font-size="7.5" fill="#fff" font-weight="bold">START BUILDING →</text>
+</svg>

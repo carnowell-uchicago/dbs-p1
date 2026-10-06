@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Three Little Pigs: An Origin Story — VC Pitch Deck v14</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #111;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px 32px;
+  }
+
+  /* ==================== GALLERY LINK ==================== */
+  .gallery-link {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    background: rgba(255,255,255,0.08);
+    padding: 6px 13px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.12);
+    z-index: 200;
+    transition: background 0.15s, color 0.15s;
+  }
+  .gallery-link:hover { background: rgba(255,255,255,0.16); color: #fff; }
+
+  /* ==================== DECK WRAPPER ==================== */
+  .deck-wrapper {
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+
+  /* ==================== SLIDE STAGE ==================== */
+  .slide-stage {
+    width: 100%;
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 12px 60px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
+  }
+
+  /* ==================== INDIVIDUAL SLIDE ==================== */
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+    overflow: hidden;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ==================== SLIDE FOOTER ==================== */
+  .slide-footer {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 20;
+  }
+  .footer-light {
+    color: rgba(255,255,255,0.45);
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-dark {
+    color: rgba(0,0,0,0.28);
+    border-top: 1px solid rgba(0,0,0,0.07);
+  }
+  .footer-logo { font-size: 9px; font-weight: 900; letter-spacing: 0.06em; }
+  .footer-conf { letter-spacing: 0.08em; font-size: 7.5px; opacity: 0.75; }
+
+  /* ==================== SHARED HELPERS ==================== */
+  .slide-header {
+    padding: 16px 26px 13px;
+    flex-shrink: 0;
+  }
+  .section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .slide-title {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+  .slide-content {
+    flex: 1;
+    padding: 16px 26px 30px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  /* Product slides shared */
+  .company-logo {
+    display: inline-block;
+    border: 2px solid currentColor;
+    padding: 3px 10px;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    border-radius: 3px;
+  }
+  .product-tagline {
+    font-size: 11px;
+    font-style: italic;
+    opacity: 0.65;
+  }
+  .product-header-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+  .product-bullets { list-style: none; }
+  .product-bullets li {
+    font-size: 11.5px;
+    color: #333;
+    padding: 3.5px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    line-height: 1.4;
+  }
+  .product-bullets li:last-child { border-bottom: none; }
+  .kpi-row { display: flex; gap: 7px; flex-wrap: wrap; margin: 11px 0; }
+  .kpi-box {
+    background: rgba(255,255,255,0.65);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 4px;
+    padding: 7px 10px;
+    text-align: center;
+    flex: 1;
+    min-width: 80px;
+  }
+  .kpi-value {
+    font-size: 14px;
+    font-weight: 800;
+    color: #111;
+    letter-spacing: -0.02em;
+    display: block;
+  }
+  .kpi-label {
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #999;
+    display: block;
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+  .founder-bio {
+    font-size: 10.5px;
+    color: #666;
+    padding: 7px 11px;
+    background: rgba(255,255,255,0.55);
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.08);
+    line-height: 1.4;
+  }
+  .chart-label {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 7px;
+  }
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    height: 85px;
+    padding-left: 6px;
+    border-left: 2px solid rgba(0,0,0,0.15);
+    border-bottom: 2px solid rgba(0,0,0,0.15);
+    margin-bottom: 5px;
+  }
+  .bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+  }
+  .bar {
+    width: 100%;
+    border-radius: 3px 3px 0 0;
+    min-height: 3px;
+  }
+  .bar-label {
+    font-size: 8px;
+    color: #888;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  .bar-value {
+    font-size: 9px;
+    font-weight: 700;
+    color: #555;
+  }
+
+  /* ==================== SLIDE 1: TITLE (deep navy) ==================== */
+  .s1 {
+    background: #0f1729;
+    align-items: center;
+    justify-content: center;
+  }
+  .s1-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+    background-size: 38px 38px;
+    pointer-events: none;
+  }
+  .s1-circle {
+    position: absolute;
+    right: -90px;
+    top: -90px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    border: 44px solid #c9a227;
+    opacity: 0.13;
+    pointer-events: none;
+  }
+  .s1-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+    padding: 0 60px 26px;
+    text-align: center;
+  }
+  .s1-stripe {
+    width: 44px;
+    height: 3px;
+    background: linear-gradient(90deg, #f59e0b, #4ade80, #60a5fa);
+    border-radius: 2px;
+  }
+  .s1-title {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #fff;
+    line-height: 1.05;
+  }
+  .s1-title em { color: #f59e0b; font-style: normal; }
+  .s1-subtitle {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    max-width: 460px;
+  }
+  .s1-logos {
+    display: flex;
+    gap: 11px;
+    justify-content: center;
+    margin: 2px 0;
+  }
+  .s1-logo {
+    border: 1.5px solid currentColor;
+    padding: 3px 11px;
+    font-weight: 800;
+    font-size: 10.5px;
+    letter-spacing: 0.07em;
+    border-radius: 3px;
+  }
+  .s1-logo.amber { color: #f59e0b; }
+  .s1-logo.green  { color: #4ade80; }
+  .s1-logo.blue   { color: #60a5fa; }
+  .s1-presented {
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.04em;
+  }
+  .s1-disclaimer {
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.22);
+    font-style: italic;
+  }
+
+  /* ==================== SLIDE 2: THE PROBLEM (white/warm gray) ==================== */
+  .s2 { background: #fafaf9; }
+  .s2 .slide-header {
+    background: #fff;
+    border-bottom: 2px solid rgba(0,0,0,0.07);
+  }
+  .s2 .section-label { color: #bbb; }
+  .s2 .slide-title { color: #111; }
+  .big-stat {
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: #111;
+    margin-bottom: 7px;
+    line-height: 1;
+  }
+  .problem-text {
+    font-size: 12.5px;
+    color: #555;
+    line-height: 1.65;
+    max-width: 460px;
+    margin-bottom: 16px;
+  }
+  .problem-layout {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+  }
+  .matrix-box { flex-shrink: 0; }
+  .matrix-box-label {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: #bbb;
+    text-align: center;
+    margin-bottom: 7px;
+  }
+  .matrix {
+    display: grid;
+    grid-template-columns: 18px 1fr 1fr;
+    grid-template-rows: 1fr 1fr 18px;
+    width: 215px;
+    height: 155px;
+    gap: 2px;
+  }
+  .matrix-label-y {
+    grid-column: 1; grid-row: 1 / 3;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 8px; font-weight: 600;
+    color: #aaa; text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .matrix-label-x {
+    grid-column: 2 / 4; grid-row: 3;
+    font-size: 8px; font-weight: 600;
+    color: #aaa;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+  }
+  .matrix-cell {
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #555;
+  }
+  .matrix-cell.tl { grid-column: 2; grid-row: 1; }
+  .matrix-cell.tr { grid-column: 3; grid-row: 1; }
+  .matrix-cell.bl { grid-column: 2; grid-row: 2; }
+  .matrix-cell.br { grid-column: 3; grid-row: 2; }
+  .matrix-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+    flex-shrink: 0;
+  }
+  .problem-quote {
+    flex: 1;
+    background: #fef9f0;
+    border-left: 3px solid #f59e0b;
+    padding: 13px 15px;
+    font-size: 12.5px;
+    color: #555;
+    font-style: italic;
+    line-height: 1.55;
+    border-radius: 0 3px 3px 0;
+  }
+  .problem-quote .attribution {
+    font-size: 9.5px;
+    color: #aaa;
+    font-style: normal;
+    margin-top: 6px;
+    display: block;
+  }
+  .problem-quote .caveat {
+    font-size: 8.5px;
+    color: #ccc;
+    font-style: italic;
+  }
+
+  /* ==================== SLIDE 3: STRAWHAUS (warm amber) ==================== */
+  .s3 { background: #fef3e2; }
+  .s3 .slide-header { background: #92400e; }
+  .s3 .section-label { color: rgba(255,255,255,0.6); }
+  .s3 .slide-title { color: #fff; }
+
+  /* ==================== SLIDE 4: STICKSTACK (forest green) ==================== */
+  .s4 { background: #f0fdf4; }
+  .s4 .slide-header { background: #14532d; }
+  .s4 .section-label { color: rgba(255,255,255,0.6); }
+  .s4 .slide-title { color: #fff; }
+  .postmortem-box {
+    margin-top: 12px;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid #bbf7d0;
+    border-left: 4px solid #14532d;
+    border-radius: 4px;
+    padding: 9px 12px;
+  }
+  .postmortem-label {
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #14532d;
+    margin-bottom: 7px;
+    display: block;
+  }
+
+  /* ==================== SLIDE 5: MARKET OPPORTUNITY ==================== */
+  .s5 { background: #f0f4ff; }
+  .s5 .slide-header { background: #1e3a8a; }
+  .s5 .section-label { color: rgba(255,255,255,0.6); }
+  .s5 .slide-title { color: #fff; }
+  .tam-layout {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .tam-circles { flex-shrink: 0; }
+  .tam-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    flex: 1;
+  }
+  .tam-item { display: flex; align-items: flex-start; gap: 11px; }
+  .tam-dot {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .tam-amount {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 1px;
+  }
+  .tam-tier-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .tam-desc {
+    font-size: 10.5px;
+    color: #555;
+    line-height: 1.4;
+  }
+  .tam-note {
+    font-size: 8.5px;
+    color: #aaa;
+    font-style: italic;
+    margin-top: 10px;
+  }
+
+  /* ==================== SLIDE 6: WOLF / DISRUPTION (dark danger) ==================== */
+  .s6 { background: #1c0507; }
+  /* Breaking news ticker */
+  .news-ticker {
+    background: #b91c1c;
+    color: #fff;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 5px 0;
+    overflow: hidden;
+    flex-shrink: 0;
+    white-space: nowrap;
+    position: relative;
+  }
+  .ticker-track {
+    display: inline-flex;
+    animation: scroll-ticker 22s linear infinite;
+  }
+  .ticker-piece { white-space: nowrap; padding-right: 60px; }
+  @keyframes scroll-ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-breaking {
+    background: #fff;
+    color: #b91c1c;
+    font-weight: 900;
+    padding: 0 7px;
+    margin-right: 14px;
+    border-radius: 2px;
+  }
+  .s6 .slide-header {
+    background: rgba(0,0,0,0.45);
+    border-bottom: 1px solid rgba(185,28,28,0.3);
+  }
+  .s6 .section-label { color: #f87171; }
+  .s6 .slide-title { color: #fff; }
+  .threat-header {
+    font-size: 15px;
+    font-weight: 800;
+    color: #f87171;
+    letter-spacing: -0.01em;
+    margin-bottom: 7px;
+  }
+  .threat-body {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.65;
+    margin-bottom: 13px;
+    max-width: 510px;
+  }
+  .key-insight-dark {
+    background: rgba(185,28,28,0.22);
+    border: 1px solid rgba(248,113,113,0.28);
+    border-left: 3px solid #f87171;
+    padding: 9px 13px;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.55;
+    margin-bottom: 13px;
+    border-radius: 2px;
+  }
+  .key-insight-dark .ki-label {
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #f87171;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .outcome-metrics {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+  }
+  .outcome-kpi {
+    background: rgba(185,28,28,0.2);
+    border: 1px solid rgba(185,28,28,0.3);
+    border-radius: 4px;
+    padding: 9px 11px;
+    text-align: center;
+    flex: 1;
+    min-width: 95px;
+  }
+  .outcome-kpi .ok-value {
+    font-size: 19px;
+    font-weight: 900;
+    color: #f87171;
+    display: block;
+    letter-spacing: -0.03em;
+  }
+  .outcome-kpi .ok-label {
+    font-size: 7.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.45);
+    display: block;
+    margin-top: 3px;
+    line-height: 1.3;
+  }
+
+  /* ==================== SLIDE 7: LESSONS LEARNED (cool gray) ==================== */
+  .s7 { background: #f1f5f9; }
+  .s7 .slide-header { background: #475569; }
+  .s7 .section-label { color: rgba(255,255,255,0.55); }
+  .s7 .slide-title { color: #fff; }
+  .lessons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .lessons-col-label {
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .lesson-list { list-style: none; }
+  .lesson-list li {
+    font-size: 11.5px;
+    color: #334155;
+    padding: 4.5px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    line-height: 1.45;
+  }
+  .lesson-list li:last-child { border-bottom: none; }
+  .pivot-box {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-left: 4px solid #1e3a8a;
+    border-radius: 4px;
+    padding: 11px 13px;
+    font-size: 11.5px;
+    color: #1e3a5f;
+    line-height: 1.6;
+    margin-bottom: 11px;
+  }
+  .pivot-box .pivot-label {
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1e3a8a;
+    margin-bottom: 5px;
+    display: block;
+  }
+  .pivot-note {
+    font-size: 11px;
+    color: #64748b;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ==================== SLIDE 8: BRICKCORE (brick red + cream) ==================== */
+  .s8 { background: #fdf6ee; }
+  .s8 .slide-header { background: #7c2d12; }
+  .s8 .section-label { color: rgba(255,255,255,0.6); }
+  .s8 .slide-title { color: #fff; }
+  .confirmed-badge {
+    display: inline-block;
+    background: #d1fae5;
+    color: #065f46;
+    font-size: 8px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .s8 .product-bullets li { color: #3b1a0a; border-bottom-color: rgba(124,45,18,0.1); }
+  .s8 .kpi-box { background: rgba(255,255,255,0.8); border-color: rgba(124,45,18,0.12); }
+  .s8-bar-chart {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    height: 100px;
+    padding-left: 6px;
+    border-left: 2px solid rgba(124,45,18,0.2);
+    border-bottom: 2px solid rgba(124,45,18,0.2);
+    margin-bottom: 5px;
+  }
+  .wolf-line {
+    position: absolute;
+    left: 6px; right: 0;
+    border-top: 2px dashed #b91c1c;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .wolf-line-label {
+    font-size: 7.5px;
+    color: #b91c1c;
+    font-weight: 700;
+    background: #fdf6ee;
+    padding: 0 3px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .testimonial {
+    margin-top: 11px;
+    background: rgba(124,45,18,0.07);
+    border-left: 3px solid #7c2d12;
+    padding: 9px 13px;
+    font-size: 12.5px;
+    color: #3b1209;
+    font-style: italic;
+    line-height: 1.5;
+    border-radius: 0 3px 3px 0;
+  }
+  .testimonial .attr {
+    font-size: 9.5px;
+    color: #78350f;
+    font-style: normal;
+    margin-top: 4px;
+    font-weight: 600;
+    display: block;
+  }
+
+  /* ==================== SLIDE 9: TRACTION (white, data) ==================== */
+  .s9 { background: #fff; }
+  .s9 .slide-header { background: #1e293b; }
+  .s9 .section-label { color: rgba(255,255,255,0.55); }
+  .s9 .slide-title { color: #fff; }
+  .metrics-dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+    margin-bottom: 13px;
+  }
+  .metric-tile {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    padding: 9px 8px;
+    text-align: center;
+  }
+  .metric-tile .m-value {
+    font-size: 21px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: #0f172a;
+    display: block;
+  }
+  .metric-tile .m-value.green { color: #16a34a; }
+  .metric-tile .m-value.blue { color: #1d4ed8; }
+  .metric-tile .m-label {
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    display: block;
+    margin-top: 2px;
+    line-height: 1.35;
+  }
+  .mrr-label {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 5px;
+  }
+  .mrr-label span { color: #16a34a; font-style: italic; font-weight: 600; }
+  .slide9-quote {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 9px 13px;
+    border-radius: 4px;
+    font-size: 11.5px;
+    font-style: italic;
+    line-height: 1.55;
+    margin-top: 10px;
+  }
+  .slide9-quote .attr {
+    color: #64748b;
+    font-size: 9.5px;
+    font-style: normal;
+    margin-top: 3px;
+    display: block;
+  }
+
+  /* ==================== SLIDE 10: THE ASK (deep navy) ==================== */
+  .s10 {
+    background: #0f1729;
+    align-items: center;
+    justify-content: center;
+  }
+  .s10-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+    background-size: 38px 38px;
+    pointer-events: none;
+  }
+  .s10-circle {
+    position: absolute;
+    left: -90px;
+    bottom: -90px;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    border: 40px solid #c9a227;
+    opacity: 0.11;
+    pointer-events: none;
+  }
+  .s10-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 11px;
+    padding: 0 60px 30px;
+    width: 100%;
+    text-align: center;
+  }
+  .s10-section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+  .ask-big {
+    font-size: 46px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: #60a5fa;
+    line-height: 1;
+  }
+  .ask-tagline {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.82);
+    letter-spacing: -0.01em;
+  }
+  .ask-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.48);
+    font-style: italic;
+    max-width: 380px;
+    line-height: 1.5;
+  }
+  .use-of-funds-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 5px;
+    text-align: left;
+    width: 100%;
+  }
+  .fund-bar-outer {
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    height: 24px;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+  }
+  .fund-seg {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8.5px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+  }
+  .fund-legend {
+    display: flex;
+    gap: 13px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  .fund-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.45);
+  }
+  .fund-dot {
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .ask-contact {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.38);
+    letter-spacing: 0.03em;
+  }
+  .ask-contact a { color: #60a5fa; text-decoration: none; }
+  .ask-legal {
+    font-size: 8.5px;
+    color: rgba(255,255,255,0.18);
+    font-style: italic;
+    max-width: 480px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  /* ==================== NAVIGATION ==================== */
+  .nav-area {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+    justify-content: center;
+  }
+  .nav-btn {
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.65);
+    border: 1px solid rgba(255,255,255,0.11);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    font-size: 17px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+    font-family: inherit;
+    line-height: 1;
+  }
+  .nav-btn:hover:not(:disabled) {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+  }
+  .nav-btn:disabled { opacity: 0.18; cursor: default; }
+  .dot-row {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+  }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.22);
+    border: 1.5px solid rgba(255,255,255,0.22);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+    padding: 0;
+    outline: none;
+  }
+  .dot.current {
+    background: #fff;
+    border-color: #fff;
+    transform: scale(1.3);
+  }
+  .dot:hover:not(.current) {
+    background: rgba(255,255,255,0.42);
+    border-color: rgba(255,255,255,0.42);
+  }
+</style>
+</head>
+<body>
+
+<a class="gallery-link" href="../">← Gallery</a>
+
+<div class="deck-wrapper">
+
+  <div class="slide-stage">
+
+    <!-- ============================================================
+         SLIDE 1: TITLE
+         ============================================================ -->
+    <div class="slide s1 active" id="slide-1">
+      <div class="s1-grid"></div>
+      <div class="s1-circle"></div>
+      <div class="s1-inner">
+        <div class="s1-stripe"></div>
+        <div class="s1-title">THE THREE LITTLE PIGS:<br><em>AN ORIGIN STORY</em></div>
+        <div class="s1-subtitle">A Study in Founder Mindset, Structural Innovation,<br>and Competitive Disruption at Wolf Scale</div>
+        <div class="s1-logos">
+          <span class="s1-logo amber">StrawHaus™</span>
+          <span class="s1-logo green">StickStack®</span>
+          <span class="s1-logo blue">BrickCore™</span>
+        </div>
+        <div class="s1-presented">Presented to: The Northern Plains Venture Capital Forum — October 1951</div>
+        <div class="s1-disclaimer">Past performance is not indicative of future structural integrity.</div>
+      </div>
+      <div class="slide-footer footer-light">
+        <span class="footer-logo">BrickCore™</span>
+        <span class="footer-conf">Confidential — For Qualified Investors Only</span>
+        <span>1 / 10</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SLIDE 2: THE PROBLEM
+         ============================================================ -->
+    <div class="slide s2" id="slide-2">
+      <div class="slide-header">
+        <div class="section-label">Section 01</div>
+        <div class="slide-title">THE PROBLEM</div>
+      </div>
+      <div class="slide-content">
+        <div class="big-stat">3 PIGS. 0 HOMES. 1 WOLF.</div>
+        <div class="problem-text">The Northern Plains residential market is underserved. Three siblings need shelter. Fast. The threat landscape is evolving. We have 48 hours.</div>
+        <div class="problem-layout">
+          <div class="matrix-box">
+            <div class="matrix-box-label">Competitive Positioning Matrix</div>
+            <div class="matrix">
+              <div class="matrix-label-y">← Slow · Speed · Fast →</div>
+              <div class="matrix-cell tl" style="background:#fff8e6;border-color:#f9d97e;">
+                <span class="matrix-dot" style="background:#f59e0b;"></span>StrawHaus™
+              </div>
+              <div class="matrix-cell tr" style="background:#f9fafb;">
+                <span style="color:#ddd;font-size:8.5px;">VACANCY</span>
+              </div>
+              <div class="matrix-cell bl" style="background:#f9fafb;">
+                <span style="color:#ddd;font-size:8.5px;">VACANCY</span>
+              </div>
+              <div class="matrix-cell br" style="background:#eff6ff;border-color:#bfdbfe;">
+                <span class="matrix-dot" style="background:#1d4ed8;"></span>BrickCore™
+              </div>
+              <div class="matrix-label-x"><span>Weak</span> ← Durability → <span>Strong</span></div>
+            </div>
+            <div style="font-size:7.5px;color:#ccc;text-align:center;margin-top:3px;">StickStack® not shown (off-axis)</div>
+          </div>
+          <div class="problem-quote">
+            <div>"Build fast. Break things."</div>
+            <div class="attribution">— Pig One, Founder, StrawHaus™<br><span class="caveat">(This quote has not aged well.)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer footer-dark">
+        <span class="footer-logo">BrickCore™</span>
+        <span class="footer-conf">Confidential — For Qualified Investors Only</span>
+        <span>2 / 10</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SLIDE 3: STRAWHAUS™
+         ============================================================ -->
+    <div class="slide s3" id="slide-3">
+      <div class="slide-header">
+        <div class="section-label">Section 02 — Portfolio Company</div>
+        <div class="slide-title">STRAWHAUS™ — OUR SOLUTION</div>
+      </div>
+      <div class="slide-content">
+        <div class="product-header-row">
+          <span class="company-logo" style="color:#92400e;">StrawHaus™</span>
+          <span class="product-tagline" style="color:#92400e;">"Move fast. Build light."</span>
+        </div>
+        <div class="product-grid">
+          <div>
+            <ul class="product-bullets">
+              <li>✓ 100% organic straw construction</li>
+              <li>✓ Build time: 6 hours (industry-leading)</li>
+              <li>✓ Total cost: $0.40</li>
+              <li>✓ Wind resistance: TBD</li>
+              <li>✓ Series A ready</li>
+            </ul>
+            <div class="kpi-row">
+              <div class="kpi-box">
+                <span class="kpi-value">6 HRS</span>
+                <span class="kpi-label">Build Time</span>
+              </div>
+              <div class="kpi-box">
+                <span class="kpi-value">$0.40</span>
+                <span class="kpi-label">Total Cost</span>
+              </div>
+              <div class="kpi-box">
+                <span class="kpi-value" style="font-size:10px;">PENDING</span>
+                <span class="kpi-label">Wind Rating</span>
+              </div>
+            </div>
+            <div class="founder-bio"><strong>Pig One, CEO.</strong> Former straw enthusiast. First-time founder. Optimist. Speedrunner. No structural engineering background.</div>
+          </div>
+          <div>
+            <div class="chart-label">Q1 Projections</div>
+            <div class="bar-chart">
+              <div class="bar-col">
+                <div class="bar-value" style="color:#92400e;font-size:9px;">1,200</div>
+                <div class="bar" style="height:77px;background:#f59e0b;"></div>
+                <div class="bar-label">Expected<br>Residents</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar-value" style="color:#92400e;font-size:9px;">$2</div>
+                <div class="bar" style="height:3px;background:#fbbf24;"></div>
+                <div class="bar-label">Structural<br>Testing</div>
+              </div>
+            </div>
+            <div style="font-size:8.5px;color:#b45309;font-style:italic;margin-top:4px;">Note: structural testing budget is $2. This is not a typo.</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer footer-dark">
+        <span class="footer-logo">BrickCore™</span>
+        <span class="footer-conf">Confidential — For Qualified Investors Only</span>
+        <span>3 / 10</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SLIDE 4: STICKSTACK®
+         ============================================================ -->
+    <div class="slide s4" id="slide-4">
+      <div class="slide-header">
+        <div class="section-label">Section 02B — Portfolio Company</div>
+        <div class="slide-title">STICKSTACK® — OUR SOLUTION</div>
+      </div>
+      <div class="slide-content">
+        <div class="product-header-row">
+          <span class="company-logo" style="color:#14532d;">StickStack®</span>
+          <span class="product-tagline" style="color:#14532d;">"3× stronger than straw. Sustainably sourced."</span>
+        </div>
+        <div class="product-grid">
+          <div>
+            <ul class="product-bullets">
+              <li>✓ Enterprise-grade timber adhesion system</li>
+              <li>✓ 3× stronger than straw (internally benchmarked)</li>
+              <li>✓ Sustainable timber sourcing (FSC-adjacent)</li>
+              <li>✓ Build time: 2 days</li>
+              <li>✓ Series A ready (pre-wolf)</li>
+            </ul>
+            <div class="kpi-row">
+              <div class="kpi-box">
+                <span class="kpi-value">2 DAYS</span>
+                <span class="kpi-label">Build Time</span>
+              </div>
+              <div class="kpi-box">
+                <span class="kpi-value">$12.80</span>
+                <span class="kpi-label">Total Cost</span>
+              </div>
+              <div class="kpi-box">
+                <span class="kpi-value" style="font-size:10px;">28 MPH*</span>
+                <span class="kpi-label">Wind Rating</span>
+              </div>
+            </div>
+            <div class="founder-bio"><strong>Pig Two, CEO.</strong> Former StrawHaus™ advisor. Second-time founder. Currently at BrickCore™ (physically, inside the building).</div>
+          </div>
+          <div>
+            <div class="chart-label">Q1 Projections</div>
+            <div class="bar-chart">
+              <div class="bar-col">
+                <div class="bar-value" style="color:#14532d;font-size:9px;">3,800</div>
+                <div class="bar" style="height:77px;background:#16a34a;"></div>
+                <div class="bar-label">Expected<br>Residents</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar-value" style="color:#14532d;font-size:9px;">$42</div>
+                <div class="bar" style="height:17px;background:#4ade80;"></div>
+                <div class="bar-label">Structural<br>Testing</div>
+              </div>
+            </div>
+            <div class="postmortem-box">
+              <span class="postmortem-label">Post-Mortem Metrics</span>
+              <div class="kpi-row" style="margin:0;gap:6px;">
+                <div class="kpi-box" style="min-width:75px;background:rgba(255,255,255,0.8);border-color:#bbf7d0;">
+                  <span class="kpi-value" style="color:#b91c1c;font-size:13px;">0%</span>
+                  <span class="kpi-label">Wolf<br>Resistance</span>
+                </div>
+                <div class="kpi-box" style="flex:2;background:rgba(255,255,255,0.8);border-color:#bbf7d0;">
+                  <span class="kpi-value" style="color:#475569;font-size:10px;">→ BrickCore™</span>
+                  <span class="kpi-label">Founder Status</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer footer-dark">
+        <span class="footer-logo">BrickCore™</span>
+        <span class="footer-conf">Confidential — For Qualified Investors Only</span>
+        <span>4 / 10</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SLIDE 5: MARKET OPPORTUNITY (NEW)
+         ============================================================ -->
+    <div class="slide s5" id="slide-5">
+      <div class="slide-header">
+        <div class="section-label">Section 03 — Market Sizing</div>
+        <div class="slide-title">MARKET OPPORTUNITY</div>
+      </div>
+      <div class="slide-content">
+        <div class="tam-layout">
+          <div class="tam-circles">
+            <svg width="200" height="200" viewBox="0 0 200 200">
+              <!-- TAM -->
+              <circle cx="100" cy="100" r="96" fill="#1e3a8a" fill-opacity="0.08" stroke="#1e3a8a" stroke-width="1.5" stroke-opacity="0.4"/>
+              <!-- SAM -->
+              <circle cx="100" cy="100" r="66" fill="#1d4ed8" fill-opacity="0.12" stroke="#1d4ed8" stroke-width="1.5" stroke-opacity="0.5"/>
+              <!-- SOM -->
+              <circle cx="100" cy="100" r="36" fill="#3b82f6" fill-opacity="0.35" stroke="#3b82f6" stroke-width="2"/>
+              <!-- TAM label -->
+              <text x="100" y="16" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="800" fill="#1e3a8a" letter-spacing="0.08em">TAM</text>
+              <!-- SAM label -->
+              <text x="100" y="46" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8.5" font-weight="700" fill="#1d4ed8" letter-spacing="0.06em">SAM</text>
+              <!-- SOM label + amount -->
+              <text x="100" y="96" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="900" fill="#1d4ed8">SOM</text>
+              <text x="100" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#3b82f6">$340M</text>
+            </svg>
+          </div>
+          <div class="tam-legend">
+            <div class="tam-item">
+              <div class="tam-dot" style="background:#1e3a8a;opacity:0.5;"></div>
+              <div>
+                <div class="tam-amount" style="color:#1e3a8a;">$47B</div>
+                <div class="tam-tier-label" style="color:#1e3a8a;">TAM — Total Addressable Market</div>
+                <div class="tam-desc">Global Residential Construction. Every home. Every pig. Wolf-adjacent segments included.</div>
+              </div>
+            </div>
+            <div class="tam-item">
+              <div class="tam-dot" style="background:#1d4ed8;opacity:0.6;"></div>
+              <div>
+                <div class="tam-amount" style="color:#1d4ed8;">$3.2B</div>
+                <div class="tam-tier-label" style="color:#1d4ed8;">SAM — Serviceable Addressable Market</div>
+                <div class="tam-desc">Post-Disruption Resilient Housing in wolf-active regions requiring certified blow-resistance.</div>
+              </div>
+            </div>
+            <div class="tam-item">
+              <div class="tam-dot" style="background:#3b82f6;"></div>
+              <div>
+                <div class="tam-amount" style="color:#3b82f6;">$340M</div>
+                <div class="tam-tier-label" style="color:#3b82f6;">SOM — Serviceable Obtainable Market</div>
+                <div class="tam-desc">Wolf-resistant brick construction, Northern Plains, 3-year horizon. We own this.</div>
+              </div>
+            </div>
+            <div class="tam-note">* Market sizing based on proprietary wolf activity modeling and a reasonable best guess.</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer footer-dark">
+        <span class="footer-logo">BrickCore™</span>
+        <span class="footer-conf">Confidential — For Qualified Investors Only</span>
+        <span>5 / 10</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SLIDE 6: WOLF / MARKET DISRUPTION
+         ============================================================ -->
+    <div class="slide s6" id="slide-6">
+      <!-- Breaking news ticker -->
+      <div class="news-ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span class="ticker-piece">
+            <span class="ticker-breaking">⚠ BREAKING</span>
+            ADVISORY: B.B. WOLF ENTERPRISES NOW OPERATING AT SCALE &nbsp;·&nbsp;
+            STRAW SECTOR DOWN 100% &nbsp;·&nbsp;
+            STICK SECTOR DOWN 100% &nbsp;·&nbsp;
+            WIND SPEEDS EXCEEDING 47 MPH ACROSS NORTHERN PLAINS &nbsp;·&nbsp;
+            ANALYSTS DESCRIBE SITUATION AS "UNPRECEDENTED" &nbsp;·&nbsp;
+            WOLF NPS SCORE 9/10 (WOLF-REPORTED) &nbsp;·&nbsp;
+          </span>
+          <span class="ticker-piece">
+            <span class="ticker-breaking">⚠ BREAKING</span>
+            ADVISORY: B.B. WOLF ENTERPRISES NOW OPERATING AT SCALE &nbsp;·&nbsp;
+            STRAW SECTOR DOWN 100% &nbsp;·&nbsp;
+            STICK SECTOR DOWN 100% &nbsp;·&nbsp;
+            WIND SPEEDS EXCEEDING 47 MPH ACROSS NORTHERN PLAINS &nbsp;·&nbsp;
+            ANALYSTS DESCRIBE SITUATION AS "UNPRECEDENTED" &nbsp;·&nbsp;
+            WOLF NPS SCORE 9/10 (WOLF-REPORTED) &nbsp;·&nbsp;
+          </span>
+        </div>
+      </div>
+      <div class="slide-header">
+        <div class="section-label">⚠ Threat Advisory</div>
+        <div class="slide-title">COMPETITIVE THREAT IDENTIFIED</div>
+      </div>
+      <div class="slide-content">
+        <div class="threat-header">B.B. Wolf Enterprises Has Entered the Market</div>
+        <div class="threat-body">
+          B.B. Wolf Enterprises entered the residential disruption market with an aggressive GTM strategy: sustained 47 MPH exhalation across all residential sectors. Unit economics are unfavorable for incumbents. They operate at scale. They are motivated. They have extraordinary pulmonary capacity.
+        </div>
+        <div class="key-insight-dark">
+          <span class="ki-label">Key Insight</span>
+          StrawHaus™ and StickStack® were not adequately capitalized for wolf-scale disruption. Wind resistance was listed as "TBD." It has since been determined.
+        </div>
+        <div class="outcome-metrics">
+          <div class="outcome-kpi">
+            <span class="ok-value">0%</span>
+            <span class="ok-label">Straw House<br>Survival Rate</span>
+          </div>
+          <div class="outcome-kpi">
+            <span class="ok-value">0%</span>
+            <span class="ok-label">Stick House<br>Survival Rate</span>
+          </div>
+          <div class="outcome-kpi">
+            <span class="ok-value">9/10</span>
+            <span class="ok-label">Wolf NPS<br>(Wolf-Reported)</span>
+          </div>
+          <div class="outcome-kpi">
+            <span class="ok-value">47 MPH</span>
+            <span class="ok-label">Competitive<br>Wind Speed</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer footer-light">
+        <span class="footer-logo">BrickCore™</span>
+        <span class="footer-conf">Confidential — For Qualified Investors Only</span>
+        <span>6 / 10</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SLIDE 7: LESSONS LEARNED
+         ============================================================ -->
+    <div class="slide s7" id="slide-7">
+      <div class="slide-header">
+        <div class="section-label">Section 04 — Retrospective</div>
+        <div class="slide-title">LESSONS LEARNED</div>
+      </div>
+      <div class="slide-content">
+        <div class="lessons-grid">
+          <div>
+            <div class="lessons-col-label">What We Learned</div>
+            <ul class="lesson-list">
+              <li>· Speed is not a product strategy</li>
+              <li>· Minimum viable product ≠ minimum viable shelter</li>
+              <li>· "Good enough" has a wolf-resistance floor</li>
+              <li>· Your competitor's lung capacity is a real risk factor to model</li>
+              <li>· Pending certifications are not certifications</li>
+              <li>· "TBD" is not an acceptable wind rating</li>
+            </ul>
+          </div>
+          <div>
+            <div class="lessons-col-label">The Pivot</div>
+            <div class="pivot-box">
+              <span class="pivot-label">New Direction</span>
+              StrawHaus™ and StickStack® teams are merging operations. New direction: brick. BrickCore™ has agreed to absorb both founding teams and their remaining assets (a pile of sticks and some straw).
+            </div>
+            <div class="pivot-note">
+              Pig One and Pig Two have relocated to BrickCore™ headquarters — physically, inside the walls. The building is still standing. All three founders are safe together. This is the product.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer footer-dark">
+        <span class="footer-logo">BrickCore™</span>
+        <span class="footer-conf">Confidential — For Qualified Investors Only</span>
+        <span>7 / 10</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SLIDE 8: BRICKCORE™
+         ============================================================ -->
+    <div class="slide s8" id="slide-8">
+      <div class="slide-header">
+        <div class="section-label">Section 05 — The Product That Works</div>
+        <div class="slide-title">BRICKCORE™ <span class="confirmed-badge">✓ Wolf-Tested</span></div>
+      </div>
+      <div class="slide-content">
+        <div class="product-header-row">
+          <span class="company-logo" style="color:#7c2d12;">BrickCore™</span>
+          <span class="product-tagline" style="color:#7c2d12;">"Infrastructure that outlasts your problems."</span>
+        </div>
+        <div class="product-grid">
+          <div>
+            <ul class="product-bullets">
+              <li>✓ Full perimeter shear wall</li>
+              <li>✓ Reinforced foundation</li>
+              <li>✓ Proven wolf-resistant in live testing</li>
+              <li>✓ Currently housing all three founders</li>
+              <li>✓ The wolf tried. The wolf failed.</li>
+            </ul>
+            <div class="kpi-row">
+              <div class="kpi-box">
+                <span class="kpi-value" style="font-size:11px;">3 WKS</span>
+                <span class="kpi-label">Build Time</span>
+              </div>
+              <div class="kpi-box">
+                <span class="kpi-value" style="font-size:11px;">120 MPH</span>
+                <span class="kpi-label">Wind Rating</span>
+              </div>
+              <div class="kpi-box">
+                <span class="kpi-value" style="font-size:16px;color:#16a34a;">✓</span>
+                <span class="kpi-label">Wolf Proof</span>
+              </div>
+            </div>
+            <div class="testimonial">
+              <div>"It stood. That's all I have to say."</div>
+              <span class="attr">— Pig Three, CEO &amp; CTO, BrickCore™</span>
+            </div>
+          </div>
+          <div>
+            <div class="chart-label">Wind Resistance Comparison (MPH)</div>
+            <div class="s8-bar-chart" style="position:relative;">
+              <!-- Wolf threshold dashed line: 47/120 * 98px ≈ 38px from bottom -->
+              <div class="wolf-line" style="bottom:40px;">
+                <span class="wolf-line-label">Wolf Max 47 mph</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-value" style="color:#92400e;font-size:9px;">~12</div>
+                <div class="bar" style="height:10px;background:#f59e0b;opacity:0.75;"></div>
+                <div class="bar-label">StrawHaus™</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar-value" style="color:#14532d;font-size:9px;">~28</div>
+                <div class="bar" style="height:23px;background:#16a34a;opacity:0.75;"></div>
+                <div class="bar-label">StickStack®</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar-value" style="color:#7c2d12;font-size:9px;">120</div>
+                <div class="bar" style="height:98px;background:#7c2d12;"></div>
+                <div class="bar-label">BrickCore™</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar-value" style="color:#b91c1c;font-size:9px;">47</div>
+                <div class="bar" style="height:38px;background:#b91c1c;opacity:0.85;"></div>
+                <div class="bar-label">Wolf Max</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer footer-dark">
+        <span class="footer-logo">BrickCore™</span>
+        <span class="footer-conf">Confidential — For Qualified Investors Only</span>
+        <span>8 / 10</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SLIDE 9: TRACTION & RESULTS
+         ============================================================ -->
+    <div class="slide s9" id="slide-9">
+      <div class="slide-header">
+        <div class="section-label">Section 06 — Traction</div>
+        <div class="slide-title">TRACTION &amp; RESULTS</div>
+      </div>
+      <div class="slide-content">
+        <div class="metrics-dashboard">
+          <div class="metric-tile">
+            <span class="m-value">47</span>
+            <span class="m-label">Wolf Huffs<br>Withstood</span>
+          </div>
+          <div class="metric-tile">
+            <span class="m-value blue">1 of 3</span>
+            <span class="m-label">Structures<br>Still Standing</span>
+          </div>
+          <div class="metric-tile">
+            <span class="m-value green">3 of 3</span>
+            <span class="m-label">Founders<br>Safe Inside</span>
+          </div>
+          <div class="metric-tile">
+            <span class="m-value green">✓</span>
+            <span class="m-label">Wolf<br>Retreated</span>
+          </div>
+          <div class="metric-tile">
+            <span class="m-value blue">3</span>
+            <span class="m-label">DAU — Daily Active<br>Residents (in Building)</span>
+          </div>
+          <div class="metric-tile">
+            <span class="m-value">∞</span>
+            <span class="m-label">Projected Survival<br>(Wolf-Adjusted)</span>
+          </div>
+        </div>
+        <div class="mrr-label">
+          MRR — Monthly Recurring Residents &nbsp;
+          <span>↑ Hockey-stick inflection at wolf event</span>
+        </div>
+        <!-- SVG hockey-stick MRR chart -->
+        <svg width="100%" height="68" viewBox="0 0 540 68" preserveAspectRatio="none" style="display:block;margin-bottom:8px;">
+          <!-- Grid lines -->
+          <line x1="0" y1="56" x2="540" y2="56" stroke="#e2e8f0" stroke-width="1"/>
+          <line x1="0" y1="36" x2="540" y2="36" stroke="#e2e8f0" stroke-width="1"/>
+          <line x1="0" y1="16" x2="540" y2="16" stroke="#e2e8f0" stroke-width="1"/>
+          <!-- Axes -->
+          <line x1="0" y1="0" x2="0" y2="62" stroke="#cbd5e1" stroke-width="2"/>
+          <line x1="0" y1="62" x2="540" y2="62" stroke="#cbd5e1" stroke-width="2"/>
+          <!-- Filled area -->
+          <polygon
+            points="0,62 0,60 45,60 90,59 135,59 180,58 225,58 265,57 285,48 305,28 325,10 365,6 405,5 445,4 490,3 540,3 540,62"
+            fill="#1d4ed8" fill-opacity="0.08"/>
+          <!-- Hockey stick line -->
+          <polyline
+            points="0,60 45,60 90,59 135,59 180,58 225,58 265,57 285,48 305,28 325,10 365,6 405,5 445,4 490,3 540,3"
+            fill="none" stroke="#1d4ed8" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Wolf event marker -->
+          <line x1="270" y1="0" x2="270" y2="62" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="274" y="13" font-family="system-ui,sans-serif" font-size="8" fill="#ef4444" font-weight="700">WOLF EVENT</text>
+        </svg>
+        <div class="slide9-quote">
+          "Product-market fit is when the market literally tries to destroy you and can't."
+          <span class="attr">— Pig Three, BrickCore™</span>
+        </div>
+      </div>
+      <div class="slide-footer footer-dark">
+        <span class="footer-logo">BrickCore™</span>
+        <span class="footer-conf">Confidential — For Qualified Investors Only</span>
+        <span>9 / 10</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SLIDE 10: THE ASK
+         ============================================================ -->
+    <div class="slide s10" id="slide-10">
+      <div class="s10-grid"></div>
+      <div class="s10-circle"></div>
+      <div class="s10-inner">
+        <div class="s10-section-label">Section 07 — The Ask</div>
+        <div class="ask-big">$4.2M SEED</div>
+        <div class="ask-tagline">BrickCore™ is raising $4.2M Seed.</div>
+        <div class="ask-sub">"Lead investor gets a brick. A real one. Signed."</div>
+        <div style="width:100%;text-align:left;">
+          <div class="use-of-funds-label">Use of Funds</div>
+        </div>
+        <div class="fund-bar-outer">
+          <div class="fund-seg" style="width:45%;background:#1d4ed8;">45% Construction</div>
+          <div class="fund-seg" style="width:30%;background:#16a34a;">30% R&amp;D</div>
+          <div class="fund-seg" style="width:15%;background:#b91c1c;">15% Wolf</div>
+          <div class="fund-seg" style="width:10%;background:#64748b;">10% Team</div>
+        </div>
+        <div class="fund-legend">
+          <div class="fund-item"><div class="fund-dot" style="background:#1d4ed8;"></div>Construction 45%</div>
+          <div class="fund-item"><div class="fund-dot" style="background:#16a34a;"></div>R&amp;D 30%</div>
+          <div class="fund-item"><div class="fund-dot" style="background:#b91c1c;"></div>Wolf Monitoring 15%</div>
+          <div class="fund-item"><div class="fund-dot" style="background:#64748b;"></div>Team 10%</div>
+        </div>
+        <div class="ask-contact">
+          <a href="mailto:pig3@brickcore.co">pig3@brickcore.co</a> &nbsp;·&nbsp; meadow.vc/brickcore
+        </div>
+        <div class="ask-legal">
+          BrickCore™ is a registered trademark. StrawHaus™ and StickStack® are registered trademarks of their respective founders (now BrickCore™ employees). B.B. Wolf Enterprises is not affiliated with BrickCore™ or any of its subsidiaries.
+        </div>
+      </div>
+      <div class="slide-footer footer-light">
+        <span class="footer-logo">BrickCore™</span>
+        <span class="footer-conf">Confidential — For Qualified Investors Only</span>
+        <span>10 / 10</span>
+      </div>
+    </div>
+
+  </div><!-- end .slide-stage -->
+
+  <!-- Navigation -->
+  <div class="nav-area">
+    <button class="nav-btn" id="prev-btn" disabled aria-label="Previous slide">&#8592;</button>
+    <div class="dot-row" id="dot-row" role="tablist" aria-label="Slide navigation"></div>
+    <button class="nav-btn" id="next-btn" aria-label="Next slide">&#8594;</button>
+  </div>
+
+</div><!-- end .deck-wrapper -->
+
+<script>
+  (function () {
+    var slides   = document.querySelectorAll('.slide');
+    var prevBtn  = document.getElementById('prev-btn');
+    var nextBtn  = document.getElementById('next-btn');
+    var dotRow   = document.getElementById('dot-row');
+    var current  = 0;
+    var total    = slides.length;
+
+    // Build dot indicators
+    for (var i = 0; i < total; i++) {
+      var dot = document.createElement('button');
+      dot.className = 'dot' + (i === 0 ? ' current' : '');
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1) + ' of ' + total);
+      dot.dataset.idx = i;
+      dotRow.appendChild(dot);
+    }
+
+    dotRow.addEventListener('click', function (e) {
+      var dot = e.target.closest('.dot');
+      if (dot) goTo(parseInt(dot.dataset.idx, 10));
+    });
+
+    function goTo(n) {
+      if (n === current || n < 0 || n >= total) return;
+      slides[current].classList.remove('active');
+      dotRow.children[current].classList.remove('current');
+      current = n;
+      slides[current].classList.add('active');
+      dotRow.children[current].classList.add('current');
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === total - 1;
+    }
+
+    prevBtn.addEventListener('click', function () { goTo(current - 1); });
+    nextBtn.addEventListener('click', function () { goTo(current + 1); });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        goTo(current + 1);
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        goTo(current - 1);
+      }
+    });
+  })();
+</script>
+</body>
+</html>

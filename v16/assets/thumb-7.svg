@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 270" font-family="'Helvetica Neue', Arial, sans-serif">
+  <!-- Browser chrome -->
+  <rect x="0" y="0" width="360" height="28" fill="#e8e8e8"/>
+  <circle cx="14" cy="14" r="5" fill="#ff5f57"/>
+  <circle cx="26" cy="14" r="5" fill="#ffbd2e"/>
+  <circle cx="38" cy="14" r="5" fill="#28c840"/>
+  <rect x="60" y="7" width="240" height="14" rx="3" fill="#fff" stroke="#ccc" stroke-width="1"/>
+  <text x="180" y="17.5" text-anchor="middle" font-size="8" fill="#666">wolf.co/final-attempt</text>
+
+  <!-- Dark but with some warmth (campfire glow visible behind brick) -->
+  <rect x="0" y="28" width="360" height="242" fill="#0a0008"/>
+
+  <!-- Nav -->
+  <rect x="0" y="28" width="360" height="32" fill="#0f000b"/>
+  <line x1="0" y1="60" x2="360" y2="60" stroke="#200015" stroke-width="1"/>
+  <text x="20" y="48" font-size="10" font-weight="bold" fill="#fff" letter-spacing="2">WOLF.CO</text>
+  <text x="200" y="48" font-size="7" fill="#cc0000" font-weight="bold">FINAL ATTEMPT</text>
+  <text x="308" y="48" font-size="8" fill="#444">Status</text>
+
+  <!-- Brick house silhouette - solid, unmoved -->
+  <rect x="160" y="125" width="140" height="75" fill="#1a0808" stroke="#2a1010" stroke-width="1"/>
+  <!-- Brick suggestion -->
+  <line x1="160" y1="140" x2="300" y2="140" stroke="#250a0a" stroke-width="1"/>
+  <line x1="160" y1="155" x2="300" y2="155" stroke="#250a0a" stroke-width="1"/>
+  <line x1="160" y1="170" x2="300" y2="170" stroke="#250a0a" stroke-width="1"/>
+  <line x1="160" y1="185" x2="300" y2="185" stroke="#250a0a" stroke-width="1"/>
+  <!-- Roof -->
+  <polygon points="148,127 230,85 312,127" fill="#150505" stroke="#2a1010" stroke-width="1"/>
+  <!-- Window light - warm glow -->
+  <rect x="175" y="140" width="25" height="20" rx="1" fill="#ff8c00" opacity="0.6"/>
+  <rect x="245" y="140" width="25" height="20" rx="1" fill="#ff8c00" opacity="0.6"/>
+  <!-- Chimney smoke = warm light -->
+  <ellipse cx="260" cy="78" rx="10" ry="8" fill="#442200" opacity="0.6"/>
+  <ellipse cx="255" cy="68" rx="7" ry="6" fill="#331800" opacity="0.5"/>
+
+  <!-- Wolf huge, dejected -->
+  <!-- Big wolf taking up left side -->
+  <ellipse cx="82" cy="155" rx="62" ry="42" fill="#111" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Head -->
+  <ellipse cx="112" cy="115" rx="38" ry="32" fill="#141414" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Snout -->
+  <ellipse cx="138" cy="128" rx="20" ry="14" fill="#111" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Eyes tired -->
+  <circle cx="105" cy="107" r="5" fill="#880000"/>
+  <circle cx="122" cy="105" r="5" fill="#880000"/>
+  <!-- Ears -->
+  <polygon points="88,85 94,62 106,85" fill="#141414"/>
+  <polygon points="115,82 124,60 132,83" fill="#141414"/>
+  <!-- Droopy lines suggesting exhaustion -->
+  <path d="M148,128 Q160,128 165,130" stroke="#444" stroke-width="1" fill="none"/>
+  <path d="M148,133 Q162,136 165,138" stroke="#444" stroke-width="1" fill="none"/>
+
+  <!-- Text -->
+  <text x="180" y="222" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Q4 Disruption: Brick Edition.</text>
+  <text x="180" y="238" text-anchor="middle" font-size="7.5" fill="#552222">Results: inconclusive. Spirits: low.</text>
+  <text x="180" y="258" text-anchor="middle" font-size="7" fill="#333">wolf.co — disrupting shelter since page 1</text>
+</svg>

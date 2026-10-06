@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pig Inspire — Curated Residential Architecture</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 14px; }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #fff;
+      color: #111;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .nav-primary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 44px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .wordmark {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .nav-gallery-link {
+      font-size: 11px;
+      color: #999;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .nav-gallery-link:hover { color: #111; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .nav-link {
+      font-size: 12px;
+      color: #666;
+      text-decoration: none;
+      padding: 0 14px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      border-left: 1px solid transparent;
+      transition: color 0.15s;
+    }
+    .nav-link:hover { color: #111; }
+    .nav-link.active { color: #111; font-weight: 500; }
+
+    /* "More Stories" dropdown group in nav */
+    .nav-more {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .nav-more-label {
+      font-size: 12px;
+      color: #666;
+      padding: 0 14px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      cursor: default;
+      gap: 4px;
+    }
+    .nav-more-label::after {
+      content: '▾';
+      font-size: 9px;
+      opacity: 0.5;
+    }
+    .nav-more:hover .nav-dropdown {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .nav-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-top: none;
+      min-width: 210px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity 0.15s, transform 0.15s;
+      z-index: 200;
+    }
+    .nav-dropdown a {
+      display: block;
+      padding: 9px 16px;
+      font-size: 11.5px;
+      color: #555;
+      text-decoration: none;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background 0.1s, color 0.1s;
+    }
+    .nav-dropdown a:last-child { border-bottom: none; }
+    .nav-dropdown a:hover { background: #f9f9f9; color: #111; }
+
+    /* Search bar row */
+    .nav-search-row {
+      padding: 0 24px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-search {
+      flex: 1;
+      max-width: 320px;
+      height: 30px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 0 10px;
+      font-size: 12px;
+      font-family: inherit;
+      color: #333;
+      background: #fafafa;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .nav-search:focus { border-color: #999; background: #fff; }
+    .nav-search::placeholder { color: #bbb; }
+
+    .result-count {
+      font-size: 11px;
+      color: #bbb;
+    }
+
+    /* ── FILTER PILLS ── */
+    .filter-bar {
+      position: fixed;
+      top: 84px; left: 0; right: 0;
+      z-index: 99;
+      background: #fff;
+      border-bottom: 1px solid #ebebeb;
+      padding: 0 24px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+
+    .filter-pill {
+      flex-shrink: 0;
+      padding: 4px 12px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 11px;
+      color: #555;
+      cursor: pointer;
+      background: #fff;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+      user-select: none;
+    }
+    .filter-pill:hover { border-color: #999; color: #111; }
+    .filter-pill.active {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .page-wrap {
+      padding-top: 130px; /* nav (44) + search row (~18) + filter bar (38) + gap */
+      padding-bottom: 80px;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #e8e8e8;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.18s;
+      position: relative;
+    }
+    .card:hover {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      z-index: 2;
+    }
+    .card[data-hidden="true"] { display: none; }
+
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .card:hover .card-thumb img {
+      transform: scale(1.015);
+    }
+
+    .card-body {
+      padding: 12px 14px 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-num {
+      font-size: 10px;
+      color: #bbb;
+      letter-spacing: 0.06em;
+      font-weight: 400;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 2px;
+    }
+
+    .tag {
+      font-size: 10px;
+      color: #888;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 2px 7px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── LIGHTBOX ── */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.82);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox {
+      background: #fff;
+      width: min(760px, 92vw);
+      max-height: 88vh;
+      overflow-y: auto;
+      border-radius: 3px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lb-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: #888;
+      cursor: pointer;
+      line-height: 1;
+      z-index: 10;
+      padding: 4px;
+      transition: color 0.12s;
+    }
+    .lb-close:hover { color: #111; }
+
+    .lb-thumb {
+      width: 100%;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: #f5f5f5;
+      flex-shrink: 0;
+    }
+    .lb-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .lb-content {
+      padding: 28px 36px 32px;
+    }
+
+    .lb-chapter {
+      font-size: 10px;
+      color: #bbb;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .lb-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.25;
+      letter-spacing: -0.025em;
+      margin-bottom: 14px;
+    }
+
+    .lb-text {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+
+    .lb-tags {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .lb-tag {
+      font-size: 11px;
+      color: #666;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 4px 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .lb-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #ebebeb;
+      padding-top: 18px;
+    }
+
+    .lb-nav-btn {
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 7px 18px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 0.02em;
+      transition: border-color 0.12s, color 0.12s, background 0.12s;
+    }
+    .lb-nav-btn:hover {
+      border-color: #111;
+      color: #111;
+      background: #f9f9f9;
+    }
+    .lb-nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .lb-nav-btn:disabled:hover {
+      border-color: #ddd;
+      color: #555;
+      background: none;
+    }
+
+    .lb-counter {
+      font-size: 11px;
+      color: #bbb;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid #e8e8e8;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    footer p {
+      font-size: 11px;
+      color: #aaa;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+    footer strong {
+      color: #666;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="nav">
+  <div class="nav-primary">
+    <div class="nav-left">
+      <a href="#" class="wordmark">PIG INSPIRE</a>
+      <a href="../" class="nav-gallery-link">← Gallery</a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-link active">Websites</a>
+      <a href="#" class="nav-link">Categories</a>
+      <a href="#" class="nav-link">Submit</a>
+
+      <!-- More Stories dropdown -->
+      <div class="nav-more">
+        <span class="nav-more-label">More Stories</span>
+        <div class="nav-dropdown">
+          <a href="#">Goldilocks &amp; The Three Bears</a>
+          <a href="#">Little Red Riding Hood</a>
+          <a href="#">Hansel &amp; Gretel</a>
+          <a href="#">Jack &amp; The Beanstalk</a>
+          <a href="#">Cinderella</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-search-row">
+    <input class="nav-search" type="text" placeholder="Search residential architecture…" id="searchInput">
+    <span class="result-count" id="resultCount">8 sites</span>
+  </div>
+</nav>
+
+<!-- ── FILTER BAR ── -->
+<div class="filter-bar">
+  <div class="filter-pill active" data-filter="all">All</div>
+  <div class="filter-pill" data-filter="Architecture">Architecture</div>
+  <div class="filter-pill" data-filter="Drama">Drama</div>
+  <div class="filter-pill" data-filter="Disruption">Disruption</div>
+  <div class="filter-pill" data-filter="Happy Endings">Happy Endings</div>
+</div>
+
+<!-- ── MAIN GRID ── -->
+<main class="page-wrap">
+  <div class="grid" id="grid">
+
+    <div class="card" data-index="0" data-tags="Drama,Architecture"
+         tabindex="0" role="button" aria-label="Open chapter 1">
+      <div class="card-thumb">
+        <img src="assets/thumb-1.svg" alt="ThreePigs.co screenshot" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-num">01</span>
+        </div>
+        <div class="card-title">ThreePigs.co — Origin Story</div>
+        <div class="card-tags">
+          <span class="tag">Drama</span>
+          <span class="tag">Architecture</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-index="1" data-tags="Architecture,Fast Delivery"
+         tabindex="0" role="button" aria-label="Open chapter 2">
+      <div class="card-thumb">
+        <img src="assets/thumb-2.svg" alt="StrawHaus™ screenshot" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-num">02</span>
+        </div>
+        <div class="card-title">StrawHaus™ — Residential Platform</div>
+        <div class="card-tags">
+          <span class="tag">Architecture</span>
+          <span class="tag">Fast Delivery</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-index="2" data-tags="Disruption,Drama"
+         tabindex="0" role="button" aria-label="Open chapter 3">
+      <div class="card-thumb">
+        <img src="assets/thumb-3.svg" alt="Wolf.co screenshot" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-num">03</span>
+        </div>
+        <div class="card-title">Wolf.co — Market Entry</div>
+        <div class="card-tags">
+          <span class="tag">Disruption</span>
+          <span class="tag">Drama</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-index="3" data-tags="Architecture,Upgraded"
+         tabindex="0" role="button" aria-label="Open chapter 4">
+      <div class="card-thumb">
+        <img src="assets/thumb-4.svg" alt="StickStack® screenshot" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-num">04</span>
+        </div>
+        <div class="card-title">StickStack® — Enterprise Timber</div>
+        <div class="card-tags">
+          <span class="tag">Architecture</span>
+          <span class="tag">Upgraded</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-index="4" data-tags="Disruption,Drama"
+         tabindex="0" role="button" aria-label="Open chapter 5">
+      <div class="card-thumb">
+        <img src="assets/thumb-5.svg" alt="Wolf.co Series B screenshot" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-num">05</span>
+        </div>
+        <div class="card-title">Wolf.co — Series B Disruption</div>
+        <div class="card-tags">
+          <span class="tag">Disruption</span>
+          <span class="tag">Drama</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-index="5" data-tags="Architecture,Happy Endings"
+         tabindex="0" role="button" aria-label="Open chapter 6">
+      <div class="card-thumb">
+        <img src="assets/thumb-6.svg" alt="BrickCore™ screenshot" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-num">06</span>
+        </div>
+        <div class="card-title">BrickCore™ — Infrastructure</div>
+        <div class="card-tags">
+          <span class="tag">Architecture</span>
+          <span class="tag">Happy Endings</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-index="6" data-tags="Disruption,Drama"
+         tabindex="0" role="button" aria-label="Open chapter 7">
+      <div class="card-thumb">
+        <img src="assets/thumb-7.svg" alt="Wolf.co Final Attempt screenshot" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-num">07</span>
+        </div>
+        <div class="card-title">Wolf.co — Final Attempt</div>
+        <div class="card-tags">
+          <span class="tag">Disruption</span>
+          <span class="tag">Drama</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-index="7" data-tags="Happy Endings,Architecture"
+         tabindex="0" role="button" aria-label="Open chapter 8">
+      <div class="card-thumb">
+        <img src="assets/thumb-8.svg" alt="BrickCore™ Case Study screenshot" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-num">08</span>
+        </div>
+        <div class="card-title">BrickCore™ — Case Study: Resilience</div>
+        <div class="card-tags">
+          <span class="tag">Happy Endings</span>
+          <span class="tag">Architecture</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid -->
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>
+    <strong>PIG INSPIRE</strong> — A curated collection of the finest residential architecture in the meadow.<br>
+    Est. Once Upon a Time. · <a href="../" style="color:#999; text-decoration:none;">← Back to Gallery</a>
+  </p>
+</footer>
+
+<!-- ── LIGHTBOX ── -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Chapter viewer">
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <div class="lb-thumb">
+      <img id="lbImg" src="" alt="">
+    </div>
+    <div class="lb-content">
+      <div class="lb-chapter" id="lbChapter"></div>
+      <h2 class="lb-title" id="lbTitle"></h2>
+      <p class="lb-text" id="lbText"></p>
+      <div class="lb-tags" id="lbTags"></div>
+      <div class="lb-nav">
+        <button class="lb-nav-btn" id="lbPrev">← Prev</button>
+        <span class="lb-counter" id="lbCounter"></span>
+        <button class="lb-nav-btn" id="lbNext">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── DATA ──
+  const chapters = [
+    {
+      title: "ThreePigs.co — Origin Story",
+      tags: ["Drama", "Architecture"],
+      text: "Three pigs. One world. Zero adult supervision. Their first big decision: housing. Naturally.",
+      img: "assets/thumb-1.svg"
+    },
+    {
+      title: "StrawHaus™ — Residential Platform",
+      tags: ["Architecture", "Fast Delivery"],
+      text: "Pig One's motto: ship fast, iterate later. Spoiler — there was no later.",
+      img: "assets/thumb-2.svg"
+    },
+    {
+      title: "Wolf.co — Market Entry",
+      tags: ["Disruption", "Drama"],
+      text: "One huff. One puff. One extremely brief homeownership. The wolf barely even warmed up.",
+      img: "assets/thumb-3.svg"
+    },
+    {
+      title: "StickStack® — Enterprise Timber",
+      tags: ["Architecture", "Upgraded"],
+      text: "Pig Two upgraded to sticks. Sturdier, he thought. He was not wrong exactly — just not right enough.",
+      img: "assets/thumb-4.svg"
+    },
+    {
+      title: "Wolf.co — Series B Disruption",
+      tags: ["Disruption", "Drama"],
+      text: "The wolf's lung capacity was, frankly, alarming. The stick house filed for demolition immediately.",
+      img: "assets/thumb-5.svg"
+    },
+    {
+      title: "BrickCore™ — Infrastructure",
+      tags: ["Architecture", "Happy Endings"],
+      text: "The third pig had read the room — and several books on load-bearing walls. She built in brick. It took a while. Worth it.",
+      img: "assets/thumb-6.svg"
+    },
+    {
+      title: "Wolf.co — Final Attempt",
+      tags: ["Disruption", "Drama"],
+      text: "The wolf huffed. He puffed. He reconsidered his life choices. The brick house did not care.",
+      img: "assets/thumb-7.svg"
+    },
+    {
+      title: "BrickCore™ — Case Study: Resilience",
+      tags: ["Happy Endings", "Architecture"],
+      text: "Three pigs. One brick house. Zero wolves. The warmth inside was partly the fireplace, mostly vindication.",
+      img: "assets/thumb-8.svg"
+    }
+  ];
+
+  // ── STATE ──
+  let currentIndex = -1;
+  let visibleIndices = chapters.map((_, i) => i); // indices visible after filter
+
+  // ── FILTER ──
+  const pills = document.querySelectorAll('.filter-pill');
+  const cards = document.querySelectorAll('.card');
+  const resultCount = document.getElementById('resultCount');
+  const searchInput = document.getElementById('searchInput');
+
+  let activeFilter = 'all';
+  let activeSearch = '';
+
+  function applyFilters() {
+    let count = 0;
+    visibleIndices = [];
+    cards.forEach((card, i) => {
+      const tags = (card.dataset.tags || '').split(',').map(t => t.trim());
+      const title = chapters[i].title.toLowerCase();
+      const text = chapters[i].text.toLowerCase();
+      const q = activeSearch.toLowerCase();
+
+      const matchFilter = activeFilter === 'all' || tags.includes(activeFilter);
+      const matchSearch = !q || title.includes(q) || text.includes(q) || tags.some(t => t.toLowerCase().includes(q));
+
+      const show = matchFilter && matchSearch;
+      card.dataset.hidden = show ? 'false' : 'true';
+      if (show) { visibleIndices.push(i); count++; }
+    });
+    resultCount.textContent = count === 1 ? '1 site' : `${count} sites`;
+  }
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeFilter = pill.dataset.filter;
+      applyFilters();
+    });
+  });
+
+  searchInput.addEventListener('input', () => {
+    activeSearch = searchInput.value;
+    applyFilters();
+  });
+
+  // ── LIGHTBOX OPEN / CLOSE ──
+  const overlay = document.getElementById('overlay');
+  const lbImg = document.getElementById('lbImg');
+  const lbChapter = document.getElementById('lbChapter');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbText = document.getElementById('lbText');
+  const lbTags = document.getElementById('lbTags');
+  const lbCounter = document.getElementById('lbCounter');
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+  const lbClose = document.getElementById('lbClose');
+
+  function populateLightbox(index) {
+    const ch = chapters[index];
+    lbImg.src = ch.img;
+    lbImg.alt = ch.title + ' preview';
+    lbChapter.textContent = `Chapter ${index + 1} of ${chapters.length}`;
+    lbTitle.textContent = ch.title;
+    lbText.textContent = ch.text;
+    lbTags.innerHTML = ch.tags.map(t => `<span class="lb-tag">${t}</span>`).join('');
+    lbCounter.textContent = `${visibleIndices.indexOf(index) + 1} / ${visibleIndices.length}`;
+    lbPrev.disabled = visibleIndices.indexOf(index) === 0;
+    lbNext.disabled = visibleIndices.indexOf(index) === visibleIndices.length - 1;
+    currentIndex = index;
+  }
+
+  function openLightbox(index) {
+    populateLightbox(index);
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    currentIndex = -1;
+  }
+
+  function navigate(dir) {
+    const pos = visibleIndices.indexOf(currentIndex);
+    const next = pos + dir;
+    if (next >= 0 && next < visibleIndices.length) {
+      populateLightbox(visibleIndices[next]);
+    }
+  }
+
+  // Card clicks
+  cards.forEach((card) => {
+    const index = parseInt(card.dataset.index, 10);
+    card.addEventListener('click', () => openLightbox(index));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(index); }
+    });
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', () => navigate(-1));
+  lbNext.addEventListener('click', () => navigate(1));
+
+  // Click outside lightbox
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeLightbox();
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    if (!overlay.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  });
+</script>
+</body>
+</html>
