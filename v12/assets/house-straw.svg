@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 160">
+  <defs>
+    <linearGradient id="strawWallGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C4A020"/>
+      <stop offset="50%" stop-color="#E8C832"/>
+      <stop offset="100%" stop-color="#C4A020"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ground shadow -->
+  <ellipse cx="90" cy="158" rx="74" ry="6" fill="#00000022" stroke="none"/>
+
+  <!-- Wall base (slightly crooked rectangle) -->
+  <polygon points="28,152 32,78 148,80 152,152" fill="url(#strawWallGrad)" stroke="#1A1A1A" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Straw bundle lines on wall -->
+  <line x1="32" y1="95" x2="148" y2="97" stroke="#C4A020" stroke-width="3" stroke-linecap="round"/>
+  <line x1="31" y1="110" x2="149" y2="112" stroke="#C4A020" stroke-width="3" stroke-linecap="round"/>
+  <line x1="30" y1="126" x2="149" y2="127" stroke="#C4A020" stroke-width="3" stroke-linecap="round"/>
+  <line x1="29" y1="141" x2="151" y2="141" stroke="#C4A020" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Straw wisps on wall surface -->
+  <path d="M 50 85 Q 55 80 60 86" fill="none" stroke="#DABC28" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 80 92 Q 85 87 90 93" fill="none" stroke="#DABC28" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 110 88 Q 115 83 120 89" fill="none" stroke="#DABC28" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 60 108 Q 65 103 70 109" fill="none" stroke="#DABC28" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 100 105 Q 105 100 110 106" fill="none" stroke="#DABC28" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 130 110 Q 135 105 140 111" fill="none" stroke="#DABC28" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Roof (chaotic straw triangle - slightly tilted) -->
+  <!-- Roof base polygon (slightly wobbly) -->
+  <polygon points="16,82 90,12 166,78 148,82 90,22 32,80" fill="#E8C832" stroke="#1A1A1A" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Straw chaos lines on roof left -->
+  <path d="M 50 72 Q 58 52 66 42" fill="none" stroke="#C4A020" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 40 76 Q 52 56 62 36" fill="none" stroke="#C4A020" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 62 70 Q 70 50 78 30" fill="none" stroke="#DABC28" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 30 80 Q 46 60 56 44" fill="none" stroke="#C4A020" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Straw chaos lines on roof right -->
+  <path d="M 130 72 Q 122 52 114 42" fill="none" stroke="#C4A020" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 140 76 Q 128 56 118 36" fill="none" stroke="#C4A020" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 118 70 Q 110 50 102 30" fill="none" stroke="#DABC28" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 150 80 Q 134 60 124 44" fill="none" stroke="#C4A020" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Straw wisps sticking out from roof edges -->
+  <path d="M 20 80 Q 14 76 12 68" fill="none" stroke="#E8C832" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 22 78 Q 16 70 18 60" fill="none" stroke="#E8C832" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 160 78 Q 168 74 170 66" fill="none" stroke="#E8C832" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 158 76 Q 166 68 162 58" fill="none" stroke="#E8C832" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 85 14 Q 90 6 94 10" fill="none" stroke="#E8C832" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 90 12 Q 88 4 84 8" fill="none" stroke="#DABC28" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Door (brown arch, slightly off-center) -->
+  <path d="M 74,152 L 74,118 Q 74,106 84,106 Q 94,106 94,118 L 94,152 Z" fill="#8B4513" stroke="#1A1A1A" stroke-width="3"/>
+  <!-- Door highlight -->
+  <path d="M 78 118 Q 84 112 90 118" fill="none" stroke="#A0581A" stroke-width="2"/>
+  <!-- Door knob -->
+  <circle cx="91" cy="132" r="3" fill="#D4A020" stroke="#1A1A1A" stroke-width="1.5"/>
+</svg>

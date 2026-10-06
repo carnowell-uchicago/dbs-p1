@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Three Little Pigs — Road Trip</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 6000px;
+      position: relative;
+      background: #4AAD4A;
+      font-family: Georgia, serif;
+    }
+
+    /* Full-page SVG background */
+    #bg-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Title block */
+    #title-block {
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      text-align: center;
+      background: rgba(255, 248, 220, 0.95);
+      padding: 18px 36px;
+      border-radius: 16px;
+      border: 3px solid #D4A843;
+      box-shadow: 4px 4px 0 #C49030;
+      white-space: nowrap;
+    }
+
+    #title-block h1 {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: clamp(28px, 5vw, 56px);
+      color: #8B1A00;
+      text-shadow: 3px 3px 0 #D4A843;
+      line-height: 1.1;
+    }
+
+    #title-block p {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: clamp(12px, 1.4vw, 18px);
+      color: #7A5020;
+      margin-top: 6px;
+    }
+
+    /* Gallery link */
+    #gallery-link {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 9999;
+      font-family: Georgia, serif;
+      font-style: italic;
+      color: #5C3A00;
+      text-decoration: none;
+      background: rgba(255, 248, 220, 0.9);
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 2px solid #D4A843;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 2px 2px 0 #C49030;
+    }
+
+    #gallery-link:hover {
+      background: rgba(255, 248, 220, 1);
+      box-shadow: 3px 3px 0 #C49030;
+    }
+
+    /* Scroll hint */
+    #scroll-hint {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 15px;
+      color: #5C3A00;
+      background: rgba(255, 248, 220, 0.88);
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: 2px solid #D4A843;
+      animation: bounce 1.8s infinite ease-in-out;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.6s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
+    }
+
+    /* Scene containers */
+    .scene {
+      position: absolute;
+      width: 100%;
+      height: 0;
+      z-index: 2;
+    }
+
+    .scene-object {
+      position: absolute;
+      width: clamp(100px, 14vw, 220px);
+      transform: translateY(-50%);
+      filter: drop-shadow(3px 4px 6px rgba(0,0,0,0.25));
+      transition: transform 0.3s ease;
+    }
+
+    .scene-object:hover {
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .scene-text {
+      position: absolute;
+      max-width: 28vw;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: opacity 0.05s linear;
+      font-family: Georgia, serif;
+      font-size: clamp(14px, 1.6vw, 22px);
+      line-height: 1.6;
+      color: #2C1A00;
+      background: rgba(255, 248, 220, 0.92);
+      padding: 16px 20px;
+      border-radius: 12px;
+      border: 3px solid #D4A843;
+      box-shadow: 4px 4px 0 #C49030;
+    }
+
+    /* Road-right scenes: object on right, text on left */
+    .road-right .scene-object {
+      right: 2vw;
+    }
+
+    .road-right .scene-text {
+      left: 4vw;
+    }
+
+    /* Road-left scenes: object on left, text on right */
+    .road-left .scene-object {
+      left: 2vw;
+    }
+
+    .road-left .scene-text {
+      right: 4vw;
+    }
+
+    /* Scene number badge */
+    .scene-badge {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #8B1A00;
+      color: #FFF8DC;
+      font-family: Georgia, serif;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 2px solid #D4A843;
+    }
+
+    /* End marker */
+    #end-marker {
+      position: absolute;
+      top: 5800px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      text-align: center;
+      background: rgba(255, 248, 220, 0.95);
+      padding: 20px 40px;
+      border-radius: 16px;
+      border: 3px solid #D4A843;
+      box-shadow: 6px 6px 0 #C49030;
+    }
+
+    #end-marker p {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: clamp(16px, 2vw, 28px);
+      color: #8B1A00;
+    }
+
+    #end-marker .fin {
+      font-size: clamp(24px, 4vw, 48px);
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Gallery link -->
+  <a id="gallery-link" href="../">← Gallery</a>
+
+  <!-- Scroll hint (fades after scrolling) -->
+  <div id="scroll-hint">Scroll down to follow the road ↓</div>
+
+  <!-- Full-page SVG background: grass, road, trees, flowers, clouds -->
+  <svg id="bg-svg"
+       viewBox="0 0 1000 6000"
+       preserveAspectRatio="xMidYMid slice"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Grass background -->
+    <rect width="1000" height="6000" fill="#4AAD4A"/>
+
+    <!-- Subtle grass texture patches -->
+    <ellipse cx="150" cy="400" rx="80" ry="40" fill="#3D9B3D" opacity="0.4"/>
+    <ellipse cx="850" cy="900" rx="100" ry="50" fill="#3D9B3D" opacity="0.35"/>
+    <ellipse cx="80" cy="1600" rx="70" ry="35" fill="#3D9B3D" opacity="0.4"/>
+    <ellipse cx="920" cy="2200" rx="90" ry="45" fill="#3D9B3D" opacity="0.35"/>
+    <ellipse cx="120" cy="2900" rx="75" ry="38" fill="#3D9B3D" opacity="0.4"/>
+    <ellipse cx="880" cy="3500" rx="85" ry="42" fill="#3D9B3D" opacity="0.35"/>
+    <ellipse cx="100" cy="4200" rx="70" ry="35" fill="#3D9B3D" opacity="0.4"/>
+    <ellipse cx="900" cy="4800" rx="90" ry="45" fill="#3D9B3D" opacity="0.35"/>
+    <ellipse cx="200" cy="5400" rx="80" ry="40" fill="#3D9B3D" opacity="0.4"/>
+    <ellipse cx="800" cy="5700" rx="100" ry="50" fill="#3D9B3D" opacity="0.35"/>
+
+    <!-- Clouds near top -->
+    <ellipse cx="150" cy="80" rx="70" ry="32" fill="white" opacity="0.75"/>
+    <ellipse cx="195" cy="68" rx="50" ry="28" fill="white" opacity="0.75"/>
+    <ellipse cx="110" cy="72" rx="45" ry="24" fill="white" opacity="0.75"/>
+
+    <ellipse cx="820" cy="120" rx="80" ry="34" fill="white" opacity="0.70"/>
+    <ellipse cx="870" cy="105" rx="55" ry="28" fill="white" opacity="0.70"/>
+    <ellipse cx="770" cy="112" rx="48" ry="24" fill="white" opacity="0.70"/>
+
+    <ellipse cx="400" cy="55" rx="65" ry="28" fill="white" opacity="0.65"/>
+    <ellipse cx="445" cy="44" rx="45" ry="24" fill="white" opacity="0.65"/>
+    <ellipse cx="360" cy="48" rx="40" ry="22" fill="white" opacity="0.65"/>
+
+    <!-- Road edge (slightly wider, darker stroke) -->
+    <path d="M 500,0
+             C 500,200 800,400 800,700
+             C 800,900 200,1100 200,1500
+             C 200,1800 800,2000 800,2400
+             C 800,2600 200,2800 200,3200
+             C 200,3400 800,3600 800,4000
+             C 800,4200 200,4400 200,4800
+             C 200,5000 500,5200 500,6000"
+          stroke="#C49030" stroke-width="134" fill="none" stroke-linecap="round"/>
+
+    <!-- Road surface -->
+    <path d="M 500,0
+             C 500,200 800,400 800,700
+             C 800,900 200,1100 200,1500
+             C 200,1800 800,2000 800,2400
+             C 800,2600 200,2800 200,3200
+             C 200,3400 800,3600 800,4000
+             C 800,4200 200,4400 200,4800
+             C 200,5000 500,5200 500,6000"
+          stroke="#D4A843" stroke-width="130" fill="none" stroke-linecap="round"/>
+
+    <!-- Center dashes -->
+    <path d="M 500,0
+             C 500,200 800,400 800,700
+             C 800,900 200,1100 200,1500
+             C 200,1800 800,2000 800,2400
+             C 800,2600 200,2800 200,3200
+             C 200,3400 800,3600 800,4000
+             C 800,4200 200,4400 200,4800
+             C 200,5000 500,5200 500,6000"
+          stroke="#F5E070" stroke-width="4" fill="none"
+          stroke-dasharray="60,50" stroke-linecap="round"/>
+
+    <!-- Trees (left-right of road, not overlapping road center) -->
+    <!-- Tree 1: far left, top area -->
+    <rect x="60" y="270" width="14" height="50" rx="5" fill="#5A3A08"/>
+    <circle cx="67" cy="255" r="32" fill="#2E7D2E"/>
+    <circle cx="52" cy="268" r="20" fill="#268A26"/>
+    <circle cx="82" cy="265" r="22" fill="#268A26"/>
+
+    <!-- Tree 2: far right, top area -->
+    <rect x="896" y="310" width="14" height="55" rx="5" fill="#5A3A08"/>
+    <circle cx="903" cy="292" r="35" fill="#2E7D2E"/>
+    <circle cx="885" cy="305" r="22" fill="#268A26"/>
+    <circle cx="920" cy="302" r="24" fill="#268A26"/>
+
+    <!-- Tree 3: left, first curve -->
+    <rect x="80" y="850" width="12" height="45" rx="5" fill="#5A3A08"/>
+    <circle cx="86" cy="834" r="28" fill="#2E7D2E"/>
+    <circle cx="72" cy="845" r="18" fill="#268A26"/>
+    <circle cx="100" cy="842" r="20" fill="#268A26"/>
+
+    <!-- Tree 4: right, between 1st and 2nd curve -->
+    <rect x="886" y="1280" width="12" height="48" rx="5" fill="#5A3A08"/>
+    <circle cx="892" cy="1263" r="30" fill="#2E7D2E"/>
+    <circle cx="876" cy="1276" r="20" fill="#268A26"/>
+    <circle cx="906" cy="1272" r="22" fill="#268A26"/>
+
+    <!-- Tree 5: far left, mid section -->
+    <rect x="55" y="1950" width="14" height="52" rx="5" fill="#5A3A08"/>
+    <circle cx="62" cy="1932" r="34" fill="#2E7D2E"/>
+    <circle cx="45" cy="1946" r="22" fill="#268A26"/>
+    <circle cx="78" cy="1942" r="24" fill="#268A26"/>
+
+    <!-- Tree 6: right, mid-lower -->
+    <rect x="884" y="2550" width="14" height="50" rx="5" fill="#5A3A08"/>
+    <circle cx="891" cy="2532" r="32" fill="#2E7D2E"/>
+    <circle cx="874" cy="2546" r="20" fill="#268A26"/>
+    <circle cx="908" cy="2541" r="22" fill="#268A26"/>
+
+    <!-- Tree 7: left, lower-mid -->
+    <rect x="65" y="3050" width="12" height="46" rx="5" fill="#5A3A08"/>
+    <circle cx="71" cy="3033" r="30" fill="#2E7D2E"/>
+    <circle cx="56" cy="3047" r="19" fill="#268A26"/>
+    <circle cx="86" cy="3043" r="21" fill="#268A26"/>
+
+    <!-- Tree 8: right, lower -->
+    <rect x="890" y="3750" width="14" height="52" rx="5" fill="#5A3A08"/>
+    <circle cx="897" cy="3732" r="34" fill="#2E7D2E"/>
+    <circle cx="879" cy="3746" r="22" fill="#268A26"/>
+    <circle cx="914" cy="3742" r="24" fill="#268A26"/>
+
+    <!-- Tree 9: left, bottom section -->
+    <rect x="60" y="4450" width="12" height="48" rx="5" fill="#5A3A08"/>
+    <circle cx="66" cy="4433" r="30" fill="#2E7D2E"/>
+    <circle cx="50" cy="4447" r="20" fill="#268A26"/>
+    <circle cx="82" cy="4443" r="21" fill="#268A26"/>
+
+    <!-- Tree 10: right, near bottom -->
+    <rect x="885" y="5050" width="14" height="50" rx="5" fill="#5A3A08"/>
+    <circle cx="892" cy="5032" r="32" fill="#2E7D2E"/>
+    <circle cx="875" cy="5046" r="21" fill="#268A26"/>
+    <circle cx="908" cy="5042" r="23" fill="#268A26"/>
+
+    <!-- Tree 11: left, very bottom -->
+    <rect x="70" y="5500" width="12" height="44" rx="5" fill="#5A3A08"/>
+    <circle cx="76" cy="5483" r="28" fill="#2E7D2E"/>
+    <circle cx="62" cy="5497" r="18" fill="#268A26"/>
+    <circle cx="90" cy="5493" r="20" fill="#268A26"/>
+
+    <!-- Tree 12: center-right, bottom -->
+    <rect x="780" y="5750" width="12" height="44" rx="5" fill="#5A3A08"/>
+    <circle cx="786" cy="5733" r="28" fill="#2E7D2E"/>
+    <circle cx="772" cy="5747" r="18" fill="#268A26"/>
+    <circle cx="800" cy="5743" r="20" fill="#268A26"/>
+
+    <!-- Flower dots scattered around (white circles) -->
+    <circle cx="130" cy="180" r="8" fill="white" opacity="0.85"/>
+    <circle cx="142" cy="176" r="5" fill="#FFFACD" opacity="0.9"/>
+    <circle cx="118" cy="185" r="4" fill="white" opacity="0.8"/>
+
+    <circle cx="870" cy="220" r="8" fill="white" opacity="0.85"/>
+    <circle cx="882" cy="216" r="5" fill="#FFFACD" opacity="0.9"/>
+
+    <circle cx="90" cy="600" r="7" fill="white" opacity="0.8"/>
+    <circle cx="104" cy="595" r="4" fill="#FFFACD" opacity="0.85"/>
+
+    <circle cx="910" cy="750" r="8" fill="white" opacity="0.85"/>
+    <circle cx="922" cy="745" r="5" fill="#FFFACD" opacity="0.9"/>
+
+    <circle cx="75" cy="1300" r="7" fill="white" opacity="0.8"/>
+    <circle cx="89" cy="1295" r="4" fill="#FFFACD" opacity="0.85"/>
+
+    <circle cx="920" cy="1700" r="8" fill="white" opacity="0.85"/>
+    <circle cx="932" cy="1695" r="5" fill="#FFFACD" opacity="0.9"/>
+
+    <circle cx="80" cy="2100" r="7" fill="white" opacity="0.8"/>
+    <circle cx="66" cy="2108" r="4" fill="#FFFACD" opacity="0.85"/>
+
+    <circle cx="915" cy="2700" r="8" fill="white" opacity="0.85"/>
+    <circle cx="903" cy="2707" r="5" fill="#FFFACD" opacity="0.9"/>
+
+    <circle cx="85" cy="3300" r="7" fill="white" opacity="0.8"/>
+    <circle cx="99" cy="3295" r="4" fill="#FFFACD" opacity="0.85"/>
+
+    <circle cx="905" cy="4100" r="8" fill="white" opacity="0.85"/>
+
+    <circle cx="70" cy="4700" r="7" fill="white" opacity="0.8"/>
+    <circle cx="84" cy="4694" r="4" fill="#FFFACD" opacity="0.85"/>
+
+    <!-- Flower stems (small) -->
+    <line x1="130" y1="188" x2="130" y2="200" stroke="#3D9B3D" stroke-width="2"/>
+    <line x1="870" y1="228" x2="870" y2="240" stroke="#3D9B3D" stroke-width="2"/>
+    <line x1="90" y1="607" x2="90" y2="618" stroke="#3D9B3D" stroke-width="2"/>
+    <line x1="910" y1="758" x2="910" y2="770" stroke="#3D9B3D" stroke-width="2"/>
+    <line x1="75" y1="1307" x2="75" y2="1318" stroke="#3D9B3D" stroke-width="2"/>
+    <line x1="920" y1="1708" x2="920" y2="1720" stroke="#3D9B3D" stroke-width="2"/>
+    <line x1="80" y1="2107" x2="80" y2="2118" stroke="#3D9B3D" stroke-width="2"/>
+    <line x1="915" y1="2708" x2="915" y2="2720" stroke="#3D9B3D" stroke-width="2"/>
+    <line x1="85" y1="3307" x2="85" y2="3318" stroke="#3D9B3D" stroke-width="2"/>
+    <line x1="70" y1="4707" x2="70" y2="4718" stroke="#3D9B3D" stroke-width="2"/>
+
+    <!-- "The End" road sign at bottom -->
+    <rect x="450" y="5750" width="100" height="60" rx="6" fill="#FFF8DC" stroke="#8B1A00" stroke-width="4"/>
+    <line x1="500" y1="5810" x2="500" y2="5870" stroke="#5A3A08" stroke-width="8" stroke-linecap="round"/>
+    <text x="500" y="5788" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="22" fill="#8B1A00">The End</text>
+  </svg>
+
+  <!-- Title block -->
+  <div id="title-block">
+    <h1>The Three Little Pigs</h1>
+    <p>Scroll down the road to follow the story</p>
+  </div>
+
+  <!-- Scene 1: Three pigs set out — road on right (x≈80%) -->
+  <div class="scene road-right" style="top: 700px;">
+    <img class="scene-object" src="assets/pig.svg" alt="Three little pigs">
+    <div class="scene-text">Once upon a time, three little pigs set out into the world to build homes of their own.</div>
+  </div>
+
+  <!-- Scene 2: Straw house — road on left (x≈20%) -->
+  <div class="scene road-left" style="top: 1350px;">
+    <img class="scene-object" src="assets/house-straw.svg" alt="House of straw">
+    <div class="scene-text">The first pig was in a hurry. He built a house of straw — done in an afternoon!</div>
+  </div>
+
+  <!-- Scene 3: Wolf blows straw — road on right -->
+  <div class="scene road-right" style="top: 1900px;">
+    <img class="scene-object" src="assets/wolf.svg" alt="Big bad wolf">
+    <div class="scene-text">But the Big Bad Wolf came huffing and puffing. One great breath, and the straw house was gone.</div>
+  </div>
+
+  <!-- Scene 4: Stick house — road on left -->
+  <div class="scene road-left" style="top: 2500px;">
+    <img class="scene-object" src="assets/house-sticks.svg" alt="House of sticks">
+    <div class="scene-text">The second pig built with sticks — sturdier, he thought. Surely that would do.</div>
+  </div>
+
+  <!-- Scene 5: Wolf blows sticks — road on right -->
+  <div class="scene road-right" style="top: 3100px;">
+    <img class="scene-object" src="assets/wolf.svg" alt="Big bad wolf">
+    <div class="scene-text">The wolf huffed again. The stick house shuddered… and collapsed in a heap.</div>
+  </div>
+
+  <!-- Scene 6: Brick house — road on left -->
+  <div class="scene road-left" style="top: 3700px;">
+    <img class="scene-object" src="assets/house-bricks.svg" alt="House of bricks">
+    <div class="scene-text">But the third pig had been patient. Brick by brick, she built something that would last.</div>
+  </div>
+
+  <!-- Scene 7: Wolf fails at bricks — road on right -->
+  <div class="scene road-right" style="top: 4400px;">
+    <img class="scene-object" src="assets/wolf.svg" alt="Big bad wolf">
+    <div class="scene-text">The wolf blew until he turned blue. He huffed and he puffed — but the brick house stood firm.</div>
+  </div>
+
+  <!-- Scene 8: All three pigs safe — road on left -->
+  <div class="scene road-left" style="top: 5100px;">
+    <img class="scene-object" src="assets/house-bricks.svg" alt="Brick house with pigs">
+    <div class="scene-text">All three little pigs were safe inside, warm and together. And the wolf never came back. 🐷🐷🐷</div>
+  </div>
+
+  <script>
+    // Collect all scene-text elements
+    const texts = document.querySelectorAll('.scene-text');
+
+    function updateOpacities() {
+      const vh = window.innerHeight;
+      const viewportCenter = vh / 2;
+      const fullZone = vh / 8; // half of the middle quarter
+
+      texts.forEach(function(el) {
+        const rect = el.getBoundingClientRect();
+        const elCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(elCenter - viewportCenter);
+
+        let opacity;
+        if (dist <= fullZone) {
+          opacity = 1;
+        } else {
+          opacity = Math.max(0, 1 - (dist - fullZone) / (viewportCenter - fullZone));
+        }
+        el.style.opacity = opacity;
+      });
+    }
+
+    // Fade out scroll hint once user scrolls
+    const scrollHint = document.getElementById('scroll-hint');
+    let hintFaded = false;
+    function onScroll() {
+      if (!hintFaded && window.scrollY > 80) {
+        scrollHint.style.opacity = '0';
+        hintFaded = true;
+        setTimeout(function() { scrollHint.style.display = 'none'; }, 700);
+      }
+      updateOpacities();
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Run once on load
+    updateOpacities();
+  </script>
+</body>
+</html>

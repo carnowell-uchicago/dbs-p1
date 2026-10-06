@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 100">
+  <!-- Shadow -->
+  <ellipse cx="36" cy="98" rx="22" ry="5" fill="#00000022" stroke="none"/>
+
+  <!-- Trunk -->
+  <rect x="27" y="64" width="16" height="32" rx="5" fill="#8B5E2A" stroke="#1A1A1A" stroke-width="3"/>
+  <!-- Trunk grain -->
+  <path d="M 32 68 Q 35 76 32 84" fill="none" stroke="#6B4416" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 38 72 Q 40 80 38 90" fill="none" stroke="#6B4416" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Foliage spots (slightly darker, back layer) -->
+  <circle cx="22" cy="52" r="12" fill="#2E882E" stroke="none"/>
+  <circle cx="50" cy="50" r="11" fill="#2E882E" stroke="none"/>
+  <circle cx="36" cy="62" r="12" fill="#2E882E" stroke="none"/>
+
+  <!-- Main foliage circle -->
+  <circle cx="35" cy="42" r="28" fill="#3AAA3A" stroke="#1A1A1A" stroke-width="3"/>
+
+  <!-- Foliage texture spots (lighter) -->
+  <circle cx="24" cy="34" r="7" fill="#48C248" stroke="none"/>
+  <circle cx="44" cy="28" r="6" fill="#48C248" stroke="none"/>
+  <circle cx="28" cy="52" r="5" fill="#48C248" stroke="none"/>
+  <circle cx="46" cy="48" r="6" fill="#48C248" stroke="none"/>
+
+  <!-- Foliage outline (on top of everything) -->
+  <circle cx="35" cy="42" r="28" fill="none" stroke="#1A1A1A" stroke-width="3"/>
+</svg>
