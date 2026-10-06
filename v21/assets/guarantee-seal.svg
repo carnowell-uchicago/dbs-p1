@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Gold border outer ring -->
+  <circle cx="100" cy="100" r="97" fill="#B8860B"/>
+  <!-- Dark blue outer ring -->
+  <circle cx="100" cy="100" r="93" fill="#1A237E"/>
+  <!-- Gold inner border -->
+  <circle cx="100" cy="100" r="85" fill="#B8860B"/>
+  <!-- Red/crimson inner circle -->
+  <circle cx="100" cy="100" r="80" fill="#B71C1C"/>
+
+  <!-- Stars at compass points -->
+  <!-- Top star -->
+  <polygon points="100,8 102.4,15.4 110,15.4 104,20 106.4,27.4 100,23 93.6,27.4 96,20 90,15.4 97.6,15.4"
+    fill="#FFD700"/>
+  <!-- Bottom star -->
+  <polygon points="100,192 102.4,184.6 110,184.6 104,180 106.4,172.6 100,177 93.6,172.6 96,180 90,184.6 97.6,184.6"
+    fill="#FFD700"/>
+  <!-- Left star -->
+  <polygon points="8,100 15.4,102.4 15.4,110 20,104 27.4,106.4 23,100 27.4,93.6 20,96 15.4,90 15.4,97.6"
+    fill="#FFD700"/>
+  <!-- Right star -->
+  <polygon points="192,100 184.6,102.4 184.6,110 180,104 172.6,106.4 177,100 172.6,93.6 180,96 184.6,90 184.6,97.6"
+    fill="#FFD700"/>
+
+  <!-- Circular text: "MONEY BACK GUARANTEE • IF NOT SATISFIED •" -->
+  <defs>
+    <path id="topArc" d="M 15,100 A 85,85 0 0,1 185,100"/>
+    <path id="bottomArc" d="M 20,110 A 82,82 0 0,0 180,110"/>
+  </defs>
+  <text font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="10.5" fill="#FFD700" letter-spacing="2.2">
+    <textPath href="#topArc" startOffset="4%">MONEY BACK GUARANTEE</textPath>
+  </text>
+  <text font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="10.5" fill="#FFD700" letter-spacing="2.2">
+    <textPath href="#bottomArc" startOffset="8%">• IF NOT SATISFIED •</textPath>
+  </text>
+
+  <!-- Center: "100%" large gold bold -->
+  <text
+    x="100" y="90"
+    font-family="Arial Black, Arial, sans-serif"
+    font-weight="900"
+    font-size="38"
+    fill="#FFD700"
+    text-anchor="middle"
+    stroke="#8B6914"
+    stroke-width="1"
+  >100%</text>
+
+  <!-- "GUARANTEED" smaller white -->
+  <text
+    x="100" y="115"
+    font-family="Arial Black, Arial, sans-serif"
+    font-weight="900"
+    font-size="13"
+    fill="#FFFFFF"
+    text-anchor="middle"
+    letter-spacing="1.5"
+  >GUARANTEED</text>
+
+  <!-- "Or Your Money Back*" tiny white italic -->
+  <text
+    x="100" y="135"
+    font-family="Georgia, serif"
+    font-style="italic"
+    font-size="9"
+    fill="#FFEEEE"
+    text-anchor="middle"
+  >Or Your Money Back*</text>
+</svg>

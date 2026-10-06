@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIGSAFE™ Brick Systems — As Seen On TV</title>
+<style>
+/* =============================================
+   RESET & BASE
+   ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #cc0000;
+  --red-dark: #990000;
+  --yellow: #ffcc00;
+  --yellow-dark: #e6a800;
+  --white: #ffffff;
+  --black: #0a0a0a;
+  --offwhite: #f5f2eb;
+  --grey: #999;
+  --blue-tv: #1a1a2e;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  /* Padding-top for ticker */
+  padding-top: 44px;
+}
+
+/* =============================================
+   TV STATIC OVERLAY (opening animation)
+   ============================================= */
+#tv-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: tvIntroFade 0.4s ease-out 2.0s forwards;
+}
+
+@keyframes tvIntroFade {
+  0%   { opacity: 1; pointer-events: all; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+/* Static noise via layered radial gradients */
+.static-noise {
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 150px 150px;
+  opacity: 0.4;
+  animation: staticFlicker 0.08s steps(1) infinite;
+}
+
+@keyframes staticFlicker {
+  0%   { background-position: 0 0; opacity: 0.5; }
+  10%  { background-position: -30px 20px; opacity: 0.3; }
+  20%  { background-position: 50px -10px; opacity: 0.6; }
+  30%  { background-position: -20px 40px; opacity: 0.2; }
+  40%  { background-position: 30px -30px; opacity: 0.5; }
+  50%  { background-position: -50px 10px; opacity: 0.4; }
+  60%  { background-position: 10px 50px; opacity: 0.6; }
+  70%  { background-position: -30px -20px; opacity: 0.3; }
+  80%  { background-position: 20px 30px; opacity: 0.5; }
+  90%  { background-position: -10px -40px; opacity: 0.2; }
+  100% { background-position: 40px 20px; opacity: 0.4; }
+}
+
+/* Scan lines over static */
+.scan-lines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0,0,0,0.4) 2px,
+    rgba(0,0,0,0.4) 4px
+  );
+  pointer-events: none;
+}
+
+/* TV flicker effect */
+.tv-flicker {
+  position: absolute;
+  inset: 0;
+  animation: tvScreenFlicker 0.15s steps(1) infinite;
+}
+@keyframes tvScreenFlicker {
+  0%, 90%  { background: transparent; }
+  91%, 95% { background: rgba(255,255,255,0.03); }
+  96%, 100% { background: transparent; }
+}
+
+/* Paid programming text flash */
+.paid-programming {
+  position: relative;
+  z-index: 10;
+  font-family: 'Courier New', monospace;
+  font-size: clamp(10px, 2vw, 16px);
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: paidFlash 0.6s ease-in-out 0.8s forwards;
+  text-shadow: 0 0 20px rgba(255,255,255,0.8);
+}
+
+@keyframes paidFlash {
+  0%   { opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+/* =============================================
+   TICKER BAR
+   ============================================= */
+#ticker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  background: var(--red);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 3px solid var(--yellow);
+}
+
+.ticker-label {
+  flex-shrink: 0;
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 0 14px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  text-transform: uppercase;
+  border-right: 3px solid var(--black);
+}
+
+.ticker-track {
+  display: flex;
+  animation: tickerScroll 35s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.ticker-text {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  padding: 0 12px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* =============================================
+   CHANNEL BUG / GALLERY LINK
+   ============================================= */
+.channel-bug {
+  position: fixed;
+  top: 54px;
+  left: 12px;
+  z-index: 900;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  background: rgba(0,0,0,0.5);
+  padding: 4px 8px;
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: color 0.15s, background 0.15s;
+  text-shadow: 1px 1px 2px #000;
+}
+.channel-bug:hover { color: #fff; background: rgba(0,0,0,0.75); }
+
+/* =============================================
+   PREV / NEXT NAV BUTTONS
+   ============================================= */
+.nav-btn {
+  position: fixed;
+  bottom: 24px;
+  z-index: 800;
+  background: var(--red);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  border: 3px solid var(--yellow);
+  padding: 10px 20px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.15s, transform 0.1s;
+  border-radius: 2px;
+}
+.nav-btn:hover { background: var(--red-dark); transform: scale(1.04); }
+#btn-prev { left: 24px; }
+#btn-next { right: 24px; }
+
+/* =============================================
+   SECTIONS — FULL SCREEN
+   ============================================= */
+.segment {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px 80px;
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+/* Scan-line texture overlay on all segments */
+.segment::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.06) 3px,
+    rgba(0,0,0,0.06) 6px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ============ SEGMENT 1: HERO ============ */
+#seg-hero {
+  background: radial-gradient(ellipse at center, #1a0000 0%, #000 70%);
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font-size: clamp(13px, 2vw, 18px);
+  letter-spacing: 0.3em;
+  color: var(--yellow);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  position: relative;
+  z-index: 5;
+}
+
+.hero-main-question {
+  font-size: clamp(28px, 6vw, 80px);
+  line-height: 1.05;
+  color: var(--yellow);
+  text-transform: uppercase;
+  text-shadow: 4px 4px 0 var(--red-dark), 0 0 40px rgba(255,200,0,0.4);
+  max-width: 900px;
+  position: relative;
+  z-index: 5;
+  margin-bottom: 30px;
+  -webkit-text-stroke: 1px rgba(255,150,0,0.3);
+}
+
+.hero-introducing {
+  font-size: clamp(16px, 3vw, 36px);
+  color: var(--white);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 5;
+}
+
+.hero-brand {
+  font-size: clamp(40px, 10vw, 130px);
+  line-height: 1;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-shadow: 5px 5px 0 var(--red), 0 0 60px rgba(255,255,255,0.2);
+  position: relative;
+  z-index: 5;
+  margin-bottom: 8px;
+}
+
+.hero-brand span {
+  color: var(--red);
+  text-shadow: 3px 3px 0 var(--red-dark);
+}
+
+.hero-tagline {
+  font-size: clamp(14px, 2.5vw, 22px);
+  color: var(--grey);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  position: relative;
+  z-index: 5;
+  margin-bottom: 40px;
+}
+
+/* Starburst badge */
+.starburst-badge {
+  position: absolute;
+  top: 80px;
+  right: 80px;
+  width: clamp(100px, 14vw, 180px);
+  z-index: 10;
+  animation: starburst-spin 8s linear infinite;
+  filter: drop-shadow(3px 3px 8px rgba(255,200,0,0.5));
+}
+
+@keyframes starburst-spin {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Phone icon with pulse */
+.phone-pulse-wrap {
+  position: relative;
+  z-index: 5;
+  display: inline-block;
+}
+.phone-icon {
+  width: clamp(50px, 8vw, 90px);
+  animation: phonePulse 1.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 16px var(--yellow));
+}
+@keyframes phonePulse {
+  0%, 100% { transform: scale(1) rotate(-10deg); filter: drop-shadow(0 0 10px var(--yellow)); }
+  50%       { transform: scale(1.15) rotate(10deg); filter: drop-shadow(0 0 28px var(--yellow)); }
+}
+
+.hero-cta {
+  font-size: clamp(16px, 2.5vw, 26px);
+  color: var(--yellow);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 16px;
+  position: relative;
+  z-index: 5;
+  animation: ctaBlink 1.6s steps(1) infinite;
+}
+@keyframes ctaBlink {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0.5; }
+}
+
+/* ============ SEGMENT 2: THE PROBLEM ============ */
+#seg-problem {
+  background: #111;
+}
+
+.section-header {
+  font-size: clamp(28px, 6vw, 72px);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 5;
+}
+
+.section-header .red { color: var(--red); }
+.section-header .yellow { color: var(--yellow); }
+
+.section-sub {
+  font-family: Arial, sans-serif;
+  font-size: clamp(14px, 2vw, 20px);
+  color: var(--grey);
+  text-align: center;
+  margin-bottom: 40px;
+  max-width: 700px;
+  position: relative;
+  z-index: 5;
+  font-weight: 400;
+}
+
+.problem-split {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  max-width: 960px;
+  position: relative;
+  z-index: 5;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.problem-house {
+  flex: 1;
+  min-width: 280px;
+  max-width: 440px;
+  background: #1a1a1a;
+  border: 3px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Grainy B&W effect via CSS */
+.problem-house-visual {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.house-bw {
+  background: #222;
+  filter: grayscale(1) contrast(1.2);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CSS-drawn house for problem panels */
+.css-house {
+  position: relative;
+  width: 140px;
+  height: 120px;
+}
+
+.css-house .house-body {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  right: 10px;
+  height: 80px;
+  background: #444;
+  border: 3px solid #666;
+}
+
+.css-house .house-roof {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 70px solid transparent;
+  border-right: 70px solid transparent;
+  border-bottom: 50px solid #555;
+}
+
+.css-house .house-door {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 40px;
+  background: #333;
+  border: 2px solid #666;
+}
+
+.css-house .house-window {
+  position: absolute;
+  top: 20px;
+  width: 24px;
+  height: 20px;
+  background: #333;
+  border: 2px solid #666;
+}
+
+.css-house .window-l { left: 18px; }
+.css-house .window-r { right: 18px; }
+
+/* Dramatic reconstruction overlay */
+.problem-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+}
+
+.dramatic-label {
+  background: var(--black);
+  color: var(--white);
+  font-size: 10px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.15em;
+  padding: 4px 8px;
+  text-transform: uppercase;
+}
+
+/* Crumble animation on problem houses */
+.house-falling {
+  animation: houseFall 3s ease-in 0.5s infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes houseFall {
+  0%   { transform: rotate(0deg) translateY(0); opacity: 1; }
+  60%  { transform: rotate(0deg) translateY(0); opacity: 1; }
+  75%  { transform: rotate(-8deg) translateY(5px); opacity: 0.8; }
+  90%  { transform: rotate(20deg) translateY(30px); opacity: 0.3; }
+  100% { transform: rotate(30deg) translateY(60px); opacity: 0; }
+}
+
+.problem-caption {
+  padding: 16px;
+  position: relative;
+}
+
+.problem-caption h3 {
+  font-size: clamp(14px, 2vw, 20px);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--yellow);
+  margin-bottom: 8px;
+}
+
+.problem-caption p {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.stat-callout {
+  margin-top: 30px;
+  text-align: center;
+  position: relative;
+  z-index: 5;
+}
+
+.stat-number {
+  font-size: clamp(40px, 8vw, 100px);
+  color: var(--red);
+  line-height: 1;
+  text-shadow: 3px 3px 0 var(--red-dark);
+}
+
+.stat-label {
+  font-family: Arial, sans-serif;
+  font-size: clamp(13px, 1.8vw, 18px);
+  color: var(--white);
+  letter-spacing: 0.05em;
+  font-weight: 400;
+}
+
+.fine-print {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #555;
+  text-align: center;
+  margin-top: 8px;
+  position: relative;
+  z-index: 5;
+}
+
+/* ============ SEGMENT 3: BEFORE/AFTER ============ */
+#seg-before-after {
+  background: radial-gradient(ellipse at bottom, #0a1a0a 0%, #000 60%);
+}
+
+.before-after-wrap {
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  z-index: 5;
+  margin: 30px auto;
+}
+
+.before-after-img {
+  width: 100%;
+  border: 4px solid #333;
+  border-radius: 4px;
+  display: block;
+}
+
+.before-after-fallback {
+  width: 100%;
+  height: 320px;
+  display: flex;
+  border: 4px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
+  gap: 0;
+}
+
+.ba-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.ba-before {
+  background: #1a1a1a;
+  filter: grayscale(0.9);
+}
+
+.ba-after {
+  background: linear-gradient(135deg, #0d2b0d, #1a4a1a);
+}
+
+.ba-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding: 4px 12px;
+  border-radius: 2px;
+}
+
+.ba-before .ba-label {
+  background: #333;
+  color: #aaa;
+}
+
+.ba-after .ba-label {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.ba-house-icon {
+  font-size: 72px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.ba-desc {
+  font-size: 13px;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.ba-divider {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--yellow);
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.ba-divider-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  padding: 6px 10px;
+  z-index: 11;
+  white-space: nowrap;
+}
+
+.guarantee-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 5;
+  flex-wrap: wrap;
+}
+
+.guarantee-seal-img {
+  width: clamp(80px, 12vw, 120px);
+  filter: drop-shadow(0 2px 8px rgba(255,200,0,0.4));
+  animation: sealWobble 3s ease-in-out infinite;
+}
+
+@keyframes sealWobble {
+  0%, 100% { transform: rotate(-3deg) scale(1); }
+  50%       { transform: rotate(3deg) scale(1.05); }
+}
+
+.guarantee-text {
+  font-size: clamp(20px, 4vw, 42px);
+  color: var(--yellow);
+  text-transform: uppercase;
+  text-shadow: 3px 3px 0 var(--red-dark);
+  line-height: 1.1;
+}
+
+/* ============ SEGMENT 4: THE SCIENCE ============ */
+#seg-science {
+  background: #0a0a18;
+}
+
+.science-content {
+  max-width: 900px;
+  width: 100%;
+  position: relative;
+  z-index: 5;
+  text-align: center;
+}
+
+.science-claim {
+  font-family: Arial, sans-serif;
+  font-size: clamp(14px, 2vw, 20px);
+  color: var(--offwhite);
+  line-height: 1.7;
+  font-weight: 400;
+  margin-bottom: 40px;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.science-claim strong {
+  color: var(--yellow);
+  font-family: 'Arial Black', Arial, sans-serif;
+}
+
+/* CSS bar chart */
+.bar-chart {
+  background: #0f0f1a;
+  border: 3px solid #2a2a4a;
+  border-radius: 4px;
+  padding: 30px 30px 20px;
+  margin: 0 auto 30px;
+  max-width: 600px;
+}
+
+.chart-title {
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.bar-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.bar-name {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #aaa;
+  text-transform: uppercase;
+  width: 140px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.bar-track {
+  flex: 1;
+  height: 36px;
+  background: #1a1a2e;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 900;
+  animation: barGrow 1.5s ease-out forwards;
+  transform-origin: left;
+}
+
+@keyframes barGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.bar-wolf    { background: var(--red); color: #fff; width: 52%; }
+.bar-straw   { background: #888; color: #fff; width: 22%; }
+.bar-sticks  { background: #666; color: #fff; width: 38%; }
+.bar-pigsafe { background: var(--yellow); color: var(--black); width: 100%; }
+
+.chart-note {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #444;
+  text-align: left;
+  margin-top: 12px;
+}
+
+.science-result {
+  font-size: clamp(22px, 4vw, 48px);
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+
+.science-result .green { color: #44ff44; text-shadow: 0 0 20px rgba(68,255,68,0.5); }
+
+/* ============ SEGMENT 5: TESTIMONIALS ============ */
+#seg-testimonials {
+  background: #111;
+}
+
+.testimonials-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 820px;
+  width: 100%;
+  position: relative;
+  z-index: 5;
+  margin: 0 auto;
+}
+
+/* Lower-third TV style */
+.testimonial-card {
+  background: #1a1a1a;
+  border-left: 6px solid var(--yellow);
+  border-bottom: 1px solid #333;
+  padding: 18px 22px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--red);
+}
+
+.testi-name-bar {
+  background: var(--black);
+  border-left: 3px solid var(--red);
+  padding: 4px 10px;
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.testi-name {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  font-weight: 900;
+}
+
+.testi-tag {
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  color: #666;
+  letter-spacing: 0.08em;
+  font-weight: 400;
+}
+
+.testi-stars {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.testi-quote {
+  font-family: Arial, sans-serif;
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--white);
+  font-weight: 400;
+  line-height: 1.5;
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.testi-footnote {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #555;
+}
+
+/* Wolf testimonial special card */
+.testimonial-wolf {
+  border-left-color: var(--red);
+  background: #1a0000;
+}
+
+.testimonial-wolf .testi-name { color: var(--red); }
+
+.testimonial-wolf-img {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto 10px;
+  display: block;
+  border-radius: 3px;
+  border: 2px solid #330000;
+}
+
+/* ============ SEGMENT 6: ORDER NOW ============ */
+#seg-order {
+  background: radial-gradient(ellipse at top, #1a0000 0%, #000 60%);
+  text-align: center;
+}
+
+.order-now-badge {
+  display: inline-block;
+  background: var(--red);
+  color: var(--yellow);
+  font-size: clamp(22px, 5vw, 60px);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 10px 30px;
+  border: 4px solid var(--yellow);
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 5;
+  animation: orderFlash 0.8s steps(1) infinite;
+}
+@keyframes orderFlash {
+  0%, 49%  { border-color: var(--yellow); background: var(--red); }
+  50%, 100% { border-color: var(--red); background: var(--red-dark); }
+}
+
+.pricing-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto 40px;
+  position: relative;
+  z-index: 5;
+}
+
+.pricing-card {
+  background: #1a1a1a;
+  border: 3px solid #333;
+  border-radius: 4px;
+  padding: 24px 20px;
+  flex: 1;
+  min-width: 230px;
+  max-width: 300px;
+  position: relative;
+  text-align: center;
+}
+
+.pricing-card.best {
+  border-color: var(--yellow);
+  background: #1a1500;
+}
+
+.best-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  padding: 4px 14px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.plan-name {
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+}
+
+.plan-price {
+  font-size: clamp(20px, 4vw, 36px);
+  color: var(--yellow);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.plan-price small {
+  font-size: 0.5em;
+  color: #777;
+  display: block;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+.plan-feature {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: #666;
+  font-weight: 400;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* Big starburst for BEST VALUE */
+.order-starburst {
+  width: clamp(80px, 12vw, 130px);
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  animation: starburst-spin 6s linear infinite;
+  filter: drop-shadow(2px 2px 6px rgba(255,200,0,0.6));
+}
+
+.order-cta-block {
+  position: relative;
+  z-index: 5;
+  margin-bottom: 30px;
+}
+
+.phone-number {
+  font-size: clamp(28px, 6vw, 72px);
+  color: var(--yellow);
+  text-shadow: 4px 4px 0 var(--red-dark);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.order-urgency {
+  font-size: clamp(14px, 2.5vw, 24px);
+  color: var(--white);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.guarantee-row-order {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 5;
+  flex-wrap: wrap;
+}
+
+.order-disclaimer {
+  font-family: Arial, sans-serif;
+  font-size: clamp(11px, 1.5vw, 14px);
+  color: #666;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-weight: 400;
+  position: relative;
+  z-index: 5;
+}
+
+/* ============ SEGMENT 7: FINE PRINT ============ */
+#seg-fineprint {
+  background: #000;
+  align-items: flex-start;
+  padding: 80px 30px 100px;
+}
+
+.fineprint-header {
+  font-size: clamp(18px, 3vw, 36px);
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 5;
+}
+
+.fineprint-block {
+  font-family: 'Courier New', monospace;
+  font-size: clamp(9px, 1.1vw, 11px);
+  color: #444;
+  line-height: 1.9;
+  max-width: 900px;
+  position: relative;
+  z-index: 5;
+  column-count: 2;
+  column-gap: 40px;
+}
+
+.fineprint-block p { margin-bottom: 10px; }
+
+.fineprint-block .fn-highlight { color: #666; }
+
+.footer-logo {
+  margin-top: 50px;
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  width: 100%;
+}
+
+.footer-logo span {
+  font-size: clamp(12px, 2vw, 20px);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #222;
+  font-weight: 900;
+}
+
+/* =============================================
+   UTILITY
+   ============================================= */
+.section-label {
+  display: inline-block;
+  background: var(--red);
+  color: var(--white);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  margin-bottom: 18px;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  position: relative;
+  z-index: 5;
+}
+
+/* =============================================
+   RESPONSIVE TWEAKS
+   ============================================= */
+@media (max-width: 600px) {
+  .starburst-badge {
+    top: 60px;
+    right: 16px;
+    width: 90px;
+  }
+
+  .fineprint-block {
+    column-count: 1;
+  }
+
+  .ba-house-icon {
+    font-size: 48px;
+  }
+
+  .ba-divider-label {
+    writing-mode: vertical-rl;
+    font-size: 9px;
+    padding: 8px 4px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- =============================================
+     TV INTRO OVERLAY
+     ============================================= -->
+<div id="tv-intro" aria-hidden="true">
+  <div class="static-noise"></div>
+  <div class="scan-lines"></div>
+  <div class="tv-flicker"></div>
+  <div class="paid-programming">
+    THIS PROGRAM HAS BEEN PAID FOR BY PIGSAFE™ BRICK SYSTEMS<br>
+    <span style="font-size:0.7em;opacity:0.6;">NOT AFFILIATED WITH ANY LICENSED BROADCASTING AUTHORITY</span>
+  </div>
+</div>
+
+<!-- =============================================
+     PERSISTENT TICKER
+     ============================================= -->
+<div id="ticker" role="marquee" aria-label="Breaking news ticker">
+  <div class="ticker-label">BREAKING</div>
+  <div class="ticker-track">
+    <!-- Doubled for seamless loop -->
+    <span class="ticker-text">CALL NOW: 1-800-PIG-SAFE &nbsp;•&nbsp; LIMITED TIME OFFER &nbsp;•&nbsp; WOLF ATTACKS UP 300%* &nbsp;•&nbsp; PROTECT YOUR FAMILY TODAY &nbsp;•&nbsp; ORDER IN THE NEXT 15 MINUTES &nbsp;•&nbsp; *stat not verified by any body of science &nbsp;•&nbsp; OPERATORS ARE STANDING BY &nbsp;•&nbsp; PIGSAFE™ BRICK SYSTEMS &nbsp;•&nbsp; CALL 1-800-PIG-SAFE &nbsp;•&nbsp; FREE SHIPPING ON PALLETS OVER 2 TONS &nbsp;•&nbsp; WOLF-PROOF OR WE REBUILD IT &nbsp;•&nbsp; THIRD PIG SURVIVED — DEMAND PROOF &nbsp;•&nbsp; STRAW IS A LIFESTYLE CHOICE, NOT A SAFETY PLAN &nbsp;•&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class="ticker-text">CALL NOW: 1-800-PIG-SAFE &nbsp;•&nbsp; LIMITED TIME OFFER &nbsp;•&nbsp; WOLF ATTACKS UP 300%* &nbsp;•&nbsp; PROTECT YOUR FAMILY TODAY &nbsp;•&nbsp; ORDER IN THE NEXT 15 MINUTES &nbsp;•&nbsp; *stat not verified by any body of science &nbsp;•&nbsp; OPERATORS ARE STANDING BY &nbsp;•&nbsp; PIGSAFE™ BRICK SYSTEMS &nbsp;•&nbsp; CALL 1-800-PIG-SAFE &nbsp;•&nbsp; FREE SHIPPING ON PALLETS OVER 2 TONS &nbsp;•&nbsp; WOLF-PROOF OR WE REBUILD IT &nbsp;•&nbsp; THIRD PIG SURVIVED — DEMAND PROOF &nbsp;•&nbsp; STRAW IS A LIFESTYLE CHOICE, NOT A SAFETY PLAN &nbsp;•&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </div>
+</div>
+
+<!-- Channel Bug / Gallery Link -->
+<a href="../" class="channel-bug">← Gallery  ·  PSB-21</a>
+
+<!-- Prev / Next Buttons -->
+<button class="nav-btn" id="btn-prev" onclick="navSegment(-1)" aria-label="Previous section">◀ PREV</button>
+<button class="nav-btn" id="btn-next" onclick="navSegment(1)" aria-label="Next section">NEXT ▶</button>
+
+<!-- =============================================
+     SEGMENT 1: HERO
+     ============================================= -->
+<section class="segment" id="seg-hero" data-seg="0">
+
+  <!-- Starburst badge -->
+  <img src="assets/starburst.svg" alt="As Seen On TV" class="starburst-badge"
+       onerror="this.outerHTML='<div class=\'starburst-badge\' style=\'display:flex;align-items:center;justify-content:center;background:var(--yellow);color:var(--black);border-radius:50%;font-size:12px;font-weight:900;text-align:center;padding:20px;line-height:1.2;\'>AS<br>SEEN<br>ON TV</div>'">
+
+  <p class="hero-eyebrow">Late Night Television Presents</p>
+
+  <h1 class="hero-main-question">
+    ARE YOU TIRED OF THE WOLF<br>DESTROYING YOUR HOME?
+  </h1>
+
+  <p class="hero-introducing">INTRODUCING…</p>
+
+  <div class="hero-brand">PIG<span>SAFE</span>™</div>
+  <div style="font-size: clamp(16px, 2.5vw, 28px); color: var(--white); text-transform: uppercase; letter-spacing: 0.05em; position: relative; z-index: 5; margin-bottom: 20px;">BRICK SYSTEMS</div>
+
+  <p class="hero-tagline">The Shelter That Actually Stops the Huffing</p>
+
+  <div class="phone-pulse-wrap">
+    <img src="assets/phone.svg" alt="Call now" class="phone-icon"
+         onerror="this.outerHTML='<div style=\'font-size:72px;animation:phonePulse 1.2s ease-in-out infinite;\'>📞</div>'">
+  </div>
+
+  <p class="hero-cta">CALL 1-800-PIG-SAFE RIGHT NOW</p>
+
+  <!-- Background glow -->
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(204,0,0,0.15) 0%,transparent 60%);pointer-events:none;z-index:1;"></div>
+</section>
+
+<!-- =============================================
+     SEGMENT 2: THE PROBLEM
+     ============================================= -->
+<section class="segment" id="seg-problem" data-seg="1">
+
+  <span class="section-label">SEGMENT 2 OF 7 — THE PROBLEM</span>
+
+  <h2 class="section-header">
+    THE <span class="red">CATASTROPHIC</span><br>FAILURE OF INFERIOR SHELTERS
+  </h2>
+
+  <p class="section-sub">
+    A dramatic reconstruction based on actual events. Names have not been changed. The pigs are real. The wolf is real.
+  </p>
+
+  <div class="problem-split">
+
+    <!-- House 1: Straw -->
+    <div class="problem-house">
+      <div class="problem-house-visual">
+        <div class="house-bw">
+          <div class="css-house house-falling">
+            <div class="house-roof" style="border-bottom-color: #555;"></div>
+            <div class="house-body">
+              <div class="house-window window-l"></div>
+              <div class="house-window window-r"></div>
+              <div class="house-door"></div>
+            </div>
+          </div>
+          <!-- Straw texture overlay -->
+          <div style="position:absolute;inset:0;opacity:0.15;background:repeating-linear-gradient(70deg,#999 0px,#999 1px,transparent 1px,transparent 6px);pointer-events:none;"></div>
+        </div>
+        <div class="problem-overlay">
+          <span class="dramatic-label">DRAMATIC RECONSTRUCTION — PIG NO. 1 — HALMSTUGA STRAW EDITION</span>
+        </div>
+      </div>
+      <div class="problem-caption">
+        <h3>🏚 "THE STRAW INCIDENT"</h3>
+        <p>Pig No. 1 built a premium straw home. The wolf huffed. The straw chose to leave. Total structural integrity time: 4.2 seconds.</p>
+      </div>
+    </div>
+
+    <!-- House 2: Sticks -->
+    <div class="problem-house">
+      <div class="problem-house-visual">
+        <div class="house-bw">
+          <div class="css-house house-falling" style="animation-delay: 1.5s;">
+            <div class="house-roof" style="border-bottom-color: #4a3a2a;"></div>
+            <div class="house-body" style="background:#3a2a1a;border-color:#555;">
+              <div class="house-window window-l"></div>
+              <div class="house-window window-r"></div>
+              <div class="house-door"></div>
+            </div>
+          </div>
+          <!-- Sticks texture overlay -->
+          <div style="position:absolute;inset:0;opacity:0.2;background:repeating-linear-gradient(20deg,#777 0px,#777 1px,transparent 1px,transparent 8px),repeating-linear-gradient(120deg,#777 0px,#777 1px,transparent 1px,transparent 8px);pointer-events:none;"></div>
+        </div>
+        <div class="problem-overlay">
+          <span class="dramatic-label">DRAMATIC RECONSTRUCTION — PIG NO. 2 — TWIGHAUS STICK BUNDLE</span>
+        </div>
+      </div>
+      <div class="problem-caption">
+        <h3>🏚 "THE STICK SITUATION"</h3>
+        <p>Pig No. 2 upgraded to premium artisanal sticks. Locally sourced. Ethically harvested. Gone in one additional huff. Progress, technically.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="stat-callout">
+    <div class="stat-number">2 of 2</div>
+    <div class="stat-label">pig homes destroyed in a single afternoon</div>
+  </div>
+
+  <p class="fine-print">*Millions = 2. But still. Two is a pattern. Two is a CRISIS.</p>
+
+</section>
+
+<!-- =============================================
+     SEGMENT 3: BEFORE / AFTER
+     ============================================= -->
+<section class="segment" id="seg-before-after" data-seg="2">
+
+  <span class="section-label">SEGMENT 3 OF 7 — THE SOLUTION</span>
+
+  <h2 class="section-header">
+    LOOK AT THE <span class="yellow">DIFFERENCE!</span>
+  </h2>
+
+  <p class="section-sub" style="margin-bottom: 20px;">
+    Same wolf. Same lungs. Completely different outcome.
+  </p>
+
+  <div class="before-after-wrap">
+    <!-- Try SVG asset first, fallback to CSS -->
+    <img src="assets/before-after.svg" alt="Before: straw house destroyed. After: brick house standing strong." class="before-after-img"
+         onerror="this.style.display='none'; document.getElementById('ba-fallback').style.display='flex';">
+
+    <!-- CSS fallback before/after -->
+    <div class="before-after-fallback" id="ba-fallback" style="display:none; position:relative;">
+      <div class="ba-side ba-before">
+        <span class="ba-label">BEFORE — STRAW / STICKS</span>
+        <span class="ba-house-icon">🏚</span>
+        <p class="ba-desc" style="color:#777;">Huffed and puffed. House gone. Pig displaced. Wolf smug.</p>
+      </div>
+      <div class="ba-divider">
+        <span class="ba-divider-label">VS</span>
+      </div>
+      <div class="ba-side ba-after">
+        <span class="ba-label">AFTER — PIGSAFE™ BRICKS</span>
+        <span class="ba-house-icon">🏠</span>
+        <p class="ba-desc" style="color:#aaffaa;">Huffed. Puffed. Gave up. Went home. Pig alive. Wolf embarrassed.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="guarantee-row">
+    <img src="assets/guarantee-seal.svg" alt="Money Back Guarantee" class="guarantee-seal-img"
+         onerror="this.outerHTML='<div style=\'width:100px;height:100px;border-radius:50%;border:4px solid var(--yellow);display:flex;align-items:center;justify-content:center;color:var(--yellow);font-size:10px;font-weight:900;text-align:center;letter-spacing:0.05em;padding:10px;\'>MONEY BACK GUARANTEE</div>'">
+
+    <div class="guarantee-text">
+      WOLF-PROOF GUARANTEE<br>OR YOUR MONEY BACK
+    </div>
+  </div>
+
+  <p class="fine-print" style="margin-top:12px;">*Guarantee valid in jurisdictions where wolves are legally classified as "a threat." Excludes invited wolves, pet wolves, or wolves with a written lease agreement.</p>
+
+</section>
+
+<!-- =============================================
+     SEGMENT 4: THE SCIENCE
+     ============================================= -->
+<section class="segment" id="seg-science" data-seg="3">
+
+  <span class="section-label">SEGMENT 4 OF 7 — BRICKOTECHNOLOGY™ EXPLAINED</span>
+
+  <h2 class="section-header">
+    THE <span class="yellow">SCIENCE</span>
+  </h2>
+
+  <div class="science-content">
+
+    <p class="science-claim">
+      PIGSAFE™ uses our patented <strong>BRICKOTECHNOLOGY™</strong> to create an impenetrable barrier
+      against huffing forces up to <strong>87.3 Newtons</strong> — that's the equivalent of
+      <strong>one (1) very determined wolf</strong> on a Tuesday afternoon.
+    </p>
+
+    <!-- CSS Bar Chart -->
+    <div class="bar-chart" role="img" aria-label="Wolf huffing power versus PIGSAFE resistance chart">
+      <div class="chart-title">FIG. 1 — HUFFING FORCE vs. STRUCTURAL RESISTANCE (Newtons, approx.)</div>
+
+      <div class="bar-group">
+        <div class="bar-name">WOLF HUFF</div>
+        <div class="bar-track">
+          <div class="bar-fill bar-wolf" style="animation-delay:0.2s">87.3N ←</div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-name">STRAW WALL</div>
+        <div class="bar-track">
+          <div class="bar-fill bar-straw" style="animation-delay:0.4s">19N</div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-name">STICK WALL</div>
+        <div class="bar-track">
+          <div class="bar-fill bar-sticks" style="animation-delay:0.6s">33N</div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-name">PIGSAFE™</div>
+        <div class="bar-track">
+          <div class="bar-fill bar-pigsafe" style="animation-delay:0.8s">∞ N ★★★★★</div>
+        </div>
+      </div>
+
+      <div class="chart-note">
+        Source: Internal study. N=3 pigs. Control group (straw, sticks) did not survive to provide peer review.
+        Wolf declined to comment. Data collected under field conditions (an actual wolf attack).
+        Margin of error: ±1 wolf.
+      </div>
+    </div>
+
+    <div class="science-result">
+      THIRD PIG SURVIVED. <span class="green">RESULT REPRODUCIBLE.*</span>
+    </div>
+
+    <p class="fine-print" style="margin-top:10px;">*Results may vary. Third pig requested we clarify that survivorship was "not comfortable but technically alive." PIGSAFE™ stands by "technically alive" as a marketing category.</p>
+
+  </div>
+
+</section>
+
+<!-- =============================================
+     SEGMENT 5: TESTIMONIALS
+     ============================================= -->
+<section class="segment" id="seg-testimonials" data-seg="4">
+
+  <span class="section-label">SEGMENT 5 OF 7 — WHAT CUSTOMERS ARE SAYING</span>
+
+  <h2 class="section-header">
+    <span class="yellow">TESTIMONIALS</span>
+  </h2>
+
+  <p class="section-sub">Real customers. Real wolf attacks. Real results.*</p>
+
+  <div class="testimonials-grid">
+
+    <!-- Pig 3 — 5 stars -->
+    <div class="testimonial-card">
+      <div class="testi-name-bar">
+        <span class="testi-name">P. Third</span>
+        <span class="testi-tag">— Verified Purchaser · Current Homeowner · Alive</span>
+      </div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"I'm alive. That's really all I needed. The house is still standing. The wolf left. My two siblings are now living here with me which wasn't in my original floor plan, but honestly I'm just glad we're all alive. Five stars."</p>
+      <p class="testi-footnote">— P. Third, Brick Lane, Verified PIGSAFE™ Elite Bundle customer. Siblings staying indefinitely pending their own housing situations.</p>
+    </div>
+
+    <!-- Pig 1 — 4 stars -->
+    <div class="testimonial-card">
+      <div class="testi-name-bar">
+        <span class="testi-name">P. First</span>
+        <span class="testi-tag">— Displaced Homeowner · Currently In Sibling's House</span>
+      </div>
+      <div class="testi-stars" style="color:#ffcc00">★★★★☆</div>
+      <p class="testi-quote">"My original home collapsed in under five seconds but I made it to my sister's brick house and haven't left since. I sleep on the couch but it's a very sturdy couch. Four stars."</p>
+      <p class="testi-footnote">*Pig No. 1's original dwelling was HALMSTUGA brand straw. Not affiliated with, endorsed by, or in any way related to PIGSAFE™ Brick Systems. PIGSAFE™ offers no warranty for straw. PIGSAFE™ has opinions about straw.</p>
+    </div>
+
+    <!-- Wolf — 1 star -->
+    <div class="testimonial-card testimonial-wolf">
+      <div class="testi-name-bar">
+        <span class="testi-name" style="color:var(--red)">B. Badwolf</span>
+        <span class="testi-tag">— Verified Attacker · Respiratory Patient · Retired</span>
+      </div>
+
+      <!-- Try SVG asset, fallback to plain text -->
+      <img src="assets/testimonial-wolf.svg"
+           alt="Wolf leaving 1-star review"
+           class="testimonial-wolf-img"
+           onerror="this.style.display='none';">
+
+      <div class="testi-stars" style="color:#cc0000">★☆☆☆☆</div>
+      <p class="testi-quote">"Structurally sound. Genuinely upsetting. My lungs will never recover. I tried everything. I huffed for forty minutes. The house did not move. The pigs waved at me from inside. I am filing a formal complaint. One star."</p>
+      <p class="testi-footnote">— B. Badwolf, Verified Attacker. PIGSAFE™ thanks Mr. Badwolf for the field test data and wishes him a speedy recovery.</p>
+    </div>
+
+  </div>
+
+  <p class="fine-print" style="margin-top:20px;">*"Real" is a strong word. Customers are pigs. Testimonials reproduced with permission. Wolf testimonial included pursuant to our commitment to balanced marketing.</p>
+
+</section>
+
+<!-- =============================================
+     SEGMENT 6: ORDER NOW
+     ============================================= -->
+<section class="segment" id="seg-order" data-seg="5">
+
+  <span class="section-label">SEGMENT 6 OF 7 — ORDER NOW</span>
+
+  <div class="order-now-badge">ORDER NOW!</div>
+
+  <div class="pricing-grid">
+
+    <!-- Basic Grunter -->
+    <div class="pricing-card">
+      <div class="plan-name">BASIC GRUNTER</div>
+      <div class="plan-price">
+        3 EASY PAYMENTS<br>OF $33.33
+        <small>+ S&H · Straw add-on included (do not use)</small>
+      </div>
+      <p class="plan-feature">
+        Includes 12 loose bricks.<br>
+        Some assembly required.<br>
+        Mortar not included.<br>
+        Good luck.
+      </p>
+    </div>
+
+    <!-- Stick With It Plus -->
+    <div class="pricing-card">
+      <div class="plan-name">STICK WITH IT PLUS</div>
+      <div class="plan-price">
+        $99 ONE-TIME
+        <small>Or three payments of $33. Math fans rejoice.</small>
+      </div>
+      <p class="plan-feature">
+        Half a wall's worth of bricks.<br>
+        Illustrated assembly guide.<br>
+        1 complimentary TWIGHAUS upsell removed.<br>
+        Still not wolf-proof. Step up.
+      </p>
+    </div>
+
+    <!-- Elite Brick Bundle — BEST -->
+    <div class="pricing-card best">
+      <span class="best-badge">★ BEST VALUE ★</span>
+      <img src="assets/starburst.svg" alt="" class="order-starburst"
+           onerror="this.style.display='none'">
+      <div class="plan-name" style="color:var(--yellow)">PIGSAFE™ ELITE BRICK BUNDLE</div>
+      <div class="plan-price" style="color:var(--yellow)">
+        $299
+        <small>OR 12 PAYMENTS OF $24.99 · Total: $299.88 · Wolf doesn't do math</small>
+      </div>
+      <p class="plan-feature" style="color:#aaa;">
+        Full structural solution.<br>
+        Pre-mortared brick system.<br>
+        Chimney (wolf deterrent).<br>
+        Certificate of wolf-resistance.<br>
+        One (1) relieved pig.<br>
+        Space for two (2) additional siblings.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="order-cta-block">
+    <span class="phone-number">1-800-PIG-SAFE</span>
+    <p class="order-urgency">CALL NOW — OPERATORS STANDING BY — THIS OFFER EXPIRES WHEN THE WOLF ARRIVES</p>
+  </div>
+
+  <div class="guarantee-row-order">
+    <img src="assets/guarantee-seal.svg" alt="Money Back Guarantee" class="guarantee-seal-img"
+         onerror="this.outerHTML='<div style=\'width:80px;height:80px;border-radius:50%;border:3px solid var(--yellow);display:flex;align-items:center;justify-content:center;color:var(--yellow);font-size:8px;font-weight:900;text-align:center;padding:8px;\'>MONEY BACK</div>'">
+    <p class="order-disclaimer">
+      If a wolf attacks your PIGSAFE™ home and it fails, we will rebuild it at no cost.
+      Offer void if wolf was invited inside, if moon was full at time of attack, if you are using the straw option,
+      if wolf has a valid lease, if huffing was performed by a non-standard wolf species,
+      or if you installed bricks in an order other than specified. Please read the installation manual.
+      The manual is 340 pages. Most of it is about mortar.
+    </p>
+  </div>
+
+</section>
+
+<!-- =============================================
+     SEGMENT 7: FINE PRINT
+     ============================================= -->
+<section class="segment" id="seg-fineprint" data-seg="6">
+
+  <h2 class="fineprint-header">* TERMS, CONDITIONS &amp; DISCLOSURES</h2>
+
+  <div class="fineprint-block">
+
+    <p>PIGSAFE™ Brick Systems ("PIGSAFE™," "the Company," "us," "we," "definitely not the wolf") is a registered trademark of Porcine Structural Solutions Ltd., a wholly owned subsidiary of Three Little Pigs Capital Group, LLC. All rights reserved. No wolves reserved.</p>
+
+    <p>PIGSAFE™ is not responsible for wolf-related injuries, sibling overcrowding, existential crises resulting from proximity to a large predator, loss of straw investments, or emotional trauma sustained during a structural collapse. Any references to wolf attacks are for illustrative purposes only and should not be taken as an admission that wolves are real. Wolves are real. We just can't say that for legal reasons.</p>
+
+    <p>Results based on a single-family study group (n=3). Control group (n=2, straw and sticks) did not survive to provide longitudinal data. Study was peer-reviewed by the surviving pig, who had a conflict of interest. Study results are statistically significant at p < 0.05 assuming the wolf is the error.</p>
+
+    <p>Testimonials represent individual experiences. Pig No. 3 was not compensated for their testimonial but did receive a complimentary commemorative brick engraved with "I SURVIVED." Pig No. 1 was compensated in couch space. Mr. B. Badwolf's one-star review was included per our legal team's insistence on "not suppressing evidence."</p>
+
+    <p class="fn-highlight">The claim "Wolf Attacks Up 300%" is based on proprietary PIGSAFE™ research methodology. Starting from a baseline of one (1) recorded wolf attack, one additional wolf attack represents a 100% increase. We then applied a proprietary multiplier. We stand by our math in the same way the straw house stood — briefly.</p>
+
+    <p>BRICKOTECHNOLOGY™ is a pending trademark. "Pending" in this context means we submitted a form. No scientific body has endorsed BRICKOTECHNOLOGY™ as a field of study. We are working on it. If you are a scientist interested in wolf-resistance materials, please call 1-800-PIG-SAFE and select option 4.</p>
+
+    <p>The 87.3 Newton huffing force figure was measured using proprietary equipment during one (1) uncontrolled field event involving Mr. B. Badwolf. Equipment was a household bathroom scale placed near the brick wall. Mr. Badwolf huffed in the direction of the scale. The scale read 87.3 at one point. We do not know what units those were. We published them anyway.</p>
+
+    <p>PIGSAFE™ Elite Brick Bundle payment plan: 12 payments of $24.99 totals $299.88, which is $0.88 more than the lump sum of $299.00. PIGSAFE™ believes the wolf does not know how to do long division and is counting on this. If you do know how to do long division, we respect you and suggest the lump sum.</p>
+
+    <p>Chimney included with PIGSAFE™ Elite Bundle. Wolf may attempt to enter via chimney. PIGSAFE™ is not responsible for chimney-related incidents. A hot pot of water placed near the hearth is effective but constitutes a separate purchase decision. PIGSAFE™ neither endorses nor disclaims boiling water as a security measure.</p>
+
+    <p>Pigs depicted in this advertisement are actors. The wolf is also an actor. The brick house is real. The couch Pig No. 1 is sleeping on is not a PIGSAFE™ product but it does have good lumbar support. All three pigs are fine. We checked.</p>
+
+    <p class="fn-highlight">This advertisement was produced under extremely stressful conditions. Three pigs were present on set. The wolf was not. This is the way we prefer it. PIGSAFE™ Brick Systems. Call us.</p>
+
+    <p>PIGSAFE™ thanks you for watching until the end of the fine print. You are exactly the kind of person who builds with bricks. Our engineers would be proud. Our marketing team is confused why you're still reading. Call 1-800-PIG-SAFE. Ask for the brick people. They're all the brick people.</p>
+
+  </div>
+
+  <div class="footer-logo">
+    <span>PIGSAFE™ BRICK SYSTEMS · EST. BEFORE THE WOLF · 1-800-PIG-SAFE</span>
+  </div>
+
+</section>
+
+<!-- =============================================
+     JAVASCRIPT: NAVIGATION
+     ============================================= -->
+<script>
+(function () {
+  'use strict';
+
+  const segments = Array.from(document.querySelectorAll('.segment'));
+  let current = 0;
+
+  function goTo(index) {
+    if (index < 0) index = 0;
+    if (index >= segments.length) index = segments.length - 1;
+    current = index;
+    segments[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    updateButtons();
+  }
+
+  function updateButtons() {
+    document.getElementById('btn-prev').disabled = current === 0;
+    document.getElementById('btn-next').disabled = current === segments.length - 1;
+    document.getElementById('btn-prev').style.opacity = current === 0 ? '0.4' : '1';
+    document.getElementById('btn-next').style.opacity = current === segments.length - 1 ? '0.4' : '1';
+  }
+
+  window.navSegment = function (dir) {
+    goTo(current + dir);
+  };
+
+  // Update current segment tracker on scroll
+  let scrollTimer;
+  window.addEventListener('scroll', function () {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function () {
+      const scrollY = window.scrollY + window.innerHeight / 3;
+      segments.forEach(function (seg, i) {
+        const top = seg.offsetTop;
+        const bottom = top + seg.offsetHeight;
+        if (scrollY >= top && scrollY < bottom) {
+          current = i;
+        }
+      });
+      updateButtons();
+    }, 80);
+  }, { passive: true });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      goTo(current + 1);
+    }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      goTo(current - 1);
+    }
+  });
+
+  // Remove TV intro after animation completes (belt + suspenders)
+  var intro = document.getElementById('tv-intro');
+  if (intro) {
+    setTimeout(function () {
+      intro.style.display = 'none';
+    }, 2600);
+  }
+
+  updateButtons();
+}());
+</script>
+
+</body>
+</html>

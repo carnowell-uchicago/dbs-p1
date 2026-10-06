@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- Cream background circle -->
+  <circle cx="60" cy="60" r="56" fill="#FFF8E7" stroke="#222222" stroke-width="3"/>
+
+  <!-- Radiating lines (ringing effect) -->
+  <g stroke="#FFD700" stroke-width="2" stroke-linecap="round" opacity="0.85">
+    <!-- top-left -->
+    <line x1="22" y1="22" x2="14" y2="14"/>
+    <line x1="15" y1="30" x2="5"  y2="25"/>
+    <line x1="30" y1="15" x2="25" y2="5"/>
+    <!-- top-right -->
+    <line x1="98" y1="22" x2="106" y2="14"/>
+    <line x1="105" y1="30" x2="115" y2="25"/>
+    <line x1="90" y1="15" x2="95" y2="5"/>
+    <!-- left -->
+    <line x1="10" y1="55" x2="2"  y2="52"/>
+    <line x1="10" y1="65" x2="2"  y2="68"/>
+    <!-- right -->
+    <line x1="110" y1="55" x2="118" y2="52"/>
+    <line x1="110" y1="65" x2="118" y2="68"/>
+  </g>
+
+  <!--
+    Retro 1980s handset:
+    Earpiece: rounded rectangle at top-left
+    Body: diagonal curved band
+    Mouthpiece: rounded rectangle at bottom-right
+  -->
+  <!-- Earpiece -->
+  <rect x="28" y="22" width="28" height="18" rx="9" ry="9" fill="#111111"/>
+  <!-- Mouthpiece -->
+  <rect x="64" y="80" width="28" height="18" rx="9" ry="9" fill="#111111"/>
+
+  <!-- Handset body curve (thick bezier) -->
+  <!-- Using a path for the curved body connecting earpiece to mouthpiece -->
+  <path
+    d="
+      M 42,40
+      C 38,52 50,60 58,70
+      C 62,74 62,80 64,80
+      L 72,80
+      C 70,72 66,66 60,58
+      C 52,46 54,40 56,40
+      Z
+    "
+    fill="#111111"
+  />
+  <!-- Handset highlight -->
+  <path
+    d="M 44,32 C 38,40 40,52 46,60"
+    stroke="#555555" stroke-width="2.5" fill="none" stroke-linecap="round"
+  />
+
+  <!-- Earpiece grille dots -->
+  <circle cx="35" cy="29" r="1.5" fill="#444"/>
+  <circle cx="40" cy="29" r="1.5" fill="#444"/>
+  <circle cx="45" cy="29" r="1.5" fill="#444"/>
+  <circle cx="35" cy="34" r="1.5" fill="#444"/>
+  <circle cx="40" cy="34" r="1.5" fill="#444"/>
+  <circle cx="45" cy="34" r="1.5" fill="#444"/>
+
+  <!-- Mouthpiece grille dots -->
+  <circle cx="71" cy="86" r="1.5" fill="#444"/>
+  <circle cx="76" cy="86" r="1.5" fill="#444"/>
+  <circle cx="81" cy="86" r="1.5" fill="#444"/>
+  <circle cx="71" cy="91" r="1.5" fill="#444"/>
+  <circle cx="76" cy="91" r="1.5" fill="#444"/>
+  <circle cx="81" cy="91" r="1.5" fill="#444"/>
+</svg>
